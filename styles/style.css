@@ -1,0 +1,272 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.max-width {
+    max-width: 1300px;
+    padding: 0 80px;
+    margin: auto;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    padding: 15px 0;
+    background: white;
+    font-family: "Ubuntu", sans-serif;
+}
+
+.navbar .sticky {
+    padding: 15px 0;
+    background: gainsboro;
+}
+
+.navbar .max-width {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo a {
+    color: black;
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.navbar .logo a span {
+    color: blue;
+}
+
+.navbar .menu li {
+    list-style: none;
+    display: inline-block;
+}
+
+.navbar .menu li a {
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 25px;
+    transition: color 0.3s ease;
+}
+
+.navbar .menu li a:hover {
+    color: blue;
+}
+
+.menu-btn {
+    font-size: 23px;
+    cursor: pointer;
+    display: none;
+}
+
+.home {
+    display: flex;
+    height: 100vh;
+    min-height: 500px;
+    font-family: "Ubuntu", sans-serif;
+}
+
+/* .home .max-width {
+} */
+
+.home .home-content .text-1 {
+    font-size: 27px;
+}
+
+.home .home-content .text-2 {
+    font-size: 75px;
+    font-weight: 600;
+    margin-left: -3px;
+}
+
+.home .home-content .text-3 {
+    font-size: 40px;
+    margin: 5px 0;
+}
+
+.home .home-content .text-3 span {
+    color: blue;
+    font-weight: 500;
+}
+
+section {
+    padding: 100px 0;
+}
+
+.about,
+.skills {
+    font-family: "Poppins", sans-serif;
+}
+
+section .title {
+    position: relative;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 60px;
+    padding-bottom: 20px;
+    font-family: "Ubuntu", sans-serif;
+}
+
+section .title::before {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    width: 240px;
+    height: 3px;
+    background: black;
+    transform: translateX(-50%);
+}
+
+section .title::after {
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    font-size: 20px;
+    color: black;
+    padding: 5px;
+    background: white;
+    transform: translateX(-50%);
+}
+
+.about .title::after {
+    content: "who am i";
+}
+
+.about .about-content,
+.skills .skills-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.about .about-content .left {
+    width: 45%;
+}
+
+.about .about-content .left img {
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.about .about-content .right {
+    width: 55%;
+}
+
+.about .about-content .right .text {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.about .about-content .right .text span {
+    color: blue;
+}
+
+.about .about-content .right p {
+    text-align: justify;
+}
+
+.about .about-content .right a {
+    display: inline-block;
+    background: blue;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px 30px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 2px solid blue;
+    transition: all 0.3s ease;
+}
+
+.about .about-content .right a:hover {
+    color: blue;
+    background: none;
+}
+
+.skills .title::after {
+    content: "what are my skills";
+}
+
+.skills .skills-content .card {
+    width: calc(25% - 20px);
+    background: blue;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 20px 25px;
+    transition: all 0.5s ease;
+}
+
+.skills .skills-content .card:hover {
+    background: white;
+    color: blue;
+    -webkit-box-shadow: 5px 5px 15px 5px blue;
+    box-shadow: 5px 5px 15px 5px blue;
+}
+
+.skills .skills-content .card .box {
+    transition: all 0.3s ease;
+}
+
+.skills .skills-content .card:hover .box {
+    transform: scale(1.05);
+}
+
+.skills .skills-content .card i {
+    font-size: 100px;
+}
+
+.skills .skills-content .card .text {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 10px 0 7px 0;
+}
+
+@media (max-width: 1000px) {
+    .max-width {
+        padding: 0 50px;
+    }
+
+    .menu-btn {
+        display: block;
+        z-index: 999;
+    }
+
+    .navbar .menu {
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        left: -100%;
+        top: 0;
+        background: white;
+        text-align: center;
+        padding-top: 80px;
+    }
+
+    .navbar .menu .active {
+        left: 0;
+    }
+
+    .navbar .menu li {
+        display: block;
+    }
+
+    .navbar .menu li a {
+        display: inline-block;
+        margin: 20px 0;
+        font-size: 25px;
+    }
+}
