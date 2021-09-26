@@ -7,6 +7,10 @@
     text-decoration: none;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .max-width {
     max-width: 1300px;
     padding: 0 80px;
@@ -111,7 +115,8 @@ section {
 .experinece,
 .education,
 .projects,
-.contact {
+.contact,
+footer {
     font-family: "Poppins", sans-serif;
 }
 
@@ -465,6 +470,14 @@ section .title::after {
     background: none;
     color: blue;
     transition: all 0.3s ease;
+}
+
+/* footer */
+
+footer {
+    background: blue;
+    color: white;
+    padding: 10px 23px;
 }
 
 @media (max-width: 1000px) {
