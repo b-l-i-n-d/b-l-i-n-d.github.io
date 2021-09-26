@@ -13,6 +13,8 @@
     margin: auto;
 }
 
+/* navbar */
+
 .navbar {
     position: fixed;
     width: 100%;
@@ -53,11 +55,13 @@
     font-size: 18px;
     font-weight: 500;
     margin-left: 25px;
-    transition: color 0.3s ease;
+    transition: color 0.5s ease;
 }
 
 .navbar .menu li a:hover {
     color: blue;
+    border-bottom: blue 4px solid;
+    transition: color 0.5s ease;
 }
 
 .menu-btn {
@@ -65,6 +69,8 @@
     cursor: pointer;
     display: none;
 }
+
+/* home */
 
 .home {
     display: flex;
@@ -101,7 +107,8 @@ section {
 }
 
 .about,
-.skills {
+.skills,
+.experinece {
     font-family: "Poppins", sans-serif;
 }
 
@@ -120,7 +127,7 @@ section .title::before {
     position: absolute;
     bottom: 0px;
     left: 50%;
-    width: 240px;
+    width: 360px;
     height: 3px;
     background: black;
     transform: translateX(-50%);
@@ -136,6 +143,8 @@ section .title::after {
     background: white;
     transform: translateX(-50%);
 }
+
+/* about */
 
 .about .title::after {
     content: "who am i";
@@ -196,6 +205,8 @@ section .title::after {
     background: none;
 }
 
+/* skills */
+
 .skills .title::after {
     content: "what are my skills";
 }
@@ -235,6 +246,57 @@ section .title::after {
     margin: 10px 0 7px 0;
 }
 
+/* experinece */
+
+.experience .title::after {
+    content: "what are my experience";
+}
+
+.experience .container {
+    font-family: "Ubuntu", sans-serif;
+    min-height: 50vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.experience .container .timeline {
+    width: 80%;
+    height: auto;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.experience .container .timeline ul {
+    list-style: none;
+}
+
+.experience .container .timeline ul li {
+    border: blue 2px solid;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.experience .container .timeline ul li:last-child {
+    margin-bottom: 0;
+}
+
+.experience .container .timeline .timeline-content h2 {
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+
+.experience .container .timeline .timeline-content p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+}
+
 @media (max-width: 1000px) {
     .max-width {
         padding: 0 50px;
@@ -268,5 +330,63 @@ section .title::after {
         display: inline-block;
         margin: 20px 0;
         font-size: 25px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .experience .container .timeline::before {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: blue;
+    }
+
+    .experience .container .timeline ul li {
+        width: 50%;
+        position: relative;
+        margin-bottom: 50px;
+    }
+
+    .experience .container .timeline ul li:nth-child(odd) {
+        float: left;
+        clear: right;
+        transform: translateX(-30px);
+        border-radius: 20px 0px 20px 20px;
+    }
+
+    .experience .container .timeline ul li:nth-child(even) {
+        float: right;
+        clear: left;
+        transform: translateX(30px);
+        border-radius: 0px 20px 20px 20px;
+    }
+
+    .experience .container .timeline ul li::after {
+        content: "";
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        background: blue;
+        border-radius: 50%;
+        top: 0;
+    }
+
+    .experience .container .timeline ul li:nth-child(odd)::after {
+        transform: translate(50%, -50%);
+        right: -32px;
+    }
+
+    .experience .container .timeline ul li:nth-child(even)::after {
+        transform: translate(-50%, -50%);
+        left: -32px;
+    }
+
+    .experience .container .timeline ul li:hover::after {
+        border: blue 3px solid;
+        background: white;
+        transition: all ease 0.3s;
     }
 }
