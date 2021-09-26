@@ -252,7 +252,7 @@ section .title::after {
     content: "what are my experience";
 }
 
-.experience .container {
+.container {
     font-family: "Ubuntu", sans-serif;
     min-height: 50vh;
     width: 100%;
@@ -261,7 +261,7 @@ section .title::after {
     justify-content: center;
 }
 
-.experience .container .timeline {
+.container .timeline {
     width: 80%;
     height: auto;
     max-width: 800px;
@@ -269,32 +269,38 @@ section .title::after {
     position: relative;
 }
 
-.experience .container .timeline ul {
+.container .timeline ul {
     list-style: none;
 }
 
-.experience .container .timeline ul li {
+.container .timeline ul li {
     border: blue 2px solid;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
 }
 
-.experience .container .timeline ul li:last-child {
+.container .timeline ul li:last-child {
     margin-bottom: 0;
 }
 
-.experience .container .timeline .timeline-content h2 {
+.container .timeline .timeline-content h2 {
     font-size: 25px;
     font-weight: 500;
     line-height: 30px;
     margin-bottom: 10px;
 }
 
-.experience .container .timeline .timeline-content p {
+.container .timeline .timeline-content p {
     font-size: 16px;
     font-weight: 400;
     line-height: 30px;
+}
+
+/* eduaction */
+
+.education .title::after {
+    content: "what are my qalification";
 }
 
 @media (max-width: 1000px) {
@@ -334,7 +340,7 @@ section .title::after {
 }
 
 @media only screen and (min-width: 768px) {
-    .experience .container .timeline::before {
+    .container .timeline::before {
         content: "";
         position: absolute;
         height: 100%;
@@ -344,27 +350,27 @@ section .title::after {
         background: blue;
     }
 
-    .experience .container .timeline ul li {
+    .container .timeline ul li {
         width: 50%;
         position: relative;
         margin-bottom: 50px;
     }
 
-    .experience .container .timeline ul li:nth-child(odd) {
+    .container .timeline ul li:nth-child(odd) {
         float: left;
         clear: right;
         transform: translateX(-30px);
         border-radius: 20px 0px 20px 20px;
     }
 
-    .experience .container .timeline ul li:nth-child(even) {
+    .container .timeline ul li:nth-child(even) {
         float: right;
         clear: left;
         transform: translateX(30px);
         border-radius: 0px 20px 20px 20px;
     }
 
-    .experience .container .timeline ul li::after {
+    .container .timeline ul li::after {
         content: "";
         position: absolute;
         height: 20px;
@@ -374,17 +380,17 @@ section .title::after {
         top: 0;
     }
 
-    .experience .container .timeline ul li:nth-child(odd)::after {
+    .container .timeline ul li:nth-child(odd)::after {
         transform: translate(50%, -50%);
         right: -32px;
     }
 
-    .experience .container .timeline ul li:nth-child(even)::after {
+    .container .timeline ul li:nth-child(even)::after {
         transform: translate(-50%, -50%);
         left: -32px;
     }
 
-    .experience .container .timeline ul li:hover::after {
+    .container .timeline ul li:hover::after {
         border: blue 3px solid;
         background: white;
         transition: all ease 0.3s;
