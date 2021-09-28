@@ -308,11 +308,12 @@ section .title::after {
 
 .container {
     font-family: "Ubuntu", sans-serif;
-    min-height: 50vh;
+    min-height: 30vh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 100px;
 }
 
 .container .timeline {
@@ -338,17 +339,25 @@ section .title::after {
     margin-bottom: 0;
 }
 
-.container .timeline .timeline-content h2 {
+.container .timeline h2 {
     font-size: 25px;
     font-weight: 500;
     line-height: 30px;
     margin-bottom: 10px;
 }
 
-.container .timeline .timeline-content p {
+.container .timeline p {
     font-size: 16px;
     font-weight: 400;
     line-height: 30px;
+}
+
+.container .timeline .date {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    color: blue;
 }
 
 /* eduaction */
@@ -688,6 +697,10 @@ footer {
         border: blue 3px solid;
         background: white;
         transition: all ease 0.3s;
+    }
+    .container .timeline .date {
+        position: absolute;
+        top: -40px;
     }
 }
 
