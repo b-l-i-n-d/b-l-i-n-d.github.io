@@ -63,6 +63,7 @@ html {
     font-weight: 500;
     margin-left: 25px;
     transition: all 0.3s ease;
+    border-bottom: white 4px solid;
 }
 
 .navbar .menu li a:hover {
@@ -507,6 +508,10 @@ footer {
 
 /* media query */
 @media (max-width: 1240px) {
+    .home .home-content {
+        min-width: 640px;
+    }
+
     .projects .card img {
         width: 175px;
         height: 175px;
@@ -514,6 +519,10 @@ footer {
 }
 
 @media (max-width: 1104px) {
+    .home .home-content {
+        min-width: 640px;
+    }
+
     .about .about-content .left img {
         height: 350px;
         width: 350px;
@@ -526,6 +535,10 @@ footer {
 }
 
 @media (max-width: 10240px) {
+    .home .home-content {
+        min-width: 640px;
+    }
+
     .max-width {
         padding: 0 50px;
     }
@@ -537,6 +550,10 @@ footer {
 }
 
 @media (max-width: 984px) {
+    .home .home-content {
+        min-width: 560px;
+    }
+
     .max-width {
         padding: 0 50px;
         max-width: 930px;
@@ -675,6 +692,10 @@ footer {
 }
 
 @media (max-width: 690px) {
+    .home .home-content {
+        min-width: 500px;
+    }
+
     .max-width {
         padding: 0 23px;
     }
@@ -720,12 +741,15 @@ footer {
 }
 
 @media (max-width: 500px) {
+    .home .home-content {
+        min-width: 400px;
+    }
     .home .home-content .text-2 {
         font-size: 50px;
     }
 
     .home .home-content .text-3 {
-        font-size: 27px;
+        font-size: 25px;
     }
 
     .skills .skills-content .card {
