@@ -42,6 +42,39 @@
     cursor: pointer;
 }
 
+/* section */
+
+section .title {
+    position: relative;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 60px;
+    padding-bottom: 20px;
+    font-family: "Ubuntu", sans-serif;
+}
+
+section .title::before {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    width: 360px;
+    height: 3px;
+    background: black;
+    transform: translateX(-50%);
+}
+
+section .title::after {
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    font-size: 20px;
+    color: black;
+    padding: 5px;
+    background: white;
+    transform: translateX(-50%);
+}
 /* home */
 
 .home {
@@ -71,4 +104,37 @@
 .home .home-content a:hover {
     background: white;
     color: blue;
+}
+
+/* about  */
+
+.about {
+    font-family: "Poppins", sans-serif;
+}
+
+.about .title::after {
+    content: "who am i";
+}
+
+.about .about-content img {
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.about .about-content .text {
+    font-weight: 600;
+}
+
+.about .about-content .text span {
+    color: blue;
+}
+
+.about .about-content p {
+    text-align: justify;
+}
+
+.about .about-content a {
+    color: white;
+    background: blue;
+    border-radius: 10px;
 }
