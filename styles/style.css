@@ -5,9 +5,7 @@
     padding: 0;
 }
 
-.container {
-    padding: 0 50px;
-}
+/* navbar */
 
 .navbar {
     font-family: "Ubuntu", sans-serif;
@@ -36,4 +34,41 @@
     color: blue;
     border-bottom: 4px solid blue;
     transition: all 0.3s ease;
+}
+
+.navbar .navbar-toggler {
+    border: none;
+    color: black;
+    cursor: pointer;
+}
+
+/* home */
+
+.home {
+    font-family: "Ubuntu", sans-serif;
+}
+
+.home .home-content .text-2 {
+    font-size: 75px;
+}
+
+.home .home-content .text-3 {
+    font-size: 40px;
+}
+
+.home .home-content .text-3 span {
+    color: blue;
+    font-weight: 500;
+}
+
+.home .home-content a {
+    background: blue;
+    color: white;
+    border: blue solid;
+    border-radius: 10px;
+}
+
+.home .home-content a:hover {
+    background: white;
+    color: blue;
 }
