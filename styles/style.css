@@ -43,6 +43,9 @@
 }
 
 /* section */
+.about .skills {
+    font-family: "Poppins", sans-serif;
+}
 
 section .title {
     position: relative;
@@ -75,6 +78,33 @@ section .title::after {
     background: white;
     transform: translateX(-50%);
 }
+
+/* card */
+
+.custom-card {
+    background: blue;
+    color: white;
+    border-radius: 6px;
+    padding: 20px 25px;
+    transition: all 0.5s ease;
+}
+
+.custom-card:hover {
+    background: white;
+    color: blue;
+    -webkit-box-shadow: 5px 5px 15px 5px blue;
+    box-shadow: 5px 5px 15px 5px blue;
+}
+
+.custom-card i {
+    font-size: 100px;
+}
+
+.custom-card .text {
+    font-size: 15px;
+    font-weight: 700;
+}
+
 /* home */
 
 .home {
@@ -108,10 +138,6 @@ section .title::after {
 
 /* about  */
 
-.about {
-    font-family: "Poppins", sans-serif;
-}
-
 .about .title::after {
     content: "who am i";
 }
@@ -136,5 +162,16 @@ section .title::after {
 .about .about-content a {
     color: white;
     background: blue;
+    border: blue solid;
     border-radius: 10px;
+}
+
+.about .about-content a:hover {
+    color: blue;
+    background: white;
+}
+
+/* skills */
+.skills .title::after {
+    content: "what are my skills";
 }
