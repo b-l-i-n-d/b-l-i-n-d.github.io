@@ -5,12 +5,22 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* navbar */
 
 .navbar {
     font-family: "Ubuntu", sans-serif;
     padding: 0;
 }
+
+.navbar.sticky {
+    -webkit-box-shadow: 0px 5px 15px 5px #0000ff;
+    box-shadow: 0px 5px 15px 5px #0000ff;
+}
+
 .navbar-brand {
     font-size: 35px;
     font-weight: 600;
@@ -43,12 +53,17 @@
 }
 
 /* section */
-.about .skills .experience .education .projects .contact {
+.about,
+.skills,
+.experience,
+.education,
+.projects,
+.contact {
     font-family: "Poppins", sans-serif;
 }
 
 section {
-    padding: 60px 0;
+    padding: 100px 0;
 }
 
 section .title {
@@ -181,7 +196,9 @@ section .title::after {
 }
 
 /* about  */
-
+/* .about {
+    font-family: "Poppins", sans-serif;
+} */
 .about .title::after {
     content: "who am i";
 }
@@ -280,6 +297,58 @@ section .title::after {
     background: white;
     color: blue;
     transition: all 0.3s ease;
+}
+
+/* contact  */
+
+.contact .title::after {
+    content: "contact with me";
+}
+
+.contact p {
+    text-align: justify;
+}
+
+.contact i {
+    font-size: 25px;
+    color: blue;
+}
+
+.contact .head {
+    color: blue;
+}
+
+.contact input {
+    border: 1px blue solid;
+    border-radius: 10px;
+}
+
+.contact textarea {
+    border: 1px blue solid;
+    border-radius: 10px;
+    resize: none;
+}
+
+.contact .submit {
+    border: 2px blue solid;
+    border-radius: 10px;
+    background: blue;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.contact .submit:hover {
+    background: white;
+    color: blue;
+    transition: all 0.3s ease;
+}
+
+/* footer */
+
+footer {
+    background: blue;
+    color: white;
+    padding: 10px 23px;
 }
 
 /* responsive */
