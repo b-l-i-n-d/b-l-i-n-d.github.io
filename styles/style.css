@@ -52,6 +52,7 @@ html {
     cursor: pointer;
 }
 
+
 /* section */
 .about,
 .skills,
@@ -63,7 +64,7 @@ html {
 }
 
 section {
-    padding: 100px 0;
+    padding: 90px 0;
 }
 
 section .title {
@@ -164,6 +165,7 @@ section .title::after {
     letter-spacing: 1px;
     color: blue;
 }
+
 /* home */
 
 .home {
@@ -196,9 +198,7 @@ section .title::after {
 }
 
 /* about  */
-/* .about {
-    font-family: "Poppins", sans-serif;
-} */
+
 .about .title::after {
     content: "who am i";
 }
@@ -260,7 +260,6 @@ section .title::after {
     background: white;
     color: black;
     border: blue solid;
-    height: 80%;
 }
 
 .projects .custom-card img {
@@ -274,12 +273,12 @@ section .title::after {
     line-height: 14px;
 }
 
-.projects .custom-card .footer {
+.projects .custom-card .custom-footer {
     background: none;
     border: none;
 }
 
-.projects .custom-card .footer a {
+.projects .custom-card .custom-footer a {
     background: blue;
     color: white;
     font-size: 16px;
@@ -289,11 +288,11 @@ section .title::after {
     transition: all 0.3s ease;
 }
 
-.projects .custom-card .footer a i {
+.projects .custom-card .custom-footer a i {
     font-size: 15px;
 }
 
-.projects .custom-card .footer a:hover {
+.projects .custom-card .custom-footer a:hover {
     background: white;
     color: blue;
     transition: all 0.3s ease;
@@ -352,6 +351,47 @@ footer {
 }
 
 /* responsive */
+
+@media (max-width: 992px) {
+    .menu-btn {
+        display: block;
+        z-index: 999;
+    }
+
+    .collapse:not(.show) {
+        display: block;
+    }
+
+    .menu-btn i.active::before {
+        content: "\f00d";
+    }
+
+    .navbar .menu {
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        right: -100%;
+        top: 0;
+        background: white;
+        text-align: center;
+        padding-top: 80px;
+        transition: all 0.3s ease;
+    }
+
+    .navbar .menu.active {
+        right: 0%;
+    }
+
+    .navbar .menu li {
+        display: block;
+    }
+
+    .navbar .menu .nav-item a {
+        margin: 20px 0;
+        font-size: 25px;
+    }
+
+}
 
 @media only screen and (min-width: 768px) {
     .custom-container .timeline::before {
