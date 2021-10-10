@@ -10,6 +10,14 @@
             href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAFKElEQVRIie2WW2yURRSAv/Pv9kJASgADhEukdotcFKS7xWpUDIIxPgheyjUGVOgWBAtPKj7woA++cKlAtwUkMWIEL0hCYqISLtEgdFuLWLC7bRFBhAgi0Fi2u/8cH/5/t9tuK6C+6Xn5Z845c76ZM/OfGfividyK89Q1+73Xho24RwyTgDwVskU5pxaNV2I0Nq/wxf5VsL+qeQKiq4BSoG8vbr8jstPYbKlfWlD3j8BF1S15qNkkMO9mJwmoKNvETrxy9KWxl3pzsnozTN7cXIRqg8D8XqB7PB7PUMtj56MyV+BDIA6ICi8ar7dh8qbI2N7i97iKQE10vBoOAoOcNfCZWiwHHSxQgcpsd2xExZpeV3bnTwD+UPQZ4APA44a6iDIjXO779obgouqmwajVIDA8qVMxY+vKxvyQ7BdXNc8yotuBPKBVLGuOqgmiLMTJou3GtoBWTwf3Hlnhu5rOyUi1YL2VDgW4ErNOpfePlhfsNkamAZeAfDXmKMrzbrxDYqlfRVe67vl2Dhu7c7qAi0MtfpRFbjeVniF97ezMgTpckWtpqpgKpeGg7+HaJYUNdWWFlQgfOyljwZRQdFyvYIO9GCdFMWPrfEABOmzPqKTPlFB0nD8U/RyLPYLeAbS7phxLpUs8xVoFdABilJXptpRjQWU0B6QUAGFv/bLCk4qcBjBKScnWxoH+UKTShmPAdEAVdng8FALvOSDdULzx5KBkTPfQ7QZQofTZXerJAOflMB4YACCGXQ5f9wGI8nI8kR0BWQ54Ua214IG6oG/BkcW+s1YiUQGcB4aYLO/qZMypa/Z71TkHAP1P/xaZkAEWw/hU22vXuitvdVUTgEEgv4jqovAF331Hg77DSX+3ULzu5re8pKppeCDUMq1t6Ih6gaWdqZfJybY3bUeGJf8uk/D2LQpFPkGZ1TmIvblZiXlfv3BX+oHqHC1X3hXNew3Ij4t1GMxI1xQDcgAMVr/MFQudBV40LEgSesZZPOOuJ9qu9wQFyPX2ywU56XZHOpPV3SpWoDMuqb8jBVakLS1ODnBcsB7NUlMCXAfyRfOeyyCuUStQFVkYi3ubQJ9Ig6yuCxY+BeaPFMzo+QwwSn1nk839zp+dXBu8c9/h8jE/I1S5pjdKtjYOTPoFaprv9w+JfqMi252t4hLwPYAYRjswilIMjzZmgPtdOHscaAMQ0YEH1jySSDnFE28CF4ChcTt7/ZQt0RGBqugONfoVIgEgAfp2lrejUIUNACpMc74y20kAly9fT21F11rtr45uc0tfh4rlSxZ/gEBVtFSFnW63Hejjtr/wQMWRoO8EQFF1y92i5jtAPTDBdipgNkgoHCwoz0w1IMJaJ9Nki+o6MiV5uPoApzA8GQ76ZiShALne+I/JcLZTWLIBg2pNF1b3yP5Q8/ugcx2jVmBxUI1sAB7q5npRhcfqynz16cqp20/ltsUS7V1dtSYcLCxL12TcTir2CpRzAIqsVSNhF2oQ3hHLKgZagcGi7Cuqbp6ZPr49lsjvFvJMljf+andOjw+B4lDTRIN1COjvqmxgTjjo+wigqLplFGq+FPA589OdxpYNqFy0LK1EeLwzK+bB9Lv8L8EAgZrIJGNkb9rdHAf2iPKpsUydiWe1e7z2FpwLoydpFUufrl1S2NCT8QaPvabBqLX+Vh97wA5PB8u6vzpuGpyUQE1kkhpZCcykM/3d5SrCHgzrenpj/S1wUgoqozkDssxEERmvyu0AIvxqhBO3ZWcdO7BodK+1/H/5EyFtBG5ciWswAAAAAElFTkSuQmCC"
         />
 
+        <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+            integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+            crossorigin="anonymous"
+        />
+
+        <link rel="stylesheet" href="css/tailwind.css" />
         <link rel="stylesheet" href="css/style.css" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,131 +29,138 @@
     </head>
     <body>
         <nav class="font-ubuntu text-3xl px-4">
-            <div class="lg:container mx-auto sm:px-6 lg:px-8">
-                <div class="relative flex items-center justify-between h-16">
+            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+                <div
+                    class="
+                        relative
+                        flex
+                        items-center
+                        justify-between
+                        h-16
+                        transition-all
+                        duration-300
+                    "
+                >
                     <div class="font-semibold">
                         <a href="#">
                             Portfo<span class="text-blue-600">lio</span>
                         </a>
                     </div>
                     <div>
-                        <ul class="menu space-x-4">
+                        <ul class="md:space-x-2 lg:space-x-4 hidden md:block">
                             <li class="inline-block">
-                                <a
-                                    href="#home"
-                                    class="
-                                        menu-btn
-                                        block
-                                        font-medium
-                                        text-lg
-                                        transition-all
-                                        duration-300
-                                        border-b-4 border-white
-                                        hover:border-blue-600
-                                    "
-                                    >Home</a
-                                >
+                                <a href="#home" class="menu-item">Home</a>
                             </li>
                             <li class="inline-block">
-                                <a
-                                    href="#about"
-                                    class="
-                                        menu-btn
-                                        block
-                                        font-medium
-                                        text-lg
-                                        transition-all
-                                        duration-300
-                                        border-b-4 border-white
-                                        hover:border-blue-600
-                                    "
-                                    >About</a
-                                >
+                                <a href="#about" class="menu-item">About</a>
                             </li>
                             <li class="inline-block">
-                                <a
-                                    href="#skills"
-                                    class="
-                                        menu-btn
-                                        block
-                                        font-medium
-                                        text-lg
-                                        transition-all
-                                        duration-300
-                                        border-b-4 border-white
-                                        hover:border-blue-600
-                                    "
-                                    >Skills</a
-                                >
+                                <a href="#skills" class="menu-item">Skills</a>
                             </li>
                             <li class="inline-block">
-                                <a
-                                    href="#experience"
-                                    class="
-                                        menu-btn
-                                        block
-                                        font-medium
-                                        text-lg
-                                        transition-all
-                                        duration-300
-                                        border-b-4 border-white
-                                        hover:border-blue-600
-                                    "
+                                <a href="#experience" class="menu-item"
                                     >Experience</a
                                 >
                             </li>
                             <li class="inline-block">
-                                <a
-                                    href="#education"
-                                    class="
-                                        menu-btn
-                                        block
-                                        font-medium
-                                        text-lg
-                                        transition-all
-                                        duration-300
-                                        border-b-4 border-white
-                                        hover:border-blue-600
-                                    "
+                                <a href="#education" class="menu-item"
                                     >Education</a
                                 >
                             </li>
                             <li class="inline-block">
-                                <a
-                                    href="#projects"
-                                    class="
-                                        menu-btn
-                                        block
-                                        font-medium
-                                        text-lg
-                                        transition-all
-                                        duration-300
-                                        border-b-4 border-white
-                                        hover:border-blue-600
-                                    "
+                                <a href="#projects" class="menu-item"
                                     >Projects</a
                                 >
                             </li>
                             <li class="inline-block">
-                                <a
-                                    href="#contact"
-                                    class="
-                                        menu-btn
-                                        block
-                                        font-medium
-                                        text-lg
-                                        transition-all
-                                        duration-300
-                                        border-b-4 border-white
-                                        hover:border-blue-600
-                                    "
-                                    >Contact</a
-                                >
+                                <a href="#contact" class="menu-item">Contact</a>
                             </li>
                         </ul>
                     </div>
+                    <div
+                        class="menu-btn text-2xl md:hidden cursor-pointer z-50"
+                    >
+                        <i class="fas fa-bars"></i>
+                    </div>
+
+                    <!-- mobile view -->
+                    <ul
+                        class="
+                            mobile-menu
+                            md:hidden
+                            fixed
+                            h-screen
+                            w-full
+                            -right-full
+                            top-0
+                            bg-white
+                            text-center
+                            pt-20
+                            transition-all
+                            duration-300
+                        "
+                    >
+                        <li class="block">
+                            <a
+                                href="#home"
+                                class="menu-item inline-block my-5 text-2xl"
+                                >Home</a
+                            >
+                        </li>
+                        <li class="block">
+                            <a
+                                href="#about"
+                                class="menu-item inline-block my-5 text-2xl"
+                                >About</a
+                            >
+                        </li>
+                        <li class="block">
+                            <a
+                                href="#skills"
+                                class="menu-item inline-block my-5 text-2xl"
+                                >Skills</a
+                            >
+                        </li>
+                        <li class="block">
+                            <a
+                                href="#experience"
+                                class="menu-item inline-block my-5 text-2xl"
+                                >Experience</a
+                            >
+                        </li>
+                        <li class="block">
+                            <a
+                                href="#education"
+                                class="menu-item inline-block my-5 text-2xl"
+                                >Education</a
+                            >
+                        </li>
+                        <li class="block">
+                            <a
+                                href="#projects"
+                                class="menu-item inline-block my-5 text-2xl"
+                                >Projects</a
+                            >
+                        </li>
+                        <li class="block">
+                            <a
+                                href="#contact"
+                                class="menu-item inline-block my-5 text-2xl"
+                                >Contact</a
+                            >
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
+
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+
+        <script src="scripts/script.js"></script>
     </body>
 </html>
