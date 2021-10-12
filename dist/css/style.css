@@ -41,5 +41,5 @@ section .title::after {
 
 /* experinece */
 .experience .title::after {
-    content: "what are my experineces";
+    content: " my experineces";
 }
