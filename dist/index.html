@@ -28,7 +28,7 @@
         />
     </head>
     <body>
-        <nav class="font-ubuntu text-3xl fixed top-0 inset-x-0">
+        <nav class="bg-white font-ubuntu text-3xl fixed top-0 inset-x-0 z-40">
             <div class="max-w-6xl mx-auto px-4">
                 <div
                     class="
@@ -165,37 +165,107 @@
                     px-4
                 "
             >
-                <div class="home-content flex-grow max-w-2xl">
-                    <div></div>
-                    <div class="col-span-2">
-                        <div class="text-3xl">Hey, I am</div>
-                        <div class="text-7xl font-semibold">Fahim Faisal</div>
-                        <div class="text-3xl my-1">
-                            I am a
+                <div class="home-content flex-auto max-w-2xl">
+                    <div class="text-3xl">Hey, I am</div>
+                    <div class="text-7xl font-semibold">Fahim Faisal</div>
+                    <div class="text-3xl my-1">
+                        I am a
+                        <span
+                            class="text-blue-700 font-medium"
+                            id="typing"
+                        ></span>
+                    </div>
+                    <a class="btn" href="#contact">Get in touch</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="title">About Me</div>
+                <div
+                    class="
+                        about-content
+                        flex flex-grow flex-col
+                        md:flex-row
+                        items-center
+                        justify-between
+                        sm:space-x-10 sm:space-y-5
+                        md:space-x-20 md:space-y-0
+                    "
+                >
+                    <div class="w-1/3">
+                        <img
+                            class="h-full w-full object-cover rounded-xl"
+                            src="assets/avatar.jpg"
+                            alt="Avatar"
+                        />
+                    </div>
+                    <div class="w-2/3">
+                        <div class="text-2xl font-semibold mb-3">
+                            I'm Fahim Faisal and I'm a
                             <span
                                 class="text-blue-700 font-medium"
-                                id="typing"
+                                id="typing-2"
                             ></span>
                         </div>
+                        <p>
+                            I am currently studying software enginnering in
+                            Shahjalal University of Science and Technology and
+                            working as an intern in Codelinker. As an intern I
+                            am curretly exploring technologies but I love to
+                            work with Javascript. And I always believed I need
+                            to do what I love the most. I am hoping for the
+                            best, thats all for now.
+                        </p>
                         <a
-                            class="
-                                inline-block
-                                bg-blue-700
-                                text-white text-lg
-                                px-5
-                                py-2
-                                mt-5
-                                border-2 border-blue-700 border-solid
-                                rounded-xl
-                                transition-all
-                                duration-300
-                                hover:text-blue-700 hover:bg-white
-                            "
-                            href="#contact"
-                            >Get in touch</a
+                            class="btn font-medium"
+                            href="assets/cv.pdf"
+                            target="_blank"
+                            >Download CV</a
                         >
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="skills py-24" id="skills">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="title">Skills</div>
+                <div class="skills-content flex flex-wrap">
+                    <div class="card">
+                        <div class="box">
+                            <i class="fab fa-html5 text-8xl"></i>
+                            <div class="text-base font-bold mt-3">HTML</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="box">
+                            <i class="fab fa-css3-alt text-8xl"></i>
+                            <div class="text-base font-bold mt-3">CSS</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="box">
+                            <i class="fab fa-js text-8xl"></i>
+                            <div class="text-base font-bold mt-3">
+                                JavaScript
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="box">
+                            <i class="fab fa-node text-8xl"></i>
+                            <div class="text-base font-bold mt-3">NodeJs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="experience py-24" id="experience">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="title">Experience</div>
             </div>
         </section>
 
