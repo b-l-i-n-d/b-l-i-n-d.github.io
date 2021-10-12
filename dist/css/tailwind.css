@@ -713,7 +713,6 @@ video {
 
 .card {
   display: flex;
-  height: 12rem;
   width: 100%;
   padding: 0.75rem;
 }
@@ -769,6 +768,53 @@ video {
   transition-duration: 300ms;
 }
 
+.card .card-container {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgba(59, 130, 246, var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  text-align: center;
+}
+
+.card .card-container:hover{
+  --tw-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.card .card-container{
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 300ms;
+}
+
+.card .card-body {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.card .card-title {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 500;
+}
+
+.card .card-desc {
+  margin-bottom: 1rem;
+  flex: 1 1 0%;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .timeline-container {
   padding-top: 0px;
   padding-left: 2rem;
@@ -791,7 +837,7 @@ video {
 }
 
 .timeline-text {
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   border-top-left-radius: 0px;
   border-width: 2px;
   border-style: solid;
@@ -816,7 +862,7 @@ video {
 
 @media (min-width: 768px){
   .timeline-text-left{
-    border-top-left-radius: 0.5rem;
+    border-top-left-radius: 1rem;
     border-top-right-radius: 0px;
   }
 }

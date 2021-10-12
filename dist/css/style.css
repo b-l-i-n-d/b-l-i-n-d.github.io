@@ -41,5 +41,17 @@ section .title::after {
 
 /* experinece */
 .experience .title::after {
-    content: " my experineces";
+    content: "my experineces";
+}
+
+/* education */
+
+.education .title::after {
+    content: "my qualifications";
+}
+
+/* projects */
+
+.projects .title::after {
+    content: "my works";
 }
