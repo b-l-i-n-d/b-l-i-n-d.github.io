@@ -55,3 +55,9 @@ section .title::after {
 .projects .title::after {
     content: "my works";
 }
+
+/* contact */
+
+.contact .title::after {
+    content: "contact with me";
+}
