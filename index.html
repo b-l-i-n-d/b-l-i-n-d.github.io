@@ -18,18 +18,20 @@
             crossorigin="anonymous"
         />
         <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
-            integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="styles/style.css" />
+        <!-- <link rel="stylesheet" href="styles/style.css" /> -->
     </head>
 
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
             <div class="container-fluid container-lg">
-                <a class="navbar-brand" href="#">Portfo<span>lio</span></a>
+                <a class="navbar-brand fw-bold fs-3" href="#"
+                    >Portfo<span class="text-primary">lio</span></a
+                >
 
                 <div
                     class="navbar-toggler menu-btn"
@@ -42,33 +44,78 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="me-auto"></div>
 
-                    <ul class="navbar-nav menu align-items-center">
-                        <li class="nav-item menu-btn">
-                            <a
-                                class="nav-link"
-                                href="#home"
-                            >
-                                Home
-                            </a>
+                    <ul
+                        class="
+                            navbar-nav
+                            menu
+                            align-items-center
+                            fw-bold
+                            text-dark
+                        "
+                    >
+                        <li
+                            class="
+                                nav-item
+                                menu-btn
+                                border-5 border-bottom border-white
+                            "
+                        >
+                            <a class="nav-link" href="#home"> Home </a>
                         </li>
-                        <li class="nav-item menu-btn">
+                        <li
+                            class="
+                                nav-item
+                                menu-btn
+                                border-5 border-bottom border-white
+                            "
+                        >
                             <a class="nav-link" href="#about">About</a>
                         </li>
-                        <li class="nav-item">
+                        <li
+                            class="
+                                nav-item
+                                menu-btn
+                                border-5 border-bottom border-white
+                            "
+                        >
                             <a class="nav-link" href="#skills">Skills</a>
                         </li>
-                        <li class="nav-item menu-btn">
+                        <li
+                            class="
+                                nav-item
+                                menu-btn
+                                border-5 border-bottom border-white
+                            "
+                        >
                             <a class="nav-link" href="#experience"
                                 >Experience</a
                             >
                         </li>
-                        <li class="nav-item menu-btn">
+                        <li
+                            class="
+                                nav-item
+                                menu-btn
+                                border-5 border-bottom border-white
+                            "
+                        >
                             <a class="nav-link" href="#education">Education</a>
                         </li>
-                        <li class="nav-item menu-btn">
+                        <li
+                            class="
+                                nav-item
+                                menu-btn
+                                border-5 border-bottom border-white
+                            "
+                        >
                             <a class="nav-link" href="#projects">Projects</a>
                         </li>
-                        <li class="nav-item menu-btn">
+                        <li
+                            class="
+                                nav-item
+                                menu-btn
+                                border-5 border-bottom border-white
+                            "
+                        >
                             <a class="nav-link" href="#contact">Contact</a>
                         </li>
                     </ul>
@@ -90,11 +137,22 @@
                 >
                     <div class="col-md-9 col-sm-10">
                         <div class="text-1 fs-3">Hey, I am</div>
-                        <div class="text-2 fw-bolder">Fahim Faisal</div>
-                        <div class="text-3">
-                            I am a <span id="typing"></span>
+                        <div class="text-2 fs-1 fw-bolder">Fahim Faisal</div>
+                        <div class="text-3 fs-2">
+                            I am a
+                            <span class="text-primary" id="typing"></span>
                         </div>
-                        <a class="btn mt-3 fs-5 px-4 border-2" href="#contact">
+                        <a
+                            class="
+                                btn btn-primary
+                                rounded-3
+                                mt-3
+                                fs-5
+                                px-4
+                                border-2
+                            "
+                            href="#contact"
+                        >
                             Get in touch
                         </a>
                     </div>
@@ -104,11 +162,11 @@
 
         <section class="about" id="about">
             <div class="container-lg container-fluid">
-                <div class="h2 title">About Me</div>
+                <div class="h2 title text-center">About Me</div>
                 <div class="about-content row justify-content-between">
                     <div class="col-md-4 col-sm-6 mb-5">
                         <img
-                            class="img-fluid"
+                            class="img-fluid rounded"
                             src="assets/avatar.jpg"
                             alt="Avatar"
                         />
@@ -116,7 +174,7 @@
                     <div class="col-md-7 col-sm-6 align-self-center">
                         <div class="text fs-3 mb-2">
                             I'm Fahim Faisal and I'm a
-                            <span id="typing-2"></span>
+                            <span class="text-primary" id="typing-2"></span>
                         </div>
                         <p>
                             I am currently studying software enginnering in
@@ -128,7 +186,7 @@
                             best, thats all for now.
                         </p>
                         <a
-                            class="btn fs-5 mt-3 px-4 border-2"
+                            class="btn btn-primary fs-5 mt-3 px-4 border-2"
                             href="assets/cv.pdf"
                             target="_blank"
                             >Download CV</a
@@ -140,42 +198,43 @@
 
         <section class="skills" id="skills">
             <div class="container-lg container-fluid">
-                <div class="h2 title">Skills</div>
+                <div class="h2 title text-center py-5">Skills</div>
                 <div
                     class="
                         row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4
+                        text-primary
                         g-4
                     "
                 >
                     <div class="col">
                         <div class="custom-card card text-center">
                             <div class="card-body">
-                                <i class="fab fa-html5"></i>
-                                <p class="text card-text">HTML</p>
+                                <i class="fab fa-html5 fs-1"></i>
+                                <p class="text card-text fw-bold">HTML</p>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="custom-card card text-center">
                             <div class="card-body">
-                                <i class="fab fa-css3-alt"></i>
-                                <p class="text card-text">CSS</p>
+                                <i class="fab fa-css3-alt fs-1"></i>
+                                <p class="text card-text fw-bold">CSS</p>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="custom-card card text-center">
                             <div class="card-body">
-                                <i class="fab fa-js"></i>
-                                <p class="text card-text">JavaScript</p>
+                                <i class="fab fa-js fs-1"></i>
+                                <p class="text card-text fw-bold">JavaScript</p>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="custom-card card text-center">
                             <div class="card-body">
-                                <i class="fab fa-node"></i>
-                                <p class="text card-text">NodeJs</p>
+                                <i class="fab fa-node fs-1"></i>
+                                <p class="text card-text fw-bold">NodeJs</p>
                             </div>
                         </div>
                     </div>
@@ -185,7 +244,7 @@
 
         <section class="experience" id="experience">
             <div class="container-lg container-fluid">
-                <div class="h2 title">Experience</div>
+                <div class="h2 title text-center py-5">Experience</div>
 
                 <div
                     class="
@@ -201,7 +260,7 @@
                         <ul class="list-unstyled">
                             <li class="border-2 p-3 mb-3">
                                 <div class="timeline-content">
-                                    <p class="date mb-3">
+                                    <p class="date mb-3 text-primary">
                                         September 15, 2021 - Present
                                     </p>
                                     <h2 class="fs-3 mb-2">CodeLinker</h2>
@@ -210,7 +269,7 @@
                             </li>
                             <li class="border-2 p-3 mb-3">
                                 <div class="timeline-content">
-                                    <p class="date">
+                                    <p class="date text-primary">
                                         January 01, 2020 - January 17, 2020
                                     </p>
                                     <h2 class="fs-3 mb-2">OrangeToolz.com</h2>
@@ -225,7 +284,7 @@
 
         <section class="education" id="education">
             <div class="container-lg container-fluid">
-                <div class="h2 title">Education</div>
+                <div class="h2 title text-center py-5">Education</div>
 
                 <div
                     class="
@@ -241,7 +300,9 @@
                         <ul class="list-unstyled">
                             <li class="border-2 p-3 mb-3">
                                 <div class="timeline-content">
-                                    <p class="date mb-3">2017 - Present</p>
+                                    <p class="date mb-3 text-primary">
+                                        2017 - Present
+                                    </p>
                                     <h2 class="fs-4 mb-3">
                                         Shahjalal University of Science and
                                         Technology
@@ -252,7 +313,7 @@
                             </li>
                             <li class="border-2 p-3 mb-3">
                                 <div class="timeline-content">
-                                    <p class="date">2015 -2016</p>
+                                    <p class="date text-primary">2015 -2016</p>
                                     <h2 class="fs-4 mb-3">
                                         Chowgacha Govt. College
                                     </h2>
@@ -266,7 +327,7 @@
                             </li>
                             <li class="border-2 p-3 mb-3">
                                 <div class="timeline-content">
-                                    <p class="date">2010 -2014</p>
+                                    <p class="date text-primary">2010 -2014</p>
                                     <h2 class="fs-4 mb-3">
                                         Chowgacha Govt. Shahadat Pilot Model
                                         Secondary School
@@ -284,7 +345,7 @@
 
         <section class="projects" id="projects">
             <div class="container-lg container-fluid">
-                <div class="h2 title">Projects</div>
+                <div class="h2 title text-center py-5">Projects</div>
 
                 <div
                     class="
@@ -314,9 +375,9 @@
                                     with HTML and CSS.
                                 </p>
                             </div>
-                            <div class="custom-footer card-footer">
+                            <div class="custom-footer card-footer bg-white">
                                 <a
-                                    class="btn border-2"
+                                    class="btn btn-primary border-2"
                                     href="https://github.com/b-l-i-n-d/Color-Game"
                                     target="_blank"
                                 >
@@ -350,9 +411,9 @@
                                     admin have their role.
                                 </p>
                             </div>
-                            <div class="custom-footer card-footer">
+                            <div class="custom-footer card-footer bg-white">
                                 <a
-                                    class="btn border-2"
+                                    class="btn btn-primary border-2"
                                     href="https://github.com/b-l-i-n-d/Campvibes"
                                     target="_blank"
                                 >
@@ -386,9 +447,9 @@
                                     features.
                                 </p>
                             </div>
-                            <div class="custom-footer card-footer">
+                            <div class="custom-footer card-footer bg-white">
                                 <a
-                                    class="btn border-2"
+                                    class="btn btn-primary border-2"
                                     href="https://github.com/b-l-i-n-d/RESTful-Blog"
                                     target="_blank"
                                 >
@@ -422,9 +483,9 @@
                                     Just some CRUD.
                                 </p>
                             </div>
-                            <div class="custom-footer card-footer">
+                            <div class="custom-footer card-footer bg-white">
                                 <a
-                                    class="btn border-2"
+                                    class="btn btn-primary border-2"
                                     href="https://github.com/b-l-i-n-d/Laravel-CRUD-Demo"
                                     target="_blank"
                                 >
@@ -440,7 +501,7 @@
 
         <section class="contact" id="contact">
             <div class="container-lg container-fluid">
-                <div class="h2 title">Get in touch</div>
+                <div class="h2 title text-center py-5">Get in touch</div>
                 <div
                     class="row row-cols-1 row-cols-md-2 justify-content-between"
                 >
@@ -453,29 +514,42 @@
                         </p>
                         <div class="row align-items-center">
                             <div class="col-1">
-                                <i class="fas fa-user"></i>
+                                <i class="fas fa-user fs-4 text-primary"></i>
                             </div>
                             <div class="col-11">
                                 <div class="h6">Name</div>
-                                <div class="head h6">Fahim Faisal</div>
+                                <div class="head text-primary h6">
+                                    Fahim Faisal
+                                </div>
                             </div>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-1">
-                                <i class="fas fa-map-marker-alt"></i>
+                                <i
+                                    class="
+                                        fas
+                                        fa-map-marker-alt
+                                        fs-4
+                                        text-primary
+                                    "
+                                ></i>
                             </div>
                             <div class="col-11">
                                 <div class="h6">Address</div>
-                                <div class="head h6">Bangladesh</div>
+                                <div class="head text-primary h6">
+                                    Bangladesh
+                                </div>
                             </div>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-1">
-                                <i class="fas fa-envelope"></i>
+                                <i
+                                    class="fas fa-envelope fs-4 text-primary"
+                                ></i>
                             </div>
                             <div class="col-11">
                                 <div class="h6">Email</div>
-                                <div class="head h6">
+                                <div class="head text-primary h6">
                                     fahim.faisal.abir@gmail.com
                                 </div>
                             </div>
@@ -519,7 +593,16 @@
                                     placeholder="Description"
                                 ></textarea>
                             </div>
-                            <div class="submit col-4 btn border-2 ms-2">
+                            <div
+                                class="
+                                    submit
+                                    btn btn-primary
+                                    col-4
+                                    btn
+                                    border-2
+                                    ms-2
+                                "
+                            >
                                 Send meaasge
                             </div>
                         </div>
@@ -528,17 +611,19 @@
             </div>
         </section>
 
-        <footer class="text-center align-items-center">
+        <footer
+            class="text-center align-items-center bg-primary text-white mt-5"
+        >
             <span>
-                Made with ❤ by 
+                Made with ❤ by
                 <i class="fab fa-bootstrap"></i> Bootstrap |
                 <i class="far fa-copyright"></i> 2021
             </span>
         </footer>
 
         <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"
         ></script>
         <script
