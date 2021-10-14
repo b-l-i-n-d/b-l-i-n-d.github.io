@@ -84,38 +84,45 @@ section .title::after {
 
 /* timeline */
 
-.custom-container {
-    font-family: "Ubuntu", sans-serif;
-    min-height: 30vh;
-    padding: 50px 0;
+.v-timeline .circle {
+    padding: 16px 20px;
+    border-radius: 30%;
+    background-color: #0d6efd;
+    color: #fff;
+    max-height: 50px;
+    z-index: 2;
 }
 
-.custom-container .timeline {
-    max-width: 800px;
-    width: 80%;
+.v-timeline .timeline div {
+    padding: 0;
+    height: 40px;
 }
 
-.custom-container .timeline ul li {
-    border: #0d6efd solid;
-    border-radius: 10px;
+.v-timeline .timeline .col-2 {
+    display: flex;
+    overflow: hidden;
 }
-
-.custom-container .timeline ul li:last-child {
-    margin-bottom: 0;
+.v-timeline .timeline .corner {
+    border: 3px solid #0d6efd;
+    width: 100%;
+    position: relative;
+    border-radius: 15px;
 }
-
-.custom-container .timeline h2 {
-    font-weight: 500;
+.v-timeline .timeline .top-right {
+    left: 50%;
+    top: -50%;
 }
-.custom-container .timeline p {
-    margin-bottom: 0.5rem;
+.v-timeline .timeline .left-bottom {
+    left: -50%;
+    top: calc(50% - 3px);
 }
-
-.custom-container .timeline .date {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    color: #0dfefd;
+.v-timeline .timeline .top-left {
+    left: -50%;
+    top: -50%;
+}
+.v-timeline .timeline .right-bottom {
+    left: 50%;
+    top: calc(50% - 3px);
 }
 
 /* home */
@@ -228,67 +235,5 @@ section .title::after {
     .navbar .menu .nav-item a {
         margin: 10px 0;
         font-size: 20px;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    .custom-container .timeline::before {
-        content: "";
-        position: absolute;
-        height: 100%;
-        width: 2px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #0d6efd;
-    }
-
-    .custom-container .timeline ul li {
-        width: 50%;
-        position: relative;
-        margin-bottom: 50px;
-    }
-
-    .custom-container .timeline ul li:nth-child(odd) {
-        float: left;
-        clear: right;
-        transform: translateX(-30px);
-        border-radius: 20px 0px 20px 20px;
-    }
-
-    .custom-container .timeline ul li:nth-child(even) {
-        float: right;
-        clear: left;
-        transform: translateX(30px);
-        border-radius: 0px 20px 20px 20px;
-    }
-
-    .custom-container .timeline ul li::after {
-        content: "";
-        position: absolute;
-        height: 20px;
-        width: 20px;
-        background: #0d6efd;
-        border-radius: 50%;
-        top: 0;
-    }
-
-    .custom-container .timeline ul li:nth-child(odd)::after {
-        transform: translate(50%, -50%);
-        right: -32px;
-    }
-
-    .custom-container .timeline ul li:nth-child(even)::after {
-        transform: translate(-50%, -50%);
-        left: -32px;
-    }
-
-    .custom-container .timeline ul li:hover::after {
-        border: #0d6efd 3px solid;
-        background: white;
-        transition: all ease 0.3s;
-    }
-    .custom-container .timeline .date {
-        position: absolute;
-        top: -40px;
     }
 }
