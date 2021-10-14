@@ -1,10 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap");
 
-* {
-    margin: 0;
-    padding: 0;
-}
-
 html {
     scroll-behavior: smooth;
 }
@@ -17,32 +12,12 @@ html {
 }
 
 .navbar.sticky {
-    -webkit-box-shadow: 0px 5px 15px 5px #0000ff;
-    box-shadow: 0px 5px 15px 5px #0000ff;
-}
-
-.navbar-brand {
-    font-size: 35px;
-    font-weight: 600;
-}
-
-.navbar-brand span {
-    color: blue;
+    -webkit-box-shadow: 0px 5px 15px 5px #0d6efd;
+    box-shadow: 0px 5px 15px 5px #0d6efd;
 }
 
 .navbar .navbar-nav .nav-item a {
     color: black;
-    font-size: 18px;
-    font-weight: 500;
-    border-bottom: 4px solid white;
-    transition: all 0.3s ease;
-    padding: 0;
-    margin: 0 25px 0 0;
-}
-
-.navbar .navbar-nav .nav-item a:hover {
-    color: blue;
-    border-bottom: 4px solid blue;
     transition: all 0.3s ease;
 }
 
@@ -51,7 +26,6 @@ html {
     color: black;
     cursor: pointer;
 }
-
 
 /* section */
 .about,
@@ -68,12 +42,6 @@ section {
 }
 
 section .title {
-    position: relative;
-    text-align: center;
-    font-size: 40px;
-    font-weight: 500;
-    margin-bottom: 60px;
-    padding-bottom: 20px;
     font-family: "Ubuntu", sans-serif;
 }
 
@@ -102,31 +70,15 @@ section .title::after {
 /* card */
 
 .custom-card {
-    background: blue;
-    color: white;
-    border-radius: 6px;
-    padding: 20px 25px;
     transition: all 0.5s ease;
     font-family: "Ubuntu", sans-serif;
 }
 
 .custom-card:hover {
-    background: white;
-    color: blue;
-    -webkit-box-shadow: 5px 5px 15px 5px blue;
-    box-shadow: 5px 5px 15px 5px blue;
-}
-
-.custom-card i {
-    font-size: 100px;
-}
-
-.custom-card .text {
-    font-size: 15px;
-    font-weight: 700;
-}
-
-.custom-card:hover {
+    background: white !important;
+    color: #0d6efd !important;
+    -webkit-box-shadow: 5px 5px 15px 5px #0d6efd;
+    box-shadow: 5px 5px 15px 5px #0d6efd;
     transform: scale(1.05);
 }
 
@@ -144,7 +96,7 @@ section .title::after {
 }
 
 .custom-container .timeline ul li {
-    border: blue solid;
+    border: #0d6efd solid;
     border-radius: 10px;
 }
 
@@ -163,7 +115,7 @@ section .title::after {
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 1px;
-    color: blue;
+    color: #0dfefd;
 }
 
 /* home */
@@ -172,29 +124,9 @@ section .title::after {
     font-family: "Ubuntu", sans-serif;
 }
 
-.home .home-content .text-2 {
-    font-size: 75px;
-}
-
-.home .home-content .text-3 {
-    font-size: 40px;
-}
-
-.home .home-content .text-3 span {
-    color: blue;
-    font-weight: 500;
-}
-
-.home .home-content a {
-    background: blue;
-    color: white;
-    border: blue solid;
-    border-radius: 10px;
-}
-
 .home .home-content a:hover {
     background: white;
-    color: blue;
+    color: #0d6efd;
 }
 
 /* about  */
@@ -203,32 +135,8 @@ section .title::after {
     content: "who am i";
 }
 
-.about .about-content img {
-    object-fit: cover;
-    border-radius: 6px;
-}
-
-.about .about-content .text {
-    font-weight: 600;
-}
-
-.about .about-content .text span {
-    color: blue;
-}
-
-.about .about-content p {
-    text-align: justify;
-}
-
-.about .about-content a {
-    color: white;
-    background: blue;
-    border: blue solid;
-    border-radius: 10px;
-}
-
 .about .about-content a:hover {
-    color: blue;
+    color: #0d6efd;
     background: white;
 }
 
@@ -256,45 +164,17 @@ section .title::after {
     content: "some of my works";
 }
 
-.projects .custom-card {
-    background: white;
-    color: black;
-    border: blue solid;
-}
-
 .projects .custom-card img {
-    object-fit: scale-down;
     height: 50%;
 }
 
-.projects .custom-card .desc {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 14px;
-}
-
-.projects .custom-card .custom-footer {
-    background: none;
-    border: none;
-}
-
 .projects .custom-card .custom-footer a {
-    background: blue;
-    color: white;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 10px;
-    border: solid blue;
     transition: all 0.3s ease;
-}
-
-.projects .custom-card .custom-footer a i {
-    font-size: 15px;
 }
 
 .projects .custom-card .custom-footer a:hover {
     background: white;
-    color: blue;
+    color: #0d6efd;
     transition: all 0.3s ease;
 }
 
@@ -304,60 +184,19 @@ section .title::after {
     content: "contact with me";
 }
 
-.contact p {
-    text-align: justify;
-}
-
-.contact i {
-    font-size: 25px;
-    color: blue;
-}
-
-.contact .head {
-    color: blue;
-}
-
-.contact input {
-    border: 1px blue solid;
-    border-radius: 10px;
-}
-
-.contact textarea {
-    border: 1px blue solid;
-    border-radius: 10px;
-    resize: none;
-}
-
 .contact .submit {
-    border: 2px blue solid;
-    border-radius: 10px;
-    background: blue;
-    color: white;
     transition: all 0.3s ease;
 }
 
 .contact .submit:hover {
     background: white;
-    color: blue;
+    color: #0d6efd;
     transition: all 0.3s ease;
-}
-
-/* footer */
-
-footer {
-    background: blue;
-    color: white;
-    padding: 10px 23px;
 }
 
 /* responsive */
 
 @media (max-width: 992px) {
-    .menu-btn {
-        display: block;
-        z-index: 999;
-    }
-
     .collapse:not(.show) {
         display: block;
     }
@@ -387,10 +226,9 @@ footer {
     }
 
     .navbar .menu .nav-item a {
-        margin: 20px 0;
-        font-size: 25px;
+        margin: 10px 0;
+        font-size: 20px;
     }
-
 }
 
 @media only screen and (min-width: 768px) {
@@ -401,7 +239,7 @@ footer {
         width: 2px;
         left: 50%;
         transform: translateX(-50%);
-        background: blue;
+        background: #0d6efd;
     }
 
     .custom-container .timeline ul li {
@@ -429,7 +267,7 @@ footer {
         position: absolute;
         height: 20px;
         width: 20px;
-        background: blue;
+        background: #0d6efd;
         border-radius: 50%;
         top: 0;
     }
@@ -445,7 +283,7 @@ footer {
     }
 
     .custom-container .timeline ul li:hover::after {
-        border: blue 3px solid;
+        border: #0d6efd 3px solid;
         background: white;
         transition: all ease 0.3s;
     }
