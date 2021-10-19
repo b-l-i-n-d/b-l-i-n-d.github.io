@@ -156,13 +156,13 @@ section .title::after {
 /* experience */
 
 .experience .title::after {
-    content: "what are my experiences";
+    content: "my experiences";
 }
 
 /* education */
 
 .education .title::after {
-    content: "what are my qualifications";
+    content: "my qualifications";
 }
 
 /* projects */
