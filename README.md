@@ -12,8 +12,14 @@ I am currently studying software enginnering in [Shahjalal University of Science
 ![CSS](https://img.shields.io/badge/-CSS-%232c3e50?style=for-the-badge&logo=css3)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-%232c3e50?style=for-the-badge&logo=javascript)
 ![Node.js](https://img.shields.io/badge/-Node.js-%232c3e50?style=for-the-badge&logo=node.js)
+![Bootstrap](https://img.shields.io/badge/-Bootstrap-%232c3e50?style=for-the-badge&logo=bootstrap)
+![TailwindCSS](https://img.shields.io/badge/-Tailwind-%232c3e50?style=for-the-badge&logo=tailwindcss)
 
 <br>
+
+## Live demo of this branch
+
+[Demo](https://nostalgic-northcutt-cf2661.netlify.app/)
 
 ## Portfolio Page
 
