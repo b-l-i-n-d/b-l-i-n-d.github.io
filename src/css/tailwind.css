@@ -18,10 +18,10 @@
     .btn {
         @apply inline-block
         bg-blue-700
-        text-white text-lg
-        px-5
-        py-2
-        mt-5
+        text-white text-sm md:text-lg
+        px-3 md:px-5
+        py-1 md:py-2
+        mt-3 md:mt-5
         border-2 border-blue-700 border-solid
         rounded-xl
         transition-all
@@ -31,7 +31,7 @@
 
     .title {
         @apply relative
-        text-center text-4xl
+        text-center text-xl sm:text-2xl md:text-4xl
         font-medium
         mb-14
         pb-5
