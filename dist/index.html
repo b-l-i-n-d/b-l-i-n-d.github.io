@@ -159,16 +159,18 @@
                     max-w-6xl
                     mx-auto
                     flex
-                    h-screen
+                    min-h-screen
                     justify-center
                     items-center
                     px-4
                 "
             >
-                <div class="home-content flex-auto max-w-2xl">
-                    <div class="text-3xl">Hey, I am</div>
-                    <div class="text-7xl font-semibold">Fahim Faisal</div>
-                    <div class="text-3xl my-1">
+                <div class="home-content flex-auto flex-wrap">
+                    <div class="text-xl sm:text-2xl md:text-3xl">Hey, I am</div>
+                    <div class="text-3xl sm:text-5xl md:text-7xl font-semibold">
+                        Fahim Faisal
+                    </div>
+                    <div class="text-xl md:text-3xl my-1">
                         I am a
                         <span
                             class="text-blue-700 font-medium"
@@ -566,8 +568,16 @@
             <div class="max-w-6xl mx-auto px-4">
                 <div class="title">Get in touch</div>
 
-                <div class="flex flex-wrap flex-col md:flex-row font-poppins">
-                    <div class="flex-1 space-y-4">
+                <div
+                    class="
+                        flex flex-col
+                        md:flex-row
+                        font-poppins
+                        space-y-6
+                        md:space-y-0 md:space-x-4
+                    "
+                >
+                    <div class="flex flex-col space-y-4">
                         <div class="text-xl font-semibold">Get in touch</div>
                         <p>
                             I will be really delightful if get to hear from you.
@@ -627,13 +637,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex-1 space-y-4">
+                    <div class="flex flex-col space-y-4">
                         <div class="text-xl font-semibold">Message me</div>
                         <div class="flex-1">
-                            <div class="flex space-x-4">
+                            <div class="flex flex-row space-x-4">
                                 <input
                                     class="
-                                        flex-1
+                                        flex
+                                        w-full
                                         p-3
                                         border-2
                                         rounded-lg
@@ -647,7 +658,8 @@
                                 />
                                 <input
                                     class="
-                                        flex-1
+                                        flex
+                                        w-full
                                         p-3
                                         border-2
                                         rounded-lg
