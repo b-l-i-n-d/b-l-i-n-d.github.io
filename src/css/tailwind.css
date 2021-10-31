@@ -31,7 +31,7 @@
 
     .title {
         @apply relative
-        text-center text-xl sm:text-2xl md:text-4xl
+        text-center text-2xl sm:text-3xl md:text-4xl
         font-medium
         mb-14
         pb-5
