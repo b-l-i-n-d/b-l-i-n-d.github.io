@@ -27,8 +27,18 @@
             rel="stylesheet"
         />
     </head>
-    <body>
-        <nav class="bg-white font-ubuntu text-3xl fixed top-0 inset-x-0 z-40">
+    <body class="text-neutral-content">
+        <nav
+            class="
+                bg-neutral
+                font-ubuntu
+                text-3xl text-neutral-content
+                fixed
+                top-0
+                inset-x-0
+                z-40
+            "
+        >
             <div class="max-w-6xl mx-auto px-4">
                 <div
                     class="
@@ -42,7 +52,7 @@
                 >
                     <div class="font-semibold">
                         <a href="#">
-                            Portfo<span class="text-blue-700">lio</span>
+                            Portfo<span class="text-primary">lio</span>
                         </a>
                     </div>
                     <div>
@@ -173,11 +183,13 @@
                     <div class="text-xl md:text-3xl my-1">
                         I am a
                         <span
-                            class="text-blue-700 font-medium"
+                            class="text-primary font-medium"
                             id="typing"
                         ></span>
                     </div>
-                    <a class="btn" href="#contact">Get in touch</a>
+                    <a class="btn btn-primary mt-4" href="#contact"
+                        >Get in touch</a
+                    >
                 </div>
             </div>
         </section>
@@ -216,7 +228,7 @@
                         >
                             I'm Fahim Faisal and I'm a
                             <span
-                                class="text-blue-700 font-medium"
+                                class="text-primary font-medium"
                                 id="typing-2"
                             ></span>
                         </div>
@@ -230,7 +242,7 @@
                             best, thats all for now.
                         </p>
                         <a
-                            class="btn font-medium"
+                            class="btn btn-primary mt-4"
                             href="assets/cv.pdf"
                             target="_blank"
                             >Download CV</a
@@ -244,30 +256,54 @@
             <div class="max-w-6xl mx-auto px-4">
                 <div class="title">Skills</div>
                 <div class="skills-content flex flex-wrap">
-                    <div class="card">
-                        <div class="box">
-                            <i class="fab fa-html5 text-8xl"></i>
+                    <div class="card text-center shadow-2xl">
+                        <div class="card-body">
+                            <i class="fab fa-html5 fa-6x"></i>
                             <div class="text-base font-bold mt-3">HTML</div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="box">
-                            <i class="fab fa-css3-alt text-8xl"></i>
+                    <div class="card text-center shadow-2xl">
+                        <div class="card-body">
+                            <i class="fab fa-css3-alt fa-6x"></i>
                             <div class="text-base font-bold mt-3">CSS</div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="box">
-                            <i class="fab fa-js text-8xl"></i>
+                    <div class="card text-center shadow-2xl">
+                        <div class="card-body">
+                            <i class="fab fa-js fa-6x"></i>
                             <div class="text-base font-bold mt-3">
                                 JavaScript
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="box">
-                            <i class="fab fa-node text-8xl"></i>
+                    <div class="card text-center shadow-2xl">
+                        <div class="card-body">
+                            <i class="fab fa-node fa-6x"></i>
                             <div class="text-base font-bold mt-3">NodeJs</div>
+                        </div>
+                    </div>
+                    <div class="card text-center shadow-2xl">
+                        <div class="card-body">
+                            <svg
+                                class="fill-current"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 54 33"
+                            >
+                                <g clip-path="url(#prefix__clip0)">
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z"
+                                        clip-rule="evenodd"
+                                    />
+                                </g>
+                                <defs>
+                                    <clipPath id="prefix__clip0">
+                                        <path fill="#fff" d="M0 0h54v32.4H0z" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <div class="text-base font-bold mt-3">Tailwind</div>
                         </div>
                     </div>
                 </div>
@@ -277,7 +313,14 @@
         <section class="experience py-24" id="experience">
             <div class="max-w-6xl mx-auto px-4">
                 <div class="title">Experience</div>
-                <div class="flex flex-col space-y-8 font-poppins">
+                <div
+                    class="
+                        flex flex-col
+                        space-y-8
+                        font-poppins
+                        text-neutral-content
+                    "
+                >
                     <div
                         class="
                             absolute
@@ -286,7 +329,7 @@
                             h-80
                             inset-x-0
                             left-6
-                            bg-blue-700
+                            bg-primary
                             md:mx-auto md:right-0 md:left-0
                         "
                     ></div>
@@ -296,8 +339,8 @@
                                 h-5
                                 w-5
                                 rounded-full
-                                border-2 border-blue-700
-                                bg-blue-700
+                                border-2 border-primary
+                                bg-primary
                                 hover:bg-white
                                 md:mx-auto md:right-0 md:left-0
                             "
@@ -306,8 +349,11 @@
                             <div class="timeline-text">
                                 <p
                                     class="
+                                        -top-4
+                                        absolute
+                                        text-sm
+                                        tracking-widest
                                         font-medium
-                                        tracking-wider
                                         text-blue-500
                                     "
                                 >
@@ -326,8 +372,8 @@
                                 h-5
                                 w-5
                                 rounded-full
-                                border-2 border-blue-700
-                                bg-blue-700
+                                border-2 border-primary
+                                bg-primary
                                 hover:bg-white
                                 md:mx-auto md:right-0 md:left-0
                             "
@@ -336,9 +382,12 @@
                             <div class="timeline-text timeline-text-left">
                                 <p
                                     class="
-                                        font-medium
-                                        tracking-wider
+                                        -top-4
+                                        absolute
+                                        text-sm
+                                        tracking-widest
                                         text-blue-500
+                                        font-medium
                                     "
                                 >
                                     January 01, 2020 - January 17, 2020
@@ -367,7 +416,7 @@
                             h-full
                             inset-x-0
                             left-6
-                            bg-blue-700
+                            bg-primary
                             md:mx-auto md:right-0 md:left-0
                         "
                     ></div>
@@ -377,8 +426,8 @@
                                 h-5
                                 w-5
                                 rounded-full
-                                border-2 border-blue-700
-                                bg-blue-700
+                                border-2 border-primary
+                                bg-primary
                                 hover:bg-white
                                 md:mx-auto md:right-0 md:left-0
                             "
@@ -387,8 +436,11 @@
                             <div class="timeline-text">
                                 <p
                                     class="
+                                        -top-4
+                                        absolute
+                                        text-sm
+                                        tracking-widest
                                         font-medium
-                                        tracking-wider
                                         text-blue-500
                                     "
                                 >
@@ -409,8 +461,8 @@
                                 h-5
                                 w-5
                                 rounded-full
-                                border-2 border-blue-700
-                                bg-blue-700
+                                border-2 border-primary
+                                bg-primary
                                 hover:bg-white
                                 md:mx-auto md:right-0 md:left-0
                             "
@@ -419,8 +471,11 @@
                             <div class="timeline-text timeline-text-left">
                                 <p
                                     class="
+                                        -top-4
+                                        absolute
+                                        text-sm
+                                        tracking-widest
                                         font-medium
-                                        tracking-wider
                                         text-blue-500
                                     "
                                 >
@@ -441,8 +496,8 @@
                                 h-5
                                 w-5
                                 rounded-full
-                                border-2 border-blue-700
-                                bg-blue-700
+                                border-2 border-primary
+                                bg-primary
                                 hover:bg-white
                                 md:mx-auto md:right-0 md:left-0
                             "
@@ -451,8 +506,11 @@
                             <div class="timeline-text">
                                 <p
                                     class="
+                                        -top-4
+                                        absolute
+                                        text-sm
+                                        tracking-widest
                                         font-medium
-                                        tracking-wider
                                         text-blue-500
                                     "
                                 >
@@ -719,7 +777,7 @@
         </section>
 
         <footer
-            class="text-white px-6 py-3 items-center text-center bg-blue-700"
+            class="text-white px-6 py-3 items-center text-center bg-primary"
         >
             <span>
                 Made with ❤ by Tailwind |
