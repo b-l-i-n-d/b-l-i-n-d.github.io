@@ -177,7 +177,6 @@ section .title::after {
 }
 
 .about .about-content,
-.projects .projects-content,
 .contact .contact-content {
     display: flex;
     flex-wrap: wrap;
@@ -185,7 +184,8 @@ section .title::after {
     justify-content: space-between;
 }
 
-.skills .skills-content {
+.skills .skills-content,
+.projects .projects-content {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -387,6 +387,7 @@ section .title::after {
     border: blue 2px solid;
     border-radius: 6px;
     padding: 20px 25px;
+    margin: 5px;
     transition: all 0.5s ease;
 }
 
