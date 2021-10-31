@@ -19,7 +19,7 @@ I am currently studying software enginnering in [Shahjalal University of Science
 
 ## Live demo of this branch
 
-[Netlify Demo](https://zealous-leakey-332ab1.netlify.app/)
+[Netlify Demo](https://relaxed-albattani-679240.netlify.app/)
 
 ## Portfolio Page
 
