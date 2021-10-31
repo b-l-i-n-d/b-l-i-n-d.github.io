@@ -177,13 +177,19 @@ section .title::after {
 }
 
 .about .about-content,
-.skills .skills-content,
 .projects .projects-content,
 .contact .contact-content {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+}
+
+.skills .skills-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .about .about-content .left {
@@ -246,6 +252,7 @@ section .title::after {
     text-align: center;
     border-radius: 6px;
     padding: 20px 25px;
+    margin: 5px;
     transition: all 0.5s ease;
 }
 
