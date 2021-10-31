@@ -13,7 +13,7 @@ html {
 section .title::before {
     content: "";
     position: absolute;
-    bottom: -4px;
+    bottom: -5px;
     left: 50%;
     width: 360px;
     height: 3px;
@@ -23,11 +23,11 @@ section .title::before {
 
 section .title::after {
     position: absolute;
-    bottom: -22px;
+    bottom: -20px;
     left: 50%;
     font-size: 20px;
     color: black;
-    padding: 5px;
+    padding: 0px 5px;
     background: #3d4451;
     transform: translateX(-50%);
 }
