@@ -4,7 +4,8 @@
 import { useEffect } from 'react';
 import { BsChevronDown } from 'react-icons/bs';
 import { FaFacebook, FaGithub } from 'react-icons/fa';
-import { HiMenuAlt1 } from 'react-icons/hi';
+import { FiMail } from 'react-icons/fi';
+import { HiMenuAlt1, HiMenuAlt3 } from 'react-icons/hi';
 import { themeChange } from 'theme-change';
 import Theme from './Theme';
 
@@ -14,8 +15,8 @@ function Navbar() {
     });
 
     return (
-        <div className="sticky top-0 z-50 mx-auto max-w-6xl">
-            <div className="navbar h-20 bg-base-100 font-title">
+        <div className="sticky top-0 z-50 border-b border-base-300 bg-opacity-30 shadow-none backdrop-blur-lg backdrop-filter">
+            <div className="navbar mx-auto h-20  max-w-7xl font-title">
                 <div className="navbar-start text-lg font-bold">
                     <div className="hidden space-x-5 lg:flex">
                         <a
@@ -98,12 +99,54 @@ function Navbar() {
                 </div>
                 <div className="navbar-end">
                     <Theme />
-                    <a type="button" className="btn btn-ghost btn-circle text-xl" href="##">
-                        <FaFacebook />
-                    </a>
-                    <a type="button" className="btn btn-ghost btn-circle text-xl" href="##">
-                        <FaGithub />
-                    </a>
+                    <div className="hidden lg:flex">
+                        <a type="button" className="btn btn-ghost btn-circle text-xl" href="##">
+                            <FaFacebook />
+                        </a>
+                        <a type="button" className="btn btn-ghost btn-circle text-xl" href="##">
+                            <FaGithub />
+                        </a>
+                        <a type="button" className="btn btn-ghost btn-circle text-xl" href="##">
+                            <FiMail />
+                        </a>
+                    </div>
+                    <div className="dropdown-end dropdown lg:hidden">
+                        <label tabIndex="0" className="btn btn-ghost btn-sm rounded-btn text-2xl">
+                            <HiMenuAlt3 />
+                        </label>
+                        <ul
+                            tabIndex="0"
+                            className="no-scrollbar dropdown-content menu rounded-box menu-compact mt-4 w-auto bg-base-100 p-2 shadow"
+                        >
+                            <li>
+                                <a
+                                    type="button"
+                                    className="btn btn-ghost btn-circle text-xl"
+                                    href="##"
+                                >
+                                    <FaFacebook />
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    type="button"
+                                    className="btn btn-ghost btn-circle text-xl"
+                                    href="##"
+                                >
+                                    <FaGithub />
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    type="button"
+                                    className="btn btn-ghost btn-circle text-xl"
+                                    href="##"
+                                >
+                                    <FiMail />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
