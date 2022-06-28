@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 
 import { useEffect } from 'react';
-import { BsChevronDown } from 'react-icons/bs';
+import { BsChevronDown, BsLinkedin } from 'react-icons/bs';
 import { FaFacebook, FaGithub } from 'react-icons/fa';
 import { FiMail } from 'react-icons/fi';
 import { HiMenuAlt1, HiMenuAlt3 } from 'react-icons/hi';
@@ -20,19 +20,19 @@ function Navbar() {
                 <div className="navbar-start text-lg font-bold">
                     <div className="hidden space-x-5 lg:flex">
                         <a
-                            href="##"
+                            href="#header"
                             className="rounded border-primary transition-all duration-150 hover:border-b-4 hover:text-primary active:border-dotted"
                         >
                             Home
                         </a>
                         <a
-                            href="##"
+                            href="#about"
                             className="rounded border-primary transition-all duration-150 hover:border-b-4 hover:text-primary active:border-dotted"
                         >
                             About
                         </a>
                         <a
-                            href="##"
+                            href="#contact"
                             className="rounded border-primary transition-all duration-150 hover:border-b-4 hover:text-primary active:border-dotted"
                         >
                             Contact
@@ -46,16 +46,16 @@ function Navbar() {
                                 className="no-scrollbar dropdown-content menu rounded-box mt-4 w-auto bg-base-100 p-2 shadow"
                             >
                                 <li>
-                                    <a href="##">Skills</a>
+                                    <a href="#skills">Skills</a>
                                 </li>
                                 <li>
-                                    <a href="##">Experiences</a>
+                                    <a href="#experiences">Experiences</a>
                                 </li>
                                 <li>
-                                    <a href="##">Education</a>
+                                    <a href="#education">Education</a>
                                 </li>
                                 <li>
-                                    <a href="##">Projects</a>
+                                    <a href="#projects">Projects</a>
                                 </li>
                             </ul>
                         </div>
@@ -69,45 +69,70 @@ function Navbar() {
                             className="no-scrollbar dropdown-content menu rounded-box menu-compact mt-4 w-auto bg-base-100 p-2 shadow"
                         >
                             <li>
-                                <a href="##">Home</a>
+                                <a href="#header">Home</a>
                             </li>
                             <li>
-                                <a href="##">About</a>
+                                <a href="#about">About</a>
                             </li>
                             <li>
-                                <a href="##">Skills</a>
+                                <a href="#skills">Skills</a>
                             </li>
                             <li>
-                                <a href="##">Experiences</a>
+                                <a href="#experiences">Experiences</a>
                             </li>
                             <li>
-                                <a href="##">Education</a>
+                                <a href="#education">Education</a>
                             </li>
                             <li>
-                                <a href="##">Projects</a>
+                                <a href="#projects">Projects</a>
                             </li>
                             <li>
-                                <a href="##">Contact</a>
+                                <a href="#contact">Contact</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div className="navbar-center">
-                    <a href="##" className="btn btn-ghost text-2xl font-bold normal-case">
+                    <a href="#header" className="btn btn-ghost text-2xl font-bold normal-case">
                         Portfolio
                     </a>
                 </div>
                 <div className="navbar-end">
                     <Theme />
                     <div className="hidden lg:flex">
-                        <a type="button" className="btn btn-ghost btn-circle text-xl" href="##">
+                        <a
+                            type="button"
+                            target="_blank"
+                            className="btn btn-ghost btn-circle text-xl"
+                            href="https://www.facebook.com/abir.fahim.faisal/"
+                            rel="noreferrer"
+                        >
                             <FaFacebook />
                         </a>
-                        <a type="button" className="btn btn-ghost btn-circle text-xl" href="##">
+                        <a
+                            type="button"
+                            target="_blank"
+                            className="btn btn-ghost btn-circle text-xl"
+                            href="https://github.com/b-l-i-n-d"
+                            rel="noreferrer"
+                        >
                             <FaGithub />
                         </a>
-                        <a type="button" className="btn btn-ghost btn-circle text-xl" href="##">
+                        <a
+                            type="button"
+                            className="btn btn-ghost btn-circle text-xl"
+                            href="mailto:fahim.faisal.abir.com"
+                        >
                             <FiMail />
+                        </a>
+                        <a
+                            target="_blank"
+                            type="button"
+                            className="btn btn-ghost btn-circle text-xl"
+                            href="https://www.linkedin.com/in/fahim-faisal-858887186/"
+                            rel="noreferrer"
+                        >
+                            <BsLinkedin />
                         </a>
                     </div>
                     <div className="dropdown-end dropdown lg:hidden">
@@ -120,18 +145,22 @@ function Navbar() {
                         >
                             <li>
                                 <a
+                                    target="_blank"
                                     type="button"
                                     className="btn btn-ghost btn-circle text-xl"
-                                    href="##"
+                                    href="https://www.facebook.com/abir.fahim.faisal/"
+                                    rel="noreferrer"
                                 >
                                     <FaFacebook />
                                 </a>
                             </li>
                             <li>
                                 <a
+                                    target="_blank"
                                     type="button"
                                     className="btn btn-ghost btn-circle text-xl"
-                                    href="##"
+                                    href="https://github.com/b-l-i-n-d"
+                                    rel="noreferrer"
                                 >
                                     <FaGithub />
                                 </a>
@@ -140,9 +169,20 @@ function Navbar() {
                                 <a
                                     type="button"
                                     className="btn btn-ghost btn-circle text-xl"
-                                    href="##"
+                                    href="mailto:fahim.faisal.abir.com"
                                 >
                                     <FiMail />
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    target="_blank"
+                                    type="button"
+                                    className="btn btn-ghost btn-circle text-xl"
+                                    href="https://www.linkedin.com/in/fahim-faisal-858887186/"
+                                    rel="noreferrer"
+                                >
+                                    <BsLinkedin />
                                 </a>
                             </li>
                         </ul>

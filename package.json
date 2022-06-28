@@ -10,6 +10,7 @@
 		"lint": "yarn add -D prettier && yarn add -D @babel/eslint-parser && npx install-peerdeps --dev eslint-config-airbnb && yarn add -D eslint-config-prettier eslint-plugin-prettier"
 	},
 	"dependencies": {
+		"@emailjs/browser": "^3.6.2",
 		"daisyui": "^2.17.0",
 		"prettier-plugin-tailwindcss": "^0.1.11",
 		"react": "^18.0.0",

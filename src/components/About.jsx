@@ -3,7 +3,7 @@ import Avatar from '../assets/avatar.jpg';
 
 function About() {
     return (
-        <section className="mx-auto max-w-7xl px-4 py-5 font-body">
+        <section id="about" className="mx-auto max-w-7xl px-4 py-5 font-body">
             <div className="flex flex-wrap lg:flex-row">
                 <div className="order-2 flex w-full flex-col gap-5 sm:w-1/2 lg:order-none lg:w-1/4">
                     <div className="flex flex-col items-center justify-center space-y-3 sm:items-start sm:justify-start">

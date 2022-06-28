@@ -2,7 +2,7 @@ import { FaArrowDown } from 'react-icons/fa';
 
 function Header() {
     return (
-        <section className="mx-auto max-w-7xl">
+        <section id="header" className="mx-auto max-w-7xl">
             <div className="h-screen pt-28 text-center font-title">
                 <div className="space-y-3 md:space-y-5 lg:space-y-6">
                     <div className="text-xl font-semibold sm:text-2xl lg:text-3xl">Hello, I am</div>
