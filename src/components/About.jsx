@@ -1,4 +1,6 @@
-import { FaFacebook, FaGithub, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { BsLinkedin } from 'react-icons/bs';
+import { FaFacebook, FaGithub } from 'react-icons/fa';
+import { FiMail } from 'react-icons/fi';
 import Avatar from '../assets/avatar.jpg';
 
 function About() {
@@ -27,18 +29,35 @@ function About() {
                         </div>
 
                         <div className="space-x-2">
-                            <a href="##" className="btn btn-ghost btn-circle text-3xl">
+                            <a
+                                target="_blank"
+                                href="https://www.facebook.com/abir.fahim.faisal/"
+                                className="btn btn-ghost btn-circle text-3xl"
+                                rel="noreferrer"
+                            >
                                 <FaFacebook />
                             </a>
-
-                            <a href="##" className="btn btn-ghost btn-circle text-3xl">
-                                <FaInstagram />
-                            </a>
-                            <a href="##" className="btn btn-ghost btn-circle text-3xl">
-                                <FaWhatsapp />
-                            </a>
-                            <a href="##" className="btn btn-ghost btn-circle text-3xl">
+                            <a
+                                target="_blank"
+                                href="https://github.com/b-l-i-n-d/"
+                                className="btn btn-ghost btn-circle text-3xl"
+                                rel="noreferrer"
+                            >
                                 <FaGithub />
+                            </a>
+                            <a
+                                href="mailto:fahim.faisal.abir@gmail.com"
+                                className="btn btn-ghost btn-circle text-3xl"
+                            >
+                                <FiMail />
+                            </a>
+                            <a
+                                target="_blank"
+                                href="https://www.linkedin.com/in/fahim-faisal-858887186/"
+                                className="btn btn-ghost btn-circle text-3xl"
+                                rel="noreferrer"
+                            >
+                                <BsLinkedin />
                             </a>
                         </div>
                     </div>
