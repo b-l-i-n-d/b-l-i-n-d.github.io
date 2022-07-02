@@ -3,7 +3,7 @@ import Sust from '../assets/SUST logo.png';
 
 function Education() {
     return (
-        <section id="education" className="mx-auto max-w-7xl px-4 py-5">
+        <section id="education" className="mx-auto max-w-7xl px-4 pt-10">
             <div className="flex flex-col items-center justify-center space-y-2 pt-10">
                 <h2 className="text-2xl font-bold">Education</h2>
                 <div className="h-1 w-20 rounded-full bg-primary" />
@@ -21,7 +21,7 @@ function Education() {
                             <a
                                 href="https://www.sust.edu/"
                                 target="_blank"
-                                className="inline-flex mb-4 items-center text-base font-semibold hover:text-secondary sm:text-xl"
+                                className="mb-4 inline-flex items-center text-base font-semibold hover:text-secondary sm:text-xl"
                                 rel="noreferrer"
                             >
                                 <img
@@ -49,7 +49,7 @@ function Education() {
                             <a
                                 href="https://chowgachadegreecollege.jessoreboard.gov.bd/"
                                 target="_blank"
-                                className="inline-flex mb-4 items-center text-base font-semibold hover:text-secondary sm:text-xl"
+                                className="mb-4 inline-flex items-center text-base font-semibold hover:text-secondary sm:text-xl"
                                 rel="noreferrer"
                             >
                                 <span>
@@ -77,7 +77,7 @@ function Education() {
                             <a
                                 href="https://chougachhashahadatpilotsecondaryschool.jessoreboard.gov.bd/"
                                 target="_blank"
-                                className="inline-flex mb-4 items-center text-base font-semibold hover:text-secondary sm:text-xl"
+                                className="mb-4 inline-flex items-center text-base font-semibold hover:text-secondary sm:text-xl"
                                 rel="noreferrer"
                             >
                                 <span>

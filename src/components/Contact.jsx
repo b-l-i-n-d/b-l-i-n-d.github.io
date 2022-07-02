@@ -1,14 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import emailjs from '@emailjs/browser';
-import { useRef } from 'react';
-import { FaFacebookMessenger } from 'react-icons/fa';
+import { useRef, useState } from 'react';
+import { FaCheck, FaFacebookMessenger } from 'react-icons/fa';
 import { FiMail } from 'react-icons/fi';
 
 function Contact() {
     const form = useRef();
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [isError, setIsError] = useState(false);
 
     const sendEmail = (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
         emailjs
             .sendForm(
@@ -20,17 +24,26 @@ function Contact() {
             .then(
                 (result) => {
                     console.log(result.text);
+                    e.target.reset();
+                    setIsLoading(false);
+                    setIsSuccess(true);
+                    setTimeout(() => setIsSuccess(false), 1000);
+                    clearTimeout();
                 },
                 (error) => {
                     console.log(error.text);
+                    setIsLoading(false);
+                    setIsError(true);
+                    setTimeout(() => setIsError(false), 1000);
+                    clearTimeout();
                 }
             );
     };
 
     return (
-        <section id="contact" className="mx-auto max-w-7xl px-4 py-5">
+        <section id="contact" className="mx-auto max-w-7xl px-4 py-10">
             <div className="flex flex-col items-center justify-center space-y-2 pt-10">
-                <h2 className="text-2xl font-bold">Contact</h2>
+                <h2 className="text-2xl font-bold">Get in touch</h2>
                 <div className="h-1 w-20 rounded-full bg-primary" />
             </div>
 
@@ -70,24 +83,32 @@ function Contact() {
                         className="form-control w-full gap-10 pt-5 md:pl-5 md:pt-0"
                     >
                         <input
+                            required
                             name="name"
                             type="text"
                             placeholder="Name"
                             className="input input-bordered input-primary border-2"
                         />
                         <input
+                            required
                             name="email"
                             type="email"
                             placeholder="Email"
                             className="input input-bordered input-primary border-2"
                         />
                         <textarea
+                            required
                             name="message"
                             className="textarea textarea-bordered textarea-primary h-28 border-2"
                             placeholder="Message"
                         />
-                        <button type="submit" className="btn btn-primary">
-                            Send
+                        <button
+                            type="submit"
+                            className={`btn ${isLoading && 'loading'} ${
+                                isSuccess ? 'btn-success' : 'btn-primary'
+                            } ${isError ? 'btn-error' : 'btn-primary'}`}
+                        >
+                            {isSuccess ? <FaCheck /> : 'Send'}
                         </button>
                     </form>
                 </div>

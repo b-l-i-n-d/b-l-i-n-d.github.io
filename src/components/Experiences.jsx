@@ -3,7 +3,7 @@ import MyOffer360 from '../assets/MyOffer360.jpg';
 
 function Experiences() {
     return (
-        <section id="expernences" className="mx-auto max-w-7xl px-4 py-5">
+        <section id="experiences" className="mx-auto max-w-7xl px-4 pt-10">
             <div className="flex flex-col items-center justify-center space-y-2 pt-10">
                 <h2 className="text-2xl font-bold">Experiences</h2>
                 <div className="h-1 w-20 rounded-full bg-primary" />

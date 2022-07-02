@@ -1,4 +1,5 @@
 import { FaArrowDown } from 'react-icons/fa';
+import CV from '../assets/cv.pdf';
 
 function Header() {
     return (
@@ -11,7 +12,13 @@ function Header() {
                         I am a full stack developer
                     </div>
                     <div className="space-x-3">
-                        <a href="#contact" type="button" className="btn btn-outline btn-primary">
+                        <a
+                            target="_blank"
+                            href={CV}
+                            type="button"
+                            className="btn btn-outline btn-primary"
+                            rel="noreferrer"
+                        >
                             Download CV
                         </a>
                         <a href="#contact" type="button" className="btn btn-primary">

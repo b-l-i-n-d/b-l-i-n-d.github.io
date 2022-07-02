@@ -18,7 +18,7 @@ function Footer() {
                 <a href="#education" className="link link-hover">
                     Education
                 </a>
-                <a href="#experineces" className="link link-hover">
+                <a href="#experiences" className="link link-hover">
                     Experinences
                 </a>
                 <a href="#projects" className="link link-hover">
