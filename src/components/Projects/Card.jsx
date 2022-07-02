@@ -5,7 +5,7 @@ import Modal from './Modal';
 function Card({ id, title, description, img, tags, links }) {
     const allTags = tags;
     const tagElements = allTags.map((tag) => (
-        <div key={tag.id} className="badge badge-sm badge-outline">
+        <div key={tag.id} className="badge badge-outline badge-sm">
             {tag.name}
         </div>
     ));
@@ -23,7 +23,7 @@ function Card({ id, title, description, img, tags, links }) {
                 <div className="card-actions mb-3 w-full justify-start">{tagElements}</div>
 
                 <h2 className="card-title">{title}</h2>
-                <p>{description}</p>
+                <p className="line-clamp-2">{description}</p>
 
                 <div className="card-actions mt-3 flex-1 justify-center">
                     <label htmlFor={id} className="modal-button btn btn-primary btn-sm gap-2">
@@ -36,6 +36,7 @@ function Card({ id, title, description, img, tags, links }) {
                         img={img}
                         title={title}
                         description={description}
+                        tags={tags}
                         links={links}
                     />
                 </div>

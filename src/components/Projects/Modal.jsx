@@ -1,12 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 
-function Modal({ id, title, description, img, links }) {
+function Modal({ id, title, description, tags, img, links }) {
+    const allTags = tags;
+    const tagElements = allTags.map((tag) => (
+        <div key={tag.id} className="badge badge-outline">
+            {tag.name}
+        </div>
+    ));
     return (
         <>
             <input type="checkbox" id={id} className="modal-toggle" />
             <div className="no-scrollbar modal modal-bottom">
-                <div className="modal-box w-7/12 max-w-5xl">
+                <div className="modal-box w-full max-w-5xl sm:w-11/12 md:w-9/12 lg:w-7/12 ">
                     <label htmlFor={id} className="btn btn-circle btn-sm absolute right-2 top-2">
                         ✕
                     </label>
@@ -17,9 +23,20 @@ function Modal({ id, title, description, img, links }) {
                             alt={title}
                         />
                     </figure>
-                    <h2 className="text-lg font-bold">{title}</h2>
-                    <p className="pb-5">{description}</p>
-                    <div className="flex justify-start space-x-3">
+                    <h2 className="space-x-2">
+                        <span className="italic">Project title:</span>
+                        <span className="font-bold md:text-lg">{title}</span>
+                    </h2>
+                    <div className="divider m-0" />
+                    <p className="space-x-2 pb-5">
+                        <span className="italic">Description:</span>
+                        <span>{description}</span>
+                    </p>
+                    <div className="space-x-2">
+                        <span>Tags: </span> {tagElements}
+                    </div>
+                    <div className="divider m-1" />
+                    <div className="flex justify-center space-x-3">
                         {links.github ? (
                             <a
                                 className="btn gap-2 shadow hover:shadow-primary/30"
