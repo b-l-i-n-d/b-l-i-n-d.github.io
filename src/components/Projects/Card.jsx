@@ -2,7 +2,7 @@
 import { FaArrowRight } from 'react-icons/fa';
 import Modal from './Modal';
 
-function Card({ id, title, description, img, tags, links }) {
+function Card({ id, title, description, img, carousel, tags, links }) {
     const allTags = tags;
     const tagElements = allTags.map((tag) => (
         <div key={tag.id} className="badge badge-outline badge-sm">
@@ -34,6 +34,7 @@ function Card({ id, title, description, img, tags, links }) {
                         key={id}
                         id={id}
                         img={img}
+                        carousel={carousel}
                         title={title}
                         description={description}
                         tags={tags}

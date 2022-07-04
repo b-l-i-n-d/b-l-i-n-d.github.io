@@ -44,6 +44,20 @@
         "title": "Quizzical",
         "description": "Quiz app with ReactJs",
         "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656417036/Screenshot_2022-06-28_175023_pnl8c9.png",
+        "carousel": [
+            {
+                "id": 1,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656417036/Screenshot_2022-06-28_175023_pnl8c9.png"
+            },
+            {
+                "id": 2,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656956900/Screenshot_2022-07-04_234756_rctlq9.png"
+            },
+            {
+                "id": 3,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656956901/Screenshot_2022-07-04_234738_m2btqg.png"
+            }
+        ],
         "tags": [
             {
                 "id": 1,
@@ -60,6 +74,24 @@
         "title": "Notes",
         "description": "Notes App using React",
         "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656417163/Screenshot_2022-06-28_175231_cgfm3y.png",
+        "carousel": [
+            {
+                "id": 1,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656417163/Screenshot_2022-06-28_175231_cgfm3y.png"
+            },
+            {
+                "id": 2,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656955660/Screenshot_2022-07-04_232522_kbt2qz.png"
+            },
+            {
+                "id": 3,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656955662/Screenshot_2022-07-04_232624_od9z72.png"
+            },
+            {
+                "id": 4,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656955664/Screenshot_2022-07-04_232557_fn4v57.png"
+            }
+        ],
         "tags": [
             {
                 "id": 1,

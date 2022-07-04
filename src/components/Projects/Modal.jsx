@@ -1,28 +1,87 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import { Autoplay, Navigation, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-function Modal({ id, title, description, tags, img, links }) {
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+function Modal({ id, title, description, tags, img, carousel, links }) {
     const allTags = tags;
     const tagElements = allTags.map((tag) => (
         <div key={tag.id} className="badge badge-outline">
             {tag.name}
         </div>
     ));
+
+    const swiper = carousel && (
+        <Swiper
+            className="mb-4"
+            modules={[Navigation, Pagination, Autoplay]}
+            slidesPerView={1}
+            loop
+            autoplay
+            navigation
+            pagination={{ clickable: true }}
+        >
+            {carousel.map((carouselItem) => (
+                <SwiperSlide className="rounded-2xl">
+                    <img
+                        key={carouselItem.id}
+                        src={carouselItem.img}
+                        alt={carouselItem.id}
+                        className="rounded-2xl border-b-2 border-base-300 shadow"
+                    />
+                </SwiperSlide>
+            ))}
+        </Swiper>
+    );
+    console.log(swiper);
+
     return (
         <>
             <input type="checkbox" id={id} className="modal-toggle" />
             <div className="no-scrollbar modal modal-bottom">
                 <div className="modal-box w-full max-w-5xl sm:w-11/12 md:w-9/12 lg:w-7/12 ">
-                    <label htmlFor={id} className="btn btn-circle btn-sm absolute right-2 top-2">
+                    <label
+                        htmlFor={id}
+                        className="btn btn-circle btn-sm absolute right-2 top-2 z-50"
+                    >
                         ✕
                     </label>
-                    <figure className="mb-4">
-                        <img
-                            className="rounded-2xl border-b-2 border-base-300 shadow"
-                            src={img}
-                            alt={title}
-                        />
-                    </figure>
+                    {!swiper ? (
+                        <figure className="mb-4">
+                            <img
+                                className="rounded-2xl border-b-2 border-base-300 shadow"
+                                src={img}
+                                alt={title}
+                            />
+                        </figure>
+                    ) : (
+                        swiper
+                    )}
+
+                    {/* <Swiper
+                        modules={[Navigation, Pagination, A11y, Autoplay]}
+                        slidesPerView={1}
+                        loop
+                        autoplay
+                        navigation
+                        pagination={{ clickable: true }}
+                    >
+                        <SwiperSlide>
+                            <img
+                                className="rounded-2xl border-b-2 border-base-300 shadow"
+                                src={img}
+                                alt={title}
+                            />
+                        </SwiperSlide>
+                        <SwiperSlide>Slide 2</SwiperSlide>
+                        <SwiperSlide>Slide 3</SwiperSlide>
+                        <SwiperSlide>Slide 4</SwiperSlide>
+                    </Swiper> */}
                     <h2 className="space-x-2">
                         <span className="italic">Project title:</span>
                         <span className="font-bold md:text-lg">{title}</span>

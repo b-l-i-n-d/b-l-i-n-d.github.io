@@ -1952,6 +1952,16 @@ html {
   color: hsl(var(--nc) / var(--tw-text-opacity));
 }
 
+.carousel {
+  display: flex;
+  overflow-x: scroll;
+  -ms-scroll-snap-type: x mandatory;
+      scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .checkbox {
   flex-shrink: 0;
   --chkbg: var(--bc);
@@ -2938,6 +2948,10 @@ html {
   font-size: 1.25rem;
   line-height: 1.75rem;
   font-weight: 600;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
 }
 
 .checkbox:focus-visible {
@@ -4045,10 +4059,6 @@ body[dir="rtl"] .checkbox:checked,
   border-style: solid;
 }
 
-.border-dotted {
-  border-style: dotted;
-}
-
 .border-primary {
   --tw-border-opacity: 1;
   border-color: hsl(var(--p) / var(--tw-border-opacity));
@@ -4081,11 +4091,6 @@ body[dir="rtl"] .checkbox:checked,
 .bg-base-200 {
   --tw-bg-opacity: 1;
   background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
-}
-
-.bg-slate-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-30 {
@@ -4448,17 +4453,8 @@ body[dir="rtl"] .checkbox:checked,
   border-bottom-width: 4px;
 }
 
-.hover\:border-solid:hover {
-  border-style: solid;
-}
-
 .hover\:border-dotted:hover {
   border-style: dotted;
-}
-
-.hover\:border-secondary:hover {
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--s) / var(--tw-border-opacity));
 }
 
 .hover\:border-primary:hover {
@@ -4490,10 +4486,6 @@ body[dir="rtl"] .checkbox:checked,
 .hover\:shadow-primary\/30:hover {
   --tw-shadow-color: hsl(var(--p) / 0.3);
   --tw-shadow: var(--tw-shadow-colored);
-}
-
-.active\:border-dotted:active {
-  border-style: dotted;
 }
 
 .group:hover .group-hover\:scale-105 {

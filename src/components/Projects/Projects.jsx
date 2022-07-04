@@ -9,6 +9,7 @@ function Projects() {
             title={project.title}
             description={project.description}
             img={project.img}
+            carousel={project.carousel}
             tags={project.tags}
             links={project.links}
         />
