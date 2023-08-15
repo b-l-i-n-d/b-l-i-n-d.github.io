@@ -270,7 +270,7 @@ function Navbar() {
                             target="_blank"
                             type="button"
                             className="btn btn-ghost btn-circle text-xl"
-                            href="https://www.linkedin.com/in/fahim-faisal-858887186/"
+                            href="https://www.linkedin.com/in/b-l-i-n-d/"
                             rel="noreferrer"
                         >
                             <BsLinkedin />

@@ -3814,6 +3814,10 @@ body[dir="rtl"] .checkbox:checked,
   height: 16rem;
 }
 
+.h-36 {
+  height: 9rem;
+}
+
 .w-full {
   width: 100%;
 }

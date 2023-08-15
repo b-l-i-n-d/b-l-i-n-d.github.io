@@ -56,7 +56,7 @@ function Footer() {
                     </a>
                     <a
                         target="_blank"
-                        href="mailto:fahim.faisal.abir@gmail.com"
+                        href="https://www.linkedin.com/in/b-l-i-n-d/"
                         type="button"
                         className="btn btn-ghost"
                         rel="noreferrer"
@@ -66,7 +66,7 @@ function Footer() {
                 </div>
             </div>
             <div>
-                <p>Copyright © 2022 - Made with ❤️ | Fahim Faisal</p>
+                <p>Copyright © 2023 - Made with ❤️ | Fahim Faisal</p>
             </div>
         </footer>
     );

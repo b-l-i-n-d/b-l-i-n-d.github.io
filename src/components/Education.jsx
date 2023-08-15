@@ -16,7 +16,7 @@ function Education() {
                     <div className="pl-8 pt-0 md:ml-auto md:w-1/2">
                         <div className="transform rounded-2xl rounded-tl-none bg-base-100  p-4 shadow-xl transition-all duration-300 hover:translate-x-2 hover:shadow-xl hover:shadow-primary/30 ">
                             <p className="absolute -top-9 text-xs font-medium tracking-widest text-primary sm:text-sm">
-                                2017 - Present
+                                2017 - 2022
                             </p>
                             <a
                                 href="https://www.sust.edu/"

@@ -1,6 +1,126 @@
 [
     {
         "id": 1,
+        "title": "EdTech",
+        "description": "E-learning platform",
+        "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692113266/learing-platform/screenshots/home_ntq2um.png",
+        "carousel": [
+            {
+                "id": 1,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692113266/learing-platform/screenshots/home_ntq2um.png"
+            },
+            {
+                "id": 2,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692113272/learing-platform/screenshots/course_vgsno1.png"
+            },
+            {
+                "id": 3,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692113265/learing-platform/screenshots/user-dashboard_adu4zh.png"
+            },
+            {
+                "id": 4,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692113267/learing-platform/screenshots/user-profile_g6hkfz.png"
+            },
+            {
+                "id": 5,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692113261/learing-platform/screenshots/admin-dashboard_pr7rsk.png"
+            },
+            {
+                "id": 6,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692113262/learing-platform/screenshots/user-leaderboard_lxydyq.png"
+            }
+        ],
+        "tags": [
+            {
+                "id": 1,
+                "name": "NextJs"
+            },
+            {
+                "id": 2,
+                "name": "Redux Toolkit"
+            },
+            {
+                "id": 3,
+                "name": "AntD"
+            },
+            {
+                "id": 4,
+                "name": "NodeJs"
+            },
+            {
+                "id": 5,
+                "name": "ExpressJs"
+            },
+            {
+                "id": 6,
+                "name": "MongoDB"
+            }
+        ],
+        "links": {
+            "github": "https://github.com/b-l-i-n-d/edTech",
+            "demo": "https://ed-tech-six.vercel.app"
+        }
+    },
+    {
+        "id": 2,
+        "title": "Docapp",
+        "description": "Doctor appointment app",
+        "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692121523/docapp/screenshots/signup_irixdz.png",
+        "carousel": [
+            {
+                "id": 1,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692121523/docapp/screenshots/signup_irixdz.png"
+            },
+            {
+                "id": 2,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692121525/docapp/screenshots/book-appointment_zzluzx.png"
+            },
+            {
+                "id": 3,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692121525/docapp/screenshots/admin-dashboard_gbiuyg.png"
+            },
+            {
+                "id": 4,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692121523/docapp/screenshots/booking-details_twaxuc.png"
+            },
+            {
+                "id": 5,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692121519/docapp/screenshots/admin-users_ozyjjw.png"
+            },
+            {
+                "id": 6,
+                "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1692121523/docapp/screenshots/patient-appointments_tnxxij.png"
+            }
+        ],
+        "tags": [
+            {
+                "id": 1,
+                "name": "React"
+            },
+            {
+                "id": 2,
+                "name": "Redux"
+            },
+            {
+                "id": 3,
+                "name": "NodeJs"
+            },
+            {
+                "id": 4,
+                "name": "ExpressJs"
+            },
+            {
+                "id": 5,
+                "name": "MongoDB"
+            }
+        ],
+        "links": {
+            "github": "https://github.com/b-l-i-n-d/docapp",
+            "demo": ""
+        }
+    },
+    {
+        "id": 3,
         "title": "CMS Theme",
         "description": "Blog sections for CMS",
         "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656417585/Screenshot_2022-06-28_175929_w6xobm.png",
@@ -20,27 +140,7 @@
         }
     },
     {
-        "id": 2,
-        "title": "CMS Theme 2",
-        "description": "Cosporate CMS theme",
-        "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656416762/Screenshot_2022-06-28_174541_dufhks.png",
-        "tags": [
-            {
-                "id": 1,
-                "name": "Bootstrap 5"
-            },
-            {
-                "id": 2,
-                "name": "Javascript"
-            }
-        ],
-        "links": {
-            "github": "",
-            "demo": ""
-        }
-    },
-    {
-        "id": 3,
+        "id": 5,
         "title": "Quizzical",
         "description": "Quiz app with ReactJs",
         "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656417036/Screenshot_2022-06-28_175023_pnl8c9.png",
@@ -70,7 +170,7 @@
         }
     },
     {
-        "id": 4,
+        "id": 6,
         "title": "Notes",
         "description": "Notes App using React",
         "img": "https://res.cloudinary.com/b-l-i-n-d/image/upload/v1656417163/Screenshot_2022-06-28_175231_cgfm3y.png",

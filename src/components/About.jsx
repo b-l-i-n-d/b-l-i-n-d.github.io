@@ -80,11 +80,7 @@ function About() {
                         <h2 className="font-title text-4xl font-bold text-primary">
                             Known Technology
                         </h2>
-                        <div className="text-6xl font-bold">12</div>
-                    </div>
-                    <div className="space-y-3 text-center sm:text-right">
-                        <h2 className="font-title text-4xl font-bold text-primary">Project Done</h2>
-                        <div className="text-6xl font-bold">25+</div>
+                        <div className="text-6xl font-bold">14</div>
                     </div>
                 </div>
             </div>

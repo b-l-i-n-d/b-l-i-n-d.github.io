@@ -1,5 +1,13 @@
 import { FaBootstrap, FaCss3Alt, FaGitAlt, FaHtml5, FaJs, FaNode, FaReact } from 'react-icons/fa';
-import { SiExpress, SiJquery, SiMongodb, SiRedux, SiTailwindcss } from 'react-icons/si';
+import {
+    SiAntdesign,
+    SiExpress,
+    SiJquery,
+    SiMongodb,
+    SiNextdotjs,
+    SiRedux,
+    SiTailwindcss,
+} from 'react-icons/si';
 
 function Skills() {
     return (
@@ -71,6 +79,22 @@ function Skills() {
                     </div>
                     <div className="card-body items-center text-center">
                         <h2 className="card-title">Redux</h2>
+                    </div>
+                </div>
+                <div className="card flex flex-col items-center rounded-3xl border-b-8 border-transparent bg-base-100 shadow-xl transition duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-primary/30">
+                    <div className="px-10 pt-10 text-blue-500">
+                        <SiAntdesign size={96} />
+                    </div>
+                    <div className="card-body items-center text-center">
+                        <h2 className="card-title">Ant Design</h2>
+                    </div>
+                </div>
+                <div className="card flex flex-col items-center rounded-3xl border-b-8 border-transparent bg-base-100 shadow-xl transition duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-primary/30">
+                    <div className="px-10 pt-10 text-base-content">
+                        <SiNextdotjs size={96} />
+                    </div>
+                    <div className="card-body items-center text-center">
+                        <h2 className="card-title">NextJs</h2>
                     </div>
                 </div>
                 <div className="card flex flex-col items-center rounded-3xl border-b-8 border-transparent bg-base-100 shadow-xl transition duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-primary/30">
