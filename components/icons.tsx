@@ -1,4 +1,7 @@
+"use client";
+
 import { IconSvgProps } from "@/types";
+import { motion } from "framer-motion";
 import * as React from "react";
 
 export const Logo: React.FC<IconSvgProps> = ({
@@ -7,19 +10,38 @@ export const Logo: React.FC<IconSvgProps> = ({
     height,
     ...props
 }) => (
-    <svg
+    <motion.svg
         height={size || height}
         viewBox="0 0 24 24"
         width={size || width}
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="1"
         strokeLinecap="round"
         strokeLinejoin="round"
-        {...props}
     >
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-    </svg>
+        <motion.polygon
+            variants={{
+                hidden: {
+                    opacity: 0,
+                    pathLength: 0,
+                    fill: "rgba(255, 255, 255, 0)",
+                },
+                visible: {
+                    opacity: 1,
+                    pathLength: 1,
+                    fill: "rgba(252, 211, 77, 1)",
+                },
+            }}
+            initial="hidden"
+            animate="visible"
+            transition={{
+                default: { duration: 2, ease: "easeInOut" },
+                fill: { duration: 2, ease: [1, 0, 0.8, 1] },
+            }}
+            points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+        />
+    </motion.svg>
 );
 
 export const DownloadIcon: React.FC<IconSvgProps> = ({

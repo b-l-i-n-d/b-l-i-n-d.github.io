@@ -59,10 +59,8 @@ export const siteConfig = {
     links: {
         github: "https://github.com/b-l-i-n-d",
         twitter: "https://twitter.com/fahimfaisalffa",
-        docs: "https://nextui.org",
         mail: "mailto:fahim.faisal.abir@gmail.com",
         linkedin: "https://www.linkedin.com/in/b-l-i-n-d/",
-        sponsor: "https://patreon.com/jrgarciadev",
         facebook: "https://www.facebook.com/abir.fahim.faisal/",
         cv: "./assets/cv.pdf",
     },

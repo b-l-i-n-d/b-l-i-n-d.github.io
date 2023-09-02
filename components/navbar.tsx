@@ -10,6 +10,7 @@ import {
     NavbarMenuToggle,
     Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
+import { Tooltip } from "@nextui-org/tooltip";
 
 import { link as linkStyles } from "@nextui-org/theme";
 
@@ -56,7 +57,7 @@ export const Navbar = () => {
     }, []);
 
     return (
-        <NextUINavbar maxWidth="xl" position="sticky">
+        <NextUINavbar maxWidth="xl" position="sticky" className="fixed">
             <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
                 <NavbarBrand as="li" className="gap-3 max-w-fit">
                     <NextLink
@@ -67,8 +68,8 @@ export const Navbar = () => {
                     </NextLink>
                 </NavbarBrand>
                 <ul className="hidden sm:flex gap-4 justify-start ml-2">
-                    {siteConfig.navItems.map((item) => (
-                        <NavbarItem key={item.href}>
+                    {siteConfig.navItems.map((item, index) => (
+                        <NavbarItem key={item.href + index}>
                             <NextLink
                                 data-active={
                                     activeSection === item.label.toLowerCase()
@@ -92,41 +93,51 @@ export const Navbar = () => {
                 justify="end"
             >
                 <NavbarItem className="hidden sm:flex gap-4">
-                    <Link
-                        isExternal
-                        href={siteConfig.links.facebook}
-                        aria-label="Facebook"
-                    >
-                        <FacebookIcon className="text-default-500" />
-                    </Link>
-                    <Link
-                        isExternal
-                        href={siteConfig.links.twitter}
-                        aria-label="Twitter"
-                    >
-                        <TwitterIcon className="text-default-500" />
-                    </Link>
-                    <Link
-                        isExternal
-                        href={siteConfig.links.mail}
-                        aria-label="Discord"
-                    >
-                        <EmailIcon className="text-default-500" />
-                    </Link>
-                    <Link
-                        isExternal
-                        href={siteConfig.links.github}
-                        aria-label="Github"
-                    >
-                        <GithubIcon className="text-default-500" />
-                    </Link>
-                    <Link
-                        isExternal
-                        href={siteConfig.links.linkedin}
-                        aria-label="Linkedin"
-                    >
-                        <LinkedinIcon className="text-default-500" />
-                    </Link>
+                    <Tooltip content="Facebook" placement="bottom">
+                        <Link
+                            isExternal
+                            href={siteConfig.links.facebook}
+                            aria-label="Facebook"
+                        >
+                            <FacebookIcon className="text-default-500" />
+                        </Link>
+                    </Tooltip>
+                    <Tooltip content="Twitter" placement="bottom">
+                        <Link
+                            isExternal
+                            href={siteConfig.links.twitter}
+                            aria-label="Twitter"
+                        >
+                            <TwitterIcon className="text-default-500" />
+                        </Link>
+                    </Tooltip>
+                    <Tooltip content="Email" placement="bottom">
+                        <Link
+                            isExternal
+                            href={siteConfig.links.mail}
+                            aria-label="Email"
+                        >
+                            <EmailIcon className="text-default-500" />
+                        </Link>
+                    </Tooltip>
+                    <Tooltip content="Github" placement="bottom">
+                        <Link
+                            isExternal
+                            href={siteConfig.links.github}
+                            aria-label="Github"
+                        >
+                            <GithubIcon className="text-default-500" />
+                        </Link>
+                    </Tooltip>
+                    <Tooltip content="LinkedIn" placement="bottom">
+                        <Link
+                            isExternal
+                            href={siteConfig.links.linkedin}
+                            aria-label="Linkedin"
+                        >
+                            <LinkedinIcon className="text-default-500" />
+                        </Link>
+                    </Tooltip>
                     <ThemeSwitch />
                 </NavbarItem>
             </NavbarContent>

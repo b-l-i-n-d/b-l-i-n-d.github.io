@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         { media: "(prefers-color-scheme: dark)", color: "black" },
     ],
     icons: {
-        icon: "/zap.svg",
+        icon: "/zap.ico",
         shortcut: "/favicon-16x16.png",
         apple: "/apple-touch-icon.png",
     },
@@ -50,13 +50,13 @@ export default function RootLayout({
                             <Link
                                 isExternal
                                 className="flex items-center gap-1 text-current"
-                                href="https://nextui-docs-v2.vercel.app?utm_source=next-app-template"
-                                title="nextui.org homepage"
+                                href="https://github.com/b-l-i-n-d"
+                                title="Github Profile"
                             >
                                 <span className="text-default-600">
-                                    Powered by
+                                    Made with ❤️ |{" "}
                                 </span>
-                                <p className="text-primary">NextUI</p>
+                                <p className="text-primary">Fahim Faisal</p>
                             </Link>
                         </footer>
                     </div>
