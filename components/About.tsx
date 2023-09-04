@@ -29,7 +29,7 @@ const About: React.FC = async () => {
                             <h2 className="font-title font-bold">About me</h2>
                             <div className="h-1 w-20 rounded-full bg-primary" />
                         </div>
-                        <p className="text-justify">{about.about}</p>
+                        <p className="text-justify">{about.description}</p>
                         <div className="divider" />
                     </div>
                     <div className="flex flex-col items-center justify-center space-y-3 sm:items-start sm:justify-start">
@@ -89,7 +89,7 @@ const About: React.FC = async () => {
                 </div>
                 <div className="order-1 flex flex-col w-full items-center justify-center pb-10 lg:order-none lg:w-2/4 lg:pb-0">
                     <Image
-                        className="h-[38rem] w-96 rounded-full object-cover outline-dashed outline-2 outline-offset-[16px] outline-primary"
+                        className="h-[30rem] md:h-[38rem] w-96 rounded-full object-cover outline-dashed outline-2 outline-offset-[16px] outline-primary"
                         src="https://github.com/b-l-i-n-d/b-l-i-n-d.github.io/blob/react/src/assets/avatar.jpg?raw=true"
                         alt="Profile Picture"
                     />
@@ -100,16 +100,16 @@ const About: React.FC = async () => {
                         variant="solid"
                         color="primary"
                     >
-                        {about.aboutImageCaption}
+                        {about.imageCaption}
                     </Snippet>
                 </div>
-                <div className="order-3 grid w-full grid-rows-3 pt-5 sm:w-1/2 sm:pl-10 md:pt-0 lg:order-none lg:w-1/4">
+                <div className="order-3 grid w-full grid-rows-3 pt-5 sm:w-1/2 md:pt-0 lg:order-none lg:w-1/4">
                     <div className="space-y-3 text-center sm:text-right">
                         <h2 className={title({ color: "violet", size: "md" })}>
                             Years of experiences
                         </h2>
                         <div className="text-6xl font-bold">
-                            {about.experiencesYear}
+                            {about.yearsOfExperience}
                         </div>
                     </div>
                     <div className="space-y-3 text-center sm:text-right">

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@nextui-org/button": "^2.0.13",
+    "@nextui-org/card": "^2.0.16",
     "@nextui-org/code": "^2.0.11",
     "@nextui-org/image": "^2.0.15",
     "@nextui-org/input": "^2.1.1",
@@ -19,6 +20,7 @@
     "@nextui-org/snippet": "^2.0.16",
     "@nextui-org/switch": "^2.0.13",
     "@nextui-org/system": "^2.0.5",
+    "@nextui-org/tabs": "^2.0.16",
     "@nextui-org/theme": "^2.1.1",
     "@nextui-org/tooltip": "^2.0.18",
     "@react-aria/ssr": "^3.7.1",
@@ -30,6 +32,7 @@
     "clsx": "^2.0.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
+    "fast-average-color": "^9.4.0",
     "framer-motion": "^10.16.1",
     "intl-messageformat": "^10.5.0",
     "next": "13.4.19",

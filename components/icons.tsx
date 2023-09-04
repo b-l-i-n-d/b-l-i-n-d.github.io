@@ -320,7 +320,12 @@ export const HeartFilledIcon = ({
     </svg>
 );
 
-export const SearchIcon = (props: IconSvgProps) => (
+export const SearchIcon = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}: IconSvgProps) => (
     <svg
         aria-hidden="true"
         fill="none"
@@ -345,6 +350,74 @@ export const SearchIcon = (props: IconSvgProps) => (
             strokeLinejoin="round"
             strokeWidth="2"
         />
+    </svg>
+);
+
+export const ClientIcon = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}: IconSvgProps) => (
+    <svg
+        height={size || height}
+        viewBox="0 0 24 24"
+        width={size || width}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+    >
+        <rect width="20" height="14" x="2" y="3" rx="2" />
+        <line x1="8" x2="16" y1="21" y2="21" />
+        <line x1="12" x2="12" y1="17" y2="21" />
+    </svg>
+);
+
+export const BackendIcon = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}: IconSvgProps) => (
+    <svg
+        height={size || height}
+        viewBox="0 0 24 24"
+        width={size || width}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+    >
+        <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
+        <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
+        <line x1="6" x2="6.01" y1="6" y2="6" />
+        <line x1="6" x2="6.01" y1="18" y2="18" />
+    </svg>
+);
+
+export const ToolsIcon = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}: IconSvgProps) => (
+    <svg
+        height={size || height}
+        viewBox="0 0 24 24"
+        width={size || width}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+    >
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
     </svg>
 );
 
