@@ -16,6 +16,7 @@ export interface ISkill {
     name: string;
     image: string;
     category: string;
+    invert?: boolean;
 }
 
 export interface IProject {
@@ -30,16 +31,18 @@ export interface IProject {
     };
 }
 
-interface IExperience {
+export interface IExperience {
+    logo: string;
     position: string;
     company: string;
     website?: string;
-    description: string[];
+    desc: string[];
     startDate: string;
     endDate?: string;
 }
 
-interface IEducation {
+export interface IEducation {
+    logo: string;
     institute: string;
     website?: string;
     degree: string;
@@ -52,11 +55,11 @@ interface IEducation {
     endDate?: string;
 }
 
-interface IData {
+export interface IData {
     about: IAbout;
     user: IUser;
     skills: ISkill[];
     projects: IProject[];
-    experience: IExperience[];
-    education: IEducation[];
+    experiences: IExperience[];
+    educations: IEducation[];
 }

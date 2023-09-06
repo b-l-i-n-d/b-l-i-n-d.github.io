@@ -1,3 +1,5 @@
+import { IData } from "@/interfaces";
+
 export const getData = async (): Promise<IData> => {
     const dbUrl = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL;
     const res = await fetch(`${dbUrl}/.json`, {

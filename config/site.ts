@@ -7,23 +7,19 @@ export const siteConfig = {
     navItems: [
         {
             label: "Home",
-            href: "/",
+            href: "#home",
         },
         {
             label: "About",
-            href: "/docs",
+            href: "#about",
         },
         {
             label: "Skills",
-            href: "/pricing",
+            href: "#skills",
         },
         {
             label: "Experience",
-            href: "/blog",
-        },
-        {
-            label: "Education",
-            href: "/about",
+            href: "#experience",
         },
         {
             label: "Projects",
@@ -33,23 +29,19 @@ export const siteConfig = {
     navMenuItems: [
         {
             label: "Home",
-            href: "/",
+            href: "#home",
         },
         {
             label: "About",
-            href: "/docs",
+            href: "#about",
         },
         {
             label: "Skills",
-            href: "/pricing",
+            href: "#skills",
         },
         {
             label: "Experience",
-            href: "/blog",
-        },
-        {
-            label: "Education",
-            href: "/about",
+            href: "#experience",
         },
         {
             label: "Projects",

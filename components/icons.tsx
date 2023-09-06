@@ -421,6 +421,73 @@ export const ToolsIcon = ({
     </svg>
 );
 
+export const WorkIcon = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}: IconSvgProps) => (
+    <svg
+        height={size || height}
+        viewBox="0 0 24 24"
+        width={size || width}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+    >
+        <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+    </svg>
+);
+
+export const SchoolIcon = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}: IconSvgProps) => (
+    <svg
+        height={size || height}
+        viewBox="0 0 24 24"
+        width={size || width}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+    >
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+    </svg>
+);
+
+export const ExternalLinkIcon = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}: IconSvgProps) => (
+    <svg
+        height={size || height}
+        viewBox="0 0 24 24"
+        width={size || width}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+    >
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+        <polyline points="15 3 21 3 21 9" />
+        <line x1="10" x2="21" y1="14" y2="3" />
+    </svg>
+);
+
 export const NextUILogo: React.FC<IconSvgProps> = (props) => {
     const { width, height = 40 } = props;
 

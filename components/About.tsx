@@ -2,10 +2,9 @@ import { getData } from "@/app/api/api";
 import { siteConfig } from "@/config/site";
 
 import { Image } from "@nextui-org/image";
-import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
-import { Tooltip } from "@nextui-org/tooltip";
 import { Snippet } from "@nextui-org/snippet";
+import { Tooltip } from "@nextui-org/tooltip";
 
 import React from "react";
 import {
@@ -21,7 +20,7 @@ import { title } from "./primitives";
 const About: React.FC = async () => {
     const { about } = await getData();
     return (
-        <section id="about" className="mx-auto max-w-7xl px-4 pt-20 font-body">
+        <section id="about" className="mx-auto container px-4 pt-20 font-body">
             <div className="flex flex-wrap lg:flex-row">
                 <div className="order-2 flex w-full flex-col gap-5 sm:w-1/2 lg:order-none lg:w-1/4">
                     <div className="flex flex-col items-center justify-center space-y-3 sm:items-start sm:justify-start">

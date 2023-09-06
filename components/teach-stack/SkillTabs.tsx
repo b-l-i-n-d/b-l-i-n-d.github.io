@@ -2,10 +2,10 @@
 
 import { ISkill } from "../../interfaces";
 import { BackendIcon, ClientIcon, ToolsIcon } from "../icons";
+import SkillCards from "./SkillCards";
 
 import { Tab, Tabs } from "@nextui-org/tabs";
 import React from "react";
-import SkillCards from "./SkillCards";
 
 interface Props {
     skills: ISkill[];
@@ -19,7 +19,7 @@ const tabIcons: {
     tools: <ToolsIcon />,
 };
 
-const TabItems: React.FC<Props> = ({ skills }) => {
+const SkillTabs: React.FC<Props> = ({ skills }) => {
     const skillCategories = skills.reduce((acc, skill) => {
         if (!acc.includes(skill.category)) {
             acc.push(skill.category);
@@ -46,7 +46,7 @@ const TabItems: React.FC<Props> = ({ skills }) => {
                             </div>
                         }
                     >
-                        <div className="my-8 mx-auto md:px-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 place-items-center gap-4 flex-wrap grid-flow-row-dense">
+                        <div className="my-8 md:px-12 flex flex-wrap gap-4 justify-center items-center">
                             {skills
                                 .filter((skill) => skill.category === category)
                                 .map((skill) => (
@@ -60,4 +60,4 @@ const TabItems: React.FC<Props> = ({ skills }) => {
     );
 };
 
-export default TabItems;
+export default SkillTabs;

@@ -1,17 +1,14 @@
 "use client";
 
+import { ISkill } from "@/interfaces";
 import { Card, CardBody, CardFooter } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 import { FastAverageColor } from "fast-average-color";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
+import NextImage from "next/image";
 
-interface Props {
-    name: string;
-    image: string;
-}
-
-const SkillCards: React.FC<Props> = ({ name, image }) => {
+const SkillCards: React.FC<ISkill> = ({ name, image, invert }) => {
     const { theme } = useTheme();
 
     const [bgColor, setBgColor] = useState("");
@@ -40,20 +37,15 @@ const SkillCards: React.FC<Props> = ({ name, image }) => {
                     style={{
                         backgroundColor: bgColor,
                     }}
-                    className={`h-20 w-20 md:h-32 md:w-32 rounded-full bg-gray-100 dark:bg-grey-800 flex items-center justify-center`}
+                    className={`h-20 w-20 sm:h-24 sm:w-24 md:h-32 md:w-32 rounded-full bg-gray-100 dark:bg-grey-800 flex items-center justify-center`}
                 >
                     <Image
+                        as={NextImage}
                         alt={name}
                         width={100}
                         height={100}
                         className={`h-12 w-12 md:h-[4.5rem] md:w-[4.5rem] object-contain ${
-                            theme === "dark" &&
-                            (name === "GitHub" ||
-                            name === "Vercel" ||
-                            name === "Next JS" ||
-                            name === "Express JS"
-                                ? "invert"
-                                : "invert-0")
+                            theme === "dark" && invert && "invert"
                         }`}
                         src={image}
                     />
