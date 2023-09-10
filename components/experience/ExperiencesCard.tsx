@@ -76,6 +76,8 @@ const ExperiencesCard: React.FC<Props> = ({
                                     <Link
                                         href={website}
                                         isExternal
+                                        showAnchorIcon
+                                        underline="hover"
                                         color="foreground"
                                         className="font-medium text-lg md:text-xl"
                                     >

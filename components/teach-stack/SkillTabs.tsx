@@ -2,7 +2,7 @@
 
 import { ISkill } from "../../interfaces";
 import { BackendIcon, ClientIcon, ToolsIcon } from "../icons";
-import SkillCards from "./SkillCards";
+import SkillCard from "./SkillCard";
 
 import { Tab, Tabs } from "@nextui-org/tabs";
 import React from "react";
@@ -50,7 +50,7 @@ const SkillTabs: React.FC<Props> = ({ skills }) => {
                             {skills
                                 .filter((skill) => skill.category === category)
                                 .map((skill) => (
-                                    <SkillCards key={skill.name} {...skill} />
+                                    <SkillCard key={skill.name} {...skill} />
                                 ))}
                         </div>
                     </Tab>

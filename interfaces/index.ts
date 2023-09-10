@@ -32,7 +32,7 @@ export interface IProject {
 }
 
 export interface IExperience {
-    logo: string;
+    logo?: string;
     position: string;
     company: string;
     website?: string;
@@ -42,7 +42,7 @@ export interface IExperience {
 }
 
 export interface IEducation {
-    logo: string;
+    logo?: string;
     institute: string;
     website?: string;
     degree: string;
