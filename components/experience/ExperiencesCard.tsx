@@ -16,6 +16,7 @@ const ExperiencesCard: React.FC<Props> = ({
     logo,
     company,
     position,
+    department,
     website,
     desc,
     startDate,
@@ -94,6 +95,7 @@ const ExperiencesCard: React.FC<Props> = ({
                     <CardBody className="text-default-500">
                         <p className="text-sm font-medium">
                             {position || degree} |{" "}
+                            {department && `${department} | `}
                             {new Date(startDate).getFullYear()} -{" "}
                             {endDate
                                 ? new Date(endDate).getFullYear()

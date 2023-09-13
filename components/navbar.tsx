@@ -16,7 +16,6 @@ import { link as linkStyles } from "@nextui-org/theme";
 
 import { siteConfig } from "@/config/site";
 import clsx from "clsx";
-import NextLink from "next/link";
 
 import {
     EmailIcon,
@@ -68,17 +67,18 @@ export const Navbar = () => {
         <NextUINavbar maxWidth="xl" position="sticky" className="fixed">
             <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
                 <NavbarBrand as="li" className="gap-3 max-w-fit">
-                    <NextLink
+                    <Link
                         className="flex justify-start items-center gap-1"
                         href="/"
                     >
                         <Logo />
-                    </NextLink>
+                    </Link>
                 </NavbarBrand>
                 <ul className="hidden sm:flex gap-4 justify-start ml-2">
                     {siteConfig.navItems.map((item, index) => (
                         <NavbarItem key={item.href + index}>
-                            <NextLink
+                            <Link
+                                underline="hover"
                                 data-active={
                                     activeSection === item.label.toLowerCase()
                                 }
@@ -90,7 +90,7 @@ export const Navbar = () => {
                                 href={item.href}
                             >
                                 {item.label}
-                            </NextLink>
+                            </Link>
                         </NavbarItem>
                     ))}
                 </ul>
@@ -284,7 +284,7 @@ export const Navbar = () => {
                 <div className="mx-4 mt-2 flex flex-col gap-2">
                     {siteConfig.navMenuItems.map((item, index) => (
                         <NavbarMenuItem key={`${item}-${index}`}>
-                            <NextLink
+                            <Link
                                 data-active={
                                     activeSection === item.label.toLowerCase()
                                 }
@@ -296,7 +296,7 @@ export const Navbar = () => {
                                 href={item.href}
                             >
                                 {item.label}
-                            </NextLink>
+                            </Link>
                         </NavbarMenuItem>
                     ))}
                 </div>
