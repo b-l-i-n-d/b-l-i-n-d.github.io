@@ -25,6 +25,10 @@ export const siteConfig = {
             label: "Projects",
             href: "#projects",
         },
+        {
+            label: "Contact",
+            href: "#contact",
+        },
     ],
     navMenuItems: [
         {
@@ -47,6 +51,10 @@ export const siteConfig = {
             label: "Projects",
             href: "#projects",
         },
+        {
+            label: "Contact",
+            href: "#contact",
+        },
     ],
     links: {
         github: "https://github.com/b-l-i-n-d",
@@ -55,5 +63,7 @@ export const siteConfig = {
         linkedin: "https://www.linkedin.com/in/b-l-i-n-d/",
         facebook: "https://www.facebook.com/abir.fahim.faisal/",
         cv: "./assets/cv.pdf",
+        location: "Bangladesh",
+        mapPin: "https://goo.gl/maps/DbUNvX2C7X9ZJrKC7",
     },
 };

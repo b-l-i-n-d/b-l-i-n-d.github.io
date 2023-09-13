@@ -1,11 +1,13 @@
-import "@/styles/globals.css";
-import { Metadata } from "next";
-import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
-import { Providers } from "./providers";
 import { Navbar } from "@/components/navbar";
+import { fontSans } from "@/config/fonts";
+import { siteConfig } from "@/config/site";
+import "@/styles/globals.css";
 import { Link } from "@nextui-org/link";
 import clsx from "clsx";
+import { Metadata } from "next";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
     title: {
@@ -60,6 +62,7 @@ export default function RootLayout({
                             </Link>
                         </footer>
                     </div>
+                    <ToastContainer />
                 </Providers>
             </body>
         </html>

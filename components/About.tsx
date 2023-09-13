@@ -16,11 +16,15 @@ import {
 } from "./icons";
 
 import { title } from "./primitives";
+import AnimationWrapper from "./AnimationWrapper";
 
 const About: React.FC = async () => {
     const { about } = await getData();
     return (
-        <section id="about" className="mx-auto container px-4 pt-20 font-body">
+        <AnimationWrapper
+            id="about"
+            className="mx-auto container px-4 pt-20 font-body"
+        >
             <div className="flex flex-wrap lg:flex-row">
                 <div className="order-2 flex w-full flex-col gap-5 sm:w-1/2 lg:order-none lg:w-1/4">
                     <div className="flex flex-col items-center justify-center space-y-3 sm:items-start sm:justify-start">
@@ -119,7 +123,7 @@ const About: React.FC = async () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </AnimationWrapper>
     );
 };
 

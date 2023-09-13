@@ -1,11 +1,12 @@
 import { getData } from "@/app/api/api";
+import AnimationWrapper from "../AnimationWrapper";
 import ProjectCard from "./ProjectCard";
 
 const Project = async () => {
     const { projects } = await getData();
 
     return (
-        <section id="projects" className="mx-auto container pt-10">
+        <AnimationWrapper id="projects" className="mx-auto container pt-10">
             <div className="flex flex-col items-center justify-center space-y-2 pt-10">
                 <h2 className="text-2xl font-bold">Projects</h2>
                 <div className="h-1 w-20 rounded-full bg-primary" />
@@ -17,7 +18,7 @@ const Project = async () => {
                     <ProjectCard key={project.title} {...project} />
                 ))}
             </div>
-        </section>
+        </AnimationWrapper>
     );
 };
 
