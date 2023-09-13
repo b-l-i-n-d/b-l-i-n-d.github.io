@@ -49,7 +49,7 @@ const Hero = async () => {
                         Download CV
                     </Button>
                 </Link>
-                <Link isExternal as={NextLink} href={siteConfig.links.github}>
+                <Link href="#contact">
                     <Button variant="bordered" radius="full">
                         <SendIcon size={20} />
                         Get in touch

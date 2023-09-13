@@ -1,8 +1,8 @@
+import Footer from "@/components/Footer";
 import { Navbar } from "@/components/navbar";
 import { fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
-import { Link } from "@nextui-org/link";
 import clsx from "clsx";
 import { Metadata } from "next";
 import { ToastContainer } from "react-toastify";
@@ -48,19 +48,7 @@ export default function RootLayout({
                         <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
                             {children}
                         </main>
-                        <footer className="w-full flex items-center justify-center py-3">
-                            <Link
-                                isExternal
-                                className="flex items-center gap-1 text-current"
-                                href="https://github.com/b-l-i-n-d"
-                                title="Github Profile"
-                            >
-                                <span className="text-default-600">
-                                    Made with ❤️ |{" "}
-                                </span>
-                                <p className="text-primary">Fahim Faisal</p>
-                            </Link>
-                        </footer>
+                        <Footer />
                     </div>
                     <ToastContainer />
                 </Providers>
