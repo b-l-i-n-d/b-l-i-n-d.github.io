@@ -2,7 +2,7 @@
 
 ## _Using Nextjs_
 
-I have completed my graduation [Shahjalal University of Science and Technology](https://www.sust.edu/). I am curretly exploring technologies but I love to work with Javascript. And I always believed I need to do what I love the most. I am hoping for the best, thats all for now.
+I graduated from [Shahjalal University of Science and Technology](https://www.sust.edu/). I am currently exploring technologies but I love to work with Javascript. And I always believed I needed to do what I love the most. I am hoping for the best, that's all for now.
 
 <br>
 
