@@ -1,4 +1,4 @@
-import { getData } from "@/app/api/api";
+import { getData } from "@/actions/get-data";
 import Typewriter from "@/components/Typewriter";
 import { DownloadIcon, MouseIcon, SendIcon } from "@/components/icons";
 import { highlight, subtitle, title } from "@/components/primitives";

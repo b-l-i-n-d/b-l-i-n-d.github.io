@@ -1,4 +1,4 @@
-import { getData } from "@/app/api/api";
+import { getData } from "@/actions/get-data";
 import AnimationWrapper from "../AnimationWrapper";
 import ProjectCard from "./ProjectCard";
 

@@ -1,4 +1,4 @@
-import { getData } from "@/app/api/api";
+import { getData } from "@/actions/get-data";
 import { siteConfig } from "@/config/site";
 
 import { Image } from "@nextui-org/image";
@@ -15,8 +15,8 @@ import {
     TwitterIcon,
 } from "./icons";
 
-import { title } from "./primitives";
 import AnimationWrapper from "./AnimationWrapper";
+import { title } from "./primitives";
 
 const About: React.FC = async () => {
     const { about } = await getData();

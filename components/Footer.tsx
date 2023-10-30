@@ -1,4 +1,3 @@
-import { getData } from "@/app/api/api";
 import { siteConfig } from "@/config/site";
 import { Link } from "@nextui-org/link";
 import { Tooltip } from "@nextui-org/tooltip";

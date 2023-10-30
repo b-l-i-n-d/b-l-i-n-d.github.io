@@ -5,6 +5,8 @@ import Hero from "@/components/Hero";
 import Project from "@/components/projects/Project";
 import Skills from "@/components/teach-stack/Skills";
 
+export const revalidate = 0;
+
 export default function Home() {
     return (
         <>

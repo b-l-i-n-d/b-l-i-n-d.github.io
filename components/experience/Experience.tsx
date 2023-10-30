@@ -1,6 +1,6 @@
-import { getData } from "@/app/api/api";
-import ExperienceTabs from "./ExperienceTabs";
+import { getData } from "@/actions/get-data";
 import AnimationWrapper from "../AnimationWrapper";
+import ExperienceTabs from "./ExperienceTabs";
 
 const Experience = async () => {
     const { experiences, educations } = await getData();

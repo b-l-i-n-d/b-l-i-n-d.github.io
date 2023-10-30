@@ -1,4 +1,4 @@
-import { getData } from "@/app/api/api";
+import { getData } from "@/actions/get-data";
 
 import React from "react";
 import AnimationWrapper from "../AnimationWrapper";
