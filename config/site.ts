@@ -3,23 +3,27 @@ export type SiteConfig = typeof siteConfig;
 export const siteConfig = {
     name: "Fahim Faisal | Software Engineer",
     description:
-        "Cinematic portfolio of Fahim Faisal, Full Stack & Frontend Software Engineer. Featuring Next.js App Router, TypeScript, high-performance distributed systems, and locked 60 FPS motion engineering.",
+        "Cinematic portfolio of Fahim Faisal, Full Stack & Frontend Software Engineer at Ollyo. Core engineer on Tutor LMS 3.0–4.0 and EasyStore by JoomShaper. High-performance React, TypeScript, and locked 60 FPS motion engineering.",
     navItems: [
         {
             label: "Showreel",
             href: "#hero",
         },
         {
+            label: "Experience",
+            href: "#experience",
+        },
+        {
+            label: "Tutor LMS",
+            href: "#tutor-lms",
+        },
+        {
+            label: "EasyStore",
+            href: "#easystore",
+        },
+        {
             label: "E-Commerce",
             href: "#ecommerce",
-        },
-        {
-            label: "EdTech",
-            href: "#edtech",
-        },
-        {
-            label: "DocApp",
-            href: "#docapp",
         },
         {
             label: "Motion Lab",
@@ -30,7 +34,7 @@ export const siteConfig = {
             href: "#gallery",
         },
         {
-            label: "About",
+            label: "Credentials",
             href: "#profile",
         },
     ],
@@ -40,16 +44,20 @@ export const siteConfig = {
             href: "#hero",
         },
         {
+            label: "Experience",
+            href: "#experience",
+        },
+        {
+            label: "Tutor LMS",
+            href: "#tutor-lms",
+        },
+        {
+            label: "EasyStore",
+            href: "#easystore",
+        },
+        {
             label: "E-Commerce",
             href: "#ecommerce",
-        },
-        {
-            label: "EdTech",
-            href: "#edtech",
-        },
-        {
-            label: "DocApp",
-            href: "#docapp",
         },
         {
             label: "Motion Lab",
@@ -60,7 +68,7 @@ export const siteConfig = {
             href: "#gallery",
         },
         {
-            label: "About",
+            label: "Credentials",
             href: "#profile",
         },
     ],

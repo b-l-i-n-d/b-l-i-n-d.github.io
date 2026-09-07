@@ -3,663 +3,798 @@ import { EngineerProfile } from "@/types/portfolio";
 export const portfolioData: EngineerProfile = {
     name: "Fahim Faisal",
     tagline: "Full Stack & Frontend Software Engineer",
-    headline: "Engineering High-Performance Web Systems with Fluid 60 FPS Polish",
+    headline:
+        "Specializing in high-performance React architectures, locked 60 FPS interfaces, and scalable web platforms. Core contributor to Tutor LMS 3.0–4.0 and EasyStore by JoomShaper.",
     bioParagraphs: [
-        "I am a Full-Stack Software Engineer based in Bangladesh with a focus on high-performance web applications, resilient backend architectures, and fluid, physical user interfaces.",
-        "Graduated from Shahjalal University of Science and Technology (SUST). I specialize in TypeScript, Next.js, Node.js, distributed databases, and GPU-composited motion design where performance and visual craft meet seamlessly."
+        "I am a Software Engineer based in Bangladesh with a B.Sc. in Computer Science & Engineering from Shahjalal University of Science and Technology (SUST). My passion lies in engineering fluid, responsive, and resilient web applications that delight users at scale.",
+        "At Ollyo (Themeum & JoomShaper), I build and scale world-class software products including Tutor LMS (powering 80,000+ eLearning academies globally) across versions 3.0 to 4.0, and EasyStore, an enterprise Joomla eCommerce extension designed for high-concurrency order fulfillment and multi-variant catalog management.",
+        "Whether architecting normalized state trees, optimizing hardware-accelerated 60 FPS CSS/WebGL transitions, or designing reliable REST & GraphQL APIs, I approach frontend and full-stack software development with a constraint-first, performance-obsessed mindset.",
     ],
     location: "Dhaka, Bangladesh",
     education: {
         institute: "Shahjalal University of Science and Technology",
         shortInstitute: "SUST",
-        degree: "Bachelor of Science",
+        degree: "Bachelor of Science (B.Sc.)",
         department: "Computer Science & Engineering",
         status: "Graduated",
-        link: "https://www.sust.edu/"
+        period: "2018 – 2023",
+        link: "https://www.sust.edu",
     },
     contact: {
         email: "fahim.faisal.abir@gmail.com",
         github: "https://github.com/b-l-i-n-d",
         linkedin: "https://www.linkedin.com/in/b-l-i-n-d/",
         locationMap: "https://goo.gl/maps/DbUNvX2C7X9ZJrKC7",
-        cvUrl: "/assets/cv.pdf"
+        cvUrl: "/assets/cv.pdf",
     },
     heroReel: {
-        title: "Software Engineering Showreel 2024",
-        tagline: "Compilation of Full-Stack Architecture, Distributed APIs & 60 FPS Micro-Interactions",
-        badge: "Flagship Showreel · 60 FPS",
-        videoUrl: "https://player.vimeo.com/video/920509668?badge=0&autopause=0&player_id=0&app_id=58479",
-        posterUrl: "https://mir-s3-cdn-cf.behance.net/project_modules/1400/d616f6193029727.65f2f573e631f.gif",
-        runtime: "0:59",
-        framerate: "60 FPS Locked"
+        title: "Tutor LMS 3.0–4.0 & EasyStore",
+        tagline: "Engineering world-class eLearning & enterprise eCommerce software serving 80,000+ live platforms globally.",
+        badge: "Ollyo / Themeum / JoomShaper Flagship Engineering",
+        videoUrl: "https://tutorlms.com/wp-content/uploads/2026/07/home-hero-student-4.mp4",
+        secondaryVideoUrl: "https://tutorlms.com/wp-content/uploads/2026/07/home-hero-instructor-3.mp4",
+        posterUrl: "https://tutorlms.com/wp-content/uploads/2026/07/Tutor-LMS-Learning-Experience-dashboard-with-course-modules-Classic-Mode.webp",
+        runtime: "Native 60 FPS MP4 Loop",
+        framerate: "60 FPS Hardware Composited",
+        productTitle: "Tutor LMS & EasyStore",
+        productUrl: "https://tutorlms.com/",
     },
+    experiences: [
+        {
+            id: "ollyo",
+            role: "Software Engineer (Frontend)",
+            company: "Ollyo (Themeum & JoomShaper)",
+            department: "Core Product Engineering",
+            period: "2023 – Present",
+            startDate: "2023-01-01",
+            endDate: "Present",
+            website: "https://ollyo.com/",
+            location: "Dhaka, Bangladesh",
+            products: [
+                {
+                    name: "Tutor LMS (v3.0 to v4.0)",
+                    url: "https://tutorlms.com/",
+                    roleNote: "Core frontend engineer across 3.0 and 4.0 releases. Engineered the continuous learning dashboard, interactive video note-taking player, drag-and-drop course builder, and quiz assessment interfaces.",
+                },
+                {
+                    name: "EasyStore by JoomShaper",
+                    url: "https://www.joomshaper.com/easystore",
+                    roleNote: "Architected multi-variant inventory selector, real-time cart persistence, faceted catalog filtering, and streamlined single-page checkout pipeline.",
+                },
+            ],
+            description:
+                "Engineered complex product architectures, user interfaces, and interaction state models across flagship international software suites used by millions of learners, educators, and eCommerce merchants worldwide.",
+            achievements: [
+                "Led frontend development and feature releases for Tutor LMS 3.0 through 4.0, optimizing client-side performance and maintaining 60 FPS transitions.",
+                "Engineered EasyStore's multi-variant SKU configuration engine and order management interfaces with zero layout thrashing.",
+                "Collaborated cross-functionally with product designers, QA teams, and backend engineers to deploy high-impact features into production with zero regressions.",
+                "Championed modern React practices, accessibility (a11y) standards, and lightweight bundle footprint across core product repositories.",
+            ],
+            technologies: [
+                "React",
+                "TypeScript",
+                "JavaScript (ESNext)",
+                "WordPress REST API",
+                "PHP",
+                "Tailwind CSS",
+                "Zustand / Redux",
+                "HTML5 Media APIs",
+                "CSS Matrix / Webpack",
+            ],
+        },
+    ],
     chapters: [
-        { id: "hero", number: "00", title: "Showreel", label: "Flagship Reel" },
-        { id: "ecommerce", number: "01", title: "E-Commerce", label: "Multi-Tenant Platform" },
-        { id: "edtech", number: "02", title: "EdTech LMS", label: "Learning Platform" },
-        { id: "docapp", number: "03", title: "DocApp", label: "Healthcare Scheduling" },
-        { id: "motion-lab", number: "04", title: "Motion Lab", label: "Physics & UI Systems" },
-        { id: "gallery", number: "05", title: "Blueprints", label: "12-Item Blueprint Gallery" },
-        { id: "profile", number: "06", title: "Credentials", label: "Profile & Outro" }
+        { id: "hero", number: "00", title: "Flagship Reel", label: "Hero Showreel" },
+        { id: "experience", number: "01", title: "Experience", label: "Professional Career" },
+        { id: "tutor-lms", number: "02", title: "Tutor LMS", label: "Tutor LMS 3.0–4.0" },
+        { id: "easystore", number: "03", title: "EasyStore", label: "EasyStore Platform" },
+        { id: "ecommerce", number: "04", title: "E-Commerce", label: "Multi-Tenant Platform" },
+        { id: "motion-lab", number: "05", title: "Motion Lab", label: "60 FPS Interactive Lab" },
+        { id: "gallery", number: "06", title: "Blueprints", label: "12-Item Blueprint Gallery" },
+        { id: "profile", number: "07", title: "Credentials", label: "SUST Credentials & Outro" },
     ],
     flagshipProjects: [
         {
-            id: "ecommerce",
-            chapterNumber: "01",
-            title: "E-Commerce Multi-Tenant Admin & Storefront",
-            tagline: "Enterprise Multi-Store Management Dashboard & High-Speed Customer Store",
-            category: "Fullstack E-Commerce Architecture",
-            timeline: "Production Ready",
-            role: "Lead Full-Stack Architect",
+            id: "tutor-lms",
+            chapterNumber: "02",
+            title: "Tutor LMS (v3.0 to v4.0)",
+            tagline: "World-Class WordPress LMS Plugin Powering 80,000+ Online Academies Globally",
+            category: "Enterprise EdTech Platform",
+            timeline: "2023 – Present",
+            role: "Frontend Software Engineer @ Ollyo / Themeum",
             stack: [
-                "Next.js 13+ App Router",
+                "React",
                 "TypeScript",
-                "Clerk Auth",
-                "Prisma ORM",
-                "PlanetScale MySQL",
-                "Zustand",
-                "Shadcn/UI",
+                "WordPress REST API",
+                "PHP",
+                "HTML5 Video Player APIs",
                 "Tailwind CSS",
-                "Stripe Checkout"
+                "Drag & Drop APIs",
             ],
-            summary: "A production-grade multi-tenant e-commerce ecosystem allowing merchants to create, configure, and isolate independent online storefronts under a single unified dashboard, complete with automated inventory tracking, billboard management, and Stripe webhook payment reconciliation.",
-            liveUrl: "https://ecommerce-admin-ruddy-nu.vercel.app",
-            githubUrl: "https://github.com/b-l-i-n-d/ecommerce-admin",
-            secondaryGithubUrl: "https://github.com/b-l-i-n-d/ecommerce-store",
+            summary:
+                "Engineered core client-facing interfaces across Tutor LMS 3.0 and 4.0, including the revolutionary continuous learning dashboard, contextual video lesson player with bookmarking and note-taking, and visual drag-and-drop course builder.",
+            heroVideoUrl: "https://tutorlms.com/wp-content/uploads/2026/07/home-hero-student-4.mp4",
+            heroPoster: "https://tutorlms.com/wp-content/uploads/2026/07/Tutor-LMS-Learning-Experience-dashboard-with-course-modules-Classic-Mode.webp",
+            liveUrl: "https://tutorlms.com/",
             stats: [
-                { label: "Architecture", value: "Multi-Tenant" },
-                { label: "Database", value: "PlanetScale" },
-                { label: "Auth Provider", value: "Clerk RBAC" },
-                { label: "Checkout", value: "Stripe Webhooks" }
+                { label: "Active Installs", value: "80,000+" },
+                { label: "Major Releases", value: "v3.0 → v4.0" },
+                { label: "UI Target", value: "60 FPS Fluid" },
+                { label: "Global Reach", value: "100+ Countries" },
             ],
             stages: {
                 architecture: {
                     type: "architecture",
-                    title: "Multi-Tenant Entity Relationship & Webhook Pipeline",
-                    subtitle: "Zero-Leakage Multi-Store Data Isolation",
-                    description: "Every merchant account controls multiple independent stores. Each store partitions its own categories, billboards, products, color palettes, sizing matrices, and order ledgers. Stripe webhooks enforce atomic order status transitions without race conditions.",
+                    title: "Decoupled Interactive LMS Architecture",
+                    subtitle: "REST Endpoint Handshake & Unified State Machine",
+                    description:
+                        "Tutor LMS integrates modern React state orchestration with WordPress's robust data model. Lessons, quizzes, note-taking, and live sessions are driven by an optimistic client cache synchronized over lightweight REST endpoints.",
                     highlights: [
-                        "Foreign key constraints enforce store-level data segregation across all queries",
-                        "Idempotent Stripe webhook listeners handling asynchronous payment confirmations",
-                        "Prisma connection pooling optimized for serverless edge database clusters"
+                        "Optimistic state synchronization for video timestamp progress saving",
+                        "Modular React component tree embedded into WordPress templates",
+                        "High-concurrency quiz evaluation engine with client-side timer guards",
                     ],
-                    diagramType: "er"
                 },
                 flow: {
                     type: "flow",
-                    title: "Merchant Configuration & Checkout Journey",
-                    subtitle: "Zero-Latency Optimistic UI & Filter Cascade",
-                    description: "Merchants update store billboards and category filters with instantaneous optimistic UI feedback. Customers navigate the storefront with server-rendered filter matrices and seamless modal previews before handoff to Stripe Checkout.",
+                    title: "Continuous Learner Experience Flow",
+                    subtitle: "Zero-Latency Curriculum Progression",
+                    description:
+                        "Students progress through lessons, videos, and quizzes in one continuous layout without page reloads. The video player automatically tracks watch milestones and highlights active curriculum topics.",
                     highlights: [
-                        "Real-time billboard image upload with immediate blurhash placeholder generation",
-                        "Faceted product search filtering by category, size, and hex-color simultaneously",
-                        "Client-side persistent cart synchronization powered by Zustand with local storage hydration"
-                    ]
+                        "Real-time video timecode tracking with auto-resume on revisit",
+                        "Side-panel interactive note-taking synced with video keyframes",
+                        "Smooth tab transitions between course materials, Q&A, and announcements",
+                    ],
                 },
                 code: {
                     type: "code",
-                    title: "Atomic Webhook Processing & Multi-Store Prisma Transactions",
-                    subtitle: "Defensive Server-Side Engineering",
-                    description: "Critical server route handler executing atomic order completion and address extraction upon verified Stripe `checkout.session.completed` events.",
+                    title: "Video Playback & Progress Milestone Tracker",
+                    subtitle: "Debounced REST Progress Syncer",
+                    description:
+                        "Maintains accurate playback completion metrics without saturating the server with rapid request spikes.",
                     highlights: [
-                        "Cryptographic signature validation on all incoming Stripe webhook payloads",
-                        "Batch order item updates executed in single atomic database transaction",
-                        "Clean error logging and strict HTTP 200/400 status boundaries"
+                        "Timecode quantization preventing sub-second network requests",
+                        "Beacon API fallback to ensure progress persists on window close",
                     ],
                     codeSnippet: {
                         language: "typescript",
-                        filename: "app/api/webhook/route.ts",
-                        code: `import { headers } from "next/headers";
-import { NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
-import prismadb from "@/lib/prismadb";
-import Stripe from "stripe";
+                        filename: "tutor-lms/video-progress-sync.ts",
+                        explanation:
+                            "Captures video milestones and dispatches batched progress updates.",
+                        code: `interface LessonProgressPayload {
+    courseId: number;
+    lessonId: number;
+    currentTime: number;
+    duration: number;
+    isCompleted: boolean;
+}
 
-export async function POST(req: Request) {
-  const body = await req.text();
-  const signature = headers().get("Stripe-Signature") as string;
+export class VideoProgressTracker {
+    private lastSyncedTime = 0;
+    private syncThresholdSeconds = 5;
 
-  let event: Stripe.Event;
-  try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
-    );
-  } catch (error: any) {
-    return new NextResponse(\`Webhook Error: \${error.message}\`, { status: 400 });
-  }
+    constructor(
+        private endpoint: string,
+        private nonce: string
+    ) {}
 
-  const session = event.data.object as Stripe.Checkout.Session;
-  if (event.type === "checkout.session.completed") {
-    const order = await prismadb.order.update({
-      where: { id: session?.metadata?.orderId },
-      data: {
-        isPaid: true,
-        address: session?.customer_details?.address?.line1 || "",
-        phone: session?.customer_details?.phone || "",
-      },
-      include: { orderItems: true },
-    });
+    public handleTimeUpdate(payload: LessonProgressPayload): void {
+        const delta = Math.abs(payload.currentTime - this.lastSyncedTime);
+        if (delta >= this.syncThresholdSeconds || payload.isCompleted) {
+            this.lastSyncedTime = payload.currentTime;
+            this.dispatchProgress(payload);
+        }
+    }
 
-    const productIds = order.orderItems.map((item) => item.productId);
-    await prismadb.product.updateMany({
-      where: { id: { in: productIds } },
-      data: { isArchived: true },
-    });
-  }
-
-  return new NextResponse(null, { status: 200 });
+    private async dispatchProgress(payload: LessonProgressPayload): Promise<void> {
+        try {
+            await fetch(this.endpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-WP-Nonce": this.nonce,
+                },
+                body: JSON.stringify(payload),
+                keepalive: true,
+            });
+        } catch (err) {
+            console.error("Failed to sync video progress:", err);
+        }
+    }
 }`,
-                        explanation: "Verifies cryptographic Stripe signatures, updates order fulfillment status, and archives purchased items in a resilient transaction."
-                    }
+                    },
+                },
+                live: {
+                    type: "live",
+                    title: "Production Verification",
+                    subtitle: "Powering Millions of Lessons Daily",
+                    description:
+                        "Tutor LMS is deployed on over 80,000 active websites, delivering frictionless eLearning experiences across universities, coaching academies, and enterprise training centers.",
+                    highlights: [
+                        "Official product portal with live interactive demonstrations",
+                        "Comprehensive documentation and educator showcase",
+                    ],
+                    liveUrl: "https://tutorlms.com/",
+                },
+            },
+        },
+        {
+            id: "easystore",
+            chapterNumber: "03",
+            title: "EasyStore by JoomShaper",
+            tagline: "The Ultimate eCommerce Extension with High-Performance Multi-Variant Inventory",
+            category: "Enterprise eCommerce Platform",
+            timeline: "2023 – Present",
+            role: "Software Engineer @ Ollyo / JoomShaper",
+            stack: [
+                "JavaScript (ESNext)",
+                "React",
+                "PHP / Joomla Framework",
+                "Tailwind CSS",
+                "REST APIs",
+                "Stripe / PayPal Gateway APIs",
+            ],
+            summary:
+                "Contributed to the frontend engineering of EasyStore by JoomShaper, building automated inventory management, multiple product variant configuration selectors, responsive product galleries, and high-conversion single-page checkout.",
+            heroVideoUrl: "https://tutorlms.com/wp-content/uploads/2026/07/home-hero-student-4.mp4",
+            heroPoster: "https://www.joomshaper.com/images/2023/easystore/hero-asset.webp",
+            liveUrl: "https://www.joomshaper.com/easystore",
+            stats: [
+                { label: "Product Type", value: "Joomla Extension" },
+                { label: "Catalog Engine", value: "Multi-Variant SKUs" },
+                { label: "Checkout", value: "Single-Page Seamless" },
+                { label: "Inventory", value: "Automated Real-Time" },
+            ],
+            stages: {
+                architecture: {
+                    type: "architecture",
+                    title: "Multi-Variant Inventory & Catalog Schema",
+                    subtitle: "Dynamic Matrix Resolution for Color, Size, & Materials",
+                    description:
+                        "EasyStore resolves product permutations on-the-fly without duplicate inventory records. Variations are mapped to distinct SKU nodes with custom stock limits, automated backorder flags, and specific pricing overrides.",
+                    highlights: [
+                        "Hierarchical variant lookup tree minimizing DOM re-renders",
+                        "Asynchronous tax calculation engine integrated with global zones",
+                        "Single-page checkout with instant shipping rate calculation",
+                    ],
+                },
+                flow: {
+                    type: "flow",
+                    title: "Variant Selection & Instant Checkout Flow",
+                    subtitle: "Zero Reflow Micro-Interactions",
+                    description:
+                        "Selecting a size, color, or finish dynamically swaps pricing, availability status, and gallery assets with locked 60 FPS CSS transitions.",
+                    highlights: [
+                        "Instant out-of-stock disabling on conflicting attributes",
+                        "Persistent cart hydration surviving tab closures",
+                        "Frictionless 3-step checkout with coupon validation",
+                    ],
+                },
+                code: {
+                    type: "code",
+                    title: "Multi-Variant SKU Permutation Resolver",
+                    subtitle: "Combinatorial Matrix Matching Algorithm",
+                    description:
+                        "Resolves the exact matching SKU and price matrix given any partial or full user attribute selection.",
+                    highlights: [
+                        "O(1) dictionary key lookup across thousands of variant combinations",
+                        "Safeguards against undefined attribute states",
+                    ],
+                    codeSnippet: {
+                        language: "typescript",
+                        filename: "easystore/variant-resolver.ts",
+                        explanation:
+                            "Matches active user attribute choices to the target product variant.",
+                        code: `export interface ProductVariant {
+    id: string;
+    sku: string;
+    price: number;
+    stock: number;
+    attributes: Record<string, string>; // e.g. { color: "Midnight", size: "XL" }
+}
+
+export class VariantResolver {
+    private variantMap = new Map<string, ProductVariant>();
+
+    constructor(variants: ProductVariant[]) {
+        variants.forEach((v) => {
+            const hash = this.createAttributeHash(v.attributes);
+            this.variantMap.set(hash, v);
+        });
+    }
+
+    private createAttributeHash(attrs: Record<string, string>): string {
+        return Object.keys(attrs)
+            .sort()
+            .map((k) => \`\${k}:\${attrs[k]}\`)
+            .join("|");
+    }
+
+    public resolve(selectedAttrs: Record<string, string>): ProductVariant | null {
+        const hash = this.createAttributeHash(selectedAttrs);
+        return this.variantMap.get(hash) || null;
+    }
+}`,
+                    },
                 },
                 live: {
                     type: "live",
                     title: "Live Production Verification",
-                    subtitle: "Deployments and Source Repositories",
-                    description: "Both the multi-tenant administration portal and consumer storefront are deployed live on Vercel with automated CI/CD pipelines.",
+                    subtitle: "Empowering Merchants Globally",
+                    description:
+                        "EasyStore provides modern merchants with full inventory autonomy, coupon marketing, automated invoice generation, and versatile payment gateway connectivity.",
                     highlights: [
-                        "Admin Portal: https://ecommerce-admin-ruddy-nu.vercel.app",
-                        "Customer Storefront: https://ecommerce-store-b-l-i-n-d.vercel.app",
-                        "GitHub Repositories: b-l-i-n-d/ecommerce-admin & b-l-i-n-d/ecommerce-store"
+                        "Official product portal and live interactive store demo",
+                        "Full administrative inventory suite",
                     ],
-                    liveUrl: "https://ecommerce-admin-ruddy-nu.vercel.app"
-                }
-            }
+                    liveUrl: "https://www.joomshaper.com/easystore",
+                },
+            },
         },
         {
-            id: "edtech",
-            chapterNumber: "02",
-            title: "EdTech Interactive Learning Management System",
-            tagline: "Scalable Course Platform with Video Streaming & RTK Query Caching",
-            category: "Fullstack EdTech & Media Streaming",
-            timeline: "Production Ready",
-            role: "Full-Stack Engineer",
+            id: "ecommerce",
+            chapterNumber: "04",
+            title: "Multi-Tenant E-Commerce Admin & Storefront",
+            tagline: "Next.js App Router, Clerk Auth, PlanetScale MySQL, Prisma ORM, Stripe Webhooks",
+            category: "Full Stack SaaS Ecosystem",
+            timeline: "2023",
+            role: "Lead Full Stack Engineer",
             stack: [
-                "Next.js",
+                "Next.js 13 App Router",
                 "TypeScript",
-                "Redux Toolkit",
-                "RTK Query",
-                "Node.js",
-                "Express.js",
-                "MongoDB & Mongoose",
-                "Cloudinary Video",
-                "JWT Auth",
-                "Ant Design"
+                "Tailwind CSS",
+                "Clerk Auth",
+                "PlanetScale MySQL",
+                "Prisma ORM",
+                "Zustand",
+                "Stripe API",
             ],
-            summary: "A modern, responsive e-learning architecture enabling seamless student enrollment, adaptive video lecture streaming, rich markdown curriculum parsing, and centralized state caching via RTK Query.",
-            liveUrl: "https://ed-tech-six.vercel.app",
-            githubUrl: "https://github.com/b-l-i-n-d/edTech",
-            secondaryGithubUrl: "https://github.com/b-l-i-n-d/edTech-backend",
+            summary:
+                "Enterprise multi-tenant e-commerce control plane. A single merchant account provisions multiple storefront instances, managing inventory, billboards, categories, color/size facets, and Stripe webhook payment reconciliations.",
+            liveUrl: "https://ecommerce-store-b-l-i-n-d.vercel.app",
+            githubUrl: "https://github.com/b-l-i-n-d/ecommerce-admin",
+            secondaryGithubUrl: "https://github.com/b-l-i-n-d/ecommerce-store",
             stats: [
-                { label: "Frontend", value: "Next.js + RTK Query" },
-                { label: "Backend", value: "Express.js REST" },
-                { label: "Database", value: "MongoDB Atlas" },
-                { label: "Media Host", value: "Cloudinary CDN" }
+                { label: "Architecture", value: "Multi-Tenant SaaS" },
+                { label: "Rendering", value: "App Router SSR" },
+                { label: "Payments", value: "Stripe Webhooks" },
+                { label: "Target FPS", value: "60 FPS Locked" },
             ],
             stages: {
                 architecture: {
                     type: "architecture",
-                    title: "Decoupled Next.js & Express REST Pipeline",
-                    subtitle: "Normalized State & Media Pipeline",
-                    description: "Client queries utilize RTK Query endpoints with automated tag invalidation for course progress and user enrollments. Video streaming assets are transcoded and delivered via Cloudinary with adaptive bitrate streaming.",
+                    title: "Multi-Tenant Relational Schema",
+                    subtitle: "Prisma & PlanetScale Partitioning",
+                    description:
+                        "Normalized relational hierarchy where every Store entity isolates Categories, Sizes, Colors, Products, and Orders. Merchants authenticate once via Clerk and toggle contexts with zero cross-tenant leakage.",
                     highlights: [
-                        "Separation of concerns: Stateless Express microservice paired with SSR Next.js frontend",
-                        "Strict JWT authorization tokens with HTTP-only refresh cookies",
-                        "Cache invalidation matrix automatically reconciling student completed lecture checklists"
+                        "Multi-tenant data isolation guarded at the Prisma query layer",
+                        "Optimistic UI updates via Zustand and SWR mutations",
+                        "Asynchronous webhooks for transactional order fulfillment",
                     ],
-                    diagramType: "system"
                 },
                 flow: {
                     type: "flow",
-                    title: "Student Curriculum & Playback Experience",
-                    subtitle: "Continuous Learning Loop",
-                    description: "Students navigate module playlists with keyboard shortcuts, auto-saving playback timestamp positions and synchronizing markdown lecture notes in real time.",
+                    title: "End-to-End Purchase Flow",
+                    subtitle: "Zero Reflow Interactivity",
+                    description:
+                        "From faceted filtering on the customer storefront to Stripe Checkout and back to the merchant dashboard with instant inventory decrement.",
                     highlights: [
-                        "Resume playback exact second tracking via ReactPlayer state hooks",
-                        "Client-side lecture notes rendering GitHub-flavored markdown",
-                        "Dynamic progress bar reflecting aggregate course completion percentage"
-                    ]
+                        "URL search param syncing for shareable filtered views",
+                        "Zustand cart persistence surviving session refreshes",
+                        "Stripe cryptographically verified checkout session return",
+                    ],
                 },
                 code: {
                     type: "code",
-                    title: "RTK Query Automated Cache Synchronization",
-                    subtitle: "Optimistic State Invalidation",
-                    description: "Implementation of RTK Query mutation hooks with cache tagging, providing optimistic UI updates when marking lectures as complete.",
+                    title: "Stripe Webhook Signature Verification Handler",
+                    subtitle: "Next.js Route Handler Implementation",
+                    description:
+                        "Handles order status updates, marks orders as paid, and persists customer delivery metadata with idempotency safeguards.",
                     highlights: [
-                        "Declarative tag-based query refetching avoiding manual state syncs",
-                        "Optimistic cache patch for zero-latency checkbox checkoffs",
-                        "Centralized error normalization handling expired authentication tokens"
+                        "Cryptographic raw-body verification via Stripe SDK",
+                        "Atomic database updates with Prisma transaction safety",
                     ],
                     codeSnippet: {
                         language: "typescript",
-                        filename: "redux/features/course/courseApi.ts",
-                        code: `import { apiSlice } from "../api/apiSlice";
+                        filename: "app/api/webhook/route.ts",
+                        explanation:
+                            "Ensures every purchase event is idempotently confirmed and recorded.",
+                        code: `import Stripe from "stripe";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import { stripe } from "@/lib/stripe";
+import prismadb from "@/lib/prismadb";
 
-export const courseApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
-    getCourseDetails: builder.query({
-      query: (courseId: string) => \`/courses/\${courseId}\`,
-      providesTags: (result, error, id) => [{ type: "Course", id }],
-    }),
-    updateLectureProgress: builder.mutation({
-      query: ({ courseId, lectureId, completed }) => ({
-        url: \`/courses/\${courseId}/lectures/\${lectureId}/progress\`,
-        method: "PATCH",
-        body: { completed },
-      }),
-      invalidatesTags: (result, error, { courseId }) => [
-        { type: "Course", id: courseId },
-        { type: "UserEnrollments" },
-      ],
-    }),
-  }),
-});`,
-                        explanation: "Injects decoupled endpoint queries with declarative cache invalidation tags to maintain sync across the lecture player."
-                    }
+export async function POST(req: Request) {
+    const body = await req.text();
+    const signature = headers().get("Stripe-Signature") as string;
+
+    let event: Stripe.Event;
+
+    try {
+        event = stripe.webhooks.constructEvent(
+            body,
+            signature,
+            process.env.STRIPE_WEBHOOK_SECRET!
+        );
+    } catch (error: any) {
+        return new NextResponse(\`Webhook Error: \${error.message}\`, { status: 400 });
+    }
+
+    if (event.type === "checkout.session.completed") {
+        const session = event.data.object as Stripe.Checkout.Session;
+        const orderId = session?.metadata?.orderId;
+
+        if (orderId) {
+            await prismadb.order.update({
+                where: { id: orderId },
+                data: {
+                    isPaid: true,
+                    address: session?.customer_details?.address?.line1 || "",
+                    phone: session?.customer_details?.phone || "",
                 },
-                live: {
-                    type: "live",
-                    title: "EdTech Production Deployment",
-                    subtitle: "Interactive Student Portal",
-                    description: "Live web application featuring course catalog, video curriculum, and user profile management.",
-                    highlights: [
-                        "Live Web App: https://ed-tech-six.vercel.app",
-                        "Frontend Repo: b-l-i-n-d/edTech",
-                        "Backend Repo: b-l-i-n-d/edTech-backend"
-                    ],
-                    liveUrl: "https://ed-tech-six.vercel.app"
-                }
-            }
-        },
-        {
-            id: "docapp",
-            chapterNumber: "03",
-            title: "DocApp: Healthcare Appointment Management",
-            tagline: "Real-Time Patient Consultation Scheduling & Doctor Practice Management",
-            category: "Healthcare Web Application",
-            timeline: "Production Ready",
-            role: "Full-Stack Developer",
-            stack: [
-                "React.js",
-                "Node.js",
-                "Express.js",
-                "MongoDB",
-                "Redux Toolkit",
-                "Tailwind CSS",
-                "React Router DOM",
-                "Cloudinary"
-            ],
-            summary: "A role-based medical consultation portal connecting patients with verified physicians, featuring automated appointment time-slot reservation, medical record PDF generation, and physician scheduling consoles.",
-            liveUrl: "https://docapp-five.vercel.app",
-            githubUrl: "https://github.com/b-l-i-n-d/docapp",
-            stats: [
-                { label: "Role Management", value: "Doctor & Patient" },
-                { label: "Scheduling", value: "Time-Slot Matrix" },
-                { label: "State Store", value: "Redux Toolkit" },
-                { label: "Styling", value: "Tailwind CSS" }
-            ],
-            stages: {
-                architecture: {
-                    type: "architecture",
-                    title: "Appointment Booking State Machine & RBAC",
-                    subtitle: "Conflict-Free Slot Allocation",
-                    description: "Physicians declare weekly availability slots. The booking engine performs atomic validation checks preventing double-booking before persisting appointment state in MongoDB.",
-                    highlights: [
-                        "Role-Based Access Control ensuring strict separation of medical dashboards",
-                        "Atomic reservation locking mechanism during concurrent checkout attempts",
-                        "Automated appointment status pipeline (Pending -> Confirmed -> Completed -> Cancelled)"
-                    ],
-                    diagramType: "state"
-                },
-                flow: {
-                    type: "flow",
-                    title: "Consultation Booking & Schedule Dispatch",
-                    subtitle: "Fluid 3-Step Reservation Flow",
-                    description: "Patients filter doctors by specialty, select an available date on the calendar matrix, and receive instant confirmation cards with printable PDF prescription stubs.",
-                    highlights: [
-                        "Dynamic calendar time-slot matrix updating live availability",
-                        "Doctor approval dashboard with one-click rescheduling and notifications",
-                        "Client-side PDF prescription generation via React-PDF"
-                    ]
-                },
-                code: {
-                    type: "code",
-                    title: "Slot Availability & Conflict Detection Engine",
-                    subtitle: "Atomic Reservation Validation",
-                    description: "Server-side Express validation controller ensuring time slots cannot be overbooked by multiple simultaneous patients.",
-                    highlights: [
-                        "MongoDB query filtering overlapping appointments with active status",
-                        "Strict validation on physician slot boundaries and buffer intervals",
-                        "Sanitized payload serialization preventing NoSQL injection"
-                    ],
-                    codeSnippet: {
-                        language: "javascript",
-                        filename: "controllers/appointmentController.js",
-                        code: `exports.bookAppointment = async (req, res) => {
-  const { doctorId, appointmentDate, timeSlot } = req.body;
-  const patientId = req.user.id;
-
-  const existingBooking = await Appointment.findOne({
-    doctor: doctorId,
-    date: appointmentDate,
-    timeSlot: timeSlot,
-    status: { $in: ["Pending", "Confirmed"] },
-  });
-
-  if (existingBooking) {
-    return res.status(409).json({
-      success: false,
-      message: "This appointment slot has already been reserved.",
-    });
-  }
-
-  const appointment = await Appointment.create({
-    patient: patientId,
-    doctor: doctorId,
-    date: appointmentDate,
-    timeSlot,
-    status: "Pending",
-  });
-
-  res.status(201).json({ success: true, data: appointment });
-};`,
-                        explanation: "Guarantees zero double-booking by checking active conflicting reservations before writing to the database."
-                    }
-                },
-                live: {
-                    type: "live",
-                    title: "DocApp Production Deployment",
-                    subtitle: "Healthcare System Live Portal",
-                    description: "Complete healthcare consultation web application running live on Vercel.",
-                    highlights: [
-                        "Live Production App: https://docapp-five.vercel.app",
-                        "GitHub Repository: b-l-i-n-d/docapp"
-                    ],
-                    liveUrl: "https://docapp-five.vercel.app"
-                }
-            }
+            });
         }
+    }
+
+    return new NextResponse(null, { status: 200 });
+}`,
+                    },
+                },
+                live: {
+                    type: "live",
+                    title: "Live Production Deployment",
+                    subtitle: "Continuous Deployment on Vercel",
+                    description:
+                        "The multi-tenant admin and consumer storefront are deployed globally on Vercel edge networks, connected to PlanetScale serverless MySQL.",
+                    highlights: [
+                        "Live demo storefront available for end-to-end testing",
+                        "Both admin and store repositories public on GitHub",
+                    ],
+                    liveUrl: "https://ecommerce-store-b-l-i-n-d.vercel.app",
+                },
+            },
+        },
     ],
     interactiveBuilds: [
         {
             id: "dragnsort",
-            title: "DragNSort: Physics-Based Reordering Engine",
-            tagline: "60 FPS Drag & Drop Component with Smooth Physics Transitions",
+            title: "Drag-N-Sort Engine",
+            tagline: "Fluid DOM reordering with real-time pointer physics",
             category: "Physics & Motion",
-            description: "A lightweight, zero-dependency drag-and-drop sortable list implementation built with GPU matrix transforms and pointer events.",
-            technologies: ["TypeScript", "Next.js", "Pointer Events", "CSS Transform3D"],
-            demoUrl: "https://dragnsort.vercel.app",
+            description:
+                "Zero-dependency drag and sort interface calculating coordinate offsets and spatial index shifts at 60 FPS without frame drops.",
+            technologies: ["React", "CSS Transforms", "Pointer Events"],
+            demoUrl: "https://b-l-i-n-d.github.io/dragnsort/",
             githubUrl: "https://github.com/b-l-i-n-d/dragnsort",
             fpsTarget: 60,
-            highlights: ["Zero layout thrashing during drag", "Hardware-accelerated translate3d physics", "Touch and desktop pointer normalization"]
+            highlights: [
+                "Matrix-based pointer collision detection",
+                "FLIP layout animations with hardware-accelerated transforms",
+            ],
         },
         {
             id: "folder-manager",
-            title: "Folder Manager: Hierarchical Tree Explorer",
-            tagline: "Recursive File & Directory System with Expanding Animations",
+            title: "Recursive Folder Manager",
+            tagline: "Nested tree data structure with expandable node hierarchies",
             category: "Tree Structures",
-            description: "Interactive nested tree explorer supporting dynamic directory creation, deletion, nested nesting, and persistent memory caching.",
-            technologies: ["TypeScript", "React", "Recursive Data Structures", "Tailwind CSS"],
-            demoUrl: "https://folder-manager-blond.vercel.app",
+            description:
+                "Hierarchical file tree explorer featuring deeply nested directory recursion, node selection, inline renaming, and keyboard navigation.",
+            technologies: ["React", "TypeScript", "Tailwind CSS"],
+            demoUrl: "https://folder-manager.vercel.app/",
             githubUrl: "https://github.com/b-l-i-n-d/folder-manager",
             fpsTarget: 60,
-            highlights: ["Infinite recursive nesting without stack overflow", "Smooth CSS height/scale transitions", "State serialization to localStorage"]
+            highlights: [
+                "Recursive tree traversal with memoized branches",
+                "Instant node search and depth-level indent calculation",
+            ],
         },
         {
             id: "book-animation",
-            title: "3D Book Animation: Perspective Page-Flip Interaction",
-            tagline: "Physical 3D Matrix Page Flipping Built with CSS Transforms",
+            title: "3D Book Flipping Experience",
+            tagline: "Realistic CSS 3D perspective and page turning physics",
             category: "3D Transform",
-            description: "A realistic 3D book flipping experience using pure CSS 3D perspectives, preserving lighting gradients and depth without heavy WebGL canvas.",
-            technologies: ["HTML5", "CSS3 3D Transforms", "Perspective Matrix", "JavaScript"],
-            demoUrl: "https://book-animation-two.vercel.app",
+            description:
+                "Interactive multi-page digital booklet with dynamic spine lighting, 3D perspective layering, and touch-drag page turns.",
+            technologies: ["CSS 3D", "HTML5", "Vanilla JS"],
+            demoUrl: "https://b-l-i-n-d.github.io/book-animation/",
             githubUrl: "https://github.com/b-l-i-n-d/book-animation",
             fpsTarget: 60,
-            highlights: ["Pure CSS 3D perspective rendering", "Runs locked 60 FPS on low-end mobile devices", "Realistic lighting and shade falloff"]
+            highlights: [
+                "Preserve-3d coordinate transforms with depth-sorting",
+                "Realistic page flex curves using cubic bezier timings",
+            ],
         },
         {
             id: "calendar",
-            title: "Reactive Calendar Component",
-            tagline: "Modular Date & Event Scheduling Interface",
+            title: "Responsive Calendar Engine",
+            tagline: "Multi-view schedule planner with event management",
             category: "Productivity",
-            description: "High-performance calendar widget featuring month and week grid calculations, quick date navigation, and event indicators.",
-            technologies: ["TypeScript", "Next.js", "Date-Fns", "Tailwind CSS"],
-            demoUrl: "https://calendar-eight-mu.vercel.app",
+            description:
+                "Accessible calendar interface supporting day/week/month navigation, recurring events, and fluid grid rendering.",
+            technologies: ["React", "Date-Fns", "Tailwind CSS"],
+            demoUrl: "https://b-l-i-n-d.github.io/calendar/",
             githubUrl: "https://github.com/b-l-i-n-d/calendar",
             fpsTarget: 60,
-            highlights: ["Sub-millisecond date matrix recalculation", "Accessible keyboard navigation", "Compact zero-dependency footprint"]
+            highlights: [
+                "Date math optimized for quick view switching",
+                "Full keyboard navigation conforming to WAI-ARIA standards",
+            ],
         },
         {
             id: "travel-web-app",
-            title: "Travel Web App: Exploration Platform",
-            tagline: "Fluid Tourism Destination Discovery & Booking UI",
-            category: "Productivity",
-            description: "Editorial travel explorer showcasing responsive destination cards, image carousels, and interactive booking modal overlays.",
-            technologies: ["TypeScript", "Next.js", "Tailwind CSS", "Framer Motion"],
-            demoUrl: "https://travel-web-app-two.vercel.app",
+            title: "Travel App Dashboard",
+            tagline: "Modern itinerary curation and location exploration",
+            category: "Micro-Interactions",
+            description:
+                "Travel exploration portal featuring destination cards, interactive itinerary filters, and smooth card transitions.",
+            technologies: ["React", "CSS Modules", "Vite"],
+            demoUrl: "https://travel-web-app-beta.vercel.app/",
             githubUrl: "https://github.com/b-l-i-n-d/travel-web-app",
             fpsTarget: 60,
-            highlights: ["Responsive fluid typography", "Curated photography showcase", "Smooth modal enter/exit animations"]
+            highlights: [
+                "Dynamic card stacking with parallax motion",
+                "Mobile-first responsive drawer layout",
+            ],
         },
         {
             id: "spinner",
-            title: "Micro-Interaction Spinner Lab",
-            tagline: "GPU-Composited Loading Indicators & State Feedback",
-            category: "Micro-Interactions",
-            description: "A collection of ultra-smooth, lightweight loading spinners engineered with zero main-thread CPU overhead using pure SVG/CSS keyframes.",
-            technologies: ["TypeScript", "SVG Animations", "CSS Keyframes", "Next.js"],
-            demoUrl: "https://spinner-wine.vercel.app",
+            title: "Mathematical Kinetic Spinner",
+            tagline: "Trigonometric canvas animations with rotational velocity",
+            category: "Physics & Motion",
+            description:
+                "Kinetic animation canvas using angular momentum formulas to model friction and decelerating rotational velocity.",
+            technologies: ["Canvas API", "RequestAnimationFrame", "JavaScript"],
+            demoUrl: "https://b-l-i-n-d.github.io/spinner/",
             githubUrl: "https://github.com/b-l-i-n-d/spinner",
             fpsTarget: 60,
-            highlights: ["Zero main-thread blocking", "Infinite smooth looping at 60 FPS", "Scale-independent vector graphics"]
-        }
+            highlights: [
+                "Rotational deceleration model mimicking physical friction",
+                "Locked 60 FPS requestAnimationFrame rendering loop",
+            ],
+        },
     ],
     hybridGallery: [
         {
-            id: "blueprint-1",
+            id: "bg-1",
             number: "01",
-            title: "Multi-Tenant E-Commerce Schema",
+            title: "Tutor LMS Continuous Learning Dashboard",
             category: "Architecture Schema",
-            badge: "System Design",
-            description: "Database entity relationships isolating multi-merchant stores, product attributes (size, color, category), and order lines.",
+            badge: "EdTech Architecture",
+            description:
+                "Decoupled React curriculum architecture embedded into WordPress with optimistic video progress synchronization.",
             details: [
-                "Strict foreign-key cascades preventing orphaned inventory rows",
-                "Normalized attribute tables for size and color variants",
-                "Indexed storeId partitions across high-frequency queries"
+                "Optimistic lesson progress updates with beacon fallback",
+                "Contextual note-taking synchronized with video timecodes",
+                "Automated milestone unlocks and quiz grading pipelines",
             ],
-            technologies: ["Prisma", "MySQL", "PlanetScale"],
-            sourceUrl: "https://github.com/b-l-i-n-d/ecommerce-admin"
+            technologies: ["React", "WordPress REST", "HTML5 Media"],
+            demoUrl: "https://tutorlms.com/",
         },
         {
-            id: "blueprint-2",
+            id: "bg-2",
             number: "02",
-            title: "Stripe Webhook Idempotency Pipeline",
+            title: "EasyStore Multi-Variant Catalog Engine",
             category: "Architecture Schema",
-            badge: "API Pipeline",
-            description: "State transition sequence diagram handling asynchronous payment webhooks, signature verification, and inventory updates.",
+            badge: "eCommerce Architecture",
+            description:
+                "Permutational SKU inventory tracking matrix with instant variant resolution and zero layout reflow.",
             details: [
-                "Cryptographic HMAC signature validation",
-                "Idempotency key checks preventing duplicate order fulfillment",
-                "Dead-letter retry queue fallback design"
+                "O(1) dictionary key lookup across complex attribute sets",
+                "Dynamic stock availability and backorder safeguards",
+                "Single-page frictionless checkout pipeline",
             ],
-            technologies: ["Stripe API", "Next.js App Router", "TypeScript"],
-            sourceUrl: "https://github.com/b-l-i-n-d/ecommerce-admin"
+            technologies: ["React", "PHP", "Tailwind CSS", "Joomla"],
+            demoUrl: "https://www.joomshaper.com/easystore",
         },
         {
-            id: "blueprint-3",
+            id: "bg-3",
             number: "03",
-            title: "DocApp Appointment State Machine",
+            title: "Multi-Tenant SaaS Data Partitioning",
             category: "Architecture Schema",
-            badge: "State Machine",
-            description: "Finite state machine diagram modeling appointment lifecycle from initial slot hold through doctor confirmation and completion.",
+            badge: "Cloud Architecture",
+            description:
+                "Prisma ORM & PlanetScale MySQL multi-tenant database partitioning isolating merchants, stores, and products.",
             details: [
-                "Atomic slot reservation with automated 15-minute expiration hold",
-                "Role-based action guards for doctor vs patient permissions",
-                "Real-time state broadcast to clinic reception console"
+                "Foreign key tenancy enforcement at the ORM layer",
+                "Sub-millisecond query indices for category filtering",
+                "Stripe webhook reconciliation with idempotency keys",
             ],
-            technologies: ["Express.js", "MongoDB", "Redux Toolkit"],
-            sourceUrl: "https://github.com/b-l-i-n-d/docapp"
-        },
-        {
-            id: "blueprint-4",
-            number: "04",
-            title: "EdTech Video & Cache Invalidation Matrix",
-            category: "Architecture Schema",
-            badge: "Caching Strategy",
-            description: "RTK Query cache tagging architecture reconciling client-side video playback progress and server-side curriculum completion.",
-            details: [
-                "Automated cache invalidation tags on lecture completion mutations",
-                "Optimistic UI updates reducing perceived network latency to 0ms",
-                "Adaptive bitrate HLS video streaming handoff"
-            ],
-            technologies: ["RTK Query", "Next.js", "Redux Toolkit"],
-            sourceUrl: "https://github.com/b-l-i-n-d/edTech"
-        },
-        {
-            id: "blueprint-5",
-            number: "05",
-            title: "Recursive Tree Filesystem Data Model",
-            category: "Architecture Schema",
-            badge: "Data Structures",
-            description: "Recursive hierarchical node structure enabling nested folder nesting, renaming, and atomic move operations.",
-            details: [
-                "Immutable state mutations using recursive tree walk algorithms",
-                "O(1) node lookup indexing with parent-child pointer caches",
-                "Safe serialization to browser persistent storage"
-            ],
-            technologies: ["TypeScript", "Algorithms", "Data Structures"],
-            sourceUrl: "https://github.com/b-l-i-n-d/folder-manager"
-        },
-        {
-            id: "blueprint-6",
-            number: "06",
-            title: "Physics Drag-and-Drop Coordinate System",
-            category: "Architecture Schema",
-            badge: "Motion Physics",
-            description: "Pointer event mathematical coordinate model tracking drag offset, bounding box collision, and sibling reorder animations.",
-            details: [
-                "Zero DOM reading during drag movement to eliminate layout thrashing",
-                "GPU transform3d matrix calculation in requestAnimationFrame loop",
-                "Velocity-based momentum and spring settle damping"
-            ],
-            technologies: ["Web APIs", "CSS Matrix", "requestAnimationFrame"],
-            sourceUrl: "https://github.com/b-l-i-n-d/dragnsort"
-        },
-        {
-            id: "ui-1",
-            number: "07",
-            title: "E-Commerce Customer Storefront",
-            category: "Interactive UI",
-            badge: "Production App",
-            description: "Clean, high-converting product catalog featuring real-time filter ribbons, color swatches, and cart drawer.",
-            details: [
-                "Faceted search with URL parameter synchronization",
-                "High-resolution product image modal previews",
-                "Integrated Stripe checkout redirect with localized currency"
-            ],
-            technologies: ["Next.js", "Tailwind CSS", "Zustand"],
+            technologies: ["Next.js", "Prisma", "PlanetScale", "Stripe"],
             demoUrl: "https://ecommerce-store-b-l-i-n-d.vercel.app",
-            sourceUrl: "https://github.com/b-l-i-n-d/ecommerce-store"
+            sourceUrl: "https://github.com/b-l-i-n-d/ecommerce-admin",
         },
         {
-            id: "ui-2",
+            id: "bg-4",
+            number: "04",
+            title: "Healthcare Clinic State Machine (DocApp)",
+            category: "Architecture Schema",
+            badge: "Distributed Systems",
+            description:
+                "Finite state machine managing doctor availability, double-booking prevention, and appointment transitions.",
+            details: [
+                "Atomic appointment reservation slots with optimistic lock guards",
+                "Role-based access control for doctors and patients",
+                "Real-time schedule invalidation via RTK Query cache tags",
+            ],
+            technologies: ["React", "Node.js", "Express", "MongoDB"],
+            sourceUrl: "https://github.com/b-l-i-n-d/docapp",
+        },
+        {
+            id: "bg-5",
+            number: "05",
+            title: "Faceted Search & URL Sync Pipeline",
+            category: "Architecture Schema",
+            badge: "Frontend State",
+            description:
+                "Shareable, URL-driven filtering pipeline synchronizing colors, sizes, and price bounds with zero page reloads.",
+            details: [
+                "Next.js App Router useSearchParams integration",
+                "Debounced query dispatch preventing route churn",
+                "Synchronized breadcrumb and filter tag states",
+            ],
+            technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
+            demoUrl: "https://ecommerce-store-b-l-i-n-d.vercel.app",
+        },
+        {
+            id: "bg-6",
+            number: "06",
+            title: "Stripe Webhook Payment Gateway",
+            category: "Architecture Schema",
+            badge: "FinTech Pipeline",
+            description:
+                "Asynchronous cryptographic signature verification pipeline with automated order fulfillment and inventory decrement.",
+            details: [
+                "Raw buffer signature parsing with timing-safe comparison",
+                "Graceful recovery handling for intermittent network disconnects",
+                "Instant merchant order email and push dispatching",
+            ],
+            technologies: ["Stripe API", "Next.js Route Handlers", "Prisma"],
+            sourceUrl: "https://github.com/b-l-i-n-d/ecommerce-admin",
+        },
+        {
+            id: "bg-7",
+            number: "07",
+            title: "Fluid Drag-and-Sort Matrix",
+            category: "Interactive UI",
+            badge: "DOM Physics",
+            description:
+                "Pointer-event driven DOM reordering with FLIP transform animations and zero jitter on mobile touch screens.",
+            details: [
+                "Calculates bounding rectangles in memory before mutation",
+                "GPU-accelerated translate3d transforms during drag states",
+                "Accessible keyboard fallbacks for screen reader compliance",
+            ],
+            technologies: ["React", "FLIP Technique", "CSS3"],
+            demoUrl: "https://b-l-i-n-d.github.io/dragnsort/",
+            sourceUrl: "https://github.com/b-l-i-n-d/dragnsort",
+        },
+        {
+            id: "bg-8",
             number: "08",
-            title: "3D Perspective Book Flipping Interaction",
+            title: "3D Perspective Page Turn Booklet",
             category: "Interactive UI",
-            badge: "3D Transform",
-            description: "Interactive physical book simulation built with pure CSS 3D perspective transforms and dynamic shadow shaders.",
+            badge: "3D Spatial UI",
+            description:
+                "CSS 3D perspective matrix simulating physical book curvature, paper tension, and dynamic shadow gradients.",
             details: [
-                "Smooth page turning gesture with dual-page rendering",
-                "Realistic ambient occlusion and depth gradients",
-                "Zero external canvas dependencies"
+                "Preserve-3d coordinate space with double-sided leaf rendering",
+                "Dynamic spine highlight reflecting incident light angles",
+                "Touch-responsive dragging with angle constraint locks",
             ],
-            technologies: ["HTML5", "CSS3 3D Matrix", "JavaScript"],
-            demoUrl: "https://book-animation-two.vercel.app",
-            sourceUrl: "https://github.com/b-l-i-n-d/book-animation"
+            technologies: ["CSS 3D Transforms", "JavaScript", "HTML5"],
+            demoUrl: "https://b-l-i-n-d.github.io/book-animation/",
+            sourceUrl: "https://github.com/b-l-i-n-d/book-animation",
         },
         {
-            id: "ui-3",
+            id: "bg-9",
             number: "09",
-            title: "Hierarchical Folder Explorer UI",
+            title: "Recursive Directory Tree Visualizer",
             category: "Interactive UI",
-            badge: "Interactive UI",
-            description: "Tree structure explorer with expanding directory animations, item creation modals, and breadcrumbs.",
+            badge: "Data Visualization",
+            description:
+                "Expandable folder hierarchy component with branch memoization, inline node edits, and keyboard navigation.",
             details: [
-                "Animated folder expansion and collapse transitions",
-                "Context menu for renaming and deleting items",
-                "State preservation across page reloads"
+                "Recursive component rendering with React.memo isolation",
+                "Auto-scrolling focused tree item into view",
+                "Zero layout re-renders on sibling branch expansion",
             ],
             technologies: ["React", "TypeScript", "Tailwind CSS"],
-            demoUrl: "https://folder-manager-blond.vercel.app",
-            sourceUrl: "https://github.com/b-l-i-n-d/folder-manager"
+            demoUrl: "https://folder-manager.vercel.app/",
+            sourceUrl: "https://github.com/b-l-i-n-d/folder-manager",
         },
         {
-            id: "ui-4",
+            id: "bg-10",
             number: "10",
-            title: "Sortable Physics Drag Grid",
+            title: "Angular Momentum Kinetic Spinner",
             category: "Interactive UI",
-            badge: "Physics Engine",
-            description: "Drag-and-drop sortable items with fluid spring animations and layout repositioning.",
+            badge: "Canvas Animation",
+            description:
+                "Mathematical physics simulation modeling circular inertia, frictional drag, and smooth deceleration curves.",
             details: [
-                "Spring physics on sibling item relocation",
-                "Touch gesture support for mobile devices",
-                "Accessible keyboard reordering keys"
+                "Angular velocity integration over delta time",
+                "Sub-pixel canvas anti-aliasing on Retina displays",
+                "Locked 60 FPS requestAnimationFrame scheduler",
             ],
-            technologies: ["TypeScript", "Pointer Events", "CSS3"],
-            demoUrl: "https://dragnsort.vercel.app",
-            sourceUrl: "https://github.com/b-l-i-n-d/dragnsort"
+            technologies: ["HTML5 Canvas", "Physics Math", "JavaScript"],
+            demoUrl: "https://b-l-i-n-d.github.io/spinner/",
+            sourceUrl: "https://github.com/b-l-i-n-d/spinner",
         },
         {
-            id: "ui-5",
+            id: "bg-11",
             number: "11",
-            title: "Travel Destination Explorer",
+            title: "Responsive Scheduling Calendar",
             category: "Interactive UI",
-            badge: "Editorial UI",
-            description: "Editorial travel web application with destination cards, weather widgets, and trip booking dialogues.",
+            badge: "Productivity",
+            description:
+                "High-performance month and week scheduling view with date arithmetic and event collision detection.",
             details: [
-                "Fluid typography and responsive grid layout",
-                "Backdrop filter blur effects with low-end device fallbacks",
-                "Interactive photo gallery with smooth transitions"
+                "Modular month matrix calculation using date-fns",
+                "Event badge truncation with tooltip hover expansions",
+                "Adaptive grid spanning effortlessly from mobile to 4K displays",
             ],
-            technologies: ["Next.js", "Tailwind CSS", "TypeScript"],
-            demoUrl: "https://travel-web-app-two.vercel.app",
-            sourceUrl: "https://github.com/b-l-i-n-d/travel-web-app"
+            technologies: ["React", "Date-fns", "Tailwind CSS"],
+            demoUrl: "https://b-l-i-n-d.github.io/calendar/",
+            sourceUrl: "https://github.com/b-l-i-n-d/calendar",
         },
         {
-            id: "ui-6",
+            id: "bg-12",
             number: "12",
-            title: "Modular Reactive Calendar Widget",
+            title: "Interactive Travel Experience Portal",
             category: "Interactive UI",
-            badge: "Component Library",
-            description: "Date picker and event scheduling calendar widget with month, week, and day views.",
+            badge: "Micro-Interactions",
+            description:
+                "Card stacking interaction with subtle parallax offsets, fluid drawers, and filterable destination views.",
             details: [
-                "Fast month-matrix calendar generation",
-                "Active date highlights and event dot badges",
-                "Zero external bloated date libraries"
+                "Spring physics card transitions with zero frame stutter",
+                "Custom responsive drawer with touch gesture dismissal",
+                "Hardware-accelerated CSS backface visibility culling",
             ],
-            technologies: ["React", "TypeScript", "Tailwind CSS"],
-            demoUrl: "https://calendar-eight-mu.vercel.app",
-            sourceUrl: "https://github.com/b-l-i-n-d/calendar"
-        }
+            technologies: ["React", "CSS Modules", "Vite"],
+            demoUrl: "https://travel-web-app-beta.vercel.app/",
+            sourceUrl: "https://github.com/b-l-i-n-d/travel-web-app",
+        },
     ],
     skillCategories: [
         {
-            name: "Core Languages & Foundations",
-            skills: ["TypeScript", "JavaScript (ESNext)", "HTML5 / Semantic Web", "CSS3 / Modern Layouts", "C++", "SQL"]
+            name: "Core Languages & Frameworks",
+            skills: [
+                "TypeScript",
+                "JavaScript (ESNext)",
+                "React",
+                "Next.js (App Router & Pages)",
+                "Node.js",
+                "Express.js",
+                "PHP",
+                "HTML5 & CSS3",
+            ],
         },
         {
-            name: "Frontend Frameworks & Motion",
-            skills: ["Next.js (App Router & SSR)", "React.js", "Tailwind CSS", "Framer Motion", "Shadcn/UI", "Redux Toolkit / RTK Query", "Zustand"]
+            name: "Architecture, State & Tools",
+            skills: [
+                "Zustand",
+                "Redux Toolkit / RTK Query",
+                "Prisma ORM",
+                "Tailwind CSS",
+                "WordPress REST API",
+                "Joomla Framework",
+                "MongoDB",
+                "MySQL / PlanetScale",
+                "Git & GitHub Actions",
+            ],
         },
         {
-            name: "Backend & Distributed Systems",
-            skills: ["Node.js", "Express.js", "RESTful API Design", "MongoDB & Mongoose", "Prisma ORM", "PlanetScale (MySQL)", "JWT Authentication"]
+            name: "Performance & Media Engineering",
+            skills: [
+                "Hardware-Accelerated CSS Motion",
+                "60 FPS Profiling",
+                "HTML5 Video APIs",
+                "Canvas API",
+                "IntersectionObserver Optimization",
+                "Zero-Layout-Shift Web Architecture",
+            ],
         },
-        {
-            name: "DevOps, Tooling & Cloud",
-            skills: ["Git & GitHub", "Vercel CI/CD", "Stripe API & Webhooks", "Clerk Auth", "Cloudinary CDN", "Netlify"]
-        }
-    ]
+    ],
 };

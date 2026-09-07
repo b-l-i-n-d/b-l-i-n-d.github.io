@@ -2,6 +2,7 @@ import { portfolioData } from "@/config/portfolio-data";
 import { ViewportProvider } from "@/components/viewport/ViewportController";
 import { ChapterScrubber } from "@/components/navigation/ChapterScrubber";
 import { CinematicHero } from "@/components/hero/CinematicHero";
+import { ExperienceSection } from "@/components/experience/ExperienceSection";
 import { ProjectCaseStudySection } from "@/components/showcase/ProjectCaseStudySection";
 import { InteractiveMotionLab } from "@/components/motion-lab/InteractiveMotionLab";
 import { HybridGallery } from "@/components/gallery/HybridGallery";
@@ -14,21 +15,24 @@ export default function Home() {
                 {/* Floating Chapter Dock Navigation */}
                 <ChapterScrubber chapters={portfolioData.chapters} />
 
-                {/* Chapter 00: Flagship Cinematic Showreel Hero */}
+                {/* Chapter 00: Flagship Cinematic Showreel Hero (Tutor LMS 3.0-4.0 & EasyStore) */}
                 <CinematicHero profile={portfolioData} />
 
-                {/* Chapters 01 - 03: 4-Stage Project Case Studies */}
+                {/* Chapter 01: Professional Experience & Career Impact */}
+                <ExperienceSection profile={portfolioData} />
+
+                {/* Chapters 02 - 04: 4-Stage Project Case Studies */}
                 {portfolioData.flagshipProjects.map((project) => (
                     <ProjectCaseStudySection key={project.id} project={project} />
                 ))}
 
-                {/* Chapter 04: Interactive Motion Lab (60 FPS Micro-Interactions) */}
+                {/* Chapter 05: Interactive Motion Lab (60 FPS Micro-Interactions) */}
                 <InteractiveMotionLab items={portfolioData.interactiveBuilds} />
 
-                {/* Chapter 05: 12-Item Curated Hybrid Gallery & Lightbox */}
+                {/* Chapter 06: 12-Item Curated Hybrid Gallery & Lightbox */}
                 <HybridGallery items={portfolioData.hybridGallery} />
 
-                {/* Chapter 06: Verified Academic Credentials & Contact Outro */}
+                {/* Chapter 07: Verified Academic Credentials & Contact Outro */}
                 <ProfileOutro profile={portfolioData} />
             </main>
         </ViewportProvider>

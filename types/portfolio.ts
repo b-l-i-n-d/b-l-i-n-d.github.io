@@ -66,6 +66,26 @@ export interface GalleryItem {
     sourceUrl?: string;
 }
 
+export interface WorkExperience {
+    id: string;
+    role: string;
+    company: string;
+    department?: string;
+    period: string;
+    startDate: string;
+    endDate?: string;
+    website: string;
+    location: string;
+    products: {
+        name: string;
+        url: string;
+        roleNote: string;
+    }[];
+    description: string;
+    achievements: string[];
+    technologies: string[];
+}
+
 export interface Chapter {
     id: string;
     number: string;
@@ -86,6 +106,7 @@ export interface EngineerProfile {
         department: string;
         status: string;
         link: string;
+        period: string;
     };
     contact: {
         email: string;
@@ -99,10 +120,14 @@ export interface EngineerProfile {
         tagline: string;
         badge: string;
         videoUrl: string;
+        secondaryVideoUrl?: string;
         posterUrl: string;
         runtime: string;
         framerate: string;
+        productTitle: string;
+        productUrl: string;
     };
+    experiences: WorkExperience[];
     chapters: Chapter[];
     flagshipProjects: ProjectCaseStudy[];
     interactiveBuilds: InteractiveUIItem[];
