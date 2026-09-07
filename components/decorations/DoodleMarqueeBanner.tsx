@@ -34,9 +34,10 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
                 {[...Array(6)].map((_, idx) => (
                     <div key={idx} className="relative h-14 w-[600px] shrink-0 opacity-85">
                         <Image
-                            src="/assets/doodle-banner.png"
+                            src="/assets/doodle-banner.gif"
                             alt=""
                             fill
+                            unoptimized
                             sizes="600px"
                             className="object-cover object-center"
                             priority={idx < 2}
@@ -56,9 +57,10 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
                 {[...Array(6)].map((_, idx) => (
                     <div key={`dup-${idx}`} className="relative h-14 w-[600px] shrink-0 opacity-85">
                         <Image
-                            src="/assets/doodle-banner.png"
+                            src="/assets/doodle-banner.gif"
                             alt=""
                             fill
+                            unoptimized
                             sizes="600px"
                             className="object-cover object-center"
                         />
@@ -76,7 +78,7 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
                     }
                 }
                 .animate-marquee {
-                    animation: marquee linear infinite;
+                    animation: marquee ${speed}s linear infinite;
                     will-change: transform;
                 }
             `}</style>

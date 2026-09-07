@@ -24,14 +24,14 @@ export const ContentsIndexSection: React.FC<ContentsSectionProps> = ({ className
             {/* Background Ambient Radial Glow */}
             <div className="absolute top-10 left-1/4 w-[500px] h-[350px] bg-crimson-600/10 blur-[130px] pointer-events-none" />
 
-            {/* Corner Doodle Graphic (Bottom-Right, matching Behance ref Image 3) */}
-            <div className="absolute bottom-0 right-0 w-[340px] sm:w-[480px] lg:w-[620px] h-[220px] sm:h-[300px] lg:h-[380px] pointer-events-none opacity-40 mix-blend-screen select-none translate-x-12 translate-y-8">
+            {/* Authentic Behance Corner Doodle Graphic (Bottom-Right, cropped from original Module 3) */}
+            <div className="absolute bottom-0 right-0 w-[300px] sm:w-[440px] lg:w-[540px] h-[200px] sm:h-[280px] lg:h-[350px] pointer-events-none opacity-50 mix-blend-screen select-none translate-x-4 translate-y-2">
                 <Image
-                    src="/assets/doodle-banner.png"
+                    src="/assets/behance/contents-doodle.png"
                     alt=""
                     fill
-                    sizes="(max-width: 768px) 340px, 620px"
-                    className="object-cover object-bottom rotate-[-8deg] scale-125"
+                    sizes="(max-width: 768px) 300px, 540px"
+                    className="object-contain object-bottom-right"
                 />
             </div>
 
@@ -102,9 +102,9 @@ export const ContentsIndexSection: React.FC<ContentsSectionProps> = ({ className
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">Multi-Tenant SaaS</div>
+                                        <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">Storefront SaaS</div>
                                         <div className="font-semibold text-neutral-200 group-hover:text-[#ff1744] transition-colors">
-                                            E-Commerce Admin & Store
+                                            E-Commerce Headless SaaS
                                         </div>
                                     </div>
                                 </li>
@@ -127,7 +127,7 @@ export const ContentsIndexSection: React.FC<ContentsSectionProps> = ({ className
                                 <span>Interactive Lab :</span>
                             </h3>
 
-                            <ul className="space-y-3.5 text-sm sm:text-base">
+                            <ul className="space-y-4 text-sm sm:text-base">
                                 <li className="group flex items-start gap-3 cursor-pointer" onClick={() => scrollToId("motion-lab")}>
                                     <div className="pt-2">
                                         <span className="inline-block w-2 h-2 rounded-full bg-[#ff1744]" />
@@ -169,7 +169,7 @@ export const ContentsIndexSection: React.FC<ContentsSectionProps> = ({ className
                                         <div className="font-semibold text-neutral-200 group-hover:text-[#ff1744] transition-colors">
                                             3D Book Animation
                                         </div>
-                                        <div className="text-[11px] font-mono text-neutral-500">CSS 3D Perspective · Dynamic Spine</div>
+                                        <div className="text-[11px] font-mono text-neutral-500">Perspective RotateY · CSS 3D</div>
                                     </div>
                                 </li>
 
@@ -184,9 +184,9 @@ export const ContentsIndexSection: React.FC<ContentsSectionProps> = ({ className
                                     </div>
                                     <div>
                                         <div className="font-semibold text-neutral-200 group-hover:text-[#ff1744] transition-colors">
-                                            Responsive Calendar
+                                            Interactive Calendar
                                         </div>
-                                        <div className="text-[11px] font-mono text-neutral-500">Grid Engine · WAI-ARIA Accessible</div>
+                                        <div className="text-[11px] font-mono text-neutral-500">Range Grid Selection · Day Cells</div>
                                     </div>
                                 </li>
 
