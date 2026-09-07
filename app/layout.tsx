@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import { Navbar } from "@/components/navbar";
 import { fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
@@ -16,8 +15,8 @@ export const metadata: Metadata = {
     },
     description: siteConfig.description,
     themeColor: [
-        { media: "(prefers-color-scheme: light)", color: "white" },
-        { media: "(prefers-color-scheme: dark)", color: "black" },
+        { media: "(prefers-color-scheme: light)", color: "#0a0a0a" },
+        { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
     ],
     icons: {
         icon: "/zap.ico",
@@ -32,23 +31,22 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" suppressHydrationWarning className="scroll-smooth">
+        <html lang="en" suppressHydrationWarning className="scroll-smooth dark">
             <head />
             <body
                 className={clsx(
-                    "min-h-screen bg-background font-sans antialiased",
+                    "min-h-screen bg-neutral-950 text-neutral-100 font-sans antialiased selection:bg-amber-400 selection:text-neutral-950 overflow-x-hidden",
                     fontSans.variable
                 )}
             >
                 <Providers
                     themeProps={{ attribute: "class", defaultTheme: "dark" }}
                 >
-                    <div className="relative flex flex-col h-screen">
+                    <div className="relative flex flex-col min-h-screen bg-neutral-950">
                         <Navbar />
-                        <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+                        <main className="w-full flex-grow">
                             {children}
                         </main>
-                        <Footer />
                     </div>
                     <ToastContainer />
                 </Providers>

@@ -1,59 +1,67 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-    name: "Fahim Faisal | Portfolio",
+    name: "Fahim Faisal | Software Engineer",
     description:
-        "Portfolio of Fahim Faisal, a full-stack web developer. I build web applications with React, Next.js, Node.js, and MongoDB.",
+        "Cinematic portfolio of Fahim Faisal, Full Stack & Frontend Software Engineer. Featuring Next.js App Router, TypeScript, high-performance distributed systems, and locked 60 FPS motion engineering.",
     navItems: [
         {
-            label: "Home",
-            href: "#home",
+            label: "Showreel",
+            href: "#hero",
+        },
+        {
+            label: "E-Commerce",
+            href: "#ecommerce",
+        },
+        {
+            label: "EdTech",
+            href: "#edtech",
+        },
+        {
+            label: "DocApp",
+            href: "#docapp",
+        },
+        {
+            label: "Motion Lab",
+            href: "#motion-lab",
+        },
+        {
+            label: "Blueprints",
+            href: "#gallery",
         },
         {
             label: "About",
-            href: "#about",
-        },
-        {
-            label: "Skills",
-            href: "#skills",
-        },
-        {
-            label: "Experience",
-            href: "#experience",
-        },
-        {
-            label: "Projects",
-            href: "#projects",
-        },
-        {
-            label: "Contact",
-            href: "#contact",
+            href: "#profile",
         },
     ],
     navMenuItems: [
         {
-            label: "Home",
-            href: "#home",
+            label: "Showreel",
+            href: "#hero",
+        },
+        {
+            label: "E-Commerce",
+            href: "#ecommerce",
+        },
+        {
+            label: "EdTech",
+            href: "#edtech",
+        },
+        {
+            label: "DocApp",
+            href: "#docapp",
+        },
+        {
+            label: "Motion Lab",
+            href: "#motion-lab",
+        },
+        {
+            label: "Blueprints",
+            href: "#gallery",
         },
         {
             label: "About",
-            href: "#about",
-        },
-        {
-            label: "Skills",
-            href: "#skills",
-        },
-        {
-            label: "Experience",
-            href: "#experience",
-        },
-        {
-            label: "Projects",
-            href: "#projects",
-        },
-        {
-            label: "Contact",
-            href: "#contact",
+            href: "#profile",
         },
     ],
     links: {
@@ -62,8 +70,8 @@ export const siteConfig = {
         mail: "mailto:fahim.faisal.abir@gmail.com",
         linkedin: "https://www.linkedin.com/in/b-l-i-n-d/",
         facebook: "https://www.facebook.com/abir.fahim.faisal/",
-        cv: "./assets/cv.pdf",
-        location: "Bangladesh",
+        cv: "/assets/cv.pdf",
+        location: "Dhaka, Bangladesh",
         mapPin: "https://goo.gl/maps/DbUNvX2C7X9ZJrKC7",
     },
 };
