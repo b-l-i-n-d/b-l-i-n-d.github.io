@@ -12,13 +12,13 @@ export const InteractiveMotionLab: React.FC<InteractiveMotionLabProps> = ({ item
         <section
             id="motion-lab"
             data-chapter-id="motion-lab"
-            className="py-24 px-4 sm:px-6 lg:px-12 border-t border-neutral-800/60 bg-neutral-950 text-white"
+            className="py-24 px-4 sm:px-6 lg:px-12 border-t border-neutral-800/80 bg-neutral-950 text-white"
         >
             <div className="max-w-6xl mx-auto space-y-12">
                 {/* Chapter Header */}
                 <div className="space-y-3 pb-6 border-b border-neutral-800/80">
                     <div className="flex items-center gap-3">
-                        <span className="text-sm font-mono text-amber-400 font-bold px-2.5 py-0.5 bg-amber-400/10 border border-amber-400/30 rounded">
+                        <span className="text-sm font-mono text-[#ff1744] font-bold px-2.5 py-0.5 bg-[#ff1744]/10 border border-[#ff1744]/30 rounded">
                             CHAPTER 04
                         </span>
                         <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
@@ -38,7 +38,7 @@ export const InteractiveMotionLab: React.FC<InteractiveMotionLabProps> = ({ item
                     {items.map((item) => (
                         <div
                             key={item.id}
-                            className="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800/80 hover:border-amber-400/40 transition-all flex flex-col justify-between group shadow-lg"
+                            className="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800/80 hover:border-[#ff1744]/50 transition-all flex flex-col justify-between group shadow-lg"
                         >
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between">
@@ -52,10 +52,10 @@ export const InteractiveMotionLab: React.FC<InteractiveMotionLabProps> = ({ item
                                 </div>
 
                                 <div className="space-y-1">
-                                    <h3 className="text-lg font-bold text-neutral-100 group-hover:text-amber-400 transition-colors">
+                                    <h3 className="text-lg font-bold text-neutral-100 group-hover:text-[#ff1744] transition-colors">
                                         {item.title}
                                     </h3>
-                                    <p className="text-xs font-mono text-amber-400/90">
+                                    <p className="text-xs font-mono text-[#ff1744]/90">
                                         {item.tagline}
                                     </p>
                                 </div>
@@ -67,10 +67,10 @@ export const InteractiveMotionLab: React.FC<InteractiveMotionLabProps> = ({ item
                                 <div className="space-y-1.5 pt-2">
                                     {item.highlights.map((highlight, idx) => (
                                         <div key={idx} className="text-xs text-neutral-500 flex items-center gap-1.5">
-                                            <span className="text-amber-400 text-xs">✓</span>
+                                            <span className="text-[#ff1744] text-xs">✓</span>
                                             <span>{highlight}</span>
                                         </div>
-                                    ))}
+                                    ))}.
                                 </div>
                             </div>
 
@@ -91,7 +91,7 @@ export const InteractiveMotionLab: React.FC<InteractiveMotionLabProps> = ({ item
                                         href={item.demoUrl}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="flex-1 py-2 text-center rounded-lg bg-neutral-800 hover:bg-amber-400 hover:text-neutral-950 text-neutral-200 font-mono text-xs font-semibold transition-all"
+                                        className="flex-1 py-2 text-center rounded-lg bg-neutral-800 hover:bg-[#ff1744] hover:text-white text-neutral-200 font-mono text-xs font-semibold transition-all shadow-sm"
                                     >
                                         Live Demo ↗
                                     </a>

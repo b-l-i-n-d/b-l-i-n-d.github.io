@@ -1,7 +1,7 @@
 export type ProjectStageType = 'architecture' | 'flow' | 'code' | 'live';
 
 export interface ProjectStage {
-    type: ProjectStageType;
+    type?: ProjectStageType;
     title: string;
     subtitle: string;
     description: string;
@@ -12,7 +12,7 @@ export interface ProjectStage {
         language: string;
         filename: string;
         code: string;
-        explanation: string;
+        explanation?: string;
     };
     mediaUrl?: string;
     liveUrl?: string;
@@ -27,7 +27,7 @@ export interface ProjectCaseStudy {
     timeline: string;
     role: string;
     stack: string[];
-    summary: string;
+    summary?: string;
     heroVideoUrl?: string;
     heroPoster?: string;
     liveUrl?: string;
@@ -44,7 +44,7 @@ export interface InteractiveUIItem {
     id: string;
     title: string;
     tagline: string;
-    category: 'Physics & Motion' | 'Tree Structures' | '3D Transform' | 'Micro-Interactions' | 'Productivity';
+    category: string;
     description: string;
     technologies: string[];
     demoUrl: string;
@@ -57,7 +57,7 @@ export interface GalleryItem {
     id: string;
     number: string;
     title: string;
-    category: 'Architecture Schema' | 'Interactive UI';
+    category: string;
     badge: string;
     description: string;
     details: string[];
@@ -65,6 +65,8 @@ export interface GalleryItem {
     demoUrl?: string;
     sourceUrl?: string;
 }
+
+export type HybridItem = GalleryItem;
 
 export interface WorkExperience {
     id: string;

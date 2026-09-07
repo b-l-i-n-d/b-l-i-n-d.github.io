@@ -16,11 +16,11 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile })
         <section
             id="experience"
             data-chapter-id="experience"
-            className="relative min-h-screen py-24 px-4 sm:px-6 lg:px-12 bg-neutral-950 text-white border-t border-neutral-850"
+            className="relative min-h-screen py-24 px-4 sm:px-6 lg:px-12 bg-[#0c0c0c] text-white border-t border-neutral-800/80"
         >
             {/* Ambient Lighting */}
             <div className="absolute inset-0 pointer-events-none opacity-30">
-                <div className="absolute top-1/3 left-1/4 w-[600px] h-[400px] bg-gradient-to-br from-indigo-500/10 via-emerald-500/5 to-transparent blur-3xl" />
+                <div className="absolute top-1/3 left-1/4 w-[600px] h-[400px] bg-gradient-to-br from-[#ff1744]/15 via-crimson-900/10 to-transparent blur-3xl" />
             </div>
 
             <div className="relative z-10 max-w-6xl mx-auto space-y-12">
@@ -28,7 +28,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile })
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-800/80 pb-8">
                     <div className="space-y-3">
                         <div className="flex items-center gap-3">
-                            <span className="text-xs font-mono text-amber-400 font-bold tracking-widest uppercase px-2.5 py-1 rounded bg-amber-400/10 border border-amber-400/30">
+                            <span className="text-xs font-mono text-[#ff1744] font-bold tracking-widest uppercase px-2.5 py-1 rounded bg-[#ff1744]/10 border border-[#ff1744]/30">
                                 Chapter 01
                             </span>
                             <span className="text-xs font-mono text-neutral-500 uppercase tracking-wider">
@@ -54,7 +54,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile })
                                     : "text-neutral-400 hover:text-neutral-200"
                             }`}
                         >
-                            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                            <span className="w-2 h-2 rounded-full bg-[#ff1744]" />
                             Industry Career
                         </button>
                         <button
@@ -65,7 +65,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile })
                                     : "text-neutral-400 hover:text-neutral-200"
                             }`}
                         >
-                            <span className="w-2 h-2 rounded-full bg-indigo-400" />
+                            <span className="w-2 h-2 rounded-full bg-rose-400" />
                             Academic Foundation
                         </button>
                     </div>
@@ -91,7 +91,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile })
                                                 href={exp.website}
                                                 target="_blank"
                                                 rel="noreferrer"
-                                                className="text-xl font-bold text-amber-400 hover:text-amber-300 transition-colors inline-flex items-center gap-1"
+                                                className="text-xl font-bold text-[#ff1744] hover:text-rose-400 transition-colors inline-flex items-center gap-1"
                                             >
                                                 {exp.company}
                                                 <span className="text-xs">↗</span>
@@ -122,7 +122,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile })
                                             >
                                                 <div className="space-y-2">
                                                     <div className="flex items-center justify-between">
-                                                        <h5 className="font-bold text-neutral-100 text-base group-hover:text-amber-400 transition-colors">
+                                                        <h5 className="font-bold text-neutral-100 text-base group-hover:text-[#ff1744] transition-colors">
                                                             {product.name}
                                                         </h5>
                                                         <a
@@ -154,7 +154,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile })
                                                 key={idx}
                                                 className="flex items-start gap-2.5 p-3 rounded-lg bg-neutral-950/40 border border-neutral-800/60"
                                             >
-                                                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0" />
+                                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] mt-2 shrink-0" />
                                                 <span className="leading-relaxed">{item}</span>
                                             </li>
                                         ))}
@@ -193,7 +193,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile })
                                             {education.degree}
                                         </h3>
                                         <span className="text-neutral-500">in</span>
-                                        <span className="text-xl font-bold text-indigo-400">
+                                        <span className="text-xl font-bold text-[#ff1744]">
                                             {education.department}
                                         </span>
                                     </div>
@@ -209,7 +209,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile })
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <span className="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 text-xs font-mono font-medium">
+                                    <span className="px-3 py-1 rounded-full bg-[#ff1744]/10 text-[#ff1744] border border-[#ff1744]/30 text-xs font-mono font-medium">
                                         {education.period} · {education.status}
                                     </span>
                                 </div>

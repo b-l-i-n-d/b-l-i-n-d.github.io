@@ -23,14 +23,14 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudyProps> = ({ proje
         <section
             id={project.id}
             data-chapter-id={project.id}
-            className="py-24 px-4 sm:px-6 lg:px-12 border-t border-neutral-800/60 bg-neutral-950 text-white"
+            className="py-24 px-4 sm:px-6 lg:px-12 border-t border-neutral-800/80 bg-neutral-950 text-white"
         >
             <div className="max-w-6xl mx-auto space-y-12">
                 {/* Chapter Header */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-neutral-800/80">
                     <div className="space-y-2">
                         <div className="flex items-center gap-3">
-                            <span className="text-sm font-mono text-amber-400 font-bold px-2.5 py-0.5 bg-amber-400/10 border border-amber-400/30 rounded">
+                            <span className="text-sm font-mono text-[#ff1744] font-bold px-2.5 py-0.5 bg-[#ff1744]/10 border border-[#ff1744]/30 rounded">
                                 CHAPTER {project.chapterNumber}
                             </span>
                             <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
@@ -51,7 +51,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudyProps> = ({ proje
                                 href={project.liveUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="px-4 py-2 rounded-lg bg-amber-400 hover:bg-amber-300 text-neutral-950 font-semibold text-xs font-mono flex items-center gap-1.5 transition-all shadow-md"
+                                className="px-4 py-2 rounded-lg bg-[#ff1744] hover:bg-rose-500 text-white font-bold text-xs font-mono flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(255,23,68,0.4)]"
                             >
                                 <span>Live Portal ↗</span>
                             </a>
@@ -115,7 +115,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudyProps> = ({ proje
                                     onClick={() => setActiveStage(tab.type)}
                                     className={`flex items-center gap-2 px-6 py-4 text-xs sm:text-sm font-mono whitespace-nowrap transition-all border-b-2 ${
                                         isSelected
-                                            ? "border-amber-400 text-amber-400 bg-neutral-950 font-bold"
+                                            ? "border-[#ff1744] text-[#ff1744] bg-neutral-950 font-bold"
                                             : "border-transparent text-neutral-400 hover:text-neutral-200 hover:bg-neutral-850"
                                     }`}
                                 >
@@ -129,7 +129,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudyProps> = ({ proje
                     {/* Stage Viewport */}
                     <div className="p-6 sm:p-8 space-y-6">
                         <div className="space-y-1">
-                            <span className="text-xs font-mono text-amber-400 uppercase tracking-widest font-semibold">
+                            <span className="text-xs font-mono text-[#ff1744] uppercase tracking-widest font-semibold">
                                 {currentStage.subtitle}
                             </span>
                             <h3 className="text-xl sm:text-2xl font-bold text-neutral-100">
@@ -147,7 +147,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudyProps> = ({ proje
                                     key={idx}
                                     className="p-3 rounded-lg bg-neutral-950/70 border border-neutral-800 text-xs text-neutral-300 flex items-start gap-2"
                                 >
-                                    <span className="text-amber-400 font-bold">•</span>
+                                    <span className="text-[#ff1744] font-bold">•</span>
                                     <span>{highlight}</span>
                                 </div>
                             ))}
@@ -158,12 +158,12 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudyProps> = ({ proje
                             <div className="p-6 rounded-xl bg-neutral-950 border border-neutral-800/90 font-mono text-xs text-neutral-300 space-y-4">
                                 <div className="flex items-center justify-between pb-3 border-b border-neutral-800 text-neutral-400">
                                     <span>Blueprint View: {project.title}</span>
-                                    <span className="text-amber-400">Normalized ER & Data Flow</span>
+                                    <span className="text-[#ff1744]">Normalized ER & Data Flow</span>
                                 </div>
 
-                                {/* ASCII / SVG Visual System Blueprint */}
+                                {/* ASCII Visual System Blueprint */}
                                 <div className="py-4 overflow-x-auto text-neutral-300 bg-neutral-900/70 p-4 rounded-lg border border-neutral-800/60 leading-5">
-                                    <pre className="text-xs text-amber-300">
+                                    <pre className="text-xs text-rose-300">
 {`+-----------------------+         1:N         +------------------------+
 |    Merchant Account   | ------------------> |      Store Instance    |
 | (Clerk User Auth ID)  |                     |  (Store Partition ID)  |
@@ -222,7 +222,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudyProps> = ({ proje
                         {activeStage === "code" && currentStage.codeSnippet && (
                             <div className="rounded-xl overflow-hidden border border-neutral-800 bg-neutral-950 font-mono text-xs">
                                 <div className="flex items-center justify-between px-4 py-2.5 bg-neutral-900 border-b border-neutral-800 text-neutral-400">
-                                    <span className="text-amber-400 font-semibold">
+                                    <span className="text-[#ff1744] font-semibold">
                                         {currentStage.codeSnippet.filename}
                                     </span>
                                     <button
@@ -245,7 +245,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudyProps> = ({ proje
                                     Ready for Live Inspection
                                 </h4>
                                 <p className="text-sm text-neutral-400 max-w-xl mx-auto">
-                                    This system is continuously deployed with automated checks and live database endpoints.
+                                    This system is continuously deployed with automated checks and live endpoints.
                                 </p>
                                 <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                                     {project.liveUrl && (
@@ -253,41 +253,14 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudyProps> = ({ proje
                                             href={project.liveUrl}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="px-6 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold text-xs font-mono transition-all shadow-lg"
+                                            className="px-5 py-2.5 rounded-lg bg-[#ff1744] hover:bg-rose-500 text-white font-bold text-xs font-mono transition-all shadow-[0_0_12px_rgba(255,23,68,0.4)]"
                                         >
-                                            Launch Live Application ↗
-                                        </a>
-                                    )}
-                                    {project.githubUrl && (
-                                        <a
-                                            href={project.githubUrl}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="px-6 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-300 border border-neutral-700 font-semibold text-xs font-mono transition-all"
-                                        >
-                                            View Source Repository ↗
+                                            Launch Live Experience ↗
                                         </a>
                                     )}
                                 </div>
                             </div>
                         )}
-                    </div>
-                </div>
-
-                {/* Tech Stack Pills */}
-                <div className="space-y-2">
-                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 block">
-                        Technologies & Frameworks
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                        {project.stack.map((tech, idx) => (
-                            <span
-                                key={idx}
-                                className="px-3 py-1 rounded-full text-xs font-mono bg-neutral-900 text-neutral-300 border border-neutral-800"
-                            >
-                                {tech}
-                            </span>
-                        ))}
                     </div>
                 </div>
             </div>

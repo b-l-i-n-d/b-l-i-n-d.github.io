@@ -54,15 +54,15 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
             data-chapter-id="hero"
             className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-12 pt-20 pb-16 overflow-hidden bg-neutral-950 text-white"
         >
-            {/* Ambient subtle gradient background (GPU composited) */}
-            <div className="absolute inset-0 pointer-events-none opacity-40">
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-tr from-amber-500/10 via-emerald-500/10 to-cyan-500/10 blur-3xl" />
+            {/* Ambient subtle crimson gradient background (GPU composited) */}
+            <div className="absolute inset-0 pointer-events-none opacity-35">
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[500px] bg-gradient-to-tr from-[#ff1744]/15 via-crimson-900/10 to-rose-600/10 blur-3xl" />
             </div>
 
             <div className="relative z-10 max-w-6xl w-full mx-auto flex flex-col items-center text-center space-y-8">
                 {/* Meta Chips */}
                 <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-mono tracking-wider uppercase">
-                    <span className="px-3 py-1 bg-amber-400/10 text-amber-400 border border-amber-400/30 rounded-full font-semibold">
+                    <span className="px-3 py-1 bg-[#ff1744]/10 text-[#ff1744] border border-[#ff1744]/30 rounded-full font-semibold">
                         {profile.heroReel.badge}
                     </span>
                     <span className="px-3 py-1 bg-neutral-900 text-neutral-300 border border-neutral-800 rounded-full">
@@ -93,9 +93,9 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                         href="https://tutorlms.com/"
                         target="_blank"
                         rel="noreferrer"
-                        className="px-3 py-1.5 rounded-lg bg-neutral-900/90 hover:bg-neutral-800 text-neutral-200 border border-neutral-700/80 transition-all flex items-center gap-2 group"
+                        className="px-3.5 py-1.5 rounded-lg bg-neutral-900/90 hover:bg-neutral-800 text-neutral-200 border border-neutral-700/80 transition-all flex items-center gap-2 group"
                     >
-                        <span className="w-2 h-2 rounded-full bg-indigo-500" />
+                        <span className="w-2 h-2 rounded-full bg-[#ff1744]" />
                         <span className="font-semibold text-neutral-100">Tutor LMS 3.0 – 4.0</span>
                         <span className="text-neutral-500 group-hover:text-neutral-300">↗</span>
                     </a>
@@ -103,16 +103,16 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                         href="https://www.joomshaper.com/easystore"
                         target="_blank"
                         rel="noreferrer"
-                        className="px-3 py-1.5 rounded-lg bg-neutral-900/90 hover:bg-neutral-800 text-neutral-200 border border-neutral-700/80 transition-all flex items-center gap-2 group"
+                        className="px-3.5 py-1.5 rounded-lg bg-neutral-900/90 hover:bg-neutral-800 text-neutral-200 border border-neutral-700/80 transition-all flex items-center gap-2 group"
                     >
-                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                        <span className="w-2 h-2 rounded-full bg-crimson-500" />
                         <span className="font-semibold text-neutral-100">EasyStore by JoomShaper</span>
                         <span className="text-neutral-500 group-hover:text-neutral-300">↗</span>
                     </a>
                 </div>
 
                 {/* Cinematic Showreel Player Container */}
-                <div className="w-full max-w-5xl relative rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900 shadow-[0_20px_50px_rgba(0,0,0,0.8)] group">
+                <div className="w-full max-w-5xl relative rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900 shadow-[0_20px_50px_rgba(0,0,0,0.85)] group">
                     {/* Perspective Stage / Aspect Ratio Box */}
                     <div className="relative w-full pb-[56.25%] bg-neutral-950">
                         <video
@@ -135,7 +135,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                                 onClick={() => setActiveClip("learner")}
                                 className={`px-2.5 py-1 rounded-lg transition-all ${
                                     activeClip === "learner"
-                                        ? "bg-amber-400 text-neutral-950 font-bold shadow-sm"
+                                        ? "bg-[#ff1744] text-white font-bold shadow-[0_0_10px_rgba(255,23,68,0.5)]"
                                         : "text-neutral-400 hover:text-white"
                                 }`}
                             >
@@ -145,7 +145,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                                 onClick={() => setActiveClip("instructor")}
                                 className={`px-2.5 py-1 rounded-lg transition-all ${
                                     activeClip === "instructor"
-                                        ? "bg-amber-400 text-neutral-950 font-bold shadow-sm"
+                                        ? "bg-[#ff1744] text-white font-bold shadow-[0_0_10px_rgba(255,23,68,0.5)]"
                                         : "text-neutral-400 hover:text-white"
                                 }`}
                             >
@@ -158,7 +158,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                     <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 bg-gradient-to-t from-neutral-950 via-neutral-950/80 to-transparent flex items-center justify-between z-20">
                         <div className="text-left">
                             <div className="flex items-center gap-2">
-                                <span className="text-xs font-mono text-amber-400 font-bold uppercase tracking-widest block">
+                                <span className="text-xs font-mono text-[#ff1744] font-bold uppercase tracking-widest block">
                                     Chapter 00
                                 </span>
                                 <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-neutral-800/80 text-neutral-300 border border-neutral-700/50">
@@ -215,7 +215,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                                     </>
                                 ) : (
                                     <>
-                                        <svg className="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-3.5 h-3.5 text-[#ff1744]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
                                         </svg>
                                         <span>Mute</span>
@@ -226,7 +226,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                             {/* Cinema Mode Button */}
                             <button
                                 onClick={() => setIsExpanded(true)}
-                                className="px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-neutral-950 font-semibold text-xs font-mono flex items-center gap-1.5 transition-all shadow-md"
+                                className="px-3.5 py-1.5 rounded-lg bg-[#ff1744] hover:bg-rose-500 text-white font-bold text-xs font-mono flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(255,23,68,0.5)]"
                                 aria-label="Expand showreel to fullscreen cinema mode"
                             >
                                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -241,17 +241,17 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                 {/* CTA & Verified Fast Links */}
                 <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
                     <a
-                        href="#experience"
-                        className="px-6 py-3 rounded-xl bg-neutral-100 hover:bg-white text-neutral-950 font-semibold text-sm transition-all shadow-lg hover:shadow-neutral-200/20"
+                        href="#contents"
+                        className="px-6 py-3 rounded-xl bg-[#ff1744] hover:bg-crimson-500 text-white font-bold text-sm transition-all shadow-[0_0_20px_rgba(255,23,68,0.35)]"
                     >
-                        View Experience & Career ↓
+                        Browse Contents ↓
                     </a>
                     <a
-                        href="#tutor-lms"
+                        href="#about"
                         className="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-semibold text-sm transition-all flex items-center gap-2"
                     >
-                        <span>Tutor LMS Case Study</span>
-                        <span className="text-amber-400">→</span>
+                        <span>Profile & Bio</span>
+                        <span className="text-[#ff1744]">→</span>
                     </a>
                     <a
                         href={profile.contact.cvUrl}
@@ -263,15 +263,6 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                         <span>Download CV</span>
-                    </a>
-                    <a
-                        href={profile.contact.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-5 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-300 border border-neutral-800 text-sm transition-all flex items-center gap-2"
-                    >
-                        <span>GitHub</span>
-                        <span className="text-xs text-neutral-500 font-mono">@b-l-i-n-d</span>
                     </a>
                 </div>
             </div>
@@ -285,7 +276,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                 >
                     <div className="w-full max-w-6xl flex justify-between items-center pb-4 text-white">
                         <div className="flex items-center gap-3">
-                            <span className="font-mono text-xs text-amber-400 font-bold uppercase tracking-wider">
+                            <span className="font-mono text-xs text-[#ff1744] font-bold uppercase tracking-wider">
                                 Cinema Mode · {profile.heroReel.title}
                             </span>
                             <span className="text-xs text-neutral-400 font-mono">

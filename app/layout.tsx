@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/navbar";
-import { fontSans } from "@/config/fonts";
+import { fontMono, fontSans, fontScript } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
 import clsx from "clsx";
@@ -35,8 +35,10 @@ export default function RootLayout({
             <head />
             <body
                 className={clsx(
-                    "min-h-screen bg-neutral-950 text-neutral-100 font-sans antialiased selection:bg-amber-400 selection:text-neutral-950 overflow-x-hidden",
-                    fontSans.variable
+                    "min-h-screen bg-neutral-950 text-neutral-100 font-sans antialiased selection:bg-rose-600 selection:text-white overflow-x-hidden",
+                    fontSans.variable,
+                    fontMono.variable,
+                    fontScript.variable
                 )}
             >
                 <Providers
