@@ -11,6 +11,13 @@ interface ChapterScrubberProps {
 
 export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) => {
     const { activeChapter, setActiveChapter } = useViewport();
+    const [mounted, setMounted] = React.useState(false);
+
+    React.useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
 
     const isChapterActive = (chapterId: string) => {
         const caseStudyIds = ["case-study", "tutor-lms", "enclave", "edtech", "docapp"];

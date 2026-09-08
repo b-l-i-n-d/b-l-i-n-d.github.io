@@ -208,8 +208,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                             src={profile.heroReel.posterUrl || "/assets/hero-poster.webp"}
                             alt="Tutor LMS Student Course Player Experience"
                             fill
-                            loading="eager"
-                            unoptimized
+                            priority
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
                             className={`object-cover transition-opacity duration-500 ${videoReady ? "opacity-0 pointer-events-none" : "opacity-100"}`}
                         />
