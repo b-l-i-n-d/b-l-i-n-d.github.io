@@ -107,7 +107,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                     </span>
                     <span className="px-3 py-1 bg-white dark:bg-white/[0.06] text-neutral-900 dark:text-neutral-100 border border-black/[0.08] dark:border-white/[0.12] rounded-full flex items-center gap-1.5 shadow-sm">
                         <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
-                        80,000+ Active Deployments
+                        120,000+ Active Deployments
                     </span>
                 </div>
 

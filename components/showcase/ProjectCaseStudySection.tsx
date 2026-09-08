@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FlagshipProject, CaseStudyStage } from "@/types/portfolio";
 import { TutorArchitectureGraph } from "./TutorArchitectureGraph";
+import { InteractiveFlowVisualizer } from "./InteractiveFlowVisualizer";
+import { ComplexCodeStudio } from "./ComplexCodeStudio";
 import {
     Layers,
     Activity,
@@ -247,75 +249,12 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                                 )}
 
                                 {activeStage === "flow" && (
-                                    <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-                                        {currentStage.highlights?.map((step, idx) => (
-                                            <div
-                                                key={idx}
-                                                className="p-5 rounded-xl bg-stone-50/70 dark:bg-neutral-950/60 border border-black/[0.04] dark:border-white/[0.06] space-y-2 shadow-sm hover:shadow-craft-card transition-all duration-150"
-                                            >
-                                                <div className="flex items-center gap-2">
-                                                    <span className="w-5 h-5 rounded-full bg-[#ff1744]/10 text-[#ff1744] flex items-center justify-center text-xs font-semibold">
-                                                        {idx + 1}
-                                                    </span>
-                                                    <span className="text-xs font-semibold text-neutral-800 dark:text-neutral-200">
-                                                        Flow Step {idx + 1}
-                                                    </span>
-                                                </div>
-                                                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                                                    {step}
-                                                </p>
-                                            </div>
-                                        ))}
-                                    </div>
+                                    <InteractiveFlowVisualizer projectId={project.id} />
                                 )}
 
-                                {activeStage === "code" && (() => {
-                                    const codeSnippetText =
-                                        typeof currentStage.codeSnippet === "string"
-                                            ? currentStage.codeSnippet
-                                            : currentStage.codeSnippet?.code || "";
-                                    const fileName =
-                                        typeof currentStage.codeSnippet === "object" && currentStage.codeSnippet?.filename
-                                            ? currentStage.codeSnippet.filename
-                                            : project.id === "tutor-lms"
-                                            ? "useTutorLessonCockpit.ts"
-                                            : "useEasyStoreVariantSolver.ts";
-
-                                    return (
-                                        <div className="relative rounded-xl overflow-hidden border border-black/[0.06] dark:border-white/[0.08] bg-neutral-950 font-mono text-xs shadow-craft-elevated">
-                                            <div className="flex items-center justify-between px-4 py-2.5 bg-neutral-900 border-b border-neutral-800 text-neutral-400">
-                                                <div className="flex items-center gap-2">
-                                                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-                                                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                                                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                                                    <span className="ml-2 text-xs text-neutral-300 font-mono">
-                                                        {fileName}
-                                                    </span>
-                                                </div>
-                                                <button
-                                                    onClick={() => copyCode(codeSnippetText)}
-                                                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-300 transition-colors"
-                                                    aria-label="Copy code snippet"
-                                                >
-                                                    {copied ? (
-                                                        <>
-                                                            <Check className="w-3 h-3 text-emerald-400" />
-                                                            <span className="text-emerald-400">Copied</span>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <Copy className="w-3 h-3" />
-                                                            <span>Copy</span>
-                                                        </>
-                                                    )}
-                                                </button>
-                                            </div>
-                                            <pre className="p-4 sm:p-6 overflow-x-auto text-neutral-200 leading-relaxed">
-                                                <code>{codeSnippetText}</code>
-                                            </pre>
-                                        </div>
-                                    );
-                                })()}
+                                {activeStage === "code" && (
+                                    <ComplexCodeStudio projectId={project.id} />
+                                )}
 
                                 {activeStage === "live" && (
                                     <div className="p-6 rounded-xl bg-stone-50/70 dark:bg-neutral-950 border border-black/[0.06] dark:border-white/[0.08] space-y-4">

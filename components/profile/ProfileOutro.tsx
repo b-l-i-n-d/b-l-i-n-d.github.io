@@ -72,7 +72,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                                 <p key={idx}>{paragraph}</p>
                             )) || (
                                 <p>
-                                    Software Engineer specializing in frontend architecture, distributed systems integration, and fluid motion design systems. Experienced in shipping features to over 80,000 production sites worldwide.
+                                    Software Engineer specializing in frontend architecture, distributed systems integration, and fluid motion design systems. Experienced in shipping features to over 120,000 production sites worldwide.
                                 </p>
                             )}
                         </div>
