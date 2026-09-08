@@ -225,3 +225,9 @@ body {
     animation: none !important;
   }
 }
+
+/* Offscreen content rendering optimization for mobile & desktop layout performance */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}

@@ -45,29 +45,43 @@ export default function Home() {
             <ContentsIndexSection />
 
             {/* Chapter 02: Behance Bio, Portrait, Timeline & Interactive Skill Cloud */}
-            <BehanceBioSection profile={portfolioData} />
+            <div className="content-auto">
+                <BehanceBioSection profile={portfolioData} />
+            </div>
 
             {/* Reverse Ribbon Divider Banner */}
-            <DoodleMarqueeBanner direction="right" speed={45} />
+            <div className="content-auto">
+                <DoodleMarqueeBanner direction="right" speed={45} />
+            </div>
 
             {/* Chapter 03: Professional Experience & Career Impact (Ollyo & SUST) */}
-            <ExperienceSection profile={portfolioData} />
+            <div className="content-auto">
+                <ExperienceSection profile={portfolioData} />
+            </div>
 
             {/* Chapters 04 - 07: 4-Stage Project Case Studies (Tutor LMS, Enclave, EdTech, DocApp) */}
             <div id="case-study">
                 {portfolioData.flagshipProjects.map((project) => (
-                    <ProjectCaseStudySection key={project.id} project={project} />
+                    <div key={project.id} className="content-auto">
+                        <ProjectCaseStudySection project={project} />
+                    </div>
                 ))}
             </div>
 
             {/* Chapter 08: Interactive Motion Lab (Micro-Interactions & Physics) */}
-            <InteractiveMotionLab items={portfolioData.interactiveBuilds} />
+            <div className="content-auto">
+                <InteractiveMotionLab items={portfolioData.interactiveBuilds} />
+            </div>
 
             {/* Chapter 09: 12-Item Curated Hybrid Gallery & Lightbox */}
-            <HybridGallery items={portfolioData.hybridGallery} />
+            <div className="content-auto">
+                <HybridGallery items={portfolioData.hybridGallery} />
+            </div>
 
             {/* Chapter 10: Verified Academic Credentials & Contact Outro */}
-            <ProfileOutro profile={portfolioData} />
+            <div className="content-auto">
+                <ProfileOutro profile={portfolioData} />
+            </div>
         </main>
     );
 }
