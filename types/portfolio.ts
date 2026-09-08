@@ -98,6 +98,24 @@ export interface Chapter {
     label: string;
 }
 
+export interface ContentsItem {
+    id: string;
+    title: string;
+    subtitle: string;
+    subtitlePosition: 'above' | 'below';
+    targetId: string;
+    dotsCount: number;
+}
+
+export interface ContentsColumn {
+    id: string;
+    numberScript: string;
+    title: string;
+    items: ContentsItem[];
+}
+
+export type AcademicCourse = string;
+
 export interface EngineerProfile {
     name: string;
     role?: string;
@@ -114,6 +132,8 @@ export interface EngineerProfile {
         link: string;
         period: string;
         location?: string;
+        year?: string;
+        relevantCourses?: string[];
     };
     contact: {
         email: string;
@@ -139,8 +159,10 @@ export interface EngineerProfile {
     flagshipProjects: ProjectCaseStudy[];
     interactiveBuilds: InteractiveUIItem[];
     hybridGallery: GalleryItem[];
-    skillCategories: {
+    skillCategories?: {
         name: string;
         skills: string[];
     }[];
+    workExperiences?: WorkExperience[];
+    academicCourses?: string[];
 }

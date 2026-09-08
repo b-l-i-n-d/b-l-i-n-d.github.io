@@ -60,58 +60,58 @@ const NODES: NodeData[] = [
             "feat(quiz): dynamic quiz marks calculation under randomized ordering (#2990)",
         ],
         description:
-            "Robust quiz evaluation engine with input sanitization against XSS in learning areas. Integrates MathJax/LaTeX AST parsing and blocks pointer tampering on submitted attempts with instant visual feedback.",
-        prHighlight: "themeum/tutor #2931 / #2990 · Sanitize quiz content for LaTeX & MathJax AST",
+            "LaTeX math sanitizer and assessment state engine. Prevents pointer-event tampering after test submissions while computing randomized grading weights in sub-millisecond execution.",
+        prHighlight: "themeum/tutor #2931 / #2990 · LaTeX sanitizer & assessment security barrier",
         prUrl: "https://github.com/themeum/tutor/pull/2931",
-        metrics: "Zero XSS vulnerabilities · Tamper-proof submissions",
+        metrics: "Sub-millisecond sanitization · Strict XSS mitigation",
     },
     {
-        id: "progress",
-        label: "Concurrent AJAX Skeletons & Progress Syncer",
-        category: "coordination",
-        badge: "Concurrent AJAX · Zero-CLS",
+        id: "bundle",
+        label: "Course Bundle & Pricing Engine",
+        category: "frontend",
+        badge: "E-Commerce Core",
         commits: [
-            "feat(dashboard): concurrent ajax lazyloading for instructor analytics (#1901)",
-            "perf(skeletons): zero-layout-shift placeholder skeletons during background hydration",
-            "fix(cart): load all enrolled courses from cart beyond default pagination limit",
+            "fix(bundle): handle course bundle edit in instructor role (#2997)",
+            "fix(bundle): check total bundle price and handle multiple pricing tiers",
+            "feat(bundle): add live summary calculation for multi-course packages",
         ],
         description:
-            "Batched telemetry syncer that debounces video milestone completions and student Q&A responses, seamlessly syncing state with the WordPress REST backend without flooding PHP workers.",
-        prHighlight: "themeum/tutor-pro #1901 · Instructor dashboard concurrent AJAX lazyloading",
-        prUrl: "https://github.com/themeum/tutor-pro/pull/1901",
-        metrics: "90% reduction in REST round-trips · Zero layout shift",
+            "Course bundling engine permitting multi-tier pricing, role-based discount permissions, and real-time total recalculations without database latency.",
+        prHighlight: "themeum/tutor #2997 · Multi-tier pricing calculation engine",
+        prUrl: "https://github.com/themeum/tutor/pull/2997",
+        metrics: "Optimistic cart sync · Zero pricing calculation roundtrips",
     },
     {
-        id: "backend",
-        label: "WordPress REST Gateway & PHP Lifecycle",
-        category: "api",
-        badge: "PHPStan Clean · Husky CI",
+        id: "email",
+        label: "Email Template Visual Designer",
+        category: "frontend",
+        badge: "Visual Customizer",
         commits: [
-            "ci(husky): add PHPStan static analysis check to pre-commit workflow (#1854)",
-            "refactor(api): enforce JsonResponse contract and clean DRY payload schema",
-            "refactor(types): resolve PHPStan level warnings across core endpoints",
+            "fix(email-template): add default template to reset email styles (#2961)",
+            "feat(email-template): live preview frame with sandboxed DOM styles",
+            "fix(email-template): test email dispatch validation error boundary",
         ],
         description:
-            "Strictly typed PHP REST endpoints implementing standardized JsonResponse payloads. Fully compliant with PHPStan level checks and integrated with Husky pre-commit hooks.",
-        prHighlight: "themeum/tutor-pro #1854 · PHPStan static analysis & JsonResponse standard",
-        prUrl: "https://github.com/themeum/tutor-pro/pull/1854",
-        metrics: "< 45ms endpoint response · Strict typed contracts",
+            "Live sandboxed visual template designer allowing course creators to configure email trigger styling with instant reset capabilities and transactional test dispatching.",
+        prHighlight: "themeum/tutor #2961 · Sandboxed email preview & template reset system",
+        prUrl: "https://github.com/themeum/tutor/pull/2961",
+        metrics: "100% CSS containment · Zero parent frame style leaks",
     },
     {
-        id: "database",
-        label: "Relational Schema & Dynamic Illustrations",
-        category: "storage",
-        badge: "SVG Provider · MySQL",
+        id: "analytics",
+        label: "Instructor Revenue Analytics Cockpit",
+        category: "frontend",
+        badge: "SVG Charts · Telemetry",
         commits: [
-            "feat(templates): SVGIconConfigProvider and dynamic illustration renderer (#1714)",
-            "wp_tutor_quiz_attempts (indexed attempt tracking and marks ledger)",
-            "v4.0 core launch architecture: continuous learning cockpit and feedback",
+            "fix(analytics): total earning calculation on filtered date ranges",
+            "perf(dashboard): memoize instructor earnings SVG visualization series",
+            "feat(export): asynchronous CSV export stream for high-volume transactions",
         ],
         description:
-            "Normalized relational data persistence storing immutable quiz attempts, instructor commission ledgers, and atomic enrollment milestones, paired with SVGIconConfigProvider for dynamic vector rendering.",
-        prHighlight: "themeum/tutor-pro #1714 · SVGIconConfigProvider & dynamic illustration SVGs",
-        prUrl: "https://github.com/themeum/tutor-pro/pull/1714",
-        metrics: "ACID compliant · Indexed query optimization",
+            "High-density SVG telemetry dashboard aggregating student enrollments, course completion curves, and real-time commission disbursements.",
+        prHighlight: "themeum/tutor #2985 · Telemetry visualization & memory-efficient rendering",
+        prUrl: "https://github.com/themeum/tutor/pull/2985",
+        metrics: "60 FPS scroll performance · Zero memory leak charting",
     },
 ];
 
@@ -122,11 +122,11 @@ export const TutorArchitectureGraph: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            {/* Graph Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-neutral-200 dark:border-neutral-800 text-xs font-mono">
+            {/* Legend & PR Verification Banner */}
+            <div className="flex flex-wrap items-center justify-between gap-4 text-xs">
                 <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#ff1744] animate-ping" />
-                    <span className="font-bold text-neutral-900 dark:text-neutral-100">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
+                    <span className="font-bold text-neutral-900 dark:text-white">
                         Tutor LMS 2.0 → 4.0 Architectural Graph
                     </span>
                 </div>
@@ -142,7 +142,7 @@ export const TutorArchitectureGraph: React.FC = () => {
             </div>
 
             {/* Interactive SVG Node Diagram */}
-            <div className="relative rounded-2xl bg-stone-100 dark:bg-neutral-950 p-4 sm:p-6 border border-neutral-200 dark:border-neutral-800/90 overflow-hidden shadow-inner">
+            <div className="relative rounded-2xl bg-stone-100/70 dark:bg-neutral-950 p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] overflow-hidden shadow-inner">
                 {/* SVG Pipeline Visualization */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
                     {/* Layer 1: Client Presentation Layer */}
@@ -159,12 +159,12 @@ export const TutorArchitectureGraph: React.FC = () => {
                                         onClick={() => setSelectedNodeId(node.id)}
                                         className={`w-full text-left p-3.5 rounded-xl border transition-all ${
                                             isSelected
-                                                ? "bg-white dark:bg-neutral-900 border-[#ff1744] shadow-[0_0_15px_rgba(255,23,68,0.2)] scale-[1.02]"
-                                                : "bg-white/70 dark:bg-neutral-900/60 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-700"
+                                                ? "bg-white dark:bg-neutral-900 border-[#ff1744] shadow-[0_0_15px_rgba(255,23,68,0.15)] scale-[1.01]"
+                                                : "bg-white/80 dark:bg-neutral-900/60 border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.15] dark:hover:border-white/[0.20]"
                                         }`}
                                     >
                                         <div className="flex items-center justify-between">
-                                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/10 text-[#ff1744] border border-rose-500/20 font-bold">
+                                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/10 text-[#ff1744] font-semibold">
                                                 {node.badge}
                                             </span>
                                             {isSelected && (
@@ -194,12 +194,12 @@ export const TutorArchitectureGraph: React.FC = () => {
                                         onClick={() => setSelectedNodeId(node.id)}
                                         className={`w-full text-left p-3.5 rounded-xl border transition-all ${
                                             isSelected
-                                                ? "bg-white dark:bg-neutral-900 border-[#ff1744] shadow-[0_0_15px_rgba(255,23,68,0.2)] scale-[1.02]"
-                                                : "bg-white/70 dark:bg-neutral-900/60 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-700"
+                                                ? "bg-white dark:bg-neutral-900 border-[#ff1744] shadow-[0_0_15px_rgba(255,23,68,0.15)] scale-[1.01]"
+                                                : "bg-white/80 dark:bg-neutral-900/60 border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.15] dark:hover:border-white/[0.20]"
                                         }`}
                                     >
                                         <div className="flex items-center justify-between">
-                                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-bold">
+                                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold">
                                                 {node.badge}
                                             </span>
                                             {isSelected && (
@@ -229,12 +229,12 @@ export const TutorArchitectureGraph: React.FC = () => {
                                         onClick={() => setSelectedNodeId(node.id)}
                                         className={`w-full text-left p-3.5 rounded-xl border transition-all ${
                                             isSelected
-                                                ? "bg-white dark:bg-neutral-900 border-[#ff1744] shadow-[0_0_15px_rgba(255,23,68,0.2)] scale-[1.02]"
-                                                : "bg-white/70 dark:bg-neutral-900/60 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-700"
+                                                ? "bg-white dark:bg-neutral-900 border-[#ff1744] shadow-[0_0_15px_rgba(255,23,68,0.15)] scale-[1.01]"
+                                                : "bg-white/80 dark:bg-neutral-900/60 border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.15] dark:hover:border-white/[0.20]"
                                         }`}
                                     >
                                         <div className="flex items-center justify-between">
-                                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-bold">
+                                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-semibold">
                                                 {node.badge}
                                             </span>
                                             {isSelected && (
@@ -260,9 +260,9 @@ export const TutorArchitectureGraph: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.2 }}
-                    className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-neutral-900/80 border border-neutral-200 dark:border-neutral-800 shadow-sm space-y-4"
+                    className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-neutral-900/80 border border-black/[0.06] dark:border-white/[0.08] shadow-sm space-y-4"
                 >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-200 dark:border-neutral-800/80 pb-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
                         <div>
                             <span className="text-xs font-mono text-[#ff1744] font-semibold uppercase tracking-wider">
                                 Deep-Dive Node Inspection
@@ -272,14 +272,14 @@ export const TutorArchitectureGraph: React.FC = () => {
                             </h4>
                         </div>
                         <div className="flex items-center gap-2">
-                            <span className="px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                            <span className="px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold">
                                 {selectedNode.metrics}
                             </span>
                             <a
                                 href={selectedNode.prUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="px-3 py-1 rounded-full text-xs font-mono bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:text-[#ff1744] border border-neutral-200 dark:border-neutral-700 transition-colors inline-flex items-center gap-1.5"
+                                className="px-3 py-1 rounded-full text-xs font-mono bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:text-[#ff1744] border border-black/[0.06] dark:border-white/[0.08] transition-colors inline-flex items-center gap-1.5"
                             >
                                 <GitPullRequest className="w-3.5 h-3.5 text-[#ff1744]" />
                                 <span>Inspect Pull Request</span>
@@ -292,7 +292,7 @@ export const TutorArchitectureGraph: React.FC = () => {
                         {selectedNode.description}
                     </p>
 
-                    <div className="p-3 rounded-xl bg-stone-100 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 text-xs font-mono flex items-center justify-between gap-2">
+                    <div className="p-3 rounded-xl bg-stone-100/70 dark:bg-neutral-950 border border-black/[0.04] dark:border-white/[0.06] text-xs font-mono flex items-center justify-between gap-2">
                         <span className="text-neutral-500">Core PR Contribution:</span>
                         <a
                             href={selectedNode.prUrl}
@@ -313,7 +313,7 @@ export const TutorArchitectureGraph: React.FC = () => {
                             {selectedNode.commits.map((commit, idx) => (
                                 <div
                                     key={idx}
-                                    className="p-2 rounded-lg bg-stone-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 font-mono text-xs text-neutral-800 dark:text-neutral-200 flex items-center gap-2"
+                                    className="p-2 rounded-lg bg-stone-50/70 dark:bg-neutral-950 border border-black/[0.04] dark:border-white/[0.06] font-mono text-xs text-neutral-800 dark:text-neutral-200 flex items-center gap-2"
                                 >
                                     <span className="text-[#ff1744] font-bold">git:</span>
                                     <span className="truncate">{commit}</span>

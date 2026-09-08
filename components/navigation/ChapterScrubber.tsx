@@ -32,7 +32,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                 aria-label="Chapter navigation"
                 className="fixed right-3 md:right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end pointer-events-none"
             >
-                <div className="pointer-events-auto bg-white/95 dark:bg-[#0d0d0d]/95 backdrop-blur-md border border-neutral-200/90 dark:border-neutral-800/90 py-2.5 px-1.5 rounded-full shadow-craft-float ring-1 ring-black/[0.05] dark:ring-0 dark:shadow-2xl flex flex-col items-center gap-1 transition-all">
+                <div className="pointer-events-auto bg-white/80 dark:bg-[#121214]/80 backdrop-blur-xl border border-black/[0.06] dark:border-white/[0.10] py-2.5 px-1.5 rounded-full shadow-craft-float flex flex-col items-center gap-1 transition-all">
                     {chapters.map((chapter) => {
                         const isActive = activeChapter === chapter.id;
                         return (
@@ -43,7 +43,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                                 aria-label={`Jump to chapter ${chapter.number}: ${chapter.title}`}
                             >
                                 {/* Tooltip label on hover */}
-                                <span className="absolute right-7 px-2.5 py-1 text-xs font-mono text-neutral-800 dark:text-neutral-200 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700/80 rounded shadow-craft-card ring-1 ring-black/[0.05] dark:ring-0 whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-200 z-50 -translate-x-1 group-hover:translate-x-0">
+                                <span className="absolute right-7 px-2.5 py-1 text-xs font-mono text-neutral-800 dark:text-neutral-200 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/[0.06] dark:border-white/[0.10] rounded shadow-craft-card whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-200 z-50 -translate-x-1 group-hover:translate-x-0">
                                     <span className="text-[#ff1744] font-bold mr-1.5">{chapter.number}</span>
                                     {chapter.title}
                                 </span>
@@ -77,14 +77,14 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
             </aside>
 
             {/* Mobile Bottom Scrubber Pill (Touch-friendly & Responsive) */}
-            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 md:hidden flex items-center gap-2 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md px-3.5 py-2 rounded-full border border-neutral-200 dark:border-neutral-800 shadow-craft-elevated ring-1 ring-black/[0.05] dark:ring-0 dark:shadow-xl pointer-events-auto">
+            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 md:hidden flex items-center gap-2 bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl px-3.5 py-2 rounded-full border border-black/[0.06] dark:border-white/[0.10] shadow-craft-elevated pointer-events-auto">
                 <span className="text-[10px] font-mono font-bold text-[#ff1744]">
                     {chapters[currentChapterIndex]?.number || "00"}
                 </span>
                 <span className="text-[11px] font-mono text-neutral-800 dark:text-neutral-200 max-w-[140px] truncate font-medium">
                     {chapters[currentChapterIndex]?.title || "Showreel"}
                 </span>
-                <div className="flex items-center gap-1 pl-1.5 border-l border-neutral-200 dark:border-neutral-800">
+                <div className="flex items-center gap-1 pl-1.5 border-l border-black/[0.06] dark:border-white/[0.08]">
                     {chapters.map((chapter) => {
                         const isActive = activeChapter === chapter.id;
                         return (

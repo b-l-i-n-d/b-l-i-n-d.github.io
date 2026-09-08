@@ -1,18 +1,28 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { EngineerProfile } from "@/types/portfolio";
+import {
+    Play,
+    Pause,
+    Volume2,
+    VolumeX,
+    ExternalLink,
+    Maximize2,
+    GraduationCap,
+    LayoutDashboard,
+} from "lucide-react";
 import { useViewport } from "@/components/viewport/ViewportController";
-import { GraduationCap, LayoutDashboard, Play, Pause, Volume2, VolumeX, ExternalLink } from "lucide-react";
 
 interface CinematicHeroProps {
     profile: EngineerProfile;
 }
 
 export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
-    const videoRef = useRef<HTMLVideoElement | null>(null);
     const { registerVideo, isReducedMotion } = useViewport();
+    const videoRef = useRef<HTMLVideoElement | null>(null);
+
     const [isPlaying, setIsPlaying] = useState<boolean>(true);
     const [isMuted, setIsMuted] = useState<boolean>(true);
     const [activeClip, setActiveClip] = useState<"learner" | "instructor">("learner");
@@ -22,7 +32,6 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
             ? profile.heroReel.videoUrl
             : profile.heroReel.secondaryVideoUrl || profile.heroReel.videoUrl;
 
-    // Register video with viewport manager
     useEffect(() => {
         if (videoRef.current) {
             registerVideo("hero-video", videoRef.current);
@@ -32,21 +41,16 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
         };
     }, [registerVideo]);
 
-    // Handle reliable autoplay
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
 
-        video.muted = isMuted;
-        video.defaultMuted = true;
-
         const attemptPlay = () => {
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise
+            if (!isReducedMotion) {
+                video
+                    .play()
                     .then(() => setIsPlaying(true))
                     .catch(() => {
-                        // Mute and retry if audio autoplay blocked
                         video.muted = true;
                         setIsMuted(true);
                         video
@@ -62,7 +66,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
         } else {
             video.addEventListener("loadeddata", attemptPlay, { once: true });
         }
-    }, [currentVideoSrc, isMuted]);
+    }, [currentVideoSrc, isReducedMotion]);
 
     const togglePlay = () => {
         if (!videoRef.current) return;
@@ -82,75 +86,70 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
     };
 
     const tabs = [
-        { id: "learner" as const, label: "Learner Experience", Icon: GraduationCap },
-        { id: "instructor" as const, label: "Instructor Dashboard", Icon: LayoutDashboard },
+        { id: "learner" as const, label: "Learner experience", Icon: GraduationCap },
+        { id: "instructor" as const, label: "Curriculum builder", Icon: LayoutDashboard },
     ];
 
     return (
         <section
             id="hero"
             data-chapter-id="hero"
-            className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-12 pt-20 pb-16 overflow-hidden bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-white transition-colors duration-200"
+            className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-12 pt-24 pb-20 overflow-hidden bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-white transition-colors duration-200"
         >
-            {/* Ambient subtle crimson gradient background (GPU composited) */}
-            <div className="absolute inset-0 pointer-events-none opacity-35 overflow-hidden">
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[500px] bg-gradient-to-tr from-[#ff1744]/15 via-crimson-900/10 to-rose-600/10 blur-3xl" />
-            </div>
-
-            <div className="relative z-10 max-w-6xl w-full mx-auto flex flex-col items-center text-center space-y-8">
-                {/* Meta Chips */}
-                <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-mono tracking-wider uppercase">
-                    <span className="px-3 py-1 bg-[#ff1744]/10 text-[#ff1744] border border-[#ff1744]/30 rounded-full font-semibold">
-                        {profile.heroReel.badge}
+            <div className="relative z-10 max-w-5xl w-full mx-auto flex flex-col items-center text-center space-y-8">
+                {/* Meta Indicator Pills (Apple whisper hairlines, quiet ambient fills) */}
+                <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-medium">
+                    <span className="px-3 py-1 bg-black/[0.03] dark:bg-white/[0.04] text-neutral-800 dark:text-neutral-200 border border-black/[0.06] dark:border-white/[0.08] rounded-full">
+                        Software Engineer at Ollyo / Themeum
                     </span>
-                    <span className="px-3 py-1 bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-300 border border-neutral-300 dark:border-neutral-800 rounded-full shadow-craft-sm ring-1 ring-black/[0.04] dark:ring-0">
-                        {profile.education.shortInstitute} CSE Graduate
+                    <span className="px-3 py-1 bg-black/[0.03] dark:bg-white/[0.04] text-neutral-700 dark:text-neutral-300 border border-black/[0.06] dark:border-white/[0.08] rounded-full">
+                        SUST CSE Graduate
                     </span>
-                    <span className="px-3 py-1 bg-white dark:bg-neutral-900 text-emerald-600 dark:text-emerald-400 border border-neutral-300 dark:border-neutral-800 rounded-full flex items-center gap-1.5 shadow-sm">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
-                        80,000+ Production Installs
+                    <span className="px-3 py-1 bg-white dark:bg-white/[0.06] text-neutral-900 dark:text-neutral-100 border border-black/[0.08] dark:border-white/[0.12] rounded-full flex items-center gap-1.5 shadow-sm">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+                        80,000+ Active Deployments
                     </span>
                 </div>
 
-                {/* Hero Titles */}
-                <div className="space-y-4 max-w-4xl">
-                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-100">
+                {/* Hero Titles & Statement */}
+                <div className="space-y-4 max-w-3xl">
+                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-neutral-900 dark:text-white">
                         {profile.name}
                     </h1>
-                    <p className="text-xl sm:text-2xl text-neutral-700 dark:text-neutral-400 font-medium tracking-wide">
+                    <p className="text-lg sm:text-2xl text-neutral-600 dark:text-neutral-300 font-normal leading-relaxed max-w-2xl mx-auto">
                         {profile.tagline}
                     </p>
-                    <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-sm sm:text-base text-neutral-500 dark:text-neutral-400 max-w-xl mx-auto leading-relaxed">
                         {profile.headline}
                     </p>
                 </div>
 
                 {/* Direct Product Highlights Row */}
-                <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-mono">
+                <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
                     <a
                         href="https://tutorlms.com/"
                         target="_blank"
                         rel="noreferrer"
-                        className="px-3.5 py-1.5 rounded-lg bg-white dark:bg-neutral-900/90 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-700/80 transition-all flex items-center gap-2 group shadow-craft-sm ring-1 ring-black/[0.04] dark:ring-0 hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out"
+                        className="px-3.5 py-1.5 rounded-lg bg-white dark:bg-neutral-900/80 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-black/[0.08] dark:border-white/[0.10] flex items-center gap-2 group shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out"
                     >
                         <span className="w-2 h-2 rounded-full bg-[#ff1744]" />
-                        <span className="font-semibold text-neutral-900 dark:text-neutral-100">Tutor LMS 2.0 – 4.0</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-neutral-500 group-hover:text-neutral-300" />
+                        <span className="font-semibold text-neutral-900 dark:text-white">Tutor LMS 2.0 to 4.0</span>
+                        <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-white transition-colors" />
                     </a>
                     <a
                         href="https://www.joomshaper.com/easystore"
                         target="_blank"
                         rel="noreferrer"
-                        className="px-3.5 py-1.5 rounded-lg bg-white dark:bg-neutral-900/90 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-700/80 transition-all flex items-center gap-2 group shadow-sm"
+                        className="px-3.5 py-1.5 rounded-lg bg-white dark:bg-neutral-900/80 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-black/[0.08] dark:border-white/[0.10] flex items-center gap-2 group shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out"
                     >
-                        <span className="w-2 h-2 rounded-full bg-crimson-500" />
-                        <span className="font-semibold text-neutral-900 dark:text-neutral-100">EasyStore by JoomShaper</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-neutral-500 group-hover:text-neutral-300" />
+                        <span className="w-2 h-2 rounded-full bg-rose-500" />
+                        <span className="font-semibold text-neutral-900 dark:text-white">EasyStore by JoomShaper</span>
+                        <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-white transition-colors" />
                     </a>
                 </div>
 
                 {/* Cinematic Showreel Player Container */}
-                <div className="w-full max-w-5xl relative rounded-2xl overflow-hidden border border-neutral-200/90 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-craft-elevated dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] ring-1 ring-black/[0.05] dark:ring-0 group">
+                <div className="w-full max-w-5xl relative rounded-2xl overflow-hidden border border-black/[0.08] dark:border-white/[0.10] bg-white dark:bg-neutral-950 shadow-craft-elevated dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] group">
                     {/* Aspect Ratio Box */}
                     <div className="relative w-full pb-[56.25%] bg-neutral-950">
                         <video
@@ -170,12 +169,9 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                         />
 
                         {/* Top View Selector Bar with Sliding Spring Anchor Tabs */}
-                        <div
-                            className="absolute top-4 left-4 z-20 flex items-center gap-1.5 bg-white/90 dark:bg-neutral-950/85 backdrop-blur-md p-1 rounded-xl border border-neutral-200/90 dark:border-neutral-800/80 text-xs font-mono shadow-craft-card dark:shadow-lg"
-                            
-                        >
-                            <span className="text-neutral-500 px-2 uppercase text-[10px] tracking-wider hidden sm:inline">
-                                View Mode:
+                        <div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 bg-white/80 dark:bg-black/60 backdrop-blur-xl p-1 rounded-xl border border-black/[0.06] dark:border-white/[0.10] text-xs shadow-craft-card">
+                            <span className="text-neutral-500 px-2 text-xs font-medium hidden sm:inline">
+                                Perspective:
                             </span>
                             {tabs.map((tab) => {
                                 const isSelected = activeClip === tab.id;
@@ -190,7 +186,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                                         }}
                                         className={`relative z-10 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 ${
                                             isSelected
-                                                ? "text-white font-bold"
+                                                ? "text-white font-semibold"
                                                 : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
                                         }`}
                                     >
@@ -226,14 +222,12 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                     </div>
 
                     {/* Dedicated Showcase Console & Metadata Shelf */}
-                    <div className="p-4 sm:p-5 bg-white dark:bg-neutral-900/90 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between z-20 transition-colors">
+                    <div className="p-4 sm:p-5 bg-white dark:bg-neutral-900/90 border-t border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between z-20 transition-colors">
                         <div className="text-left space-y-1">
                             <div className="flex items-center gap-2">
-                                <span className="text-xs font-mono text-[#ff1744] font-bold uppercase tracking-widest block">
-                                    Chapter 00
-                                </span>
-                                <span className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-stone-100 dark:bg-neutral-800/80 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700/60 shadow-craft-subtle">
-                                    Production Showcase
+                                <span className="w-2 h-2 rounded-full bg-[#ff1744]" />
+                                <span className="text-xs font-semibold text-neutral-800 dark:text-neutral-200">
+                                    Flagship Interaction Reel
                                 </span>
                             </div>
                             <h2 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">
@@ -241,8 +235,8 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                             </h2>
                             <p className="text-xs text-neutral-500 dark:text-neutral-400 hidden sm:block">
                                 {activeClip === "learner"
-                                    ? "Tutor LMS Continuous Learning Player with Synchronized Notes & Quizzes (2.0–4.0)"
-                                    : "Drag-and-Drop Course Curriculum Builder & Analytics Dashboard"}
+                                    ? "Continuous learning cockpit with real-time video telemetry, synchronized notes, and zero-CLS assessment"
+                                    : "Drag-and-drop course curriculum builder with optimistic state synchronization"}
                             </p>
                         </div>
 
@@ -250,8 +244,8 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                             {/* Play/Pause Button */}
                             <button
                                 onClick={togglePlay}
-                                className="p-2.5 rounded-xl bg-stone-100 dark:bg-neutral-800 hover:bg-[#ff1744] hover:text-white text-neutral-800 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 transition-all duration-150 cursor-pointer shadow-craft-sm hover:shadow-craft-card active:scale-[0.95]"
-                                aria-label={isPlaying ? "Pause Hero Reel" : "Play Hero Reel"}
+                                className="p-2.5 rounded-xl bg-stone-100 dark:bg-neutral-800 hover:bg-[#ff1744] hover:text-white text-neutral-800 dark:text-neutral-200 border border-black/[0.06] dark:border-white/[0.08] transition-all duration-150 cursor-pointer shadow-sm hover:shadow-craft-card active:scale-[0.95]"
+                                aria-label={isPlaying ? "Pause video" : "Play video"}
                                 title={isPlaying ? "Pause" : "Play"}
                             >
                                 {isPlaying ? (
@@ -264,8 +258,8 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                             {/* Mute/Unmute Button */}
                             <button
                                 onClick={toggleMute}
-                                className="p-2.5 rounded-xl bg-stone-100 dark:bg-neutral-800 hover:bg-stone-200 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 transition-all duration-150 cursor-pointer shadow-craft-sm hover:shadow-craft-card active:scale-[0.95]"
-                                aria-label={isMuted ? "Unmute Audio" : "Mute Audio"}
+                                className="p-2.5 rounded-xl bg-stone-100 dark:bg-neutral-800 hover:bg-stone-200 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 border border-black/[0.06] dark:border-white/[0.08] transition-all duration-150 cursor-pointer shadow-sm hover:shadow-craft-card active:scale-[0.95]"
+                                aria-label={isMuted ? "Unmute audio" : "Mute audio"}
                                 title={isMuted ? "Unmute" : "Mute"}
                             >
                                 {isMuted ? (
@@ -274,6 +268,18 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                                     <Volume2 className="w-4 h-4" />
                                 )}
                             </button>
+
+                            {/* External Production Link */}
+                            <a
+                                href={profile.heroReel.productUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="p-2.5 rounded-xl bg-stone-100 dark:bg-neutral-800 hover:bg-stone-200 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 border border-black/[0.06] dark:border-white/[0.08] transition-all duration-150 shadow-sm hover:shadow-craft-card active:scale-[0.95]"
+                                aria-label="Open production site in new tab"
+                                title="Open production site"
+                            >
+                                <ExternalLink className="w-4 h-4" />
+                            </a>
                         </div>
                     </div>
                 </div>

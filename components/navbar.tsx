@@ -1,117 +1,99 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { motion } from "framer-motion";
-import { Link } from "@nextui-org/link";
 import {
-    NavbarBrand,
+    Navbar as NextUINavbar,
     NavbarContent,
-    NavbarItem,
     NavbarMenu,
+    NavbarBrand,
+    NavbarItem,
     NavbarMenuItem,
     NavbarMenuToggle,
-    Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
-import { Tooltip } from "@nextui-org/tooltip";
-import { siteConfig } from "@/config/site";
+import { Link } from "@nextui-org/link";
+import { link as linkStyles } from "@nextui-org/theme";
+import NextLink from "next/link";
 import clsx from "clsx";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
+import { siteConfig } from "@/config/site";
+import { ThemeSwitch } from "@/components/theme-switch";
 import {
-    EmailIcon,
-    FacebookIcon,
-    GithubIcon,
-    LinkedinIcon,
-    SocialIcon,
     TwitterIcon,
+    GithubIcon,
+    DiscordIcon,
+    HeartFilledIcon,
+    SearchIcon,
     Logo,
 } from "@/components/icons";
-import { ThemeSwitch } from "@/components/theme-switch";
-import { Button } from "@nextui-org/button";
-import {
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
-    DropdownTrigger,
-} from "@nextui-org/dropdown";
 import { useViewport } from "@/components/viewport/ViewportController";
 
-interface NavConfigItem {
+interface NavItem {
     id: string;
     label: string;
     href: string;
     targetId: string;
-    chapterIds: string[];
 }
 
-const NAV_ITEMS: NavConfigItem[] = [
-    {
-        id: "showreel",
-        label: "Showreel",
-        href: "#hero",
-        targetId: "hero",
-        chapterIds: ["hero"],
-    },
-    {
-        id: "contents",
-        label: "Contents",
-        href: "#contents",
-        targetId: "contents",
-        chapterIds: ["contents"],
-    },
-    {
-        id: "about",
-        label: "About",
-        href: "#about",
-        targetId: "about",
-        chapterIds: ["about"],
-    },
-    {
-        id: "experience",
-        label: "Experience",
-        href: "#experience",
-        targetId: "experience",
-        chapterIds: ["experience"],
-    },
-    {
-        id: "work",
-        label: "Work",
-        href: "#tutor-lms",
-        targetId: "tutor-lms",
-        chapterIds: ["tutor-lms", "easystore", "ecommerce", "motion-lab", "gallery"],
-    },
-    {
-        id: "contact",
-        label: "Contact",
-        href: "#profile",
-        targetId: "profile",
-        chapterIds: ["profile"],
-    },
+const NAV_ITEMS: NavItem[] = [
+    { id: "showreel", label: "Showreel", href: "#hero", targetId: "hero" },
+    { id: "contents", label: "Contents", href: "#contents", targetId: "contents" },
+    { id: "about", label: "About", href: "#about", targetId: "about" },
+    { id: "work", label: "Experience", href: "#experience", targetId: "experience" },
+    { id: "casestudy", label: "Case Study", href: "#case-study", targetId: "case-study" },
+    { id: "lab", label: "Motion Lab", href: "#motion-lab", targetId: "motion-lab" },
+    { id: "specs", label: "Blueprints", href: "#gallery", targetId: "gallery" },
+    { id: "contact", label: "Dossier", href: "#profile", targetId: "profile" },
 ];
 
 export const Navbar = () => {
     const { activeChapter, setActiveChapter } = useViewport();
+    const [activeNavId, setActiveNavId] = useState<string>("showreel");
     const [hoveredNavId, setHoveredNavId] = useState<string | null>(null);
-    const [clickedNavId, setClickedNavId] = useState<string | null>(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
+    const [clickedNavId, setClickedNavId] = useState<string | null>(null);
 
-    // Map active scroll chapter to corresponding navigation item
-    const currentActiveItem =
-        NAV_ITEMS.find((item) => item.chapterIds.includes(activeChapter)) ||
-        NAV_ITEMS[0];
-    const activeNavId = clickedNavId || currentActiveItem.id;
+    // Map activeChapter from scroll observer to corresponding nav item
+    useEffect(() => {
+        // If user recently clicked a nav link, honor that item during smooth scroll
+        if (clickedNavId) {
+            setActiveNavId(clickedNavId);
+            return;
+        }
 
-    const handleNavClick = (e: React.MouseEvent, item: NavConfigItem) => {
+        const map: Record<string, string> = {
+            hero: "showreel",
+            contents: "contents",
+            about: "about",
+            experience: "work",
+            "case-study": "casestudy",
+            "motion-lab": "lab",
+            gallery: "specs",
+            profile: "contact",
+        };
+
+        if (activeChapter && map[activeChapter]) {
+            setActiveNavId(map[activeChapter]);
+        }
+    }, [activeChapter, clickedNavId]);
+
+    // Clear clicked lock after smooth scroll completes
+    useEffect(() => {
+        if (!clickedNavId) return;
+        const timer = setTimeout(() => {
+            setClickedNavId(null);
+        }, 800);
+        return () => clearTimeout(timer);
+    }, [clickedNavId]);
+
+    const handleNavClick = (e: React.MouseEvent, item: NavItem) => {
         e.preventDefault();
         setClickedNavId(item.id);
-        if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
-        clickTimerRef.current = setTimeout(() => {
-            setClickedNavId(null);
-        }, 1200);
+        setActiveNavId(item.id);
 
-        const element = document.getElementById(item.targetId);
-        if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
+        const targetEl = document.getElementById(item.targetId);
+        if (targetEl) {
+            targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
             setActiveChapter(item.targetId);
         }
     };
@@ -142,7 +124,7 @@ export const Navbar = () => {
 
                 {/* Desktop Nav with Anchor Positioning & Spring Glider Pill */}
                 <ul
-                    className="hidden sm:flex items-center gap-1 p-1 bg-stone-100/90 dark:bg-neutral-900/90 backdrop-blur-md rounded-full border border-neutral-200/80 dark:border-neutral-800/80 shadow-craft-subtle ring-1 ring-black/[0.03] ml-2"
+                    className="hidden sm:flex items-center gap-1 p-1 bg-white/70 dark:bg-[#161618]/70 backdrop-blur-xl rounded-full border border-black/[0.06] dark:border-white/[0.08] shadow-sm ml-2"
                     onMouseLeave={() => setHoveredNavId(null)}
                 >
                     {NAV_ITEMS.map((item) => {
@@ -171,7 +153,7 @@ export const Navbar = () => {
                                     {isActive && (
                                         <motion.div
                                             layoutId="top-nav-active-indicator"
-                                            className="absolute inset-0 bg-white dark:bg-neutral-800 rounded-full shadow-craft-sm dark:shadow-md border border-neutral-200/90 dark:border-neutral-700/60 -z-10"
+                                            className="absolute inset-0 bg-white dark:bg-white/[0.12] rounded-full shadow-sm border border-black/[0.06] dark:border-white/[0.10] -z-10"
                                             transition={{
                                                 type: "spring",
                                                 stiffness: 450,
@@ -185,7 +167,7 @@ export const Navbar = () => {
                                     {isHovered && !isActive && (
                                         <motion.div
                                             layoutId="top-nav-hover-ghost"
-                                            className="absolute inset-0 bg-neutral-200/60 dark:bg-neutral-800/40 rounded-full -z-10"
+                                            className="absolute inset-0 bg-neutral-200/50 dark:bg-white/[0.06] rounded-full -z-10"
                                             transition={{
                                                 type: "spring",
                                                 stiffness: 480,
@@ -213,181 +195,11 @@ export const Navbar = () => {
                 justify="end"
             >
                 <NavbarItem className="hidden sm:flex gap-4">
-                    <div className="hidden md:flex gap-4">
-                        <Tooltip content="Facebook" placement="bottom">
-                            <Link
-                                isExternal
-                                href={siteConfig.links.facebook}
-                                aria-label="Facebook"
-                            >
-                                <FacebookIcon className="text-default-500" />
-                            </Link>
-                        </Tooltip>
-                        <Tooltip content="Twitter" placement="bottom">
-                            <Link
-                                isExternal
-                                href={siteConfig.links.twitter}
-                                aria-label="Twitter"
-                            >
-                                <TwitterIcon className="text-default-500" />
-                            </Link>
-                        </Tooltip>
-                        <Tooltip content="Email" placement="bottom">
-                            <Link
-                                isExternal
-                                href={siteConfig.links.mail}
-                                aria-label="Email"
-                            >
-                                <EmailIcon className="text-default-500" />
-                            </Link>
-                        </Tooltip>
-                        <Tooltip content="Github" placement="bottom">
-                            <Link
-                                isExternal
-                                href={siteConfig.links.github}
-                                aria-label="Github"
-                            >
-                                <GithubIcon className="text-default-500" />
-                            </Link>
-                        </Tooltip>
-                        <Tooltip content="LinkedIn" placement="bottom">
-                            <Link
-                                isExternal
-                                href={siteConfig.links.linkedin}
-                                aria-label="Linkedin"
-                            >
-                                <LinkedinIcon className="text-default-500" />
-                            </Link>
-                        </Tooltip>
-                    </div>
-                    <div className="md:hidden">
-                        <Dropdown>
-                            <DropdownTrigger>
-                                <Button isIconOnly variant="flat">
-                                    <SocialIcon />
-                                </Button>
-                            </DropdownTrigger>
-                            <DropdownMenu
-                                variant="flat"
-                                aria-label="Dropdown Menu"
-                            >
-                                <DropdownItem>
-                                    <Link
-                                        isExternal
-                                        href={siteConfig.links.facebook}
-                                        aria-label="Facebook"
-                                        className="text-default-500 flex items-center gap-2"
-                                    >
-                                        <FacebookIcon /> Facebook
-                                    </Link>
-                                </DropdownItem>
-                                <DropdownItem>
-                                    <Link
-                                        isExternal
-                                        href={siteConfig.links.twitter}
-                                        aria-label="Twitter"
-                                        className="text-default-500 flex items-center gap-2"
-                                    >
-                                        <TwitterIcon /> Twitter
-                                    </Link>
-                                </DropdownItem>
-                                <DropdownItem>
-                                    <Link
-                                        isExternal
-                                        href={siteConfig.links.mail}
-                                        aria-label="Email"
-                                        className="text-default-500 flex items-center gap-2"
-                                    >
-                                        <EmailIcon /> Email
-                                    </Link>
-                                </DropdownItem>
-                                <DropdownItem>
-                                    <Link
-                                        isExternal
-                                        href={siteConfig.links.github}
-                                        aria-label="Github"
-                                        className="text-default-500 flex items-center gap-2"
-                                    >
-                                        <GithubIcon /> Github
-                                    </Link>
-                                </DropdownItem>
-                                <DropdownItem>
-                                    <Link
-                                        isExternal
-                                        href={siteConfig.links.linkedin}
-                                        aria-label="Linkedin"
-                                        className="text-default-500 flex items-center gap-2"
-                                    >
-                                        <LinkedinIcon /> Linkedin
-                                    </Link>
-                                </DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
-                    </div>
                     <ThemeSwitch />
                 </NavbarItem>
             </NavbarContent>
 
             <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-                <Dropdown>
-                    <DropdownTrigger>
-                        <Button isIconOnly variant="flat">
-                            <SocialIcon />
-                        </Button>
-                    </DropdownTrigger>
-                    <DropdownMenu variant="flat" aria-label="Dropdown Menu">
-                        <DropdownItem>
-                            <Link
-                                isExternal
-                                href={siteConfig.links.facebook}
-                                aria-label="Facebook"
-                                className="text-default-500 flex items-center gap-2"
-                            >
-                                <FacebookIcon /> Facebook
-                            </Link>
-                        </DropdownItem>
-                        <DropdownItem>
-                            <Link
-                                isExternal
-                                href={siteConfig.links.twitter}
-                                aria-label="Twitter"
-                                className="text-default-500 flex items-center gap-2"
-                            >
-                                <TwitterIcon /> Twitter
-                            </Link>
-                        </DropdownItem>
-                        <DropdownItem>
-                            <Link
-                                isExternal
-                                href={siteConfig.links.mail}
-                                aria-label="Email"
-                                className="text-default-500 flex items-center gap-2"
-                            >
-                                <EmailIcon /> Email
-                            </Link>
-                        </DropdownItem>
-                        <DropdownItem>
-                            <Link
-                                isExternal
-                                href={siteConfig.links.github}
-                                aria-label="Github"
-                                className="text-default-500 flex items-center gap-2"
-                            >
-                                <GithubIcon /> Github
-                            </Link>
-                        </DropdownItem>
-                        <DropdownItem>
-                            <Link
-                                isExternal
-                                href={siteConfig.links.linkedin}
-                                aria-label="Linkedin"
-                                className="text-default-500 flex items-center gap-2"
-                            >
-                                <LinkedinIcon /> Linkedin
-                            </Link>
-                        </DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
                 <ThemeSwitch />
                 <NavbarMenuToggle />
             </NavbarContent>
@@ -406,7 +218,7 @@ export const Navbar = () => {
                                     className={clsx(
                                         "w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all text-left font-mono text-sm",
                                         isActive
-                                            ? "bg-white dark:bg-neutral-900 text-[#ff1744] font-bold shadow-craft-sm border border-neutral-200/80 dark:border-neutral-800"
+                                            ? "bg-white dark:bg-neutral-900 text-[#ff1744] font-bold shadow-sm border border-black/[0.06] dark:border-white/[0.08]"
                                             : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white"
                                     )}
                                 >

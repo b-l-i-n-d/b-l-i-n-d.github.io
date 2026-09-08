@@ -36,13 +36,13 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items }) => {
         <section
             id="gallery"
             data-chapter-id="gallery"
-            className="py-24 px-4 sm:px-6 lg:px-12 border-t border-neutral-200 dark:border-neutral-800/80 bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-white transition-colors duration-200"
+            className="py-24 px-4 sm:px-6 lg:px-12 border-t border-black/[0.06] dark:border-white/[0.08] bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-white transition-colors duration-200"
         >
             <div className="max-w-6xl mx-auto space-y-12">
                 {/* Chapter Header */}
-                <div className="space-y-3 pb-6 border-b border-neutral-200 dark:border-neutral-800/80">
+                <div className="space-y-3 pb-6 border-b border-black/[0.06] dark:border-white/[0.08]">
                     <div className="flex items-center gap-3">
-                        <span className="text-sm font-mono text-[#ff1744] font-bold px-2.5 py-0.5 bg-[#ff1744]/10 border border-[#ff1744]/30 rounded">
+                        <span className="text-xs font-mono text-[#ff1744] font-bold px-2.5 py-0.5 bg-[#ff1744]/10 rounded-full">
                             CHAPTER 08
                         </span>
                         <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
@@ -63,14 +63,14 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items }) => {
                         <div
                             key={item.id}
                             onClick={() => setSelectedItem(item)}
-                            className="p-5 rounded-xl bg-white dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800/80 hover:border-[#ff1744]/50 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-craft-card hover:shadow-craft-card-hover ring-1 ring-black/[0.04] dark:ring-0 active:scale-[0.98]"
+                            className="p-5 rounded-xl bg-white dark:bg-neutral-900/50 border border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.15] dark:hover:border-white/[0.20] hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-craft-card hover:shadow-craft-card-hover active:scale-[0.98]"
                         >
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between">
                                     <span className="text-xs font-mono text-neutral-500 group-hover:text-[#ff1744] transition-colors font-bold">
                                         #{item.number}
                                     </span>
-                                    <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-stone-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">
+                                    <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-stone-100/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/[0.04] dark:border-white/[0.06]">
                                         {item.badge}
                                     </span>
                                 </div>
@@ -84,7 +84,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items }) => {
                                 </p>
                             </div>
 
-                            <div className="pt-4 mt-4 border-t border-neutral-200 dark:border-neutral-800/80 flex items-center justify-between text-xs font-mono text-neutral-500 group-hover:text-neutral-700 dark:group-hover:text-neutral-300">
+                            <div className="pt-4 mt-4 border-t border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between text-xs font-mono text-neutral-500 group-hover:text-neutral-700 dark:group-hover:text-neutral-300">
                                 <span>{item.category}</span>
                                 <span>Inspect ↗</span>
                             </div>
@@ -102,20 +102,20 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items }) => {
                     aria-modal="true"
                 >
                     <div
-                        className="max-w-2xl w-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-craft-float ring-1 ring-black/[0.08] dark:ring-0 dark:shadow-2xl relative max-h-[90vh] overflow-y-auto"
+                        className="max-w-2xl w-full bg-white dark:bg-neutral-900 border border-black/[0.08] dark:border-white/[0.10] rounded-2xl p-6 sm:p-8 space-y-6 shadow-craft-float dark:shadow-2xl relative max-h-[90vh] overflow-y-auto"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Modal Header */}
-                        <div className="flex items-start justify-between gap-4 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+                        <div className="flex items-start justify-between gap-4 border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
                             <div className="space-y-1">
                                 <div className="flex items-center gap-2">
                                     <span className="text-xs font-mono text-[#ff1744] font-bold">
                                         #{selectedItem.number}
                                     </span>
-                                    <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-stone-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">
+                                    <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-stone-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/[0.04] dark:border-white/[0.06]">
                                         {selectedItem.category}
                                     </span>
-                                    <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-[#ff1744]/10 text-[#ff1744] border border-[#ff1744]/30">
+                                    <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-[#ff1744]/10 text-[#ff1744] font-semibold">
                                         {selectedItem.badge}
                                     </span>
                                 </div>
@@ -161,7 +161,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items }) => {
                                 {selectedItem.technologies.map((tech, idx) => (
                                     <span
                                         key={idx}
-                                        className="px-2.5 py-1 text-xs font-mono bg-stone-100 dark:bg-neutral-950 text-neutral-700 dark:text-neutral-300 rounded border border-neutral-200 dark:border-neutral-800"
+                                        className="px-2.5 py-1 text-xs font-mono bg-stone-100 dark:bg-neutral-950 text-neutral-700 dark:text-neutral-300 rounded border border-black/[0.04] dark:border-white/[0.06]"
                                     >
                                         {tech}
                                     </span>
@@ -170,7 +170,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items }) => {
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-neutral-200 dark:border-neutral-800">
+                        <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-black/[0.06] dark:border-white/[0.08]">
                             <span className="text-xs font-mono text-neutral-500">
                                 Use [←] [→] to navigate items
                             </span>
@@ -183,16 +183,6 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items }) => {
                                         className="px-4 py-2 rounded-lg bg-[#ff1744] hover:bg-rose-500 text-white font-bold text-xs font-mono transition-all shadow-[0_0_10px_rgba(255,23,68,0.4)]"
                                     >
                                         Live Demo ↗
-                                    </a>
-                                )}
-                                {selectedItem.sourceUrl && (
-                                    <a
-                                        href={selectedItem.sourceUrl}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="px-4 py-2 rounded-lg bg-stone-100 dark:bg-neutral-800 hover:bg-stone-200 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 text-xs font-mono transition-all"
-                                    >
-                                        Inspect Source
                                     </a>
                                 )}
                             </div>

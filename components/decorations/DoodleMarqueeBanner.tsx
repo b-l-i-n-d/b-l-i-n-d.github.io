@@ -27,7 +27,7 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
 
     return (
         <div
-            className={`w-full h-20 overflow-hidden bg-stone-100 dark:bg-[#0c0c0c] border-y border-neutral-200 dark:border-neutral-800/80 relative flex items-center select-none pointer-events-none transition-colors duration-200 ${className}`}
+            className={`w-full h-20 overflow-hidden bg-stone-100 dark:bg-[#0c0c0c] border-y border-black/[0.06] dark:border-white/[0.08] relative flex items-center select-none pointer-events-none transition-colors duration-200 ${className}`}
             aria-hidden="true"
         >
             {/* Soft ambient edge gradient masks */}

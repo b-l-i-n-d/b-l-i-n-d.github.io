@@ -32,7 +32,7 @@ export const portfolioData: EngineerProfile = {
     heroReel: {
         title: "Tutor LMS 2.0–4.0 & EasyStore Interaction Engine",
         tagline: "Engineered by Fahim Faisal @ Ollyo / Themeum",
-        badge: "Flagship Showreel · Production Architecture",
+        badge: "Flagship Showreel: Production Architecture",
         videoUrl: "https://tutorlms.com/wp-content/uploads/2026/07/home-hero-student-4.mp4",
         secondaryVideoUrl: "https://tutorlms.com/wp-content/uploads/2026/07/home-hero-instructor-3.mp4",
         posterUrl: "https://tutorlms.com/wp-content/uploads/2026/07/Tutor-LMS-Learning-Experience-dashboard-with-course-modules-Classic-Mode.webp",
