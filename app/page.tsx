@@ -16,7 +16,7 @@ export default function Home() {
             {/* Floating Chapter Dock Navigation (Desktop & Mobile) */}
             <ChapterScrubber chapters={portfolioData.chapters} />
 
-            {/* Chapter 00: Flagship Cinematic Showreel Hero (Tutor LMS 2.0-4.0 & EasyStore) */}
+            {/* Chapter 00: Flagship Cinematic Showreel Hero (Tutor LMS 2.0-4.0 & Enclave) */}
             <CinematicHero profile={portfolioData} />
 
             {/* Behance Ribbon Divider Banner */}
@@ -34,18 +34,20 @@ export default function Home() {
             {/* Chapter 03: Professional Experience & Career Impact (Ollyo & SUST) */}
             <ExperienceSection profile={portfolioData} />
 
-            {/* Chapters 04 - 06: 4-Stage Project Case Studies */}
-            {portfolioData.flagshipProjects.map((project) => (
-                <ProjectCaseStudySection key={project.id} project={project} />
-            ))}
+            {/* Chapters 04 - 07: 4-Stage Project Case Studies (Tutor LMS, Enclave, EdTech, DocApp) */}
+            <div id="case-study">
+                {portfolioData.flagshipProjects.map((project) => (
+                    <ProjectCaseStudySection key={project.id} project={project} />
+                ))}
+            </div>
 
-            {/* Chapter 07: Interactive Motion Lab (Micro-Interactions & Physics) */}
+            {/* Chapter 08: Interactive Motion Lab (Micro-Interactions & Physics) */}
             <InteractiveMotionLab items={portfolioData.interactiveBuilds} />
 
-            {/* Chapter 08: 12-Item Curated Hybrid Gallery & Lightbox */}
+            {/* Chapter 09: 12-Item Curated Hybrid Gallery & Lightbox */}
             <HybridGallery items={portfolioData.hybridGallery} />
 
-            {/* Chapter 09: Verified Academic Credentials & Contact Outro */}
+            {/* Chapter 10: Verified Academic Credentials & Contact Outro */}
             <ProfileOutro profile={portfolioData} />
         </main>
     );

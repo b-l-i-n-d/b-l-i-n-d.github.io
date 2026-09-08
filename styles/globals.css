@@ -47,8 +47,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee {
-    animation-play-state: paused !important;
+  .animate-marquee,
+  .chroma-text,
+  .chroma-text-navbar {
+    animation: none !important;
+    background-position: 0% 0 !important;
   }
 }
 
@@ -95,4 +98,80 @@ body {
 
 .craft-interactive:active {
   transform: scale(0.97);
+}
+
+/* 
+ * Monochrome Text Shimmer & Sweep Animation
+ * Strictly clipped to text glyphs only (no background aura or bleed)
+ * Flows smoothly from BOTTOM to TOP at a slow, elegant pace
+ * Pure monochrome palette (blacks, grays, silvers, platinums, and pure whites)
+ */
+@keyframes dia-chroma-vertical {
+  0% {
+    background-position: 0 200%;
+  }
+  100% {
+    background-position: 0 0%;
+  }
+}
+
+.chroma-text {
+  background-image: linear-gradient(
+    0deg,
+    #171717 0%,
+    #525252 20%,
+    #a3a3a3 40%,
+    #171717 60%,
+    #737373 80%,
+    #171717 100%
+  );
+  background-size: 100% 200%;
+  background-position: 0 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  will-change: background-position;
+  animation: dia-chroma-vertical 14s linear infinite;
+}
+
+.dark .chroma-text {
+  background-image: linear-gradient(
+    0deg,
+    #71717a 0%,
+    #e4e4e7 25%,
+    #a1a1aa 50%,
+    #ffffff 75%,
+    #71717a 100%
+  );
+}
+
+.chroma-text:hover {
+  animation-duration: 8s;
+}
+
+.chroma-text-navbar {
+  background-image: linear-gradient(
+    0deg,
+    #171717 0%,
+    #737373 35%,
+    #0a0a0a 70%,
+    #171717 100%
+  );
+  background-size: 100% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: dia-chroma-vertical 12s linear infinite;
+}
+
+.dark .chroma-text-navbar {
+  background-image: linear-gradient(
+    0deg,
+    #a1a1aa 0%,
+    #ffffff 45%,
+    #71717a 80%,
+    #a1a1aa 100%
+  );
 }

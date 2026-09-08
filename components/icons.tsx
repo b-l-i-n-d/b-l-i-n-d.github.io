@@ -1,53 +1,310 @@
 "use client";
 
 import { IconSvgProps } from "@/types";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import * as React from "react";
+import clsx from "clsx";
 
-export const Logo: React.FC<IconSvgProps> = ({
-    size = 36,
+/**
+ * Motion variants for BlindSkullIcon
+ * - Left & right 'X' eyes spin in opposing directions with spring dynamics on hover
+ * - Jaw / teeth execute micro-chatter
+ * - Ambient eye halos breathe in idle state
+ */
+const containerVariants: Variants = {
+    rest: {
+        y: 0,
+        rotate: 0,
+        scale: 1,
+        transition: {
+            type: "spring",
+            stiffness: 400,
+            damping: 24,
+        },
+    },
+    hover: {
+        y: -1.5,
+        rotate: [-2, 2, -1, 0],
+        scale: 1.08,
+        transition: {
+            y: {
+                type: "spring",
+                stiffness: 420,
+                damping: 18,
+            },
+            scale: {
+                type: "spring",
+                stiffness: 420,
+                damping: 18,
+            },
+            rotate: {
+                duration: 0.35,
+                ease: "easeInOut",
+            },
+        },
+    },
+    tap: {
+        scale: 0.92,
+        rotate: 3,
+        transition: {
+            type: "spring",
+            stiffness: 500,
+            damping: 22,
+        },
+    },
+};
+
+const leftEyeVariants: Variants = {
+    rest: {
+        rotate: 0,
+        scale: 1,
+        transition: {
+            type: "spring",
+            stiffness: 350,
+            damping: 24,
+        },
+    },
+    hover: {
+        rotate: 90,
+        scale: 1.25,
+        transition: {
+            type: "spring",
+            stiffness: 460,
+            damping: 15,
+        },
+    },
+};
+
+const rightEyeVariants: Variants = {
+    rest: {
+        rotate: 0,
+        scale: 1,
+        transition: {
+            type: "spring",
+            stiffness: 350,
+            damping: 24,
+        },
+    },
+    hover: {
+        rotate: -90,
+        scale: 1.25,
+        transition: {
+            type: "spring",
+            stiffness: 460,
+            damping: 15,
+            delay: 0.04,
+        },
+    },
+};
+
+const jawVariants: Variants = {
+    rest: {
+        y: 0,
+    },
+    hover: {
+        y: [0, 1.2, 0, 1.2, 0],
+        transition: {
+            duration: 0.38,
+            ease: "easeInOut",
+        },
+    },
+};
+
+/**
+ * BlindSkullIcon
+ * The definitive brand mark for alias "blind":
+ * Minimalist geometric skull with glowing 'X' eyes, counter-spinning springs,
+ * subtle cranium float, and micro-chattering teeth.
+ */
+export const BlindSkullIcon: React.FC<IconSvgProps> = ({
+    size = 28,
     width,
     height,
-    ...props
-}) => (
-    <motion.svg
-        height={size || height}
-        viewBox="0 0 24 24"
-        width={size || width}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <motion.polygon
-            variants={{
-                hidden: {
-                    opacity: 0,
-                    pathLength: 0,
-                    fill: "rgba(255, 255, 255, 0)",
-                },
-                visible: {
-                    opacity: 1,
-                    pathLength: 1,
-                    fill: "rgba(252, 211, 77, 1)",
-                },
-            }}
-            initial="hidden"
-            animate="visible"
-            transition={{
-                default: { duration: 2, ease: "easeInOut" },
-                fill: { duration: 2, ease: [1, 0, 0.8, 1] },
-            }}
-            points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
-        />
-    </motion.svg>
-);
+    className,
+}) => {
+    const finalSize = size || width || height || 28;
+
+    return (
+        <motion.svg
+            height={finalSize}
+            viewBox="0 0 24 24"
+            width={finalSize}
+            fill="none"
+            className={clsx("overflow-visible select-none shrink-0", className)}
+            initial="rest"
+            animate="rest"
+            whileHover="hover"
+            whileTap="tap"
+            variants={containerVariants}
+            aria-label="blind alias skull brand mark"
+            role="img"
+        >
+            <defs>
+                {/* Signature Electric Crimson Gradient */}
+                <linearGradient id="blind-skull-crimson" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#ff4d6d" />
+                    <stop offset="50%" stopColor="#ff1744" />
+                    <stop offset="100%" stopColor="#c50028" />
+                </linearGradient>
+
+                {/* Multi-tier Neon Bloom Filter */}
+                <filter id="blind-skull-glow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#ff1744" floodOpacity="0.85" />
+                    <feDropShadow dx="0" dy="0" stdDeviation="4.0" floodColor="#ff1744" floodOpacity="0.3" />
+                </filter>
+            </defs>
+
+            {/* Skull Cranium, Cheekbones & Jaw Contour */}
+            <motion.path
+                d="M15 22a1 1 0 0 0 1-1v-1a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20v1a1 1 0 0 0 1 1z"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-neutral-800 dark:text-neutral-100 transition-colors"
+                initial={{ pathLength: 0.95 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+
+            {/* Inverted Triangle Crimson Nose Cavity */}
+            <motion.path
+                d="m12.5 17-.5-1-.5 1h1z"
+                fill="url(#blind-skull-crimson)"
+                stroke="#ff1744"
+                strokeWidth="0.8"
+                strokeLinejoin="round"
+                filter="url(#blind-skull-glow)"
+            />
+
+            {/* Teeth Separators with Spring Micro-Chatter */}
+            <motion.g variants={jawVariants}>
+                <line
+                    x1="10.5"
+                    y1="20"
+                    x2="10.5"
+                    y2="22"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    className="opacity-70 dark:opacity-85"
+                />
+                <line
+                    x1="13.5"
+                    y1="20"
+                    x2="13.5"
+                    y2="22"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    className="opacity-70 dark:opacity-85"
+                />
+            </motion.g>
+
+            {/* LEFT 'X' EYE (Rotates +90deg with spring and expands on hover) */}
+            <motion.g
+                variants={leftEyeVariants}
+                style={{ transformOrigin: "9px 12px" }}
+            >
+                {/* Ambient Breathing Eye Halo */}
+                <motion.circle
+                    cx="9"
+                    cy="12"
+                    r="3.2"
+                    fill="#ff1744"
+                    animate={{
+                        opacity: [0.12, 0.28, 0.12],
+                        scale: [0.95, 1.15, 0.95],
+                    }}
+                    transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                    }}
+                    style={{ transformOrigin: "9px 12px" }}
+                />
+
+                {/* Cross Strokes */}
+                <line
+                    x1="7.2"
+                    y1="10.2"
+                    x2="10.8"
+                    y2="13.8"
+                    stroke="#ff1744"
+                    strokeWidth="1.75"
+                    strokeLinecap="round"
+                    filter="url(#blind-skull-glow)"
+                />
+                <line
+                    x1="10.8"
+                    y1="10.2"
+                    x2="7.2"
+                    y2="13.8"
+                    stroke="#ff1744"
+                    strokeWidth="1.75"
+                    strokeLinecap="round"
+                    filter="url(#blind-skull-glow)"
+                />
+            </motion.g>
+
+            {/* RIGHT 'X' EYE (Rotates -90deg with spring and expands on hover) */}
+            <motion.g
+                variants={rightEyeVariants}
+                style={{ transformOrigin: "15px 12px" }}
+            >
+                {/* Ambient Breathing Eye Halo */}
+                <motion.circle
+                    cx="15"
+                    cy="12"
+                    r="3.2"
+                    fill="#ff1744"
+                    animate={{
+                        opacity: [0.12, 0.28, 0.12],
+                        scale: [0.95, 1.15, 0.95],
+                    }}
+                    transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                    }}
+                    style={{ transformOrigin: "15px 12px" }}
+                />
+
+                {/* Cross Strokes */}
+                <line
+                    x1="13.2"
+                    y1="10.2"
+                    x2="16.8"
+                    y2="13.8"
+                    stroke="#ff1744"
+                    strokeWidth="1.75"
+                    strokeLinecap="round"
+                    filter="url(#blind-skull-glow)"
+                />
+                <line
+                    x1="16.8"
+                    y1="10.2"
+                    x2="13.2"
+                    y2="13.8"
+                    stroke="#ff1744"
+                    strokeWidth="1.75"
+                    strokeLinecap="round"
+                    filter="url(#blind-skull-glow)"
+                />
+            </motion.g>
+        </motion.svg>
+    );
+};
+
+export const Logo: React.FC<IconSvgProps> = (props) => {
+    return <BlindSkullIcon {...props} />;
+};
 
 export const DownloadIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }) => (
     <svg
@@ -59,6 +316,7 @@ export const DownloadIcon: React.FC<IconSvgProps> = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
@@ -71,6 +329,7 @@ export const MouseIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }) => (
     <svg
@@ -82,6 +341,7 @@ export const MouseIcon: React.FC<IconSvgProps> = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <rect x="5" y="2" width="14" height="20" rx="7" />
@@ -93,6 +353,7 @@ export const SendIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }) => (
     <svg
@@ -104,6 +365,7 @@ export const SendIcon: React.FC<IconSvgProps> = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <path d="m22 2-7 20-4-9-9-4Z" />
@@ -115,6 +377,7 @@ export const DiscordIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }) => {
     return (
@@ -122,6 +385,7 @@ export const DiscordIcon: React.FC<IconSvgProps> = ({
             height={size || height}
             viewBox="0 0 24 24"
             width={size || width}
+            className={clsx("shrink-0", className)}
             {...props}
         >
             <path
@@ -136,6 +400,7 @@ export const EmailIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }) => {
     return (
@@ -148,6 +413,7 @@ export const EmailIcon: React.FC<IconSvgProps> = ({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className={clsx("shrink-0", className)}
             {...props}
         >
             <circle cx="12" cy="12" r="4" />
@@ -160,6 +426,7 @@ export const LinkedinIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }) => {
     return (
@@ -172,6 +439,7 @@ export const LinkedinIcon: React.FC<IconSvgProps> = ({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className={clsx("shrink-0", className)}
             {...props}
         >
             <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -185,6 +453,7 @@ export const FacebookIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }) => {
     return (
@@ -197,6 +466,7 @@ export const FacebookIcon: React.FC<IconSvgProps> = ({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className={clsx("shrink-0", className)}
             {...props}
         >
             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
@@ -208,6 +478,7 @@ export const TwitterIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }) => {
     return (
@@ -220,6 +491,7 @@ export const TwitterIcon: React.FC<IconSvgProps> = ({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className={clsx("shrink-0", className)}
             {...props}
         >
             <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
@@ -231,6 +503,7 @@ export const GithubIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }) => {
     return (
@@ -243,6 +516,7 @@ export const GithubIcon: React.FC<IconSvgProps> = ({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className={clsx("shrink-0", className)}
             {...props}
         >
             <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -255,6 +529,7 @@ export const ArrowRight = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -266,6 +541,7 @@ export const ArrowRight = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <path d="M5 12h14" />
@@ -277,6 +553,7 @@ export const LockIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -288,6 +565,7 @@ export const LockIcon = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
@@ -299,6 +577,7 @@ export const MoonFilledIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -308,6 +587,7 @@ export const MoonFilledIcon = ({
         role="presentation"
         viewBox="0 0 24 24"
         width={size || width}
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <path
@@ -321,6 +601,7 @@ export const SunFilledIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -330,6 +611,7 @@ export const SunFilledIcon = ({
         role="presentation"
         viewBox="0 0 24 24"
         width={size || width}
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <g fill="currentColor">
@@ -343,6 +625,7 @@ export const HeartFilledIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -352,6 +635,7 @@ export const HeartFilledIcon = ({
         role="presentation"
         viewBox="0 0 24 24"
         width={size || width}
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <path
@@ -368,6 +652,7 @@ export const SearchIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -378,6 +663,7 @@ export const SearchIcon = ({
         role="presentation"
         viewBox="0 0 24 24"
         width="1em"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <path
@@ -401,6 +687,7 @@ export const ClientIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -412,6 +699,7 @@ export const ClientIcon = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <rect width="20" height="14" x="2" y="3" rx="2" />
@@ -424,6 +712,7 @@ export const BackendIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -435,6 +724,7 @@ export const BackendIcon = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
@@ -448,6 +738,7 @@ export const MapPinIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -459,6 +750,7 @@ export const MapPinIcon = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
@@ -470,6 +762,7 @@ export const SocialIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -481,6 +774,7 @@ export const SocialIcon = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <circle cx="12" cy="12" r="10" />
@@ -494,6 +788,7 @@ export const ToolsIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -505,6 +800,7 @@ export const ToolsIcon = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
@@ -515,6 +811,7 @@ export const WorkIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -526,6 +823,7 @@ export const WorkIcon = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
@@ -537,6 +835,7 @@ export const SchoolIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -548,6 +847,7 @@ export const SchoolIcon = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
@@ -559,6 +859,7 @@ export const ExternalLinkIcon = ({
     size = 24,
     width,
     height,
+    className,
     ...props
 }: IconSvgProps) => (
     <svg
@@ -570,6 +871,7 @@ export const ExternalLinkIcon = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={clsx("shrink-0", className)}
         {...props}
     >
         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -578,9 +880,7 @@ export const ExternalLinkIcon = ({
     </svg>
 );
 
-export const NextUILogo: React.FC<IconSvgProps> = (props) => {
-    const { width, height = 40 } = props;
-
+export const NextUILogo: React.FC<IconSvgProps> = ({ className, width, height = 40, ...props }) => {
     return (
         <svg
             fill="none"
@@ -588,6 +888,7 @@ export const NextUILogo: React.FC<IconSvgProps> = (props) => {
             viewBox="0 0 161 32"
             width={width}
             xmlns="http://www.w3.org/2000/svg"
+            className={clsx("shrink-0", className)}
             {...props}
         >
             <path

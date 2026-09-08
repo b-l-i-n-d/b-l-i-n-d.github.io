@@ -3,7 +3,7 @@ export type SiteConfig = typeof siteConfig;
 export const siteConfig = {
     name: "Fahim Faisal | Software Engineer",
     description:
-        "Portfolio of Fahim Faisal, Software Engineer at Ollyo. Core engineer on Tutor LMS 2.0–4.0 and EasyStore by JoomShaper. High-performance React, TypeScript, and fluid web architecture.",
+        "Portfolio of Fahim Faisal, Software Engineer at Ollyo. Core engineer on Tutor LMS, creator of Enclave Zero-Knowledge Vault, EdTech, and DocApp. High-performance React, Next.js, React Native, TypeScript, and fluid architecture.",
     navItems: [
         {
             label: "Showreel",
@@ -22,8 +22,20 @@ export const siteConfig = {
             href: "#experience",
         },
         {
-            label: "Case Study",
-            href: "#case-study",
+            label: "Tutor LMS",
+            href: "#tutor-lms",
+        },
+        {
+            label: "Enclave",
+            href: "#enclave",
+        },
+        {
+            label: "EdTech",
+            href: "#edtech",
+        },
+        {
+            label: "DocApp",
+            href: "#docapp",
         },
         {
             label: "Motion Lab",
@@ -56,8 +68,20 @@ export const siteConfig = {
             href: "#experience",
         },
         {
-            label: "Case Study",
-            href: "#case-study",
+            label: "Tutor LMS",
+            href: "#tutor-lms",
+        },
+        {
+            label: "Enclave",
+            href: "#enclave",
+        },
+        {
+            label: "EdTech",
+            href: "#edtech",
+        },
+        {
+            label: "DocApp",
+            href: "#docapp",
         },
         {
             label: "Motion Lab",

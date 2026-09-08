@@ -241,13 +241,13 @@ export const TutorArchitectureGraph: React.FC = () => {
     return (
         <div className="space-y-6">
             {/* Legend & PR Verification Banner */}
-            <div className="flex flex-wrap items-center justify-between gap-4 text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm">
                 <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)] shrink-0" />
                     <span className="font-bold text-neutral-900 dark:text-white">
                         Tutor LMS 2.0 → 4.0 Architectural Graph
                     </span>
-                    <span className="px-2 py-0.5 rounded-md text-[10px] font-mono bg-black/[0.04] dark:bg-white/[0.06] text-neutral-600 dark:text-neutral-400">
+                    <span className="px-2 py-0.5 rounded-md text-xs font-mono bg-black/[0.04] dark:bg-white/[0.06] text-neutral-600 dark:text-neutral-400 shrink-0">
                         12 Core Systems
                     </span>
                 </div>
@@ -258,7 +258,7 @@ export const TutorArchitectureGraph: React.FC = () => {
                     className="text-neutral-600 dark:text-neutral-400 hover:text-[#ff1744] transition-colors inline-flex items-center gap-1.5"
                 >
                     <span>Verified PRs & Commits by Fahim Faisal (<strong className="text-[#ff1744]">b-l-i-n-d</strong>)</span>
-                    <ExternalLink className="w-3 h-3" />
+                    <ExternalLink className="w-3.5 h-3.5 shrink-0" />
                 </a>
             </div>
 
@@ -268,10 +268,10 @@ export const TutorArchitectureGraph: React.FC = () => {
                     {/* Layer 1: Client Presentation Layer & Interactive Builders */}
                     <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                            <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                            <div className="text-xs font-mono text-neutral-500 uppercase tracking-wider font-semibold">
                                 01 · Presentation & Builders
                             </div>
-                            <span className="text-[10px] font-mono text-rose-500 font-bold">4 Modules</span>
+                            <span className="text-xs font-mono text-rose-500 font-bold shrink-0">4 Modules</span>
                         </div>
                         <div className="space-y-2.5">
                             {frontendNodes.map((node) => {
@@ -287,14 +287,14 @@ export const TutorArchitectureGraph: React.FC = () => {
                                         }`}
                                     >
                                         <div className="flex items-center justify-between">
-                                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/10 text-[#ff1744] font-semibold">
+                                            <span className="text-xs font-mono px-2 py-0.5 rounded bg-rose-500/10 text-[#ff1744] font-semibold shrink-0">
                                                 {node.badge}
                                             </span>
                                             {isSelected && (
-                                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shadow-[0_0_6px_rgba(255,23,68,0.8)]" />
+                                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shadow-[0_0_6px_rgba(255,23,68,0.8)] shrink-0" />
                                             )}
                                         </div>
-                                        <div className="font-bold text-sm text-neutral-900 dark:text-neutral-100 mt-2">
+                                        <div className="font-bold text-sm sm:text-base text-neutral-900 dark:text-neutral-100 mt-2">
                                             {node.label}
                                         </div>
                                     </button>
@@ -306,10 +306,10 @@ export const TutorArchitectureGraph: React.FC = () => {
                     {/* Layer 2: Core Architecture, Tooling & Telemetry */}
                     <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                            <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                            <div className="text-xs font-mono text-neutral-500 uppercase tracking-wider font-semibold">
                                 02 · Core Architecture & DX
                             </div>
-                            <span className="text-[10px] font-mono text-emerald-500 font-bold">4 Modules</span>
+                            <span className="text-xs font-mono text-emerald-500 font-bold shrink-0">4 Modules</span>
                         </div>
                         <div className="space-y-2.5">
                             {coordinationNodes.map((node) => {
@@ -325,14 +325,14 @@ export const TutorArchitectureGraph: React.FC = () => {
                                         }`}
                                     >
                                         <div className="flex items-center justify-between">
-                                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold">
+                                            <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">
                                                 {node.badge}
                                             </span>
                                             {isSelected && (
-                                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shadow-[0_0_6px_rgba(255,23,68,0.8)]" />
+                                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shadow-[0_0_6px_rgba(255,23,68,0.8)] shrink-0" />
                                             )}
                                         </div>
-                                        <div className="font-bold text-sm text-neutral-900 dark:text-neutral-100 mt-2">
+                                        <div className="font-bold text-sm sm:text-base text-neutral-900 dark:text-neutral-100 mt-2">
                                             {node.label}
                                         </div>
                                     </button>
@@ -344,10 +344,10 @@ export const TutorArchitectureGraph: React.FC = () => {
                     {/* Layer 3: Type System, Caching & REST Gateway */}
                     <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                            <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                            <div className="text-xs font-mono text-neutral-500 uppercase tracking-wider font-semibold">
                                 03 · Types, Caching & REST
                             </div>
-                            <span className="text-[10px] font-mono text-sky-500 font-bold">4 Modules</span>
+                            <span className="text-xs font-mono text-sky-500 font-bold shrink-0">4 Modules</span>
                         </div>
                         <div className="space-y-2.5">
                             {backendNodes.map((node) => {
@@ -363,14 +363,14 @@ export const TutorArchitectureGraph: React.FC = () => {
                                         }`}
                                     >
                                         <div className="flex items-center justify-between">
-                                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-semibold">
+                                            <span className="text-xs font-mono px-2 py-0.5 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-semibold shrink-0">
                                                 {node.badge}
                                             </span>
                                             {isSelected && (
-                                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shadow-[0_0_6px_rgba(255,23,68,0.8)]" />
+                                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shadow-[0_0_6px_rgba(255,23,68,0.8)] shrink-0" />
                                             )}
                                         </div>
-                                        <div className="font-bold text-sm text-neutral-900 dark:text-neutral-100 mt-2">
+                                        <div className="font-bold text-sm sm:text-base text-neutral-900 dark:text-neutral-100 mt-2">
                                             {node.label}
                                         </div>
                                     </button>
@@ -397,7 +397,7 @@ export const TutorArchitectureGraph: React.FC = () => {
                                 <span className="text-xs font-mono text-[#ff1744] font-semibold uppercase tracking-wider">
                                     Deep-Dive Node Inspection
                                 </span>
-                                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-black/[0.04] dark:bg-white/[0.06] font-semibold text-neutral-700 dark:text-neutral-300">
+                                <span className="px-2 py-0.5 rounded text-xs font-mono bg-black/[0.04] dark:bg-white/[0.06] font-semibold text-neutral-700 dark:text-neutral-300 shrink-0">
                                     {selectedNode.version}
                                 </span>
                             </div>
@@ -406,27 +406,27 @@ export const TutorArchitectureGraph: React.FC = () => {
                             </h4>
                         </div>
                         <div className="flex items-center gap-2">
-                            <span className="px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold">
+                            <span className="px-3 py-1 rounded-full text-xs sm:text-sm font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">
                                 {selectedNode.metrics}
                             </span>
                             <a
                                 href={selectedNode.prUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="px-3 py-1 rounded-full text-xs font-mono bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:text-[#ff1744] border border-black/[0.06] dark:border-white/[0.08] transition-colors inline-flex items-center gap-1.5"
+                                className="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-mono bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:text-[#ff1744] border border-black/[0.06] dark:border-white/[0.08] transition-colors inline-flex items-center gap-1.5 shrink-0"
                             >
-                                <GitPullRequest className="w-3.5 h-3.5 text-[#ff1744]" />
+                                <GitPullRequest className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
                                 <span>Inspect Pull Request</span>
-                                <ExternalLink className="w-3 h-3" />
+                                <ExternalLink className="w-3.5 h-3.5 shrink-0" />
                             </a>
                         </div>
                     </div>
 
-                    <p className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                    <p className="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">
                         {selectedNode.description}
                     </p>
 
-                    <div className="p-3 rounded-xl bg-stone-100/70 dark:bg-neutral-950 border border-black/[0.04] dark:border-white/[0.06] text-xs font-mono flex flex-wrap items-center justify-between gap-2">
+                    <div className="p-3 rounded-xl bg-stone-100/70 dark:bg-neutral-950 border border-black/[0.04] dark:border-white/[0.06] text-xs sm:text-sm font-mono flex flex-wrap items-center justify-between gap-2">
                         <span className="text-neutral-500">Core PR Contribution:</span>
                         <a
                             href={selectedNode.prUrl}
@@ -435,21 +435,21 @@ export const TutorArchitectureGraph: React.FC = () => {
                             className="text-[#ff1744] hover:underline font-semibold flex items-center gap-1"
                         >
                             <span>{selectedNode.prHighlight}</span>
-                            <ExternalLink className="w-3 h-3" />
+                            <ExternalLink className="w-3.5 h-3.5 shrink-0" />
                         </a>
                     </div>
 
                     <div className="space-y-2 pt-2">
-                        <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                        <div className="text-xs font-mono text-neutral-500 uppercase tracking-wider font-semibold">
                             Verified Production Commits (authored by Fahim Faisal / b-l-i-n-d):
                         </div>
                         <div className="space-y-1.5">
                             {selectedNode.commits.map((commit, idx) => (
                                 <div
                                     key={idx}
-                                    className="p-2.5 rounded-lg bg-stone-50/70 dark:bg-neutral-950 border border-black/[0.04] dark:border-white/[0.06] font-mono text-xs text-neutral-800 dark:text-neutral-200 flex items-center gap-2"
+                                    className="p-2.5 rounded-lg bg-stone-50/70 dark:bg-neutral-950 border border-black/[0.04] dark:border-white/[0.06] font-mono text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 flex items-center gap-2"
                                 >
-                                    <span className="text-[#ff1744] font-bold">git:</span>
+                                    <span className="text-[#ff1744] font-bold shrink-0">git:</span>
                                     <span className="truncate">{commit}</span>
                                 </div>
                             ))}

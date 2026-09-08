@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { EngineerProfile } from "@/types/portfolio";
+import { InteractiveDoodleCloud } from "./InteractiveDoodleCloud";
 import { Atom, Zap, Wrench, Package, ExternalLink } from "lucide-react";
 
 interface BehanceBioSectionProps {
@@ -10,17 +11,6 @@ interface BehanceBioSectionProps {
 }
 
 export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile }) => {
-    const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-
-    const skillsCloud = [
-        { name: "Architecture", x: "15%", y: "20%", size: "text-lg", weight: "font-bold", rot: "-rotate-6" },
-        { name: "Fluid Motion", x: "55%", y: "15%", size: "text-base", weight: "font-semibold", rot: "rotate-3" },
-        { name: "State Machines", x: "10%", y: "50%", size: "text-xl", weight: "font-extrabold", rot: "-rotate-2" },
-        { name: "Optimization", x: "50%", y: "45%", size: "text-sm", weight: "font-medium", rot: "rotate-6" },
-        { name: "Micro-Interactions", x: "20%", y: "78%", size: "text-sm", weight: "font-normal", rot: "rotate-2" },
-        { name: "Zero CLS", x: "65%", y: "72%", size: "text-base", weight: "font-bold", rot: "-rotate-4" },
-    ];
-
     return (
         <section
             id="about"
@@ -31,12 +21,12 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                 {/* Section Header */}
                 <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-6">
                     <div className="flex items-center gap-3">
-                        <span className="w-2 h-2 rounded-full bg-[#ff1744]" />
-                        <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+                        <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
+                        <span className="text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-300">
                             Biography & Profile
                         </span>
                     </div>
-                    <span className="text-xs text-neutral-500 hidden sm:inline">
+                    <span className="text-xs sm:text-sm text-neutral-500 hidden sm:inline">
                         Dhaka, Bangladesh, 2023 to Present
                     </span>
                 </div>
@@ -58,27 +48,28 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                             {/* Film grain vignette */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
-                            {/* Floating Name Overlay */}
+                            {/* Floating Name Overlay with Abir Chroma Accent */}
                             <div className="absolute bottom-5 left-5 right-5 text-left">
-                                <span className="text-xs text-[#ff1744] font-semibold block">
+                                <span className="text-xs sm:text-sm text-[#ff1744] font-semibold block">
                                     Software Engineer
                                 </span>
-                                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                                    Fahim Faisal
+                                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-baseline gap-2">
+                                    <span className="chroma-text font-black">Abir</span>
+                                    <span className="text-sm text-neutral-300 font-normal">(Fahim Faisal)</span>
                                 </h3>
-                                <p className="text-xs text-neutral-300 mt-0.5">
-                                    SUST CSE, Ollyo / Themeum
+                                <p className="text-xs sm:text-sm text-neutral-300 mt-0.5">
+                                    SUST SWE &middot; Ollyo
                                 </p>
                             </div>
                         </div>
 
                         {/* Handcrafted Status Badge */}
-                        <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-neutral-900/60 border border-black/[0.06] dark:border-white/[0.08] text-xs shadow-sm text-neutral-600 dark:text-neutral-400">
+                        <div className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-neutral-900/60 border border-black/[0.06] dark:border-white/[0.08] text-xs sm:text-sm shadow-sm text-neutral-600 dark:text-neutral-400">
                             <span className="flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)] shrink-0" />
                                 Available for Senior Roles
                             </span>
-                            <span className="text-neutral-500 font-medium">Full-Time / Lead</span>
+                            <span className="text-neutral-500 font-medium shrink-0">Full-Time / Lead</span>
                         </div>
                     </div>
 
@@ -90,7 +81,12 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                                 Hello,
                             </h3>
                             <p className="text-sm sm:text-base leading-relaxed text-neutral-700 dark:text-neutral-300 max-w-[65ch]">
-                                I am <strong className="text-neutral-900 dark:text-white font-semibold">Fahim Faisal</strong>, a Software Engineer with a B.Sc. in Computer Science & Engineering from <strong className="text-neutral-900 dark:text-white font-semibold">Shahjalal University of Science and Technology (SUST)</strong>. I engineer high-concurrency web platforms, tactile user interfaces, and responsive motion architectures.
+                                I am <strong className="chroma-text font-black text-lg">Abir</strong>{" "}
+                                <span className="text-neutral-500 text-sm">(Fahim Faisal)</span>, a Software Engineer with a B.Sc. in Software Engineering from{" "}
+                                <strong className="text-neutral-900 dark:text-white font-semibold">
+                                    Shahjalal University of Science and Technology (SUST)
+                                </strong>
+                                . I engineer high-concurrency web platforms, tactile user interfaces, and responsive motion architectures.
                             </p>
                         </div>
 
@@ -99,17 +95,14 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                             {/* Experiences */}
                             <div className="space-y-3">
                                 <h4 className="text-base font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-[#ff1744]" />
+                                    <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
                                     <span>Experience</span>
                                 </h4>
-                                <div className="space-y-2.5 text-xs text-neutral-600 dark:text-neutral-400">
+                                <div className="space-y-2.5 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
                                     <div>
                                         <div className="font-semibold text-neutral-900 dark:text-neutral-200">Software Engineer</div>
-                                        <div className="text-neutral-500">Themeum / Ollyo (2023 to Present)</div>
-                                    </div>
-                                    <div>
-                                        <div className="font-semibold text-neutral-900 dark:text-neutral-200">Software Engineer (Tutor LMS)</div>
-                                        <div className="text-neutral-500">Themeum (2022 to 2023)</div>
+                                        <div className="text-neutral-500">Ollyo (2023 to Present)</div>
+                                        <div className="text-xs text-neutral-500">Themeum &middot; Tutor LMS (v2.0 to v4.0)</div>
                                     </div>
                                 </div>
                             </div>
@@ -117,69 +110,25 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                             {/* Academic Background */}
                             <div className="space-y-3">
                                 <h4 className="text-base font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-[#ff1744]" />
+                                    <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
                                     <span>Education</span>
                                 </h4>
-                                <div className="space-y-2 text-xs text-neutral-600 dark:text-neutral-400">
-                                    <div className="font-semibold text-neutral-900 dark:text-neutral-200">
-                                        B.Sc. in Computer Science & Engineering
+                                <div className="space-y-2.5 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+                                    <div>
+                                        <div className="font-semibold text-neutral-900 dark:text-neutral-200">
+                                            B.Sc. in Software Engineering
+                                        </div>
+                                        <div className="text-neutral-500">SUST (2018 to 2023)</div>
+                                        <div className="text-xs text-neutral-500">
+                                            Shahjalal University of Science and Technology
+                                        </div>
                                     </div>
-                                    <ul className="space-y-1.5 pl-1">
-                                        <li className="flex items-start gap-2.5">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-500 mt-1.5 shrink-0" />
-                                            <div className="flex items-baseline gap-2">
-                                                <span className="text-neutral-900 dark:text-neutral-200 font-medium">SUST Department of CSE</span>
-                                                <span className="text-neutral-400 text-xs">2018 to 2023</span>
-                                            </div>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
 
                         {/* "Also best at :" Interactive Doodle/Sketch Cloud */}
-                        <div className="space-y-3 border-t border-black/[0.06] dark:border-white/[0.08] pt-6">
-                            <h4 className="text-lg font-bold text-neutral-900 dark:text-white">
-                                Also best at :
-                            </h4>
-
-                            <div className="relative w-full h-44 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.08] p-4 overflow-hidden group select-none shadow-sm">
-                                {skillsCloud.map((item, idx) => (
-                                    <span
-                                        key={idx}
-                                        onMouseEnter={() => setHoveredSkill(item.name)}
-                                        onMouseLeave={() => setHoveredSkill(null)}
-                                        style={{ top: item.y, left: item.x }}
-                                        className={`absolute font-script tracking-wide cursor-pointer transition-all duration-300 ${item.size} ${item.weight} ${item.rot} ${
-                                            hoveredSkill === item.name
-                                                ? "text-[#ff1744] scale-125 z-20"
-                                                : "text-neutral-700 dark:text-neutral-300 hover:text-[#ff1744]"
-                                        }`}
-                                    >
-                                        {item.name}
-                                    </span>
-                                ))}
-
-                                <svg
-                                    className="absolute inset-0 w-full h-full pointer-events-none opacity-25 dark:opacity-20"
-                                    viewBox="0 0 400 180"
-                                    fill="none"
-                                >
-                                    <path
-                                        d="M20,90 Q90,30 180,80 T350,70"
-                                        stroke="#ff1744"
-                                        strokeWidth="2"
-                                        strokeDasharray="4 6"
-                                    />
-                                    <path
-                                        d="M60,140 Q150,170 260,110 T380,140"
-                                        stroke="#ff1744"
-                                        strokeWidth="1.5"
-                                        strokeDasharray="3 5"
-                                    />
-                                </svg>
-                            </div>
-                        </div>
+                        <InteractiveDoodleCloud />
                     </div>
 
                     {/* Right Column (Cols 9-12): "Know the language of" Skills List */}
@@ -194,13 +143,13 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                         <div className="space-y-6 text-xs sm:text-sm">
                             {/* Group 1: Modern Web Core */}
                             <div className="space-y-2">
-                                <div className="flex items-center gap-2 text-neutral-900 dark:text-white font-semibold">
-                                    <span className="w-6 h-6 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center">
-                                        <Atom className="w-3.5 h-3.5 text-[#ff1744]" />
+                                <div className="flex items-center gap-2.5 text-neutral-900 dark:text-white font-semibold">
+                                    <span className="w-7 h-7 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center shrink-0">
+                                        <Atom className="w-4 h-4 text-[#ff1744] shrink-0" />
                                     </span>
                                     <span>Modern Web Architecture</span>
                                 </div>
-                                <ul className="space-y-1 text-neutral-600 dark:text-neutral-400 pl-8 text-xs">
+                                <ul className="space-y-1.5 text-neutral-600 dark:text-neutral-400 pl-9 text-xs sm:text-sm">
                                     <li>React and Next.js 14</li>
                                     <li>TypeScript (Strict Type-Safety)</li>
                                     <li>JavaScript (ESNext Modern)</li>
@@ -210,13 +159,13 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
 
                             {/* Group 2: Performance & Motion */}
                             <div className="space-y-2">
-                                <div className="flex items-center gap-2 text-neutral-900 dark:text-white font-semibold">
-                                    <span className="w-6 h-6 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center">
-                                        <Zap className="w-3.5 h-3.5 text-[#ff1744]" />
+                                <div className="flex items-center gap-2.5 text-neutral-900 dark:text-white font-semibold">
+                                    <span className="w-7 h-7 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center shrink-0">
+                                        <Zap className="w-4 h-4 text-[#ff1744] shrink-0" />
                                     </span>
                                     <span>Performance & Motion</span>
                                 </div>
-                                <ul className="space-y-1 text-neutral-600 dark:text-neutral-400 pl-8 text-xs">
+                                <ul className="space-y-1.5 text-neutral-600 dark:text-neutral-400 pl-9 text-xs sm:text-sm">
                                     <li>Hardware Compositing</li>
                                     <li>HTML5 Video and Canvas</li>
                                     <li>FLIP Layout Animation</li>
@@ -226,13 +175,13 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
 
                             {/* Group 3: Systems & Data */}
                             <div className="space-y-2">
-                                <div className="flex items-center gap-2 text-neutral-900 dark:text-white font-semibold">
-                                    <span className="w-6 h-6 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center">
-                                        <Wrench className="w-3.5 h-3.5 text-[#ff1744]" />
+                                <div className="flex items-center gap-2.5 text-neutral-900 dark:text-white font-semibold">
+                                    <span className="w-7 h-7 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center shrink-0">
+                                        <Wrench className="w-4 h-4 text-[#ff1744] shrink-0" />
                                     </span>
                                     <span>Systems & APIs</span>
                                 </div>
-                                <ul className="space-y-1 text-neutral-600 dark:text-neutral-400 pl-8 text-xs">
+                                <ul className="space-y-1.5 text-neutral-600 dark:text-neutral-400 pl-9 text-xs sm:text-sm">
                                     <li>WordPress REST API and PHP</li>
                                     <li>Node.js and Express</li>
                                     <li>Prisma ORM and MySQL</li>
@@ -242,16 +191,16 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
 
                             {/* Group 4: Platforms & Scale */}
                             <div className="space-y-2">
-                                <div className="flex items-center gap-2 text-neutral-900 dark:text-white font-semibold">
-                                    <span className="w-6 h-6 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center">
-                                        <Package className="w-3.5 h-3.5 text-[#ff1744]" />
+                                <div className="flex items-center gap-2.5 text-neutral-900 dark:text-white font-semibold">
+                                    <span className="w-7 h-7 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center shrink-0">
+                                        <Package className="w-4 h-4 text-[#ff1744] shrink-0" />
                                     </span>
                                     <span>Platforms & Scale</span>
                                 </div>
-                                <ul className="space-y-1 text-neutral-600 dark:text-neutral-400 pl-8 text-xs">
-                                    <li>Tutor LMS 2.0 to 4.0</li>
-                                    <li>EasyStore by JoomShaper</li>
-                                    <li>Headless Storefronts</li>
+                                <ul className="space-y-1.5 text-neutral-600 dark:text-neutral-400 pl-9 text-xs sm:text-sm">
+                                    <li>Tutor LMS (v2.0 to v4.0)</li>
+                                    <li>Enclave Zero-Knowledge Vault</li>
+                                    <li>EdTech &amp; DocApp Systems</li>
                                 </ul>
                             </div>
                         </div>
@@ -260,25 +209,28 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
 
                 {/* Bottom Bar: Behance Social Contact Badges */}
                 <div className="flex flex-wrap items-center justify-between gap-4 pt-8 border-t border-black/[0.06] dark:border-white/[0.08]">
-                    <div className="flex flex-wrap items-center gap-3 text-xs">
+                    <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm">
                         <a
                             href={profile.contact.github}
                             target="_blank"
                             rel="noreferrer"
-                            className="px-3.5 py-1.5 rounded-lg bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 border border-black/[0.08] dark:border-white/[0.10] hover:border-[#ff1744] shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out flex items-center gap-2"
+                            className="px-4 py-2 rounded-xl bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 border border-black/[0.08] dark:border-white/[0.10] hover:border-[#ff1744] shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out flex items-center gap-2 shrink-0"
                         >
                             <span>b-l-i-n-d on GitHub</span>
-                            <ExternalLink className="w-3 h-3 text-neutral-400" />
+                            <ExternalLink className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
                         </a>
                         <a
                             href={profile.contact.linkedin}
                             target="_blank"
                             rel="noreferrer"
-                            className="px-3.5 py-1.5 rounded-lg bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 border border-black/[0.08] dark:border-white/[0.10] hover:border-[#ff1744] shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out flex items-center gap-2"
+                            className="px-4 py-2 rounded-xl bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 border border-black/[0.08] dark:border-white/[0.10] hover:border-[#ff1744] shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out flex items-center gap-2 shrink-0"
                         >
                             <span>Fahim Faisal on LinkedIn</span>
-                            <ExternalLink className="w-3 h-3 text-neutral-400" />
+                            <ExternalLink className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
                         </a>
+                    </div>
+                    <div className="text-xs sm:text-sm font-mono text-neutral-500">
+                        SUST SWE &bull; Class of 2023
                     </div>
                 </div>
             </div>

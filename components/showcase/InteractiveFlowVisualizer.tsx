@@ -26,7 +26,7 @@ import {
 import { useTheme } from "next-themes";
 
 interface InteractiveFlowVisualizerProps {
-    projectId: string;
+    projectId?: string;
 }
 
 interface FlowStep {
@@ -198,26 +198,37 @@ const TUTOR_MERMAID_ARCH = `flowchart TD
     classDef backend fill:#241818,stroke:#f59e0b,stroke-width:1.5px,color:#fff;
 
     subgraph Client_120K["120,000+ Active Client Deployments (React 19 + TypeScript 7)"]
-        CB["Course & Quiz Builder Tree\\n(0.00 CLS / FLIP Compositor)"]:::client
-        CR["Tutor Core Component Registry\\n(Modular Decoupling & Lifecycle)"]:::client
-        AF["3rd-Party Addon Field Injection\\n(apply_filters Hook Pipeline)"]:::client
+        CB["Course & Quiz Builder Tree\
+(0.00 CLS / FLIP Compositor)"]:::client
+        CR["Tutor Core Component Registry\
+(Modular Decoupling & Lifecycle)"]:::client
+        AF["3rd-Party Addon Field Injection\
+(apply_filters Hook Pipeline)"]:::client
     end
 
     subgraph Reactive_Core["In-House Reactive Form & Query Engine"]
-        QE["Atomic Form & Mutation Engine\\n(Zero-Dependency Fine-Grained Store)"]:::engine
-        LC["Client-Side LRU Query Cache\\n(Tag Invalidation + Memory Snapshot)"]:::engine
-        IDB[("IndexedDB Fallback Storage\\n(Offline Resilience Buffer)")]:::engine
+        QE["Atomic Form & Mutation Engine\
+(Zero-Dependency Fine-Grained Store)"]:::engine
+        LC["Client-Side LRU Query Cache\
+(Tag Invalidation + Memory Snapshot)"]:::engine
+        IDB[("IndexedDB Fallback Storage\
+(Offline Resilience Buffer)")]:::engine
     end
 
     subgraph Rest_Barrier["REST API Gateway & Security Barrier"]
-        GW["REST API Gateway\\n(/wp-json/tutor/v1/curriculum)"]:::gateway
-        NC["Cryptographic Nonce Validator\\n(wp_verify_nonce CSRF Shield)"]:::gateway
-        SN["LaTeX & HTML Content Sanitizer\\n(XSS & Pointer-Event Defense)"]:::gateway
+        GW["REST API Gateway\
+(/wp-json/tutor/v1/curriculum)"]:::gateway
+        NC["Cryptographic Nonce Validator\
+(wp_verify_nonce CSRF Shield)"]:::gateway
+        SN["LaTeX & HTML Content Sanitizer\
+(XSS & Pointer-Event Defense)"]:::gateway
     end
 
     subgraph WP_Backend["WordPress PHP Core & Persistent Storage"]
-        PC["Tutor PHP Core Controllers\\n(namespace TUTOR; PHP 8.x)"]:::backend
-        DB[("MySQL Database Tables\\n($wpdb Prepared Transactions)")]:::backend
+        PC["Tutor PHP Core Controllers\
+(namespace TUTOR; PHP 8.x)"]:::backend
+        DB[("MySQL Database Tables\
+($wpdb Prepared Transactions)")]:::backend
     end
 
     CB <--> CR
@@ -279,22 +290,29 @@ const EASYSTORE_MERMAID_ARCH = `flowchart TD
     classDef backend fill:#241818,stroke:#f59e0b,stroke-width:1.5px,color:#fff;
 
     subgraph Store_Frontend["EasyStore Headless Presentation Layer"]
-        UI["Product Configurator & Variant Matrix\\n(Sub-16ms Reactive State)"]:::client
-        DAG["Attribute Directed Acyclic Graph\\n(O(1) In-Memory Adjacency)"]:::client
+        UI["Product Configurator & Variant Matrix\
+(Sub-16ms Reactive State)"]:::client
+        DAG["Attribute Directed Acyclic Graph\
+(O(1) In-Memory Adjacency)"]:::client
     end
 
     subgraph Solver_Engine["Combinatorial Constraint Solver"]
-        MS["Bitmask Variant Matrix Solver\\n(Instant Stock Availability Pruning)"]:::engine
-        PR["Dynamic Pricing & Tier Calculator\\n(Zero Network Roundtrips)"]:::engine
+        MS["Bitmask Variant Matrix Solver\
+(Instant Stock Availability Pruning)"]:::engine
+        PR["Dynamic Pricing & Tier Calculator\
+(Zero Network Roundtrips)"]:::engine
     end
 
     subgraph Cart_Storage["Cart Synchronization & Local Cache"]
-        OC["Optimistic Cart State Manager\\n(Idempotent Mutation Pipeline)"]:::gateway
-        LS[("Local Storage Persistent Mirror\\n(Offline Basket Guard)")]:::gateway
+        OC["Optimistic Cart State Manager\
+(Idempotent Mutation Pipeline)"]:::gateway
+        LS[("Local Storage Persistent Mirror\
+(Offline Basket Guard)")]:::gateway
     end
 
     subgraph Checkout_Core["Single-Page Instant Checkout"]
-        CO["Headless Checkout REST Gateway\\n(Stripe Webhooks & Nonce)"]:::backend
+        CO["Headless Checkout REST Gateway\
+(Stripe Webhooks & Nonce)"]:::backend
         DB[("Order Management & Inventory DB")]:::backend
     end
 
@@ -325,7 +343,7 @@ const EASYSTORE_MERMAID_SEQ = `sequenceDiagram
     Cart->>Checkout: Dispatch Idempotent Background Mutation
     Checkout-->>Cart: Session Reconciled & Token Verified`;
 
-export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps> = ({ projectId }) => {
+export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps> = ({ projectId = "tutor-lms" }) => {
     const isTutor = projectId === "tutor-lms";
     const steps = isTutor ? TUTOR_STEPS : EASYSTORE_STEPS;
     const archDiagram = isTutor ? TUTOR_MERMAID_ARCH : EASYSTORE_MERMAID_ARCH;
@@ -511,9 +529,9 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                 className="p-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/[0.06] dark:border-white/[0.08] hover:text-neutral-900 dark:hover:text-white"
                                 title="Zoom Out"
                             >
-                                <ZoomOut className="w-3.5 h-3.5" />
+                                <ZoomOut className="w-3.5 h-3.5 shrink-0" />
                             </button>
-                            <span className="text-[11px] font-mono px-2 text-neutral-500">
+                            <span className="text-xs font-mono px-2 text-neutral-500 shrink-0">
                                 {Math.round(zoom * 100)}%
                             </span>
                             <button
@@ -521,30 +539,30 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                 className="p-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/[0.06] dark:border-white/[0.08] hover:text-neutral-900 dark:hover:text-white"
                                 title="Zoom In"
                             >
-                                <ZoomIn className="w-3.5 h-3.5" />
+                                <ZoomIn className="w-3.5 h-3.5 shrink-0" />
                             </button>
                             <button
                                 onClick={() => setZoom(1)}
                                 className="p-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/[0.06] dark:border-white/[0.08] hover:text-neutral-900 dark:hover:text-white"
                                 title="Reset Zoom"
                             >
-                                <Maximize2 className="w-3.5 h-3.5" />
+                                <Maximize2 className="w-3.5 h-3.5 shrink-0" />
                             </button>
                         </div>
                     )}
 
                     <button
                         onClick={() => copyCode(currentDiagram)}
-                        className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/[0.06] dark:border-white/[0.08] hover:border-[#ff1744] transition-colors flex items-center gap-1.5 font-mono"
+                        className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/[0.06] dark:border-white/[0.08] hover:border-[#ff1744] transition-colors flex items-center gap-1.5 font-mono text-xs sm:text-sm shrink-0"
                     >
                         {copied ? (
                             <>
-                                <Check className="w-3 h-3 text-emerald-500" />
+                                <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
                                 <span className="text-emerald-500">Copied</span>
                             </>
                         ) : (
                             <>
-                                <Copy className="w-3 h-3" />
+                                <Copy className="w-3.5 h-3.5 shrink-0" />
                                 <span>Copy Mermaid</span>
                             </>
                         )}
@@ -577,7 +595,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                 >
                                     <div className="flex items-center justify-between">
                                         <span
-                                            className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                                            className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                                                 isCurrent
                                                     ? "bg-[#ff1744] text-white shadow-[0_0_8px_rgba(255,23,68,0.8)]"
                                                     : isPassed
@@ -588,13 +606,13 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                             {idx + 1}
                                         </span>
                                         {isCurrent && (
-                                            <span className="w-2 h-2 rounded-full bg-[#ff1744] animate-ping" />
+                                            <span className="w-2 h-2 rounded-full bg-[#ff1744] animate-ping shrink-0" />
                                         )}
                                     </div>
-                                    <div className="font-bold text-xs text-neutral-900 dark:text-neutral-100 mt-2.5 line-clamp-1">
+                                    <div className="font-bold text-xs sm:text-sm text-neutral-900 dark:text-neutral-100 mt-2.5 line-clamp-1">
                                         {step.title}
                                     </div>
-                                    <div className="text-[10px] font-mono text-neutral-500 mt-1 line-clamp-1">
+                                    <div className="text-xs font-mono text-neutral-500 mt-1 line-clamp-1">
                                         {step.subsystem}
                                     </div>
                                 </button>
@@ -616,10 +634,10 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-black/[0.06] dark:border-white/[0.08]">
                                 <div className="space-y-1">
                                     <div className="flex items-center gap-2">
-                                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#ff1744]/10 text-[#ff1744]">
+                                        <span className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-[#ff1744]/10 text-[#ff1744] shrink-0">
                                             PIPELINE STAGE 0{currentStep.number}
                                         </span>
-                                        <span className="text-xs font-mono text-neutral-500">
+                                        <span className="text-xs sm:text-sm font-mono text-neutral-500">
                                             {currentStep.subsystem}
                                         </span>
                                     </div>
@@ -628,8 +646,8 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                     </h3>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <span className="px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
-                                        <Activity className="w-3.5 h-3.5" />
+                                    <span className="px-3 py-1 rounded-full text-xs sm:text-sm font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1.5 shrink-0">
+                                        <Activity className="w-3.5 h-3.5 shrink-0" />
                                         <span>{currentStep.latency}</span>
                                     </span>
                                     <div className="flex items-center gap-1">
@@ -641,7 +659,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                             className="p-2 rounded-lg bg-neutral-100 dark:bg-neutral-900 hover:text-[#ff1744] transition-colors"
                                             title="Previous Step"
                                         >
-                                            <ChevronLeft className="w-4 h-4" />
+                                            <ChevronLeft className="w-4 h-4 shrink-0" />
                                         </button>
                                         <button
                                             onClick={() => {
@@ -651,7 +669,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                             className="p-2 rounded-lg bg-neutral-100 dark:bg-neutral-900 hover:text-[#ff1744] transition-colors"
                                             title="Next Step"
                                         >
-                                            <ChevronRight className="w-4 h-4" />
+                                            <ChevronRight className="w-4 h-4 shrink-0" />
                                         </button>
                                     </div>
                                 </div>
@@ -661,24 +679,24 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                                 {/* Left Column: Logic Breakdown */}
                                 <div className="lg:col-span-7 space-y-4">
-                                    <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                                    <p className="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">
                                         {currentStep.description}
                                     </p>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                                         <div className="p-3.5 rounded-xl bg-stone-50 dark:bg-neutral-900/60 border border-black/[0.04] dark:border-white/[0.06] space-y-1">
-                                            <div className="text-[10px] font-mono text-neutral-500 uppercase">
+                                            <div className="text-xs font-mono text-neutral-500 uppercase">
                                                 Active Technology
                                             </div>
-                                            <div className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+                                            <div className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-neutral-100">
                                                 {currentStep.tech}
                                             </div>
                                         </div>
                                         <div className="p-3.5 rounded-xl bg-stone-50 dark:bg-neutral-900/60 border border-black/[0.04] dark:border-white/[0.06] space-y-1">
-                                            <div className="text-[10px] font-mono text-neutral-500 uppercase">
+                                            <div className="text-xs font-mono text-neutral-500 uppercase">
                                                 Safety & Invariant Guard
                                             </div>
-                                            <div className="text-xs font-semibold text-[#ff1744]">
+                                            <div className="text-xs sm:text-sm font-semibold text-[#ff1744]">
                                                 {currentStep.guard}
                                             </div>
                                         </div>
@@ -687,14 +705,14 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
 
                                 {/* Right Column: Real-Time Telemetry & Payload Inspector */}
                                 <div className="lg:col-span-5 space-y-2">
-                                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500">
+                                    <div className="flex items-center justify-between text-xs font-mono text-neutral-500">
                                         <span>Simulated State Payload:</span>
                                         <span className="text-emerald-500 flex items-center gap-1">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
                                             Active Dispatch
                                         </span>
                                     </div>
-                                    <pre className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 text-neutral-200 font-mono text-xs overflow-x-auto shadow-inner leading-relaxed">
+                                    <pre className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 text-neutral-200 font-mono text-xs sm:text-sm overflow-x-auto shadow-inner leading-relaxed">
                                         <code>{JSON.stringify(currentStep.payload, null, 2)}</code>
                                     </pre>
                                 </div>

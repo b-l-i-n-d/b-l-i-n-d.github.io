@@ -1,105 +1,122 @@
 "use client";
 
 import React from "react";
-import { InteractiveUIItem } from "@/types/portfolio";
-import { Check, ExternalLink } from "lucide-react";
+import { MotionExperiment } from "@/types/portfolio";
+import { Check, Lock, ExternalLink } from "lucide-react";
 
 interface InteractiveMotionLabProps {
-    items: InteractiveUIItem[];
+    experiments?: MotionExperiment[];
+    items?: MotionExperiment[];
 }
 
-export const InteractiveMotionLab: React.FC<InteractiveMotionLabProps> = ({ items }) => {
+export const InteractiveMotionLab: React.FC<InteractiveMotionLabProps> = ({ experiments: propExp, items: propItems }) => {
+    const experiments = propExp || propItems || [];
     return (
         <section
             id="motion-lab"
             data-chapter-id="motion-lab"
-            className="py-24 px-4 sm:px-6 lg:px-12 border-t border-black/[0.06] dark:border-white/[0.08] bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-white transition-colors duration-200"
+            className="relative py-20 px-4 sm:px-6 lg:px-12 bg-white dark:bg-[#060606] text-neutral-900 dark:text-white border-t border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200"
         >
-            <div className="max-w-6xl mx-auto space-y-12">
-                {/* Chapter Header */}
-                <div className="space-y-3 pb-6 border-b border-black/[0.06] dark:border-white/[0.08]">
-                    <div className="flex items-center gap-3">
-                        <span className="text-xs font-mono text-[#ff1744] font-bold px-2.5 py-0.5 bg-[#ff1744]/10 rounded-full">
-                            CHAPTER 07
-                        </span>
-                        <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
-                            Motion & Physics Engineering
-                        </span>
+            <div className="relative z-10 max-w-6xl mx-auto space-y-12">
+                {/* Section Header */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-black/[0.06] dark:border-white/[0.08] pb-8">
+                    <div className="space-y-3">
+                        <div className="flex items-center gap-3">
+                            <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
+                            <span className="text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                                Motion Architecture & Micro-Interactions
+                            </span>
+                        </div>
+                        <h2 className="text-3xl sm:text-5xl font-bold text-neutral-900 dark:text-white tracking-tight">
+                            Interactive Motion Lab
+                        </h2>
+                        <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl text-sm sm:text-base leading-relaxed">
+                            A curated suite of high-fidelity interaction prototypes, spatial physics engines, 
+                            and 120 FPS hardware-composited interface demonstrations.
+                        </p>
                     </div>
-                    <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-100">
-                        Interactive Systems Lab
-                    </h2>
-                    <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
-                        Precision engineering prototypes demonstrating gesture-driven navigation, zero layout reflow, 
-                        and GPU-accelerated spring animations.
-                    </p>
+
+                    <div className="text-xs sm:text-sm font-mono text-neutral-500">
+                        {experiments.length} Experimental Prototypes
+                    </div>
                 </div>
 
-                {/* Grid of Micro-Interactions */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {items.map((item) => (
-                        <div
-                            key={item.id}
-                            className="p-8 rounded-2xl bg-white dark:bg-neutral-900/50 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between hover:border-black/[0.15] dark:hover:border-white/[0.20] transition-all duration-200 shadow-craft-card hover:shadow-craft-card-hover group hover:-translate-y-0.5"
-                        >
-                            <div className="space-y-4">
-                                <div className="space-y-1">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-xs font-mono text-[#ff1744] font-semibold uppercase tracking-wider">
-                                            {item.category}
-                                        </span>
-                                        <span className="text-xs font-mono text-neutral-500">
-                                            Hardware Accelerated
-                                        </span>
-                                    </div>
-                                    <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-[#ff1744] transition-colors">
-                                        {item.title}
-                                    </h3>
-                                    <p className="text-xs font-mono text-neutral-500">
-                                        {item.tagline}
-                                    </p>
-                                </div>
-
-                                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                                    {item.description}
-                                </p>
-
-                                <div className="space-y-1.5 pt-2">
-                                    {item.highlights.map((highlight, idx) => (
-                                        <div key={idx} className="text-xs text-neutral-600 dark:text-neutral-400 flex items-center gap-2">
-                                            <Check className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
-                                            <span>{highlight}</span>
+                {/* Experiments Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {experiments.map((item) => {
+                        return (
+                            <div
+                                key={item.id}
+                                className="group relative rounded-2xl border border-black/[0.06] dark:border-white/[0.08] bg-stone-50/70 dark:bg-neutral-900/50 p-6 flex flex-col justify-between hover:border-[#ff1744]/40 transition-all duration-300 shadow-craft-card hover:shadow-craft-elevated"
+                            >
+                                <div className="space-y-4">
+                                    <div className="space-y-1">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-xs font-mono text-[#ff1744] font-semibold uppercase tracking-wider">
+                                                {item.category}
+                                            </span>
+                                            <span className="text-xs font-mono text-neutral-500">
+                                                Hardware Accelerated
+                                            </span>
                                         </div>
-                                    ))}
+                                        <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-[#ff1744] transition-colors">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-xs sm:text-sm font-mono text-neutral-500">
+                                            {item.tagline}
+                                        </p>
+                                    </div>
+
+                                    <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                                        {item.description}
+                                    </p>
+
+                                    <div className="space-y-1.5 pt-2">
+                                        {item.highlights.map((highlight, hIdx) => (
+                                            <div key={hIdx} className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 flex items-center gap-2">
+                                                <Check className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
+                                                <span>{highlight}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="pt-6 mt-6 border-t border-black/[0.06] dark:border-white/[0.08] space-y-4">
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {item.technologies.map((tech, tIdx) => (
+                                            <span
+                                                key={tIdx}
+                                                className="px-2.5 py-1 text-xs font-mono bg-stone-100/70 dark:bg-white/[0.04] text-neutral-600 dark:text-neutral-400 rounded border border-black/[0.04] dark:border-white/[0.06] shrink-0"
+                                            >
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+
+                                    <div>
+                                        {item.isPrivate ? (
+                                            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-xs sm:text-sm font-mono font-medium shrink-0">
+                                                <Lock className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                                                <span>Private Repository (Under NDA)</span>
+                                            </div>
+                                        ) : (
+                                            item.demoUrl && (
+                                                <a
+                                                    href={item.demoUrl}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-mono text-[#ff1744] hover:text-rose-500 font-semibold transition-colors group/link shrink-0"
+                                                >
+                                                    <span>Test Interactive Prototype</span>
+                                                    <ExternalLink className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform shrink-0" />
+                                                </a>
+                                            )
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-
-                            <div className="pt-6 mt-6 border-t border-black/[0.06] dark:border-white/[0.08] space-y-4">
-                                <div className="flex flex-wrap gap-1.5">
-                                    {item.technologies.map((tech, idx) => (
-                                        <span
-                                            key={idx}
-                                            className="px-2 py-0.5 text-[10px] font-mono bg-stone-100/70 dark:bg-white/[0.04] text-neutral-600 dark:text-neutral-400 rounded border border-black/[0.04] dark:border-white/[0.06]"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                {item.demoUrl && (
-                                    <a
-                                        href={item.demoUrl}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="inline-flex items-center gap-1.5 text-xs font-mono text-[#ff1744] hover:text-rose-500 font-semibold transition-colors"
-                                    >
-                                        <span>Test Interactive Prototype</span>
-                                        <ExternalLink className="w-3.5 h-3.5" />
-                                    </a>
-                                )}
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

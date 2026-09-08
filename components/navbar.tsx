@@ -2,105 +2,81 @@
 
 import {
     Navbar as NextUINavbar,
-    NavbarContent,
-    NavbarMenu,
     NavbarBrand,
+    NavbarContent,
     NavbarItem,
+    NavbarMenu,
     NavbarMenuItem,
     NavbarMenuToggle,
-    Link,
-} from "@heroui/react";
-import clsx from "clsx";
-import React, { useState, useEffect } from "react";
+} from "@heroui/navbar";
+import { Link } from "@heroui/react";
+import React, { useState } from "react";
+import { GithubIcon, BlindSkullIcon } from "./icons";
+import { ThemeSwitch } from "./theme-switch";
+import { useViewport } from "./viewport/ViewportController";
 import { motion } from "framer-motion";
 
-import { ThemeSwitch } from "@/components/theme-switch";
-import { Logo } from "@/components/icons";
-import { useViewport } from "@/components/viewport/ViewportController";
-
-interface NavItem {
-    id: string;
-    label: string;
-    href: string;
-    targetId: string;
-}
-
-const NAV_ITEMS: NavItem[] = [
-    { id: "showreel", label: "Showreel", href: "#hero", targetId: "hero" },
-    { id: "contents", label: "Contents", href: "#contents", targetId: "contents" },
-    { id: "about", label: "About", href: "#about", targetId: "about" },
-    { id: "work", label: "Experience", href: "#experience", targetId: "experience" },
-    { id: "casestudy", label: "Case Study", href: "#case-study", targetId: "case-study" },
-    { id: "lab", label: "Motion Lab", href: "#motion-lab", targetId: "motion-lab" },
-    { id: "specs", label: "Blueprints", href: "#gallery", targetId: "gallery" },
-    { id: "contact", label: "Dossier", href: "#profile", targetId: "profile" },
+const NAV_ITEMS = [
+    { id: "showreel", label: "Showreel", href: "#hero", chapter: "hero" },
+    { id: "contents", label: "Contents", href: "#contents", chapter: "contents" },
+    { id: "about", label: "About", href: "#about", chapter: "about" },
+    { id: "experience", label: "Experience", href: "#experience", chapter: "experience" },
+    { id: "case-study", label: "Case Study", href: "#case-study", chapter: "case-study" },
+    { id: "motion-lab", label: "Motion Lab", href: "#motion-lab", chapter: "motion-lab" },
+    { id: "gallery", label: "Blueprints", href: "#gallery", chapter: "gallery" },
+    { id: "dossier", label: "Dossier", href: "#profile", chapter: "profile" },
 ];
 
 export const Navbar = () => {
     const { activeChapter, setActiveChapter } = useViewport();
-    const [activeNavId, setActiveNavId] = useState<string>("showreel");
-    const [hoveredNavId, setHoveredNavId] = useState<string | null>(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [hoveredNavId, setHoveredNavId] = useState<string | null>(null);
     const [clickedNavId, setClickedNavId] = useState<string | null>(null);
 
-    // Map activeChapter from scroll observer to corresponding nav item
-    useEffect(() => {
-        // If user recently clicked a nav link, honor that item during smooth scroll
-        if (clickedNavId) {
-            setActiveNavId(clickedNavId);
-            return;
+    // Map viewport activeChapter to nav item (including sub-chapters like case study projects)
+    const getActiveNavId = () => {
+        if (clickedNavId) return clickedNavId;
+        const caseStudyIds = ["tutor-lms", "enclave", "edtech", "docapp", "case-study"];
+        if (caseStudyIds.includes(activeChapter)) {
+            return "case-study";
         }
+        const matching = NAV_ITEMS.find((item) => item.chapter === activeChapter);
+        return matching ? matching.id : "showreel";
+    };
 
-        const map: Record<string, string> = {
-            hero: "showreel",
-            contents: "contents",
-            about: "about",
-            experience: "work",
-            "case-study": "casestudy",
-            "motion-lab": "lab",
-            gallery: "specs",
-            profile: "contact",
-        };
+    const activeNavId = getActiveNavId();
 
-        if (activeChapter && map[activeChapter]) {
-            setActiveNavId(map[activeChapter]);
-        }
-    }, [activeChapter, clickedNavId]);
-
-    // Clear clicked lock after smooth scroll completes
-    useEffect(() => {
-        if (!clickedNavId) return;
-        const timer = setTimeout(() => {
-            setClickedNavId(null);
-        }, 800);
-        return () => clearTimeout(timer);
-    }, [clickedNavId]);
-
-    const handleNavClick = (e: React.MouseEvent, item: NavItem) => {
+    const handleNavClick = (e: React.MouseEvent, href: string, id: string, chapter: string) => {
         e.preventDefault();
-        setClickedNavId(item.id);
-        setActiveNavId(item.id);
-
-        const targetEl = document.getElementById(item.targetId);
-        if (targetEl) {
-            targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
-            setActiveChapter(item.targetId);
+        setClickedNavId(id);
+        const targetId = href.replace("#", "");
+        const element = document.getElementById(targetId);
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+            setActiveChapter(chapter);
         }
+        setIsMenuOpen(false);
+        // Clear manual lock after scroll animation finishes
+        setTimeout(() => setClickedNavId(null), 1000);
     };
 
     return (
         <NextUINavbar
-            maxWidth="2xl"
+            maxWidth="xl"
             position="sticky"
-            className="fixed top-0 inset-x-0 z-50 bg-white/70 dark:bg-black/60 backdrop-blur-xl border-b border-black/[0.04] dark:border-white/[0.06]"
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={setIsMenuOpen}
+            className="fixed top-0 inset-x-0 z-50 bg-stone-50/80 dark:bg-neutral-950/80 backdrop-blur-xl border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200"
+            classNames={{
+                wrapper: "px-4 sm:px-6 lg:px-8 max-w-7xl h-16",
+            }}
         >
-            {/* Left: Brand / Logo */}
+            {/* Left: Brand / Logo with Skull 'X' Eyes and Abir Chromatic Identity */}
             <NavbarContent className="basis-auto shrink-0" justify="start">
                 <NavbarBrand as="li" className="gap-3 max-w-fit shrink-0">
                     <Link
-                        className="flex justify-start items-center gap-1 cursor-pointer"
+                        color="foreground"
+                        className="flex justify-start items-center gap-3 cursor-pointer group select-none text-neutral-900 dark:text-white shrink-0"
                         href="/"
                         onClick={(e) => {
                             e.preventDefault();
@@ -109,7 +85,24 @@ export const Navbar = () => {
                             setActiveChapter("hero");
                         }}
                     >
-                        <Logo />
+                        <div className="relative flex items-center justify-center shrink-0 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,23,68,0.45)] transition-all duration-300">
+                            <BlindSkullIcon size={28} className="shrink-0" />
+                        </div>
+                        <div className="flex flex-col select-none shrink-0">
+                            <div className="flex items-center gap-1.5 leading-none">
+                                <span className="font-mono text-sm font-bold tracking-wider text-neutral-900 dark:text-white group-hover:text-[#ff1744] transition-colors">
+                                    blind
+                                </span>
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)] animate-pulse shrink-0" />
+                                <span className="text-neutral-300 dark:text-neutral-700 text-xs font-light">/</span>
+                                <span className="chroma-text-navbar font-bold text-sm tracking-tight">
+                                    Abir
+                                </span>
+                            </div>
+                            <span className="font-mono text-xs text-neutral-400 dark:text-neutral-500 tracking-wider uppercase leading-tight mt-0.5 hidden sm:inline">
+                                Fahim Faisal
+                            </span>
+                        </div>
                     </Link>
                 </NavbarBrand>
             </NavbarContent>
@@ -126,103 +119,92 @@ export const Navbar = () => {
 
                         return (
                             <li key={item.id} className="relative shrink-0">
-                                <a
+                                <Link
                                     href={item.href}
-                                    onClick={(e) => handleNavClick(e, item)}
+                                    onClick={(e) => handleNavClick(e, item.href, item.id, item.chapter)}
                                     onMouseEnter={() => setHoveredNavId(item.id)}
-                                    style={{
-                                        // @ts-ignore CSS Anchor Positioning token
-                                        anchorName: `--top-nav-${item.id}`,
-                                    }}
-                                    className={clsx(
-                                        "relative z-10 px-2.5 xl:px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-colors duration-150 flex items-center gap-1.5 select-none cursor-pointer whitespace-nowrap shrink-0",
+                                    className={`relative z-10 block px-3 py-1.5 text-xs font-medium tracking-tight whitespace-nowrap transition-colors duration-150 ${
                                         isActive
-                                            ? "text-neutral-950 dark:text-white font-bold"
-                                            : "text-neutral-600 hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white"
-                                    )}
-                                    aria-current={isActive ? "page" : undefined}
+                                            ? "text-neutral-900 dark:text-white font-semibold"
+                                            : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+                                    }`}
                                 >
-                                    {/* Active Spring Gliding Pill */}
-                                    {isActive && (
-                                        <motion.div
-                                            layoutId="top-nav-active-indicator"
-                                            className="absolute inset-0 bg-white dark:bg-white/[0.12] rounded-full shadow-sm border border-black/[0.06] dark:border-white/[0.10] -z-10"
-                                            transition={{
-                                                type: "spring",
-                                                stiffness: 450,
-                                                damping: 32,
-                                                mass: 0.7,
-                                            }}
-                                        />
-                                    )}
+                                    {item.label}
+                                </Link>
 
-                                    {/* Soft Hover Ghost Indicator */}
-                                    {isHovered && !isActive && (
-                                        <motion.div
-                                            layoutId="top-nav-hover-ghost"
-                                            className="absolute inset-0 bg-neutral-200/50 dark:bg-white/[0.06] rounded-full -z-10"
-                                            transition={{
-                                                type: "spring",
-                                                stiffness: 480,
-                                                damping: 34,
-                                                mass: 0.5,
-                                            }}
-                                        />
-                                    )}
+                                {/* Active Pill Glider (Spring Physics) */}
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="desktop-navbar-active-glider"
+                                        className="absolute inset-0 bg-neutral-200/80 dark:bg-white/10 rounded-full border border-black/[0.04] dark:border-white/[0.08] shadow-sm"
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 500,
+                                            damping: 38,
+                                        }}
+                                    />
+                                )}
 
-                                    {/* Active Crimson Accent Micro-Dot */}
-                                    {isActive && (
-                                        <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)] shrink-0" />
-                                    )}
-
-                                    <span className="whitespace-nowrap">{item.label}</span>
-                                </a>
+                                {/* Hover Preview Pill */}
+                                {isHovered && !isActive && (
+                                    <motion.div
+                                        layoutId="desktop-navbar-hover-glider"
+                                        className="absolute inset-0 bg-black/[0.03] dark:bg-white/[0.04] rounded-full -z-0"
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 450,
+                                            damping: 35,
+                                        }}
+                                    />
+                                )}
                             </li>
                         );
                     })}
                 </ul>
             </NavbarContent>
 
-            {/* Right: Desktop Theme Switch */}
-            <NavbarContent
-                className="hidden md:flex basis-auto shrink-0"
-                justify="end"
-            >
-                <NavbarItem className="flex gap-4">
-                    <ThemeSwitch />
+            {/* Right: GitHub & Theme Switch */}
+            <NavbarContent className="basis-auto shrink-0" justify="end">
+                <NavbarItem className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                    <Link
+                        isExternal
+                        href="https://github.com/b-l-i-n-d"
+                        aria-label="GitHub Repository"
+                        className="p-2 rounded-xl text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors shrink-0"
+                    >
+                        <GithubIcon size={20} className="shrink-0" />
+                    </Link>
+                    <div className="shrink-0 flex items-center">
+                        <ThemeSwitch />
+                    </div>
+                    <NavbarMenuToggle
+                        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                        className="md:hidden p-2 rounded-xl text-neutral-600 dark:text-neutral-400 shrink-0"
+                    />
                 </NavbarItem>
             </NavbarContent>
 
-            {/* Mobile / Tablet Toggle */}
-            <NavbarContent className="md:hidden basis-1 pl-4" justify="end">
-                <ThemeSwitch />
-                <NavbarMenuToggle />
-            </NavbarContent>
-
-            {/* Mobile Drawer Menu */}
-            <NavbarMenu className="bg-stone-50/95 dark:bg-neutral-950/95 backdrop-blur-xl pt-6">
-                <div className="mx-4 mt-2 flex flex-col gap-2">
+            {/* Mobile Dropdown Menu */}
+            <NavbarMenu className="bg-stone-50/95 dark:bg-neutral-950/95 backdrop-blur-2xl pt-6 px-6 border-t border-black/[0.06] dark:border-white/[0.08]">
+                <div className="flex flex-col gap-2">
                     {NAV_ITEMS.map((item) => {
                         const isActive = activeNavId === item.id;
                         return (
                             <NavbarMenuItem key={item.id}>
-                                <button
-                                    onClick={(e) => {
-                                        handleNavClick(e, item);
-                                        setIsMenuOpen(false);
-                                    }}
-                                    className={clsx(
-                                        "w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all text-left font-mono text-sm",
+                                <Link
+                                    href={item.href}
+                                    onClick={(e) => handleNavClick(e, item.href, item.id, item.chapter)}
+                                    className={`w-full py-3 px-4 rounded-xl text-sm sm:text-base font-medium flex items-center justify-between transition-all ${
                                         isActive
-                                            ? "bg-white dark:bg-neutral-900 text-[#ff1744] font-bold shadow-sm border border-black/[0.06] dark:border-white/[0.08]"
-                                            : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white"
-                                    )}
+                                            ? "bg-neutral-200 dark:bg-white/10 text-neutral-900 dark:text-white font-semibold"
+                                            : "text-neutral-600 dark:text-neutral-400 hover:bg-black/[0.03] dark:hover:bg-white/[0.05]"
+                                    }`}
                                 >
                                     <span>{item.label}</span>
                                     {isActive && (
-                                        <span className="w-2 h-2 rounded-full bg-[#ff1744] shadow-[0_0_10px_rgba(255,23,68,0.8)]" />
+                                        <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
                                     )}
-                                </button>
+                                </Link>
                             </NavbarMenuItem>
                         );
                     })}

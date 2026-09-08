@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/navbar";
-import Footer from "@/components/Footer";
+import { Footer } from "@/components/Footer";
 import { fontMono, fontSans, fontScript } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
@@ -21,9 +21,12 @@ export const metadata: Metadata = {
     },
     description: siteConfig.description,
     icons: {
-        icon: "/zap.ico",
-        shortcut: "/favicon-16x16.png",
-        apple: "/apple-touch-icon.png",
+        icon: [
+            { url: "/zap.svg", type: "image/svg+xml" },
+            { url: "/icon.svg", type: "image/svg+xml" },
+        ],
+        shortcut: "/zap.svg",
+        apple: "/zap.svg",
     },
 };
 

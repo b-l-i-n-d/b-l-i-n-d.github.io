@@ -34,6 +34,7 @@ export interface ProjectCaseStudy {
     liveUrl?: string;
     githubUrl?: string;
     secondaryGithubUrl?: string;
+    isPrivate?: boolean;
     stats: {
         label: string;
         value: string;
@@ -54,6 +55,7 @@ export interface InteractiveUIItem {
     githubUrl: string;
     fpsTarget: number;
     highlights: string[];
+    isPrivate?: boolean;
 }
 
 export interface GalleryItem {
@@ -67,6 +69,7 @@ export interface GalleryItem {
     technologies: string[];
     demoUrl?: string;
     sourceUrl?: string;
+    isPrivate?: boolean;
 }
 
 export type HybridItem = GalleryItem;
@@ -118,30 +121,14 @@ export type AcademicCourse = string;
 
 export interface EngineerProfile {
     name: string;
-    role?: string;
+    role: string;
     tagline: string;
     headline: string;
     bioParagraphs: string[];
-    location: string;
-    education: {
-        institute: string;
-        shortInstitute: string;
-        degree: string;
-        department: string;
-        status: string;
-        link: string;
-        period: string;
-        location?: string;
-        year?: string;
-        relevantCourses?: string[];
-    };
-    contact: {
-        email: string;
-        github: string;
-        linkedin: string;
-        locationMap: string;
-        cvUrl: string;
-    };
+    skillCategories: {
+        name: string;
+        skills: string[];
+    }[];
     heroReel: {
         title: string;
         tagline: string;
@@ -155,14 +142,47 @@ export interface EngineerProfile {
         productUrl: string;
     };
     experiences: WorkExperience[];
+    workExperiences?: WorkExperience[];
     chapters: Chapter[];
-    flagshipProjects: ProjectCaseStudy[];
+    flagshipProjects: FlagshipProject[];
     interactiveBuilds: InteractiveUIItem[];
     hybridGallery: GalleryItem[];
-    skillCategories?: {
-        name: string;
-        skills: string[];
-    }[];
-    workExperiences?: WorkExperience[];
     academicCourses?: string[];
+    education: {
+        degree: string;
+        institution?: string;
+        institute?: string;
+        shortInstitute?: string;
+        department?: string;
+        location?: string;
+        graduationYear?: string;
+        period?: string;
+        status?: string;
+        thesis?: string;
+        cgpa?: string;
+        achievements?: string[];
+        relevantCourses?: string[];
+        link?: string;
+    };
+    location?: string;
+    contact: {
+        email?: string;
+        github?: string;
+        linkedin?: string;
+        locationMap?: string;
+        cvUrl?: string;
+    };
+    socialLinks?: {
+        github?: string;
+        linkedin?: string;
+        email?: string;
+        twitter?: string;
+    };
 }
+
+export type Education = EngineerProfile["education"];
+export type ShowcaseItem = GalleryItem;
+export type PortfolioProfile = EngineerProfile;
+export type MotionExperiment = InteractiveUIItem;
+export type CaseStudyProject = ProjectCaseStudy & { gallery?: GalleryItem[] };
+export type ArchitectureStage = ProjectStage;

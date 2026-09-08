@@ -1,77 +1,59 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { FlagshipProject, CaseStudyStage } from "@/types/portfolio";
+import { motion, AnimatePresence } from "framer-motion";
+import { CaseStudyProject } from "@/types/portfolio";
 import { TutorArchitectureGraph } from "./TutorArchitectureGraph";
-import { InteractiveFlowVisualizer } from "./InteractiveFlowVisualizer";
 import { ComplexCodeStudio } from "./ComplexCodeStudio";
-import {
-    Layers,
-    Activity,
-    Terminal,
-    ExternalLink,
-    Shield,
-    Workflow,
-    Flame,
-    Rocket,
-    Check,
-    Copy,
+import { InteractiveFlowVisualizer } from "./InteractiveFlowVisualizer";
+import { HybridGallery } from "../gallery/HybridGallery";
+import { GithubIcon } from "../icons";
+import { 
+    GitPullRequest, 
+    Network, 
+    Layers, 
+    LayoutTemplate, 
+    ExternalLink, 
+    Lock
 } from "lucide-react";
 
+type StageType = "architecture" | "code" | "flow" | "gallery";
+
 interface ProjectCaseStudySectionProps {
-    project: FlagshipProject;
+    project: any;
 }
 
 export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = ({ project }) => {
-    const [activeStage, setActiveStage] = useState<CaseStudyStage>("architecture");
-    const [hoveredTab, setHoveredTab] = useState<string | null>(null);
-    const [copied, setCopied] = useState<boolean>(false);
+    const [activeStage, setActiveStage] = useState<StageType>("architecture");
+    const [hoveredTab, setHoveredTab] = useState<StageType | null>(null);
 
-    const stages = project.stages;
-    const currentStage = stages[activeStage];
-
-    const copyCode = (code: string) => {
-        navigator.clipboard.writeText(code);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
-
-    const tabs = [
-        { type: "architecture" as const, label: "System architecture", Icon: Layers },
-        { type: "flow" as const, label: "Interaction flow", Icon: Activity },
-        { type: "code" as const, label: "Implementation code", Icon: Terminal },
-        { type: "live" as const, label: "Production telemetry", Icon: ExternalLink },
+    const tabs: { type: StageType; label: string; Icon: React.ComponentType<{ className?: string }> }[] = [
+        { type: "architecture", label: "01. Architecture Graph", Icon: Network },
+        { type: "code", label: "02. Production Source", Icon: GitPullRequest },
+        { type: "flow", label: "03. Interactive Flow", Icon: Layers },
+        { type: "gallery", label: "04. Product Blueprints", Icon: LayoutTemplate },
     ];
 
     return (
         <section
             id={project.id}
             data-chapter-id={project.id}
-            className="py-24 px-4 sm:px-6 lg:px-12 border-t border-black/[0.06] dark:border-white/[0.08] bg-stone-50 dark:bg-[#0b0b0b] text-neutral-900 dark:text-white transition-colors duration-200"
+            className="relative py-20 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#080808] text-neutral-900 dark:text-white border-t border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200"
         >
-            <div className="max-w-6xl mx-auto space-y-12">
-                {/* Section Header */}
-                <div className="space-y-4">
-                    <div className="flex flex-wrap items-center justify-between gap-4">
-                        <div className="flex items-center gap-3">
-                            <span className="w-2 h-2 rounded-full bg-[#ff1744]" />
-                            <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">
-                                Flagship Platform
-                            </span>
-                            <span className="text-xs text-neutral-400">/</span>
-                            <span className="text-xs text-neutral-500 font-medium">
-                                {project.role}
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-3 text-xs text-neutral-500 font-medium">
-                            <span>{project.timeline}</span>
-                            <span className="text-neutral-400">/</span>
-                            <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{project.category}</span>
-                        </div>
+            <div className="relative z-10 max-w-7xl mx-auto space-y-8">
+                {/* Section Narrative Banner */}
+                <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
+                        <span className="text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                            Engineering Case Study
+                        </span>
+                        <span className="text-xs sm:text-sm text-neutral-500 font-mono">
+                            {project.stats?.[0]?.value || ""}
+                        </span>
                     </div>
 
-                    <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+                    <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
                         <div className="space-y-2">
                             <h2 className="text-3xl sm:text-5xl font-bold text-neutral-900 dark:text-white tracking-tight">
                                 {project.title}
@@ -80,25 +62,45 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                                 {project.tagline}
                             </p>
                         </div>
-                        {project.liveUrl && (
-                            <a
-                                href={project.liveUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="px-4 py-2.5 rounded-xl bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-black/[0.08] dark:border-white/[0.10] text-xs font-semibold flex items-center gap-2 self-start lg:self-auto shrink-0 shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out group"
-                            >
-                                <span>{project.title} Production</span>
-                                <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-[#ff1744] transition-colors" />
-                            </a>
-                        )}
+                        <div className="flex flex-wrap items-center gap-2.5 self-start lg:self-auto shrink-0">
+                            {project.isPrivate ? (
+                                <div className="px-4 py-2 rounded-xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-400 text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm shrink-0">
+                                    <Lock className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                                    <span>Private Repository</span>
+                                </div>
+                            ) : (
+                                project.githubUrl && (
+                                    <a
+                                        href={project.githubUrl}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="px-4 py-2 rounded-xl bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-black/[0.08] dark:border-white/[0.10] text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 group shrink-0"
+                                    >
+                                        <GithubIcon className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[#ff1744] transition-colors shrink-0" />
+                                        <span>GitHub</span>
+                                    </a>
+                                )
+                            )}
+                            {project.liveUrl && !project.isPrivate && (
+                                <a
+                                    href={project.liveUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="px-4 py-2.5 rounded-xl bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-black/[0.08] dark:border-white/[0.10] text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out group shrink-0"
+                                >
+                                    <span>{project.title} Production</span>
+                                    <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-[#ff1744] transition-colors shrink-0" />
+                                </a>
+                            )}
+                        </div>
                     </div>
 
                     {/* Architecture Tags */}
                     <div className="flex flex-wrap gap-2 pt-2">
-                        {project.stack.map((item, idx) => (
+                        {project.stack.map((item: string, idx: number) => (
                             <span
                                 key={idx}
-                                className="px-3 py-1 rounded-md bg-white dark:bg-white/[0.04] text-neutral-700 dark:text-neutral-300 border border-black/[0.04] dark:border-white/[0.06] text-xs font-medium shadow-sm"
+                                className="px-3 py-1.5 rounded-lg bg-white dark:bg-white/[0.04] text-neutral-700 dark:text-neutral-300 border border-black/[0.04] dark:border-white/[0.06] text-xs sm:text-sm font-medium shadow-sm shrink-0"
                             >
                                 {item}
                             </span>
@@ -108,12 +110,12 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
 
                 {/* Quick Architecture Stat Chips */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {project.stats.map((stat, idx) => (
+                    {project.stats.map((stat: any, idx: number) => (
                         <div
                             key={idx}
                             className="p-3.5 rounded-xl bg-white dark:bg-neutral-900/60 border border-black/[0.04] dark:border-white/[0.06] flex flex-col justify-center shadow-sm hover:shadow-craft-card transition-all duration-150"
                         >
-                            <span className="text-xs text-neutral-500 font-medium">
+                            <span className="text-xs sm:text-sm text-neutral-500 font-medium">
                                 {stat.label}
                             </span>
                             <span className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-neutral-200 mt-0.5">
@@ -147,7 +149,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                                         // @ts-ignore
                                         anchorName: `--case-tab-${tab.type}`,
                                     }}
-                                    className={`relative z-10 flex-1 min-w-[140px] py-3 px-4 rounded-xl text-xs font-semibold transition-colors flex items-center justify-center gap-2 select-none ${
+                                    className={`relative z-10 flex-1 min-w-[140px] py-3 px-4 rounded-xl text-xs sm:text-sm font-semibold transition-colors flex items-center justify-center gap-2 select-none shrink-0 ${
                                         isSelected
                                             ? "text-neutral-900 dark:text-white"
                                             : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
@@ -179,123 +181,75 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                                         />
                                     )}
 
-                                    <TabIcon className={`w-4 h-4 ${isSelected ? "text-[#ff1744]" : "text-neutral-500"}`} />
+                                    <TabIcon className={`w-4 h-4 shrink-0 ${isSelected ? "text-[#ff1744]" : "text-neutral-500"}`} />
                                     <span>{tab.label}</span>
                                 </button>
                             );
                         })}
                     </div>
 
-                    {/* Active Stage Body */}
-                    <div className="p-6 sm:p-10">
-                        {currentStage && (
-                            <motion.div
-                                key={activeStage}
-                                initial={{ opacity: 0, y: 8 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -8 }}
-                                transition={{ duration: 0.22, ease: "easeInOut" }}
-                                className="space-y-6"
-                            >
-                                <div className="space-y-2">
-                                    <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-                                        {currentStage.title}
-                                    </h3>
-                                    <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-4xl">
-                                        {currentStage.subtitle}
-                                    </p>
-                                </div>
-
-                                {/* Custom Visual Rendering per Stage */}
-                                {activeStage === "architecture" && (
-                                    <>
-                                        {project.id === "tutor-lms" ? (
-                                            <TutorArchitectureGraph />
-                                        ) : (
-                                            <div className="p-8 rounded-xl bg-stone-50/70 dark:bg-white/[0.02] border border-black/[0.04] dark:border-white/[0.06] text-xs space-y-6">
-                                                <div className="text-neutral-500 pb-2 border-b border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between font-medium">
-                                                    <span>EasyStore Atomic Data Flow</span>
-                                                    <span className="text-[#ff1744]">Hardware-Composited Pipeline</span>
-                                                </div>
-                                                <div className="grid md:grid-cols-4 gap-4">
-                                                    <div className="p-4 rounded-lg bg-white dark:bg-neutral-900 border border-black/[0.04] dark:border-white/[0.06] space-y-2 shadow-sm hover:shadow-craft-card transition-all duration-150">
-                                                        <div className="text-[#ff1744] font-bold">1. Attribute Graph</div>
-                                                        <p className="text-neutral-600 dark:text-neutral-400 text-xs">
-                                                            Directed acyclic graph of product options (Color, Size, Material) pre-computed in O(1) memory lookup table.
-                                                        </p>
-                                                    </div>
-                                                    <div className="p-4 rounded-lg bg-white dark:bg-neutral-900 border border-black/[0.04] dark:border-white/[0.06] space-y-2 shadow-sm hover:shadow-craft-card transition-all duration-150">
-                                                        <div className="text-[#ff1744] font-bold">2. Matrix Solver</div>
-                                                        <p className="text-neutral-600 dark:text-neutral-400 text-xs">
-                                                            Validates inventory stock and pricing combinations instantly without network roundtrip or layout reflow.
-                                                        </p>
-                                                    </div>
-                                                    <div className="p-4 rounded-lg bg-white dark:bg-neutral-900 border border-black/[0.04] dark:border-white/[0.06] space-y-2 shadow-sm hover:shadow-craft-card transition-all duration-150">
-                                                        <div className="text-[#ff1744] font-bold">3. Optimistic Checkout</div>
-                                                        <p className="text-neutral-600 dark:text-neutral-400 text-xs">
-                                                            Cart state committed to local storage cache while dispatching idempotent background checkout mutations.
-                                                        </p>
-                                                    </div>
-                                                    <div className="p-4 rounded-lg bg-white dark:bg-neutral-900 border border-black/[0.04] dark:border-white/[0.06] space-y-2 shadow-sm hover:shadow-craft-card transition-all duration-150">
-                                                        <div className="text-[#ff1744] font-bold">4. Telemetry Log</div>
-                                                        <p className="text-neutral-600 dark:text-neutral-400 text-xs">
-                                                            Error boundaries capture conversion anomalies and push diagnostic traces to remote monitoring sinks.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </>
-                                )}
-
-                                {activeStage === "flow" && (
-                                    <InteractiveFlowVisualizer projectId={project.id} />
-                                )}
-
-                                {activeStage === "code" && (
-                                    <ComplexCodeStudio projectId={project.id} />
-                                )}
-
-                                {activeStage === "live" && (
-                                    <div className="p-6 rounded-xl bg-stone-50/70 dark:bg-neutral-950 border border-black/[0.06] dark:border-white/[0.08] space-y-4">
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-2">
-                                                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
-                                                <span className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                                                    Production Health Status: 100% Operational
-                                                </span>
-                                            </div>
-                                            {project.liveUrl && (
-                                                <a
-                                                    href={project.liveUrl}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="text-xs font-semibold text-[#ff1744] hover:text-rose-500 inline-flex items-center gap-1.5"
-                                                >
-                                                    <span>Open Live Site</span>
-                                                    <ExternalLink className="w-3.5 h-3.5" />
-                                                </a>
-                                            )}
-                                        </div>
-
-                                        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                                            {currentStage.description}
-                                        </p>
-
-                                        <div className="pt-2 flex flex-wrap gap-2 text-xs">
-                                            {currentStage.highlights?.map((h, i) => (
-                                                <span
-                                                    key={i}
-                                                    className="px-3 py-1 rounded-md bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 border border-black/[0.04] dark:border-white/[0.06] font-medium"
-                                                >
-                                                    {h}
-                                                </span>
-                                            ))}
+                    {/* Stage Presentation Viewports */}
+                    <div className="p-4 sm:p-8 min-h-[500px]">
+                        <AnimatePresence mode="wait">
+                            {activeStage === "architecture" && (
+                                <motion.div
+                                    key="architecture"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="space-y-6"
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
+                                                Interactive Architecture Map
+                                            </h3>
+                                            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                                                Inspect modular boundaries, cache hierarchies, and transactional pipelines
+                                            </p>
                                         </div>
                                     </div>
-                                )}
-                            </motion.div>
-                        )}
+                                    <TutorArchitectureGraph />
+                                </motion.div>
+                            )}
+
+                            {activeStage === "code" && (
+                                <motion.div
+                                    key="code"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <ComplexCodeStudio />
+                                </motion.div>
+                            )}
+
+                            {activeStage === "flow" && (
+                                <motion.div
+                                    key="flow"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <InteractiveFlowVisualizer />
+                                </motion.div>
+                            )}
+
+                            {activeStage === "gallery" && (
+                                <motion.div
+                                    key="gallery"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <HybridGallery items={project.gallery || []} isEmbedded />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>
