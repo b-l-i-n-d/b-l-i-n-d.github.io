@@ -78,8 +78,8 @@ export const Navbar = () => {
             }}
         >
             {/* Left: Brand / Logo with Skull 'X' Eyes and Abir Chromatic Identity */}
-            <NavbarContent className="basis-auto shrink-0" justify="start">
-                <NavbarBrand as="li" className="gap-3 max-w-fit shrink-0">
+            <NavbarContent as="div" className="basis-auto shrink-0" justify="start">
+                <NavbarBrand className="gap-3 max-w-fit shrink-0">
                     <Link
                         color="foreground"
                         className="flex justify-start items-center gap-3 cursor-pointer group select-none text-neutral-900 dark:text-white shrink-0"
@@ -114,7 +114,7 @@ export const Navbar = () => {
             </NavbarContent>
 
             {/* Center: Desktop Nav with Spring Glider Pill & Never-Wrap Single Line */}
-            <NavbarContent className="hidden md:flex flex-1 justify-center" justify="center">
+            <NavbarContent as="div" className="hidden md:flex flex-1 justify-center" justify="center">
                 <ul
                     className="flex items-center gap-0.5 xl:gap-1 p-1 bg-white/80 dark:bg-[#161618]/80 backdrop-blur-xl rounded-full border border-black/[0.06] dark:border-white/[0.08] shadow-sm max-w-fit shrink-0"
                     onMouseLeave={() => setHoveredNavId(null)}
@@ -170,8 +170,8 @@ export const Navbar = () => {
             </NavbarContent>
 
             {/* Right: GitHub & Theme Switch */}
-            <NavbarContent className="basis-auto shrink-0" justify="end">
-                <NavbarItem className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <NavbarContent as="div" className="basis-auto shrink-0" justify="end">
+                <NavbarItem as="div" className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                     <Link
                         isExternal
                         href="https://github.com/b-l-i-n-d"

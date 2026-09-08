@@ -207,21 +207,13 @@ export const BlindSkullIcon: React.FC<IconSvgProps> = ({
                 style={{ transformOrigin: "9px 12px" }}
             >
                 {/* Ambient Breathing Eye Halo */}
-                <motion.circle
+                <circle
                     cx="9"
                     cy="12"
                     r="3.2"
                     fill="#ff1744"
-                    animate={{
-                        opacity: [0.12, 0.28, 0.12],
-                        scale: [0.95, 1.15, 0.95],
-                    }}
-                    transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                    style={{ transformOrigin: "9px 12px" }}
+                    opacity="0.25"
+                    className="animate-pulse"
                 />
 
                 {/* Cross Strokes */}
@@ -253,21 +245,13 @@ export const BlindSkullIcon: React.FC<IconSvgProps> = ({
                 style={{ transformOrigin: "15px 12px" }}
             >
                 {/* Ambient Breathing Eye Halo */}
-                <motion.circle
+                <circle
                     cx="15"
                     cy="12"
                     r="3.2"
                     fill="#ff1744"
-                    animate={{
-                        opacity: [0.12, 0.28, 0.12],
-                        scale: [0.95, 1.15, 0.95],
-                    }}
-                    transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                    style={{ transformOrigin: "15px 12px" }}
+                    opacity="0.25"
+                    className="animate-pulse"
                 />
 
                 {/* Cross Strokes */}
