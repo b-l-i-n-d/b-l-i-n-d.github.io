@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect, useRef, useState, useCallb
 
 interface ViewportContextType {
     activeChapter: string;
-    setActiveChapter: (chapter: string) => void;
+    setActiveChapter: (chapter: string, lockMs?: number) => void;
     registerVideo: (id: string, element: HTMLVideoElement | HTMLIFrameElement | null) => void;
     activeVideoId: string | null;
     isReducedMotion: boolean;
@@ -21,11 +21,22 @@ const ViewportContext = createContext<ViewportContextType>({
 export const useViewport = () => useContext(ViewportContext);
 
 export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [activeChapter, setActiveChapter] = useState<string>("hero");
+    const [activeChapter, setActiveChapterState] = useState<string>("hero");
     const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
     const [isReducedMotion, setIsReducedMotion] = useState<boolean>(false);
     const videosRef = useRef<Map<string, HTMLVideoElement | HTMLIFrameElement>>(new Map());
     const observerRef = useRef<IntersectionObserver | null>(null);
+    const lockUntilRef = useRef<number>(0);
+
+    const setActiveChapter = useCallback((chapter: string, lockMs?: number) => {
+        const normalized = ["tutor-lms", "enclave", "edtech", "docapp"].includes(chapter)
+            ? "case-study"
+            : chapter;
+        setActiveChapterState(normalized);
+        if (lockMs && lockMs > 0) {
+            lockUntilRef.current = Date.now() + lockMs;
+        }
+    }, []);
 
     // Detect user reduced-motion preference
     useEffect(() => {
@@ -120,6 +131,10 @@ export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         let ticking = false;
 
         const updateActiveChapterOnScroll = () => {
+            if (Date.now() < lockUntilRef.current) {
+                return;
+            }
+
             const chapterElements = Array.from(
                 document.querySelectorAll<HTMLElement>("[data-chapter-id]")
             );
@@ -132,28 +147,29 @@ export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
             // Handle very top
             if (scrollY < 80) {
-                const firstId = chapterElements[0].dataset.chapterId;
-                if (firstId) setActiveChapter(firstId);
+                setActiveChapterState("hero");
                 return;
             }
 
             // Handle very bottom
             if (scrollY + windowHeight >= fullDocHeight - 80) {
-                const lastId = chapterElements[chapterElements.length - 1].dataset.chapterId;
-                if (lastId) setActiveChapter(lastId);
+                setActiveChapterState("profile");
                 return;
             }
 
-            // Focus point at 38% from top of viewport
-            const targetFocusY = windowHeight * 0.38;
+            // Focus point at 35% from top of viewport
+            const targetFocusY = windowHeight * 0.35;
 
             let currentId: string | null = null;
             let closestDistance = Infinity;
 
             for (const el of chapterElements) {
                 const rect = el.getBoundingClientRect();
-                const chapterId = el.dataset.chapterId;
+                let chapterId = el.dataset.chapterId;
                 if (!chapterId) continue;
+                if (["tutor-lms", "enclave", "edtech", "docapp"].includes(chapterId)) {
+                    chapterId = "case-study";
+                }
 
                 // Check if target focus point is inside this element
                 if (rect.top <= targetFocusY && rect.bottom >= targetFocusY) {
@@ -171,7 +187,7 @@ export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             }
 
             if (currentId) {
-                setActiveChapter(currentId);
+                setActiveChapterState(currentId);
             }
         };
 

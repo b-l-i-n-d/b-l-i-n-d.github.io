@@ -17,6 +17,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
             data-chapter-id="profile"
             className="relative py-20 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#0a0a0a] text-neutral-900 dark:text-white border-t border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200"
         >
+            <div id="contact" className="absolute -top-20 left-0 pointer-events-none" />
             <div className="relative z-10 max-w-6xl mx-auto space-y-12">
                 {/* Header */}
                 <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-6">

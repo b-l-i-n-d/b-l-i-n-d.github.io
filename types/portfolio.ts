@@ -74,6 +74,13 @@ export interface GalleryItem {
 
 export type HybridItem = GalleryItem;
 
+export interface PromotionStage {
+    year: string;
+    role: string;
+    highlight?: string;
+    isCurrent?: boolean;
+}
+
 export interface WorkExperience {
     id: string;
     role: string;
@@ -84,6 +91,7 @@ export interface WorkExperience {
     endDate?: string;
     website: string;
     location: string;
+    promotions?: PromotionStage[];
     products: {
         name: string;
         url: string;
@@ -101,13 +109,21 @@ export interface Chapter {
     label: string;
 }
 
+export interface SystemArchitectureMetric {
+    label: string;
+    value: string;
+    detail: string;
+}
+
 export interface ContentsItem {
-    id: string;
+    id?: string;
+    number?: string;
     title: string;
     subtitle: string;
-    subtitlePosition: 'above' | 'below';
+    category?: string;
+    subtitlePosition?: 'above' | 'below';
     targetId: string;
-    dotsCount: number;
+    dotsCount?: number;
 }
 
 export interface ContentsColumn {
@@ -117,11 +133,19 @@ export interface ContentsColumn {
     items: ContentsItem[];
 }
 
+export interface ContentsSectionData {
+    superTitle: string;
+    title: string;
+    description: string;
+    items: ContentsItem[];
+}
+
 export type AcademicCourse = string;
 
 export interface EngineerProfile {
     name: string;
     role: string;
+    avatar?: string;
     tagline: string;
     headline: string;
     bioParagraphs: string[];

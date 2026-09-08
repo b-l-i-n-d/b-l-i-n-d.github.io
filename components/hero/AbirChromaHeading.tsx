@@ -15,6 +15,8 @@ const NAME_CYCLES: NameEntry[] = [
     { name: "Abir", lang: "English", meaning: "Radiant Color", flag: "✨" },
     { name: "আবির", lang: "Bengali", meaning: "Festive Color & Joy", flag: "🇧🇩" },
     { name: "عَبِير", lang: "Arabic", meaning: "Sweet Fragrance", flag: "🇸🇦" },
+    { name: "阿比尔", lang: "Chinese", meaning: "Radiant Hues & Fragrance", flag: "🇨🇳" },
+    { name: "Abir", lang: "Spanish", meaning: "Esplendor Radiante", flag: "🇪🇸" },
     { name: "अबीर", lang: "Hindi", meaning: "Sacred Color Powder", flag: "🇮🇳" },
     { name: "アビール", lang: "Japanese", meaning: "Vibrance & Hues", flag: "🇯🇵" },
 ];
@@ -77,14 +79,14 @@ export const AbirChromaHeading: React.FC<AbirChromaHeadingProps> = ({
               */}
             <div
                 onClick={handleNext}
-                className="relative cursor-pointer group py-1 max-w-full"
+                className="relative cursor-pointer group py-2 sm:py-3 max-w-full overflow-visible"
                 title="Click to cycle name"
             >
-                <h1 className="min-h-[1.25em] flex items-center justify-center text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight leading-none overflow-visible px-2">
+                <h1 className="min-h-[1.35em] flex items-center justify-center text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight leading-[1.2] sm:leading-[1.15] overflow-visible px-2">
                     <AnimatePresence mode="wait">
                         <motion.span
                             key={current.name}
-                            className="inline-flex items-center justify-center chroma-text flex-wrap"
+                            className="inline-flex items-center justify-center flex-wrap overflow-visible py-2"
                             initial="initial"
                             animate="animate"
                             exit="exit"
@@ -92,10 +94,10 @@ export const AbirChromaHeading: React.FC<AbirChromaHeadingProps> = ({
                             {graphemes.map((char, charIdx) => (
                                 <span
                                     key={`${current.name}-${charIdx}`}
-                                    className="inline-block overflow-visible py-1 px-0.5"
+                                    className="inline-block overflow-visible py-2 sm:py-3 px-0.5"
                                 >
                                     <motion.span
-                                        className="inline-block chroma-text"
+                                        className="inline-block chroma-text leading-[1.2] py-1.5 sm:py-2"
                                         variants={{
                                             // Enters from bottom
                                             initial: {

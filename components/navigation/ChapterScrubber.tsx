@@ -12,10 +12,18 @@ interface ChapterScrubberProps {
 export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) => {
     const { activeChapter, setActiveChapter } = useViewport();
 
+    const isChapterActive = (chapterId: string) => {
+        const caseStudyIds = ["case-study", "tutor-lms", "enclave", "edtech", "docapp"];
+        if (chapterId === "case-study" && caseStudyIds.includes(activeChapter)) {
+            return true;
+        }
+        return activeChapter === chapterId;
+    };
+
     const scrollToChapter = (id: string) => {
-        const element = document.getElementById(id);
+        const element = document.getElementById(id) || document.querySelector(`[data-chapter-id="${id}"]`);
         if (element) {
-            const navbarHeight = 72;
+            const navbarHeight = 64;
             const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
             const offsetPosition = Math.max(0, elementPosition - navbarHeight);
 
@@ -23,13 +31,13 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                 top: offsetPosition,
                 behavior: "smooth"
             });
-            setActiveChapter(id);
+            setActiveChapter(id, 1200);
         }
     };
 
     const currentChapterIndex = Math.max(
         0,
-        chapters.findIndex((c) => c.id === activeChapter)
+        chapters.findIndex((c) => isChapterActive(c.id))
     );
 
     return (
@@ -41,7 +49,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
             >
                 <div className="pointer-events-auto bg-white/80 dark:bg-[#121214]/80 backdrop-blur-xl border border-black/[0.06] dark:border-white/[0.10] py-2.5 px-1.5 rounded-full shadow-craft-float flex flex-col items-center gap-1 transition-all">
                     {chapters.map((chapter) => {
-                        const isActive = activeChapter === chapter.id;
+                        const isActive = isChapterActive(chapter.id);
                         return (
                             <button
                                 key={chapter.id}
@@ -93,7 +101,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                 </span>
                 <div className="flex items-center gap-1.5 pl-2 border-l border-black/[0.06] dark:border-white/[0.08] shrink-0">
                     {chapters.map((chapter) => {
-                        const isActive = activeChapter === chapter.id;
+                        const isActive = isChapterActive(chapter.id);
                         return (
                             <button
                                 key={chapter.id}

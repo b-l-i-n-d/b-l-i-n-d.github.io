@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ContentsColumn } from "@/types/portfolio";
+import { ContentsColumn, ContentsItem } from "@/types/portfolio";
 
 interface ContentsIndexProps {
     className?: string;
@@ -19,31 +19,31 @@ const DEFAULT_COLUMNS: ContentsColumn[] = [
                 title: "Course & Curriculum Builder",
                 subtitle: "Zero-CLS FLIP Reorder Tree",
                 subtitlePosition: "above",
-                targetId: "tutor-lms",
+                targetId: "case-study",
                 dotsCount: 1,
             },
             {
-                id: "core-registry",
-                title: "Tutor Core Component Registry",
-                subtitle: "3rd-Party Field Injection Pipeline",
+                id: "course-bundle",
+                title: "Course Bundle & Analytics",
+                subtitle: "Monetization Suite",
                 subtitlePosition: "below",
-                targetId: "tutor-lms",
+                targetId: "case-study",
                 dotsCount: 2,
             },
             {
                 id: "quiz-engine",
-                title: "Scalable Quiz Builder",
-                subtitle: "Sub-16ms Reactive State Machine",
+                title: "Quiz & Assessment Suite",
+                subtitle: "Automated Evaluation Engine",
                 subtitlePosition: "below",
-                targetId: "tutor-lms",
+                targetId: "case-study",
                 dotsCount: 3,
             },
             {
-                id: "telemetry-sync",
-                title: "Continuous Progress Telemetry",
-                subtitle: "Debounced REST Gateway & Cache",
+                id: "email-system",
+                title: "Email Template Customizer",
+                subtitle: "Visual Builder Engine",
                 subtitlePosition: "below",
-                targetId: "tutor-lms",
+                targetId: "case-study",
                 dotsCount: 4,
             },
         ],
@@ -51,38 +51,38 @@ const DEFAULT_COLUMNS: ContentsColumn[] = [
     {
         id: "two",
         numberScript: "Two :",
-        title: "Enclave, EdTech & DocApp",
+        title: "EasyStore E-Commerce",
         items: [
             {
-                id: "enclave-vault",
-                title: "Enclave Zero-Knowledge Vault",
-                subtitle: "React Native · Expo · Argon2id",
+                id: "variant-generator",
+                title: "Variant Generator Engine",
+                subtitle: "O(1) Matrix Lookup Table",
                 subtitlePosition: "above",
-                targetId: "enclave",
+                targetId: "experience",
                 dotsCount: 1,
             },
             {
-                id: "enclave-totp",
-                title: "Enclave RFC 6238 TOTP Engine",
-                subtitle: "Dynamic 2FA & 3-Way Cloud Sync",
+                id: "cart-checkout",
+                title: "Optimistic Cart & Checkout",
+                subtitle: "Sub-16ms Multi-Step Pipeline",
                 subtitlePosition: "below",
-                targetId: "enclave",
+                targetId: "experience",
                 dotsCount: 2,
             },
             {
-                id: "edtech-lms",
-                title: "EdTech Learning Platform",
-                subtitle: "Next.js · RTK Query · Express",
+                id: "inventory-matrix",
+                title: "Inventory Matrix & SKU Tree",
+                subtitle: "Real-time Stock Synchronization",
                 subtitlePosition: "below",
-                targetId: "edtech",
+                targetId: "experience",
                 dotsCount: 3,
             },
             {
-                id: "docapp-portal",
-                title: "DocApp Healthcare Suite",
-                subtitle: "Multi-Role · Dynamic PDF · Mongo",
+                id: "headless-apis",
+                title: "Headless APIs & Webhooks",
+                subtitle: "State Machine Synchronization",
                 subtitlePosition: "below",
-                targetId: "docapp",
+                targetId: "experience",
                 dotsCount: 4,
             },
         ],
@@ -154,31 +154,29 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
 
         if (count === 2) {
             return (
-                <div className="pt-1.5 shrink-0 flex items-center gap-1">
-                    <span className={`inline-block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                    <span className={`inline-block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+                <div className="pt-2 flex flex-col gap-1 shrink-0">
+                    <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+                    <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
                 </div>
             );
         }
 
         if (count === 3) {
             return (
-                <div className="pt-1 shrink-0 flex flex-col items-center leading-none">
-                    <span className={`inline-block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                    <div className="flex gap-1 mt-0.5">
-                        <span className={`inline-block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                        <span className={`inline-block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                    </div>
+                <div className="pt-2 grid grid-cols-2 gap-1 w-3.5 shrink-0">
+                    <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+                    <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+                    <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
                 </div>
             );
         }
 
         return (
-            <div className="pt-1 shrink-0 grid grid-cols-2 gap-1">
-                <span className={`inline-block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                <span className={`inline-block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                <span className={`inline-block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                <span className={`inline-block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+            <div className="pt-2 grid grid-cols-2 gap-1 w-3.5 shrink-0">
+                <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+                <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+                <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+                <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
             </div>
         );
     };
@@ -224,16 +222,17 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
 
                             {/* Column Content Items with Smooth Anchor Hover Pill */}
                             <div className="space-y-3">
-                                {column.items.map((item) => {
-                                    const isHovered = hoveredId === item.id;
+                                {column.items.map((item: ContentsItem) => {
+                                    const itemId = item.id || item.targetId;
+                                    const isHovered = hoveredId === itemId;
                                     return (
                                         <div
-                                            key={item.id}
-                                            onMouseEnter={() => setHoveredId(item.id)}
+                                            key={itemId}
+                                            onMouseEnter={() => setHoveredId(itemId)}
                                             onClick={() => scrollToId(item.targetId)}
                                             style={{
                                                 // @ts-ignore
-                                                anchorName: `--content-item-${item.id}`,
+                                                anchorName: `--content-item-${itemId}`,
                                             }}
                                             className="group relative block p-3 rounded-xl cursor-pointer transition-colors duration-150 active:scale-[0.98]"
                                         >
@@ -252,7 +251,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
 
                                             <div className="flex items-start gap-3">
                                                 {/* Dots cluster matching Behance token pattern */}
-                                                {renderDots(item.dotsCount, isHovered)}
+                                                {renderDots(item.dotsCount || 1, isHovered)}
 
                                                 {/* Content text */}
                                                 <div className="flex-1 min-w-0">

@@ -50,14 +50,20 @@ export const Navbar = () => {
         e.preventDefault();
         setClickedNavId(id);
         const targetId = href.replace("#", "");
-        const element = document.getElementById(targetId);
+        const element = document.getElementById(targetId) || document.querySelector(`[data-chapter-id="${targetId}"]`);
         if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
-            setActiveChapter(chapter);
+            const navbarHeight = 64;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = Math.max(0, elementPosition - navbarHeight);
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+            });
+            setActiveChapter(chapter, 1200);
         }
         setIsMenuOpen(false);
         // Clear manual lock after scroll animation finishes
-        setTimeout(() => setClickedNavId(null), 1000);
+        setTimeout(() => setClickedNavId(null), 1200);
     };
 
     return (
@@ -82,7 +88,7 @@ export const Navbar = () => {
                             e.preventDefault();
                             setClickedNavId("showreel");
                             window.scrollTo({ top: 0, behavior: "smooth" });
-                            setActiveChapter("hero");
+                            setActiveChapter("hero", 1200);
                         }}
                     >
                         <div className="relative flex items-center justify-center shrink-0 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,23,68,0.45)] transition-all duration-300">

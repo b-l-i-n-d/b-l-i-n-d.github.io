@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { EngineerProfile } from "@/types/portfolio";
-import { Play, Pause, Volume2, VolumeX, ExternalLink, Sparkles, Terminal } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX, Sparkles, Terminal } from "lucide-react";
 import { AbirChromaHeading } from "./AbirChromaHeading";
 import { useViewport } from "../viewport/ViewportController";
 
@@ -24,8 +24,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
             videoRef.current.pause();
             setIsPlaying(false);
         } else {
-            videoRef.current.play();
-            setIsPlaying(true);
+            videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
         }
     };
 
@@ -33,6 +32,20 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
         if (!videoRef.current) return;
         videoRef.current.muted = !isMuted;
         setIsMuted(!isMuted);
+    };
+
+    const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+        e.preventDefault();
+        const element = document.getElementById(targetId) || document.querySelector(`[data-chapter-id="${targetId}"]`);
+        if (element) {
+            const navbarHeight = 64;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = Math.max(0, elementPosition - navbarHeight);
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+            });
+        }
     };
 
     const tabs = [
@@ -57,11 +70,14 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
         const video = videoRef.current;
         if (video) {
             registerVideo("hero-video", video);
+            video.play().catch(() => {
+                // Autoplay policy prevented immediate playback
+            });
         }
         return () => {
             registerVideo("hero-video", null);
         };
-    }, [registerVideo]);
+    }, [registerVideo, currentVideoSrc]);
 
     return (
         <section
@@ -78,94 +94,63 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                     <span className="px-3.5 py-1.5 bg-black/[0.03] dark:bg-white/[0.04] text-neutral-700 dark:text-neutral-300 border border-black/[0.06] dark:border-white/[0.08] rounded-full shrink-0">
                         SUST Software Engineering Graduate
                     </span>
-                    <span className="px-3.5 py-1.5 bg-white dark:bg-white/[0.06] text-neutral-900 dark:text-neutral-100 border border-black/[0.08] dark:border-white/[0.12] rounded-full flex items-center gap-1.5 shadow-sm shrink-0">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)] shrink-0" />
-                        120,000+ Active Deployments
+                    <span className="px-3.5 py-1.5 bg-black/[0.03] dark:bg-white/[0.04] text-neutral-700 dark:text-neutral-300 border border-black/[0.06] dark:border-white/[0.08] rounded-full shrink-0">
+                        Themeum &bull; Tutor LMS Core
                     </span>
                 </div>
 
-                {/* Hero Titles & Statement with Dia Chromatic Heading & Multilingual Pronunciation */}
-                <div className="space-y-4 max-w-3xl w-full">
-                    <AbirChromaHeading subheading={profile.name} />
-
-                    <p className="text-lg sm:text-2xl text-neutral-600 dark:text-neutral-300 font-normal leading-relaxed max-w-2xl mx-auto pt-2">
-                        {profile.tagline}
-                    </p>
-                    <p className="text-sm sm:text-base text-neutral-500 dark:text-neutral-400 max-w-xl mx-auto leading-relaxed">
-                        {profile.headline}
+                {/* Main Headline */}
+                <div className="space-y-4 max-w-4xl mx-auto">
+                    <AbirChromaHeading />
+                    <p className="text-base sm:text-lg lg:text-xl text-neutral-600 dark:text-neutral-400 font-normal leading-relaxed max-w-2xl mx-auto">
+                        High-Performance Systems, Fluid UI &amp; Local-First Architecture.
                     </p>
                 </div>
 
-                {/* Direct Product Highlights Row */}
-                <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-xs sm:text-sm">
+                {/* CTAs */}
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                     <a
-                        href="https://tutorlms.com/"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-3.5 py-2 rounded-xl bg-white dark:bg-neutral-900/80 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-black/[0.08] dark:border-white/[0.10] flex items-center gap-2 group shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out shrink-0"
+                        href="#case-study"
+                        onClick={(e) => handleScrollTo(e, "case-study")}
+                        className="px-6 py-3 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 text-sm font-medium hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-colors shadow-sm"
                     >
-                        <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
-                        <span className="font-semibold">Tutor LMS (Ollyo)</span>
-                        <span className="text-neutral-400">&bull; 120k+ Installs</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors shrink-0" />
+                        Explore Case Studies
                     </a>
                     <a
-                        href="https://github.com/b-l-i-n-d/enclave"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-3.5 py-2 rounded-xl bg-white dark:bg-neutral-900/80 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-black/[0.08] dark:border-white/[0.10] flex items-center gap-2 group shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out shrink-0"
+                        href="#contact"
+                        onClick={(e) => handleScrollTo(e, "contact")}
+                        className="px-6 py-3 rounded-full bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.12] text-sm font-medium text-neutral-800 dark:text-neutral-200 transition-colors"
                     >
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
-                        <span className="font-semibold">Enclave</span>
-                        <span className="text-neutral-400">&bull; Zero-Knowledge Vault</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors shrink-0" />
-                    </a>
-                    <a
-                        href="https://github.com/b-l-i-n-d/edTech"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-3.5 py-2 rounded-xl bg-white dark:bg-neutral-900/80 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-black/[0.08] dark:border-white/[0.10] flex items-center gap-2 group shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out shrink-0"
-                    >
-                        <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
-                        <span className="font-semibold">EdTech</span>
-                        <span className="text-neutral-400">&bull; LMS Platform</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors shrink-0" />
-                    </a>
-                    <a
-                        href="https://github.com/b-l-i-n-d/docapp"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-3.5 py-2 rounded-xl bg-white dark:bg-neutral-900/80 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-black/[0.08] dark:border-white/[0.10] flex items-center gap-2 group shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out shrink-0"
-                    >
-                        <span className="w-2 h-2 rounded-full bg-purple-500 shrink-0" />
-                        <span className="font-semibold">DocApp</span>
-                        <span className="text-neutral-400">&bull; Clinical Suite</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors shrink-0" />
+                        Get in Touch
                     </a>
                 </div>
 
-                {/* Switchable Video Showreel Container */}
-                <div className="w-full max-w-4xl mx-auto mt-6">
-                    {/* Switcher Controls (Apple Segmented Glider) */}
-                    <div className="flex items-center justify-between mb-3 px-1">
-                        <div className="flex items-center gap-1 p-1 bg-black/[0.04] dark:bg-white/[0.06] rounded-xl border border-black/[0.04] dark:border-white/[0.06]">
+                {/* Cinematic Production Showreel */}
+                <div className="w-full pt-10">
+                    {/* Header + Perspective Selector */}
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 px-1">
+                        {/* Perspective Tabs (Course Player Loop vs Course Builder Cockpit) */}
+                        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-stone-200/60 dark:bg-neutral-900/80 border border-stone-300/60 dark:border-white/[0.08] backdrop-blur-md">
                             {tabs.map((tab) => {
                                 const isActive = activeClip === tab.id;
                                 const Icon = tab.Icon;
                                 return (
                                     <button
                                         key={tab.id}
-                                        onClick={() => setActiveClip(tab.id)}
-                                        className={`relative px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 flex items-center gap-2 shrink-0 ${
+                                        onClick={() => {
+                                            setActiveClip(tab.id);
+                                            setIsPlaying(true);
+                                        }}
+                                        className={`relative px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
                                             isActive
-                                                ? "text-neutral-900 dark:text-white font-semibold"
-                                                : "text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200"
+                                                ? "text-neutral-950 dark:text-white"
+                                                : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
                                         }`}
                                     >
                                         {isActive && (
                                             <motion.div
-                                                layoutId="hero-clip-glider"
-                                                className="absolute inset-0 bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-black/[0.06] dark:border-white/[0.08]"
+                                                layoutId="activeClipIndicator"
+                                                className="absolute inset-0 rounded-lg bg-white dark:bg-neutral-800 shadow-sm"
                                                 transition={{
                                                     type: "spring",
                                                     stiffness: 450,

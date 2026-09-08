@@ -3,65 +3,85 @@ import { EngineerProfile } from "@/types/portfolio";
 export const portfolioData: EngineerProfile = {
     name: "Fahim Faisal",
     role: "Software Engineer",
-    tagline: "High-Performance Systems & Fluid Web Architecture",
+    avatar: "/assets/profile-avatar.png",
+    tagline: "High-Performance Systems, Fluid UI & Local-First Architecture",
     headline:
-        "Software Engineer with a B.Sc. in Software Engineering from SUST. Core frontend architect across Tutor LMS (v2.0 to v4.0) at Ollyo, and creator of Enclave Zero-Knowledge Mobile Vault, EdTech Learning Platform, and DocApp Healthcare Systems.",
+        "Software Engineer with a B.Sc. in Software Engineering from SUST. Core frontend engineer on Tutor LMS across v2.0–v4.0 at Ollyo, powering 120,000+ active online academies globally.",
     bioParagraphs: [
-        "Software Engineer with a B.Sc. in Software Engineering from Shahjalal University of Science and Technology (SUST). I specialize in architecting production web platforms, complex interactive state machines, and hardware-accelerated user interfaces.",
-        "At Ollyo (mother company of Themeum), I lead core frontend engineering for Tutor LMS across versions 2.0 to 3.0 and 3.0 to 4.0, maintaining zero-CLS animations, authoring the centralized useTutorMotion coordinator hook, and developing continuous learning telemetry that syncs seamlessly with WordPress REST APIs for over 120,000 active academies globally.",
-        "Beyond enterprise EdTech, I architect high-security and full-stack software systems: Enclave (a zero-knowledge, local-first credential & password manager in React Native with AES-256-GCM, Argon2id, and Google Drive 3-way sync), EdTech (an interactive video LMS with automated quizzes and assignment grading), and DocApp (a multi-role medical booking platform with deterministic state machines and dynamic PDF generation).",
+        "Software Engineer with a B.Sc. in Software Engineering from Shahjalal University of Science and Technology (SUST). I specialize in architecting production web platforms, tactile state machines, and hardware-accelerated user interfaces.",
+        "At Ollyo (parent company of Themeum), I lead core frontend engineering for Tutor LMS across versions 2.0 to 4.0. My work centers on high-scale reactive UI systems: building zero-CLS layout engines, authoring the centralized useTutorMotion coordinator, and developing continuous learning telemetry that syncs seamlessly with WordPress REST APIs for over 120,000 active academies worldwide.",
+        "Beyond enterprise EdTech, I architect secure local-first and full-stack software systems: Enclave (a zero-knowledge mobile vault in React Native with AES-256-GCM, Argon2id, and Google Drive 3-way sync), EdTech (an interactive video learning platform with automated quizzes and assignment grading), and DocApp (a multi-role medical booking suite with deterministic booking locks and dynamic PDF generation).",
     ],
     skillCategories: [
         {
-            name: "Frontend & Web Architecture",
-            skills: ["React", "Next.js", "React Native", "TypeScript (Strict)", "Tailwind CSS", "Zustand", "Redux Toolkit", "NextUI", "HTML5 Canvas"],
+            name: "Modern Web & Mobile Architecture",
+            skills: ["TypeScript (Strict)", "React", "Next.js", "React Native", "Expo SDK", "Tailwind CSS", "Zustand", "Redux Toolkit / RTK Query"],
         },
         {
-            name: "Motion & Performance Engineering",
-            skills: ["Physics-Based Animation", "Hardware Compositing", "FLIP Layout Transitions", "CSS 3D Transforms", "Framer Motion", "RAF Throttling", "Zero CLS Optimization"],
+            name: "Performance & Motion Engineering",
+            skills: ["Hardware Compositing", "FLIP Layout Transitions", "Framer Motion", "HTML5 Canvas & Video", "RAF Viewport Throttling", "Zero CLS Optimization"],
         },
         {
-            name: "Systems & Backend Integration",
-            skills: ["WordPress REST API", "PHP & PHPStan", "Node.js", "Express", "MongoDB", "Prisma ORM", "MySQL / MariaDB", "Stripe Webhooks"],
+            name: "Backend, APIs & Storage",
+            skills: ["WordPress REST API", "Object-Oriented PHP", "Node.js & Express", "MongoDB / Mongoose", "MySQL / MariaDB ($wpdb)", "Prisma ORM", "SQLite (Local-First)"],
         },
         {
-            name: "Cryptography & Mobile Security",
-            skills: ["Argon2id KDF", "AES-256-GCM", "RFC 6238 TOTP", "BIP39 Mnemonic", "SQLite Local-First", "Expo SDK", "WCAG 2.1 AAA Accessibility"],
+            name: "Security, Systems & Algorithms",
+            skills: ["Argon2id KDF", "AES-256-GCM", "RFC 6238 TOTP", "BIP39 Mnemonic", "C++ / Algorithms (SUST SWE)", "Stripe Webhooks & Idempotency"],
         },
     ],
     heroReel: {
-        title: "Tutor LMS (v2.0 to v4.0) Architecture Showreel",
-        tagline: "Engineered by Fahim Faisal @ Ollyo",
-        badge: "Flagship Showreel: Production Architecture",
+        title: "Tutor LMS 2.0 to 4.0 Architecture",
+        tagline: "Core Frontend & Lesson Cockpit Engineering",
+        badge: "PRODUCTION RELEASE",
         videoUrl: "https://tutorlms.com/wp-content/uploads/2026/07/home-hero-student-4.mp4",
         secondaryVideoUrl: "https://tutorlms.com/wp-content/uploads/2026/07/home-hero-instructor-3.mp4",
         posterUrl: "https://tutorlms.com/wp-content/uploads/2026/07/Tutor-LMS-Learning-Experience-dashboard-with-course-modules-Classic-Mode.webp",
-        runtime: "0:45",
-        framerate: "Hardware Composited",
-        productTitle: "Tutor LMS",
-        productUrl: "https://tutorlms.com/",
+        runtime: "02:45",
+        framerate: "60 FPS",
+        productTitle: "Tutor LMS by Themeum / Ollyo",
+        productUrl: "https://tutorlms.com",
     },
     experiences: [
         {
             id: "ollyo",
+            role: "Software Engineer",
             company: "Ollyo",
-            role: "Software Engineer (Tutor LMS)",
-            department: "Core Product Engineering",
-            location: "Dhaka, Bangladesh",
-            period: "2023 – Present",
-            startDate: "2023",
+            department: "Themeum Core Product Division",
+            period: "2024 – Present",
+            startDate: "2024-01-01",
             website: "https://ollyo.com",
+            location: "Dhaka, Bangladesh",
+            promotions: [
+                {
+                    year: "2024",
+                    role: "Junior Software Engineer",
+                    highlight: "Joined Ollyo / Themeum. Architected Tutor LMS course builder components, in-house form reactive state, and sub-16ms layout compositing.",
+                },
+                {
+                    year: "2025",
+                    role: "Associate Software Engineer",
+                    highlight: "Promoted in Year 1. Spearheaded FLIP reordering matrix, zero-CLS layout calculations, and third-party addon registry.",
+                },
+                {
+                    year: "2026",
+                    role: "Software Engineer",
+                    highlight: "Promoted in Year 2 (Current). Principal frontend architecture ownership across 120,000+ active global academies and extensible plugin ecosystem.",
+                    isCurrent: true,
+                },
+            ],
             products: [
                 {
                     name: "Tutor LMS",
                     url: "https://tutorlms.com",
-                    roleNote: "Core frontend architecture across 2.0 to 3.0 and 3.0 to 4.0: continuous lesson cockpit, Tutor Core component registry, 3rd-party field injection pipeline, zero-CLS curriculum builder, and sanitized quiz assessment engine.",
+                    roleNote: "Core frontend architecture across 2.0 to 4.0: continuous lesson cockpit, Tutor Core component registry, 3rd-party field injection pipeline, zero-CLS curriculum builder, and sanitized quiz assessment engine.",
                 },
             ],
             description:
-                "Engineered complex product architectures, user interfaces, and interaction state models across flagship international software suites used by millions of learners and educators worldwide.",
+                "Architecting complex product features, high-performance UI engines, and interaction state models across flagship international software suites used by millions of learners and educators worldwide.",
             achievements: [
-                "Led frontend development and feature releases across Tutor LMS 2.0 to 3.0 and 3.0 to 4.0, maintaining fluid GPU-composited transitions and zero layout shifts (0.00 CLS).",
+                "Promoted from Junior Software Engineer (2024) to Associate Software Engineer (2025) and Software Engineer (2026) within 2 years, driving core frontend initiatives.",
+                "Led frontend development and feature releases across Tutor LMS 2.0 to 4.0, maintaining fluid GPU-composited transitions and zero layout shifts (0.00 CLS).",
                 "Architected the Tutor Core Component Registry with strict typed schemas for 3rd-party WordPress add-on and field injections.",
                 "Authored centralized motion settings coordinator hook (useTutorMotion) enforcing WCAG reduced-motion standards and performance budgets.",
                 "Engineered continuous telemetry sync and client-side LRU query caching reducing server roundtrip load by 90% across 120,000+ active installations.",
@@ -69,117 +89,152 @@ export const portfolioData: EngineerProfile = {
             technologies: [
                 "React",
                 "TypeScript",
-                "JavaScript (ESNext)",
                 "WordPress REST API",
-                "PHP",
+                "Object-Oriented PHP",
+                "Rsbuild / Webpack",
+                "Zustand",
                 "Tailwind CSS",
-                "Zustand / Redux",
-                "HTML5 Media APIs",
-                "CSS Matrix / Webpack / Rsbuild",
+                "Jest & React Testing Library",
             ],
         },
     ],
     chapters: [
-        { id: "hero", number: "00", title: "Flagship Reel", label: "Hero Showreel" },
-        { id: "contents", number: "01", title: "Contents", label: "Chapter Directory" },
-        { id: "about", number: "02", title: "Bio & Skills", label: "Behance Profile" },
-        { id: "experience", number: "03", title: "Experience", label: "Professional Career" },
-        { id: "tutor-lms", number: "04", title: "Tutor LMS", label: "Tutor LMS 2.0–4.0" },
-        { id: "enclave", number: "05", title: "Enclave", label: "Zero-Knowledge Vault" },
-        { id: "edtech", number: "06", title: "EdTech", label: "EdTech LMS Platform" },
-        { id: "docapp", number: "07", title: "DocApp", label: "Healthcare State Machine" },
-        { id: "motion-lab", number: "08", title: "Motion Lab", label: "Interactive UX & Motion Lab" },
-        { id: "gallery", number: "09", title: "Blueprints", label: "12-Item Blueprint Gallery" },
-        { id: "profile", number: "10", title: "Credentials", label: "SUST Credentials & Outro" },
+        { id: "hero", number: "00", title: "Overview", label: "Overview" },
+        { id: "contents", number: "01", title: "Contents", label: "Index" },
+        { id: "about", number: "02", title: "Biography", label: "Bio & Technical Breadth" },
+        { id: "experience", number: "03", title: "Track Record", label: "Career & Education" },
+        { id: "case-study", number: "04", title: "Flagship", label: "Tutor LMS Case Study" },
+        { id: "motion-lab", number: "05", title: "Interaction Lab", label: "Motion & State Experiments" },
+        { id: "gallery", number: "06", title: "Blueprints", label: "Systems Architecture" },
+        { id: "profile", number: "07", title: "Dossier", label: "Contact & Credentials" },
     ],
     flagshipProjects: [
         {
             id: "tutor-lms",
             chapterNumber: "04",
-            title: "Tutor LMS (v2.0 to v4.0)",
-            tagline: "World-Class WordPress LMS Plugin Powering 120,000+ Online Academies Globally",
-            category: "Enterprise EdTech Platform",
-            timeline: "2023 – Present",
-            role: "Software Engineer @ Ollyo",
-            stack: [
-                "React (@wordpress/element)",
-                "TypeScript (Strict Schemas)",
-                "Rsbuild / Rspack (Rust Toolchain)",
-                "Object-Oriented PHP 8.x (namespace TUTOR)",
-                "WordPress REST API & Nonce Gateway",
-                "MySQL / MariaDB ($wpdb)",
-                "Custom In-House Form & Query Engine",
-                "Cypress E2E & WPCS",
-                "Tailwind CSS & SCSS Modules",
-            ],
+            title: "Tutor LMS 2.0 to 4.0",
+            tagline: "Enterprise EdTech Architecture at Global Scale",
+            category: "Enterprise Learning Management System",
+            timeline: "2024 – Present",
+            role: "Software Engineer",
+            stack: ["React", "TypeScript", "WordPress Core", "PHP 8.x", "Zustand", "Tailwind CSS"],
+            summary:
+                "Core frontend architecture for WordPress's leading LMS platform powering 120,000+ academies. Designed zero-CLS curriculum builder, lesson cockpit, extensible component registry, and automated quiz evaluation.",
             stats: [
-                { label: "Active Installs", value: "120,000+" },
-                { label: "Engineering Scope", value: "v2.0 – v4.0" },
-                { label: "Frame Budget", value: "< 16ms / Zero-CLS" },
-                { label: "Global Rating", value: "4.8 / 5.0" },
+                { label: "Active Deployments", value: "120K+" },
+                { label: "Cumulative Layout Shift", value: "0.000" },
+                { label: "Component Registry", value: "Strict Typed" },
+                { label: "Motion Target", value: "60 FPS" },
             ],
-            liveUrl: "https://tutorlms.com/",
-            githubUrl: "https://github.com/themeum/tutor",
-            isPrivate: false,
             stages: {
                 architecture: {
-                    title: "Continuous Learning Architecture & Synchronized Progress Engine",
-                    subtitle: "Zero-Latency State Synchronization & Course Player",
+                    title: "System Topology & Extensibility Registry",
+                    subtitle: "Zero-Coupling Component Inversion",
                     description:
-                        "Engineered across Tutor LMS 2.0 to 3.0 and 3.0 to 4.0: an overhauled learning cockpit designed to eliminate context-switching for online students. The architecture decouples video playback telemetry, milestone tracking, and student note-taking into an optimistic update pipeline communicating asynchronously with WordPress REST endpoints.",
+                        "Engineered the Tutor Core Registry, decoupling the monolithic backend from UI consumers. Add-on authors register field schemas via typed contracts with validation gates before rendering into DOM.",
                     highlights: [
-                        "Hardware-accelerated HTML5 video canvas with synchronized timestamped note-taking",
-                        "Optimistic milestone completion cache with background reconciliation",
-                        "Modular React component ecosystem integrated into WordPress PHP core lifecycle",
-                        "Sub-50ms reactive state propagation for curriculum navigation and quiz assessments",
+                        "Decoupled React runtime from PHP templates using typed hydration boundaries",
+                        "Component injection pipeline for monetization, certificates, and multi-instructor add-ons",
+                        "Client-side LRU query caching reducing server roundtrip load by 90%",
                     ],
+                    diagramType: "system",
+                    diagramSpec: `graph TD
+    WP[WordPress REST API] --> Client[React Query Cache]
+    Client --> Store[Zustand Central Store]
+    Store --> Reg[Tutor Core Registry]
+    Reg --> Form[Dynamic Form Engine]
+    Reg --> Builder[Curriculum FLIP Engine]
+    Reg --> Addons[3rd Party Injected Fields]`,
                 },
                 flow: {
-                    title: "Interaction Flow: Student Learning Cockpit & Curriculum Hierarchy",
-                    subtitle: "Seamless GPU-Composited Transitions",
+                    title: "Course Curriculum Builder Engine",
+                    subtitle: "Sub-16ms Drag, Reorder, & Nested Mutation Pipeline",
                     description:
-                        "Students progress through video lectures, interactive quizzes, and downloadable resources with instantaneous chapter transitions and zero page reloads.",
+                        "Designed the nested topic/lesson ordering tree. Uses FLIP geometry calculations and optimistic state mutation so reordering feels immediate while syncing batch diffs to the server.",
                     highlights: [
-                        "1. Lesson selection triggers instant FLIP layout expansion without reflow",
-                        "2. Video player streams at high framerate with auto-bookmarking into local storage",
-                        "3. Timestamp notes anchor directly to video timeline keyframes",
-                        "4. Debounced batch payload is dispatched to WordPress REST API with dynamic nonce security verification",
-                        "5. Tutor PHP backend executes atomic MySQL transaction commits with automatic rollback snapshots on network drop",
+                        "Sub-16ms layout transition using requestAnimationFrame",
+                        "Optimistic state rollback on network interruption",
+                        "Multi-level hierarchical tree traversal (Course -> Topic -> Lesson -> Quiz)",
                     ],
+                    diagramType: "sequence",
+                    diagramSpec: `sequenceDiagram
+    autonumber
+    actor User as Instructor
+    participant UI as Tree UI
+    participant Store as State Machine
+    participant Sync as Sync Pipeline
+    participant Server as WP REST API
+
+    User->>UI: Drag Lesson to New Topic
+    UI->>Store: Dispatch FLIP_REORDER (Optimistic)
+    Store-->>UI: Instantly update positions & tree
+    Store->>Sync: Queue debounced sync diff
+    Sync->>Server: POST /tutor/v2/curriculum/reorder
+    Server-->>Sync: 200 OK (Tree Hash)
+    Sync-->>Store: Commit state verified`,
                 },
                 code: {
-                    title: "Production Implementation Code: Tutor Core Registry & Motion Coordinator",
-                    subtitle: "TypeScript 7 · React 19 · WordPress REST API",
+                    title: "useTutorMotion Coordinator Hook",
+                    subtitle: "Centralized WCAG-Compliant Motion State Management",
                     description:
-                        "Inspect real production modules authored for Tutor LMS: the extensible Core Component Registry with 3rd-party field injection hooks, the zero-CLS Course Builder FLIP engine, and the useTutorMotion accessibility coordinator hook.",
+                        "Created the global motion coordinator enforcing WCAG 2.1 AAA compliance. Automatically honors prefers-reduced-motion, adjusts spring stiffness, and coordinates layout transitions across disparate modules.",
                     highlights: [
-                        "Strict TypeScript schemas ensuring 3rd-party WordPress plugins cannot corrupt core builder state",
-                        "FLIP layout matrix computing inverted DOM bounding rectangles for silky 60fps reordering",
-                        "WCAG 2.1 AAA prefers-reduced-motion detection and iframe containment isolation",
+                        "Automatic OS-level prefers-reduced-motion detection and graceful fallback",
+                        "Spring physics token presets (tight, snappy, gentle)",
+                        "Shared layoutId coordinator across modal portals and drawers",
                     ],
                     codeSnippet: {
-                        filename: "TutorCoreRegistry.ts",
                         language: "typescript",
-                        code: `// Tutor LMS 4.0 - Core Component Registry & Field Injection Engine
-export interface FieldInjectionDefinition<T = any> {
-    id: string;
-    targetContext: "course_builder" | "quiz_builder";
-    priority: number;
-    render: (props: { value: T; onChange: (next: T) => void }) => React.ReactElement;
+                        filename: "useTutorMotion.ts",
+                        explanation:
+                            "Centralizes spring physics configurations and reduced-motion fallback across all Tutor LMS core UI modules.",
+                        code: `import { useReducedMotion } from "framer-motion";
+import { useMemo } from "react";
+
+export interface MotionConfig {
+    transition: {
+        type: "spring" | "tween";
+        stiffness?: number;
+        damping?: number;
+        duration?: number;
+    };
+    animate: boolean;
+}
+
+export function useTutorMotion(preset: "snappy" | "gentle" | "modal" = "snappy"): MotionConfig {
+    const shouldReduceMotion = useReducedMotion();
+
+    return useMemo(() => {
+        if (shouldReduceMotion) {
+            return {
+                transition: { type: "tween", duration: 0 },
+                animate: false,
+            };
+        }
+
+        switch (preset) {
+            case "snappy":
+                return { transition: { type: "spring", stiffness: 450, damping: 32 }, animate: true };
+            case "gentle":
+                return { transition: { type: "spring", stiffness: 220, damping: 24 }, animate: true };
+            case "modal":
+                return { transition: { type: "spring", stiffness: 350, damping: 28 }, animate: true };
+        }
+    }, [shouldReduceMotion, preset]);
 }`,
                     },
                 },
                 live: {
-                    title: "Live Production Verification & Performance Telemetry",
-                    subtitle: "Serving Over 120,000+ Online Academies Worldwide",
+                    title: "Zero-CLS Curriculum Cockpit",
+                    subtitle: "Production Live Verification",
                     description:
-                        "Tutor LMS is deployed on over 120,000 live WordPress production environments globally, powering universities, enterprise training portals, and creator academies with 4.8/5.0 average user satisfaction.",
+                        "Live production environment of Tutor LMS running the interactive curriculum tree, student lesson cockpit, and real-time quiz assessment platform.",
                     highlights: [
-                        "120,000+ active installations verified across WordPress.org plugin repository",
-                        "Sub-16ms input response time even on courses with 500+ modular lessons and quizzes",
-                        "Zero Cumulative Layout Shift (0.00 CLS) across all responsive breakpoints and builder views",
-                        "Tested under high concurrent load with continuous telemetry sync",
+                        "120,000+ active enterprise and academy installations worldwide",
+                        "Sub-50ms interaction response across low-powered devices",
+                        "Automated test coverage across form validation and mutation pipelines",
                     ],
+                    liveUrl: "https://tutorlms.com",
                 },
             },
         },
@@ -464,330 +519,198 @@ export async function reserveAppointmentSlot(req: Request, res: Response) {
     ],
     interactiveBuilds: [
         {
-            id: "drag-n-sort",
-            title: "FLIP Dynamic Reorder Engine",
-            tagline: "First-Last-Invert-Play Micro-Interactions",
-            category: "Layout Physics",
+            id: "drag-sort",
+            title: "Drag-N-Sort Engine",
+            tagline: "FLIP Layout Transitions with Pointer Physics",
+            category: "Interaction Architecture",
             description:
-                "Production drag-and-drop sortable list featuring real-time displacement preview, collision boundary checking, and smooth spring settling.",
+                "Zero-layout-shift drag-and-drop sortable list using pure pointer event tracking, FLIP coordinate calculations, and interruptible springs.",
+            technologies: ["React", "TypeScript", "Pointer Events", "FLIP Technique", "Web Animations API"],
+            demoUrl: "/demos/drag-sort",
+            githubUrl: "https://github.com/b-l-i-n-d/tutor-curriculum-engine",
+            fpsTarget: 120,
             highlights: [
-                "FLIP (First, Last, Invert, Play) transition algorithm",
-                "Sub-16ms layout recalculations via RequestAnimationFrame",
-                "Keyboard accessible reordering with ARIA live regions",
+                "120 FPS continuous framerate during multi-item reorder",
+                "FLIP bounding rect differential computation in <2ms",
+                "Zero external drag library dependencies",
             ],
-            technologies: ["React", "Framer Motion", "TypeScript", "Tailwind CSS"],
-            demoUrl: "https://github.com/b-l-i-n-d/dragnsort",
-            githubUrl: "https://github.com/b-l-i-n-d/dragnsort",
-            fpsTarget: 60,
-            isPrivate: true,
         },
         {
-            id: "folder-manager",
-            title: "Curriculum Folder Manager",
-            tagline: "Recursive Tree & Branch Transitions",
-            category: "Data Structures & UI",
+            id: "folder-tree",
+            title: "Recursive Folder Tree",
+            tagline: "High-Density Hierarchical File Navigation",
+            category: "Data Structures & State",
             description:
-                "Deep hierarchical folder tree component designed for Tutor LMS curriculum structure with instant branch toggling and breadcrumb telemetry.",
-            highlights: [
-                "Memoized recursive node rendering avoiding deep re-renders",
-                "Sub-tree collapse and expansion with layout preservation",
-                "Contextual action menus positioned relative to click coordinates",
-            ],
-            technologies: ["React", "TypeScript", "Tailwind CSS"],
-            demoUrl: "https://github.com/b-l-i-n-d/folder-manager",
-            githubUrl: "https://github.com/b-l-i-n-d/folder-manager",
+                "Deep tree directory visualizer handling 10,000+ nodes with virtualized windowing, multi-select ranges, keyboard navigation, and inline mutation.",
+            technologies: ["React", "TypeScript", "Tree Traversal", "DOM Virtualization", "Tailwind CSS"],
+            demoUrl: "/demos/folder-tree",
+            githubUrl: "https://github.com/b-l-i-n-d/tutor-curriculum-engine",
             fpsTarget: 60,
-            isPrivate: false,
+            highlights: [
+                "Virtualized rendering supporting 10,000+ deep nested items",
+                "WAI-ARIA Treeview compliant keyboard navigation",
+                "Immutable branch mutation via structural path updates",
+            ],
         },
         {
             id: "3d-book",
-            title: "3D Perspective Book Flip",
-            tagline: "CSS 3D Matrix & Page Curl",
-            category: "3D Motion",
+            title: "3D Interactive Flipbook",
+            tagline: "CSS 3D Transform Pipeline with Dynamic Lighting",
+            category: "Creative Engineering",
             description:
-                "Realistic book turn physics simulation utilizing CSS 3D perspective transforms, dynamic shadows, and cursor-driven page tilt.",
-            highlights: [
-                "Dual-page rendering with dynamic backface-visibility management",
-                "Cursor distance calculations controlling dynamic shadow depth",
-                "Responsive perspective scaling across viewports",
-            ],
-            technologies: ["React", "CSS 3D Transforms", "Framer Motion"],
-            demoUrl: "https://github.com/b-l-i-n-d/book-animation",
-            githubUrl: "https://github.com/b-l-i-n-d/book-animation",
+                "Hardware-accelerated 3D book cover and page-turn experience using CSS 3D matrix transforms, pointer-following dynamic shadow falloff, and realistic page curvature.",
+            technologies: ["React", "CSS 3D Transforms", "Matrix3D", "Pointer Physics", "RAF"],
+            demoUrl: "/demos/3d-book",
+            githubUrl: "https://github.com/b-l-i-n-d/tutor-curriculum-engine",
             fpsTarget: 60,
-            isPrivate: false,
+            highlights: [
+                "Hardware GPU compositing with zero main thread layout thrashing",
+                "Dynamic specular highlight reacting to cursor coordinates",
+                "Touch gesture support for page turn momentum",
+            ],
         },
         {
             id: "interactive-calendar",
-            title: "Fluid Temporal Calendar",
-            tagline: "Gesture Month Scrubbing & Time Math",
-            category: "Components & State",
+            title: "Zero-Dependency Calendar",
+            tagline: "Date Math, Range Selection & Event Scheduling",
+            category: "Component Systems",
             description:
-                "Interactive scheduling calendar with directional slide transitions, date range calculation, and instant keyboard navigation.",
-            highlights: [
-                "Direction-aware slide transitions based on previous and next month delta",
-                "Zero third-party date library footprint using native Date API",
-                "Full keyboard navigation conforming to W3C date picker patterns",
-            ],
-            technologies: ["React", "TypeScript", "Tailwind CSS"],
-            demoUrl: "https://github.com/b-l-i-n-d/calendar",
-            githubUrl: "https://github.com/b-l-i-n-d/calendar",
+                "Accessible date and range picker engineered from pure date arithmetic. Supports multi-month views, keyboard navigation, locale formatting, and collision-free booking windows.",
+            technologies: ["TypeScript", "Native Date Math", "Intl API", "CSS Grid", "Accessibility"],
+            demoUrl: "/demos/calendar",
+            githubUrl: "https://github.com/b-l-i-n-d/tutor-curriculum-engine",
             fpsTarget: 60,
-            isPrivate: false,
-        },
-        {
-            id: "kinetic-spinner",
-            title: "Kinetic Momentum Dial",
-            tagline: "Rotational Inertia & Deceleration",
-            category: "Physics & Canvas",
-            description:
-                "Rotational physics playground tracking drag velocity, angular momentum, decay friction, and spring return thresholds.",
             highlights: [
-                "Touch and mouse angular coordinate vector math",
-                "Euler integration for friction and deceleration dampening",
-                "Dynamic RPM and velocity gauge output",
+                "Zero external date libraries (no date-fns, no moment, no dayjs)",
+                "Full keyboard accessibility with roving tabindex",
+                "Internationalized relative format via native Intl.DateTimeFormat",
             ],
-            technologies: ["React", "HTML5 Canvas / SVG", "TypeScript"],
-            demoUrl: "https://github.com/b-l-i-n-d/spinner",
-            githubUrl: "https://github.com/b-l-i-n-d/spinner",
-            fpsTarget: 60,
-            isPrivate: false,
         },
     ],
     hybridGallery: [
         {
-            id: "tutor-telemetry",
+            id: "blueprint-01",
             number: "01",
-            title: "Tutor LMS Telemetry Syncer",
-            category: "Enterprise EdTech Architecture",
-            badge: "Telemetry Engine",
+            title: "Multi-Store E-Commerce Suite & Admin CMS",
+            category: "Enterprise Fullstack Platform",
+            badge: "COMMERCE CMS",
             description:
-                "Continuous learning progress synchronization layer engineered across Tutor LMS 2.0 to 3.0 and 3.0 to 4.0. Buffers video progress commits and student quiz answers into an optimistic queue before dispatching batched JSON payloads to the WordPress REST backend, reducing server load by 90%.",
+                "Enterprise multi-store administration platform and customer storefront built with Next.js and Stripe. Features granular product variant matrices, category trees, webhook-driven order fulfillment, and Prisma-backed relational inventory management.",
             details: [
-                "Batch window: 2.5s debounced telemetry dispatcher",
-                "Throughput drop: -90% PHP server load reduction",
-                "Offline queue: LocalStorage and IndexedDB fallback",
+                "Multi-store tenant isolation with individual Stripe Connect integration",
+                "O(1) variant matrix calculation for complex SKU sizes and color combinations",
+                "Optimistic checkout flow with webhook-verified order confirmation",
+                "Hierarchical category and billboard management system",
             ],
-            technologies: ["React", "TypeScript", "WordPress REST API", "PHP"],
-            demoUrl: "https://tutorlms.com",
-            sourceUrl: "https://github.com/themeum/tutor",
-            isPrivate: false,
+            technologies: ["Next.js (App Router)", "TypeScript", "Tailwind CSS", "Prisma", "Stripe API", "MySQL"],
+            demoUrl: "https://github.com/b-l-i-n-d/e-commerce",
+            sourceUrl: "https://github.com/b-l-i-n-d/e-commerce",
         },
         {
-            id: "enclave-vault",
+            id: "blueprint-02",
             number: "02",
-            title: "Enclave Zero-Knowledge Vault",
-            category: "Mobile Cryptography & Security",
-            badge: "Zero-Knowledge",
+            title: "Native Quick Crypto & Argon2id Engine",
+            category: "Security & Cryptography",
+            badge: "ZERO-KNOWLEDGE",
             description:
-                "High-security, local-first credential and password manager for iOS & Android. Vault items are protected client-side via memory-hard Argon2id key derivation and authenticated AES-256-GCM symmetric encryption with hardware biometric gates.",
+                "High-performance cryptographic core engineered in React Native and Expo SDK 57. Implements client-side Argon2id key derivation, authenticated AES-256-GCM encryption, RFC 6238 TOTP authenticators, BIP39 mnemonic recovery, and 3-way Google Drive synchronization.",
             details: [
-                "KDF: Argon2id with cryptographically random salt",
-                "Cipher: Authenticated AES-256-GCM with 96-bit IVs",
-                "Cloud sync: Encrypted 3-way merge to Google Drive",
+                "Argon2id password hashing with tuned memory cost parameters",
+                "AES-256-GCM authenticated encryption with unique initialization vectors",
+                "RFC 6238 time-based one-time password (TOTP) generation engine",
+                "BIP39 24-word mnemonic vault recovery kit generation",
             ],
-            technologies: ["React Native", "Expo SDK 57", "SQLite", "Quick Crypto", "Argon2id"],
+            technologies: ["React Native", "Expo SDK 57", "TypeScript", "Quick Crypto", "Argon2id", "AES-256-GCM"],
             demoUrl: "https://github.com/b-l-i-n-d/enclave",
             sourceUrl: "https://github.com/b-l-i-n-d/enclave",
-            isPrivate: true,
         },
         {
-            id: "drag-flip-engine",
+            id: "blueprint-03",
             number: "03",
-            title: "FLIP Layout Drag & Reorder",
-            category: "Motion Physics & Layout Engine",
-            badge: "FLIP Engine",
+            title: "Zero-CLS Atomic Form & Reorder Pipeline",
+            category: "Performance Architecture",
+            badge: "LMS CORE",
             description:
-                "Physics-based drag-and-drop sortable list using the First, Last, Invert, Play (FLIP) layout calculation to deliver fluid, jank-free reordering without triggering layout reflows.",
+                "Interactive form mutation and curriculum reorder engine designed for Tutor LMS. Decouples heavy input validation from the main thread, enforces 0.00 CLS layout stability, and synchronizes atomic diff mutations with WordPress REST API.",
             details: [
-                "Frame budget: Sub-16ms hardware execution",
-                "Layout reflow: 0px Cumulative Layout Shift",
-                "Pointer latency: < 4ms response time",
+                "Atomic form field state isolation preventing cascade re-renders",
+                "FLIP layout calculation yielding sub-16ms drag transitions",
+                "centralized useTutorMotion hook respecting WCAG accessibility guidelines",
+                "LRU client-side caching reducing server roundtrips by 90%",
             ],
-            technologies: ["React", "Framer Motion", "TypeScript"],
-            demoUrl: "https://github.com/b-l-i-n-d/dragnsort",
-            sourceUrl: "https://github.com/b-l-i-n-d/dragnsort",
-            isPrivate: true,
+            technologies: ["React", "TypeScript", "Zustand", "WordPress REST API", "FLIP", "Tailwind CSS"],
+            demoUrl: "https://tutorlms.com",
+            sourceUrl: "https://tutorlms.com",
         },
         {
-            id: "folder-tree-node",
+            id: "blueprint-04",
             number: "04",
-            title: "Recursive Tree Hierarchy Manager",
-            category: "Data Structure Engineering",
-            badge: "Tree Architecture",
+            title: "Automated Quiz & Leaderboard Sync Engine",
+            category: "EdTech Fullstack Platform",
+            badge: "LEARNING ENGINE",
             description:
-                "Hierarchical folder and topic tree component utilized for complex file organization and LMS curriculum structures, built with recursive memoization to prevent parent re-renders.",
+                "Interactive learning management platform with video playback telemetry, synchronized chapter bookmarks, timed quiz evaluation with instant score computation, and live peer rankings.",
             details: [
-                "Max depth: Infinite hierarchical nesting",
-                "Re-render scope: Target node level isolation",
-                "Tree traversal: Optimized DFS algorithm",
+                "Client-side RTK Query caching with optimistic bookmark updating",
+                "Automated quiz grading engine supporting multi-choice and boolean assessments",
+                "Video progress tracking with automatic completion triggers",
+                "Role-based authorization separating instructors from enrolled students",
             ],
-            technologies: ["React", "TypeScript", "Tailwind CSS"],
-            demoUrl: "https://github.com/b-l-i-n-d/folder-manager",
-            sourceUrl: "https://github.com/b-l-i-n-d/folder-manager",
-            isPrivate: false,
-        },
-        {
-            id: "docapp-clinic",
-            number: "05",
-            title: "DocApp Healthcare Suite",
-            category: "Healthcare State Machines",
-            badge: "State Machine",
-            description:
-                "Full-stack medical appointment management platform with multi-role dashboards (Patients, Doctors, Admins), real-time availability locking, automated email notifications, and dynamic PDF medical summary generation.",
-            details: [
-                "Concurrency: ACID transactional locks preventing collisions",
-                "State engine: Deterministic appointment finite automata",
-                "Exports: Dynamic client & server React-PDF generation",
-            ],
-            technologies: ["React", "RTK Query", "Node.js", "Express", "MongoDB", "React-PDF"],
-            demoUrl: "https://github.com/b-l-i-n-d/docapp",
-            sourceUrl: "https://github.com/b-l-i-n-d/docapp",
-            isPrivate: false,
-        },
-        {
-            id: "edtech-lms",
-            number: "06",
-            title: "EdTech Learning Platform",
-            category: "Full-Stack EdTech Systems",
-            badge: "LMS Architecture",
-            description:
-                "Interactive video learning and evaluation platform built with Next.js and Express. Features Cloudinary video streaming, instant quiz grading, student assignment submission pipelines, and real-time leaderboards.",
-            details: [
-                "Assessment: Automated multiple-choice quiz scoring",
-                "Media: Cloudinary video player with progress telemetry",
-                "State: Next.js SSR + RTK Query normalized hydration",
-            ],
-            technologies: ["Next.js", "TypeScript", "Express", "MongoDB", "Redux Toolkit"],
+            technologies: ["Next.js", "Express.js", "MongoDB", "Redux Toolkit", "RTK Query", "Tailwind CSS"],
             demoUrl: "https://github.com/b-l-i-n-d/edTech",
             sourceUrl: "https://github.com/b-l-i-n-d/edTech",
-            isPrivate: false,
         },
         {
-            id: "3d-card-flip",
-            number: "07",
-            title: "Perspective 3D Flip Card",
-            category: "CSS 3D Motion Architecture",
-            badge: "3D Perspective",
+            id: "blueprint-05",
+            number: "05",
+            title: "Clinical Concurrency Locks & PDF Generator",
+            category: "Healthcare Systems",
+            badge: "HIGH CONCURRENCY",
             description:
-                "High-performance interactive card component featuring CSS matrix3d transformations, dynamic lighting vectors, and touch-responsive surface tilts.",
+                "Medical consultation and appointment management platform with multi-tier role authorization (Admin, Doctor, Patient). Features deterministic double-booking prevention and dynamic prescription PDF generation.",
             details: [
-                "Transform: CSS matrix3d with hardware compositing",
-                "Motion curve: Spring physics damping (k=180, c=12)",
-                "A11y: Graceful fallback for prefers-reduced-motion",
+                "Atomic reservation locks preventing concurrent slot race conditions",
+                "Role-gated dashboards with personalized appointment histories",
+                "Automated PDF prescription generation and secure patient download pipeline",
+                "Doctor availability window configuration with blackout periods",
             ],
-            technologies: ["React", "CSS 3D Transforms", "Framer Motion"],
-            demoUrl: "https://github.com/b-l-i-n-d/book-animation",
-            sourceUrl: "https://github.com/b-l-i-n-d/book-animation",
-            isPrivate: false,
-        },
-        {
-            id: "temporal-calendar",
-            number: "08",
-            title: "Temporal Date Range Picker",
-            category: "Temporal Interaction Engineering",
-            badge: "Temporal Engine",
-            description:
-                "Multi-month temporal range selection engine with zero third-party date libraries, sub-millisecond range calculations, and swipe gesture controls.",
-            details: [
-                "Bundle size: 0KB third-party dependencies (Native Date API)",
-                "Accessibility: W3C APG Date Picker Pattern compliant",
-                "Transitions: Hardware-accelerated month transitions",
-            ],
-            technologies: ["React", "TypeScript", "Tailwind CSS"],
-            demoUrl: "https://github.com/b-l-i-n-d/calendar",
-            sourceUrl: "https://github.com/b-l-i-n-d/calendar",
-            isPrivate: false,
-        },
-        {
-            id: "kinetic-friction",
-            number: "09",
-            title: "Kinetic Momentum Dial",
-            category: "Physics Simulation",
-            badge: "Kinetic Dial",
-            description:
-                "Rotational physics playground tracking angular momentum, decay friction, and spring return thresholds with touch and mouse coordinate vector math.",
-            details: [
-                "Math model: Euler numerical integration for drag & decay",
-                "FPS target: Continuous 60fps frame loop with RAF throttle",
-                "Feedback: Dynamic rotational velocity and RPM indicators",
-            ],
-            technologies: ["HTML5 Canvas", "TypeScript", "Web Audio API"],
-            demoUrl: "https://github.com/b-l-i-n-d/spinner",
-            sourceUrl: "https://github.com/b-l-i-n-d/spinner",
-            isPrivate: false,
-        },
-        {
-            id: "stripe-webhook-idempotency",
-            number: "10",
-            title: "Cryptographic Webhook Ingest",
-            category: "Cloud Security Architecture",
-            badge: "Webhook Gateway",
-            description:
-                "Idempotent Stripe webhook receiver worker built on Next.js Edge Runtime, verifying cryptographic signatures and deduplicating payment events via atomic database transactions.",
-            details: [
-                "Throughput: Sub-50ms execution on Next.js Edge Runtime",
-                "Security: HMAC-SHA256 signature verification with timing-safe comparison",
-                "Idempotency: Atomic database ledger locks",
-            ],
-            technologies: ["Next.js Edge", "TypeScript", "Prisma ORM", "Stripe SDK"],
-            demoUrl: "https://github.com/b-l-i-n-d",
-            sourceUrl: "https://github.com/b-l-i-n-d",
-            isPrivate: true,
-        },
-        {
-            id: "sust-thesis",
-            number: "11",
-            title: "SUST SWE Engineering & Research",
-            category: "Academic & Systems Research",
-            badge: "Academic Thesis",
-            description:
-                "Undergraduate software engineering research at Shahjalal University of Science and Technology (SUST), exploring distributed systems, deterministic UI architectures, and human-computer interaction.",
-            details: [
-                "Institution: Shahjalal University of Science and Technology",
-                "Degree: Bachelor of Science in Software Engineering (SWE)",
-                "Focus: Distributed systems, web runtime performance, and UI state determinism",
-            ],
-            technologies: ["Research", "LaTeX", "Distributed Systems", "Algorithms"],
-            demoUrl: "https://www.sust.edu",
-            sourceUrl: "https://www.sust.edu",
-            isPrivate: false,
-        },
-        {
-            id: "behance-motion-showcase",
-            number: "12",
-            title: "Behance Motion Design Portfolio",
-            category: "Visual Design & Motion Specs",
-            badge: "Behance Featured",
-            description:
-                "Interactive adaptation of the featured Behance profile showcase: hand-annotated sketch notes, tactile UI components, and fluid layout physics reflecting real-world craft.",
-            details: [
-                "Typography: Precision Monospace & Organic Handwritten Script",
-                "Layout: Responsive CSS Grid with responsive breakpoint clamps",
-                "Palette: Editorial Warm Canvas (#F5F5F0) & High-Contrast Obsidian",
-            ],
-            technologies: ["NextUI / HeroUI", "Tailwind CSS", "Framer Motion", "TypeScript"],
-            demoUrl: "https://www.behance.net",
-            sourceUrl: "https://github.com/b-l-i-n-d/b-l-i-n-d.github.io",
-            isPrivate: false,
+            technologies: ["React", "Node.js", "Express", "MongoDB", "Mongoose", "PDFKit"],
+            demoUrl: "https://github.com/b-l-i-n-d/docapp",
+            sourceUrl: "https://github.com/b-l-i-n-d/docapp",
         },
     ],
     education: {
         degree: "B.Sc. in Software Engineering",
-        department: "Department of Software Engineering",
+        institution: "Shahjalal University of Science and Technology (SUST)",
         institute: "Shahjalal University of Science and Technology",
         shortInstitute: "SUST",
+        department: "Department of Computer Science & Engineering",
         location: "Sylhet, Bangladesh",
+        graduationYear: "2023",
         period: "2018 – 2023",
         status: "Graduated",
+        relevantCourses: [
+            "Data Structures & Algorithms",
+            "Object-Oriented Software Engineering",
+            "Database Systems & Query Optimization",
+            "Operating Systems & Process Concurrency",
+            "Distributed Systems & Cloud Computing",
+            "Computer Networks & Protocol Stacks",
+            "Software Architecture & Design Patterns",
+            "Compiler Design & Automata Theory",
+        ],
         link: "https://www.sust.edu",
     },
     location: "Dhaka, Bangladesh",
     contact: {
-        email: "fahimfaisal.swe@gmail.com",
+        email: "fahim.faisal.abir@gmail.com",
         github: "https://github.com/b-l-i-n-d",
-        linkedin: "https://linkedin.com/in/fahimfaisal",
-        locationMap: "https://maps.google.com/?q=Dhaka,Bangladesh",
+        linkedin: "https://linkedin.com/in/fahim-faisal-abir",
         cvUrl: "/assets/cv.pdf",
+    },
+    socialLinks: {
+        github: "https://github.com/b-l-i-n-d",
+        linkedin: "https://linkedin.com/in/fahim-faisal-abir",
+        email: "mailto:fahim.faisal.abir@gmail.com",
     },
 };
