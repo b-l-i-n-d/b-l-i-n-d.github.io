@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import React from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -10,7 +10,7 @@ interface Props {
     children: React.ReactNode;
 }
 
-const sectionVariants = {
+const sectionVariants: Variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.6, ease: "easeInOut" } },
 };

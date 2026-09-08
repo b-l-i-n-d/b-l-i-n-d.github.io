@@ -3,7 +3,7 @@ import { Avatar } from "@nextui-org/avatar";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { SchoolIcon, WorkIcon } from "../icons";
 
@@ -30,7 +30,7 @@ const ExperiencesCard: React.FC<Props> = ({
         triggerOnce: true,
     });
 
-    const cardVariants = {
+    const cardVariants: Variants = {
         hidden: { x: index % 2 === 0 ? 20 : -20, opacity: 0 },
         visible: {
             x: 0,
@@ -59,62 +59,45 @@ const ExperiencesCard: React.FC<Props> = ({
                 variants={cardVariants}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
-                className="order-1 rounded-lg w-full ml-3 md:ml-0 md:w-5/12 p-3 md:px-4 md:py-4"
+                className="order-1 w-full md:w-5/12"
             >
-                <Card>
-                    <CardHeader className="justify-between">
-                        <div className="inline-flex items-center font-semibold hover:text-secondary sm:text-xl gap-4">
-                            <Avatar
-                                showFallback
-                                radius="lg"
+                <Card className="w-full">
+                    <CardHeader className="flex gap-3">
+                        {logo ? (
+                            <Image
+                                alt="logo"
+                                height={40}
+                                radius="sm"
                                 src={logo}
-                                fallback={
-                                    company ? <WorkIcon /> : <SchoolIcon />
-                                }
+                                width={40}
                             />
-                            <span className="flex-1">
-                                {website ? (
-                                    <Link
-                                        href={website}
-                                        isExternal
-                                        showAnchorIcon
-                                        underline="hover"
-                                        color="foreground"
-                                        className="font-medium text-lg md:text-xl"
-                                    >
-                                        {company || institute}
+                        ) : (
+                            <Avatar
+                                name={company ? company : institute}
+                                radius="sm"
+                                size="lg"
+                            />
+                        )}
+                        <div className="flex flex-col">
+                            <p className="text-md">
+                                {company ? position : degree}
+                            </p>
+                            <p className="text-small text-default-500">
+                                {company ? (
+                                    <Link isExternal showAnchorIcon href={website}>
+                                        {company}
                                     </Link>
                                 ) : (
-                                    <h3 className="font-medium text-lg md:text-xl">
-                                        {company || institute}
-                                    </h3>
+                                    institute
                                 )}
-                            </span>
+                            </p>
                         </div>
                     </CardHeader>
-                    <CardBody className="text-default-500">
-                        <p className="text-sm font-medium">
-                            {position || degree} |{" "}
-                            {department && `${department} | `}
-                            {new Date(startDate).getFullYear()} -{" "}
-                            {endDate
-                                ? new Date(endDate).getFullYear()
-                                : "Present"}
+                    <CardBody>
+                        <p>{desc}</p>
+                        <p className="text-small text-default-500">
+                            {startDate} - {endDate}
                         </p>
-                        {grade && (
-                            <p className="text-sm font-medium text-default-500">
-                                <span>Grade: </span>
-                                {grade.obtained} / {grade.total}
-                            </p>
-                        )}
-                        <ul className="text-sm mt-2 ml-4 list-disc">
-                            {desc &&
-                                desc.map((d, i) => (
-                                    <li key={i} className="mb-0.5">
-                                        {d}
-                                    </li>
-                                ))}
-                        </ul>
                     </CardBody>
                 </Card>
             </motion.div>
