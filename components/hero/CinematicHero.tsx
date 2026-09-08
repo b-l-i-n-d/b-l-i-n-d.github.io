@@ -1,20 +1,22 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Pause, Volume2, VolumeX, ExternalLink, Sparkles, GraduationCap } from "lucide-react";
-import { PortfolioProfile } from "@/types/portfolio";
+import { EngineerProfile } from "@/types/portfolio";
+import { Play, Pause, Volume2, VolumeX, ExternalLink, Sparkles, Terminal } from "lucide-react";
 import { AbirChromaHeading } from "./AbirChromaHeading";
+import { useViewport } from "../viewport/ViewportController";
 
 interface CinematicHeroProps {
-    profile: PortfolioProfile;
+    profile: EngineerProfile;
 }
 
 export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const [isPlaying, setIsPlaying] = useState<boolean>(true);
     const [isMuted, setIsMuted] = useState<boolean>(true);
-    const [activeClip, setActiveClip] = useState<"builder" | "learner">("builder");
+    const [activeClip, setActiveClip] = useState<string>("learner");
+    const { registerVideo } = useViewport();
 
     const togglePlay = () => {
         if (!videoRef.current) return;
@@ -35,38 +37,31 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
 
     const tabs = [
         {
-            id: "builder" as const,
-            label: "Course Builder Core",
-            src: profile.heroReel.videoUrl,
+            id: "learner",
+            label: "Course Player Loop",
             Icon: Sparkles,
+            src: profile.heroReel.videoUrl,
         },
         {
-            id: "learner" as const,
-            label: "Student Learning Experience",
+            id: "instructor",
+            label: "Course Builder Cockpit",
+            Icon: Terminal,
             src: profile.heroReel.secondaryVideoUrl || profile.heroReel.videoUrl,
-            Icon: GraduationCap,
         },
     ];
 
     const currentVideoSrc = tabs.find((t) => t.id === activeClip)?.src || profile.heroReel.videoUrl;
 
-    // Ensure muted autoplay triggers reliably across Safari, Chrome, and iOS
+    // Viewport IntersectionObserver Registration for auto-pause on scroll
     useEffect(() => {
         const video = videoRef.current;
-        if (!video) return;
-        video.muted = isMuted;
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-            playPromise
-                .then(() => setIsPlaying(true))
-                .catch((err) => {
-                    // Fallback to strict muted play if browser blocks sound
-                    video.muted = true;
-                    setIsMuted(true);
-                    video.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-                });
+        if (video) {
+            registerVideo("hero-video", video);
         }
-    }, [currentVideoSrc, isMuted]);
+        return () => {
+            registerVideo("hero-video", null);
+        };
+    }, [registerVideo]);
 
     return (
         <section
@@ -196,7 +191,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                     </div>
 
                     {/* Frame Player */}
-                    <div className="relative aspect-video rounded-2xl overflow-hidden border border-black/[0.08] dark:border-white/[0.12] bg-neutral-900 shadow-craft-card group">
+                    <div className="relative aspect-video rounded-2xl overflow-hidden border border-stone-200/90 dark:border-white/[0.12] bg-stone-100 dark:bg-neutral-900 shadow-craft-card group">
                         <AnimatePresence mode="wait">
                             <motion.video
                                 key={currentVideoSrc}
@@ -212,14 +207,14 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.3 }}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover bg-transparent"
                                 onPlay={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                             />
                         </AnimatePresence>
 
                         {/* Hover Overlay Controls (Bottom bar) */}
-                        <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-center justify-between opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200 z-20">
+                        <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/70 via-black/25 to-transparent flex items-center justify-between opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200 z-20">
                             <div className="flex items-center gap-3">
                                 <button
                                     onClick={togglePlay}
@@ -250,17 +245,9 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                                 </span>
                             </div>
 
-                            <div className="flex items-center gap-2">
-                                <a
-                                    href="https://tutorlms.com/"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="px-3 py-1.5 rounded-lg bg-white/20 hover:bg-white/30 text-white text-xs sm:text-sm font-medium backdrop-blur-md flex items-center gap-1.5 transition-colors"
-                                >
-                                    <span>TutorLMS.com</span>
-                                    <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-                                </a>
-                            </div>
+                            <span className="text-xs font-mono text-white/80 bg-black/40 px-2 py-1 rounded backdrop-blur-xs">
+                                60 FPS
+                            </span>
                         </div>
                     </div>
                 </div>

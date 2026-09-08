@@ -3,6 +3,7 @@
 import React from "react";
 import { MotionExperiment } from "@/types/portfolio";
 import { Check, Lock, ExternalLink } from "lucide-react";
+import clsx from "clsx";
 
 interface InteractiveMotionLabProps {
     experiments?: MotionExperiment[];
@@ -42,12 +43,22 @@ export const InteractiveMotionLab: React.FC<InteractiveMotionLabProps> = ({ expe
                 </div>
 
                 {/* Experiments Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {experiments.map((item) => {
+                <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+                    {experiments.map((item, idx) => {
+                        const isLastRowTwoItemsFirst =
+                            experiments.length % 3 === 2 && idx === experiments.length - 2;
+                        const isLastRowSingleItem =
+                            experiments.length % 3 === 1 && idx === experiments.length - 1;
+
                         return (
                             <div
                                 key={item.id}
-                                className="group relative rounded-2xl border border-black/[0.06] dark:border-white/[0.08] bg-stone-50/70 dark:bg-neutral-900/50 p-6 flex flex-col justify-between hover:border-[#ff1744]/40 transition-all duration-300 shadow-craft-card hover:shadow-craft-elevated"
+                                className={clsx(
+                                    "group relative rounded-2xl border border-black/[0.06] dark:border-white/[0.08] bg-stone-50/70 dark:bg-neutral-900/50 p-6 flex flex-col justify-between hover:border-[#ff1744]/40 transition-all duration-300 shadow-craft-card hover:shadow-craft-elevated",
+                                    "col-span-1 md:col-span-2",
+                                    isLastRowTwoItemsFirst && "md:col-start-2",
+                                    isLastRowSingleItem && "md:col-start-3"
+                                )}
                             >
                                 <div className="space-y-4">
                                     <div className="space-y-1">

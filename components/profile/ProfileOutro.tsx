@@ -23,7 +23,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                     <div className="flex items-center gap-3">
                         <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
                         <span className="text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-                            Engineering Identity & Credentials
+                            Engineering Identity &amp; Credentials
                         </span>
                     </div>
                     <span className="text-xs sm:text-sm text-neutral-500 font-mono">
@@ -32,7 +32,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    {/* Portrait & Core Meta */}
+                    {/* Portrait & Credentials Column */}
                     <div className="lg:col-span-3 space-y-4">
                         <div className="relative aspect-square w-full rounded-2xl overflow-hidden border border-black/[0.08] dark:border-white/[0.10] bg-neutral-200 dark:bg-neutral-800 shadow-craft-elevated group">
                             <Image
@@ -53,6 +53,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                             </div>
                         </div>
 
+                        {/* Availability Status */}
                         <div className="p-4 rounded-xl bg-white dark:bg-neutral-900/50 border border-black/[0.06] dark:border-white/[0.08] space-y-2 text-xs sm:text-sm shadow-sm">
                             <div className="text-neutral-500 font-medium">Availability Status</div>
                             <div className="text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-2">
@@ -60,29 +61,13 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                                 Available for Senior Engineering Roles
                             </div>
                         </div>
-                    </div>
 
-                    {/* Bio & Academic Background */}
-                    <div className="lg:col-span-4 space-y-6">
-                        <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-                            Professional Summary
-                        </h3>
-                        <div className="space-y-4 text-neutral-700 dark:text-neutral-300 text-sm sm:text-base leading-relaxed max-w-[65ch]">
-                            {profile.bioParagraphs?.map((paragraph, idx) => (
-                                <p key={idx}>{paragraph}</p>
-                            )) || (
-                                <p>
-                                    Software Engineer specializing in frontend architecture, distributed systems integration, and fluid motion design systems. Experienced in shipping features to over 120,000 production sites worldwide.
-                                </p>
-                            )}
-                        </div>
-
-                        {/* Education Highlight Card */}
-                        <div className="p-5 rounded-2xl bg-white dark:bg-neutral-900/60 border border-black/[0.06] dark:border-white/[0.08] space-y-2 shadow-craft-card">
+                        {/* Formal Education Card */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-neutral-900/60 border border-black/[0.06] dark:border-white/[0.08] space-y-2 shadow-craft-card">
                             <div className="text-xs sm:text-sm text-[#ff1744] font-semibold">
                                 Formal Education
                             </div>
-                            <h4 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-neutral-100">
+                            <h4 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-neutral-100">
                                 {profile.education.degree}
                             </h4>
                             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
@@ -96,7 +81,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                                     rel="noreferrer"
                                     className="text-xs sm:text-sm text-[#ff1744] hover:text-rose-500 transition-colors inline-flex items-center gap-1 font-semibold shrink-0"
                                 >
-                                    <span>SUST SWE Department</span>
+                                    <span>SUST SWE</span>
                                     <ExternalLink className="w-3.5 h-3.5 shrink-0" />
                                 </a>
                             </div>
@@ -104,7 +89,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
 
                         {/* Location */}
                         <div className="p-4 rounded-xl bg-white dark:bg-neutral-900/40 border border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between shadow-sm">
-                            <div className="flex items-center gap-2.5 text-neutral-700 dark:text-neutral-300 text-sm sm:text-base">
+                            <div className="flex items-center gap-2.5 text-neutral-700 dark:text-neutral-300 text-xs sm:text-sm">
                                 <MapPin className="w-4 h-4 text-[#ff1744] shrink-0" />
                                 <span>{profile.location}</span>
                             </div>
@@ -112,7 +97,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                                 href={profile.contact.locationMap}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="text-xs sm:text-sm text-neutral-500 hover:text-[#ff1744] transition-colors inline-flex items-center gap-1 font-medium shrink-0"
+                                className="text-xs text-neutral-500 hover:text-[#ff1744] transition-colors inline-flex items-center gap-1 font-medium shrink-0"
                             >
                                 <span>View Map</span>
                                 <ExternalLink className="w-3.5 h-3.5 shrink-0" />
@@ -120,32 +105,19 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                         </div>
                     </div>
 
-                    {/* Technical Taxonomy Matrix */}
+                    {/* Bio & Professional Summary Column */}
                     <div className="lg:col-span-5 space-y-6">
                         <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-                            Technical Taxonomy &amp; Competencies
+                            Professional Summary
                         </h3>
-                        <div className="space-y-4">
-                            {profile.skillCategories?.map((category, idx) => (
-                                <div
-                                    key={idx}
-                                    className="p-5 rounded-xl bg-white dark:bg-neutral-900/50 border border-black/[0.06] dark:border-white/[0.08] space-y-2.5 shadow-sm hover:shadow-craft-card transition-all duration-150"
-                                >
-                                    <h4 className="text-xs sm:text-sm text-[#ff1744] font-semibold">
-                                        {category.name}
-                                    </h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {category.skills.map((skill, sIdx) => (
-                                            <span
-                                                key={sIdx}
-                                                className="px-3 py-1 rounded-md text-xs sm:text-sm bg-stone-100/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/[0.04] dark:border-white/[0.06] font-medium shrink-0"
-                                            >
-                                                {skill}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
+                        <div className="space-y-4 text-neutral-700 dark:text-neutral-300 text-sm sm:text-base leading-relaxed">
+                            {profile.bioParagraphs?.map((paragraph, idx) => (
+                                <p key={idx}>{paragraph}</p>
+                            )) || (
+                                <p>
+                                    Software Engineer specializing in frontend architecture, distributed systems integration, and fluid motion design systems. Experienced in shipping features to over 120,000 production sites worldwide.
+                                </p>
+                            )}
                         </div>
 
                         {/* Direct Contact Channels */}
@@ -180,6 +152,35 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                                     <span>View GitHub Profile</span>
                                 </a>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Technical Taxonomy Matrix Column */}
+                    <div className="lg:col-span-4 space-y-6">
+                        <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                            Technical Taxonomy &amp; Competencies
+                        </h3>
+                        <div className="space-y-4">
+                            {profile.skillCategories?.map((category, idx) => (
+                                <div
+                                    key={idx}
+                                    className="p-5 rounded-xl bg-white dark:bg-neutral-900/50 border border-black/[0.06] dark:border-white/[0.08] space-y-2.5 shadow-sm hover:shadow-craft-card transition-all duration-150"
+                                >
+                                    <h4 className="text-xs sm:text-sm text-[#ff1744] font-semibold">
+                                        {category.name}
+                                    </h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {category.skills.map((skill, sIdx) => (
+                                            <span
+                                                key={sIdx}
+                                                className="px-3 py-1 rounded-md text-xs sm:text-sm bg-stone-100/80 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/[0.04] dark:border-white/[0.06] font-medium shrink-0"
+                                            >
+                                                {skill}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

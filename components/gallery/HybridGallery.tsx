@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShowcaseItem } from "@/types/portfolio";
 import { GithubIcon } from "../icons";
@@ -16,24 +17,53 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
     const [selectedItem, setSelectedItem] = useState<ShowcaseItem | null>(null);
     const [originRect, setOriginRect] = useState<DOMRect | null>(null);
     const [navDirection, setNavDirection] = useState<number>(0);
+    const [mounted, setMounted] = useState(false);
     const itemRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     // Lock background scroll when modal is open
     useEffect(() => {
         if (!selectedItem) return;
 
-        const originalOverflow = document.body.style.overflow;
-        const originalPaddingRight = document.body.style.paddingRight;
+        const originalBodyOverflow = document.body.style.overflow;
+        const originalHtmlOverflow = document.documentElement.style.overflow;
+        const originalBodyPaddingRight = document.body.style.paddingRight;
         const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
 
         document.body.style.overflow = "hidden";
+        document.documentElement.style.overflow = "hidden";
         if (scrollBarWidth > 0) {
             document.body.style.paddingRight = `${scrollBarWidth}px`;
         }
 
+        // Prevent wheel scrolling on background elements outside the modal
+        const handleWheel = (e: WheelEvent) => {
+            const target = e.target as HTMLElement | null;
+            if (!target?.closest("[data-modal-scrollable='true']")) {
+                e.preventDefault();
+            }
+        };
+
+        // Prevent touchmove scrolling on background elements outside the modal
+        const handleTouchMove = (e: TouchEvent) => {
+            const target = e.target as HTMLElement | null;
+            if (!target?.closest("[data-modal-scrollable='true']")) {
+                e.preventDefault();
+            }
+        };
+
+        window.addEventListener("wheel", handleWheel, { passive: false });
+        window.addEventListener("touchmove", handleTouchMove, { passive: false });
+
         return () => {
-            document.body.style.overflow = originalOverflow;
-            document.body.style.paddingRight = originalPaddingRight;
+            document.body.style.overflow = originalBodyOverflow;
+            document.documentElement.style.overflow = originalHtmlOverflow;
+            document.body.style.paddingRight = originalBodyPaddingRight;
+            window.removeEventListener("wheel", handleWheel);
+            window.removeEventListener("touchmove", handleTouchMove);
         };
     }, [selectedItem]);
 
@@ -77,37 +107,41 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
                 handleClose();
-            } else if (e.key === "ArrowRight") {
-                handleNavigate(1);
-            } else if (e.key === "ArrowLeft") {
-                handleNavigate(-1);
+            }
+            if (selectedItem) {
+                if (e.key === "ArrowRight") {
+                    handleNavigate(1);
+                } else if (e.key === "ArrowLeft") {
+                    handleNavigate(-1);
+                }
             }
         };
 
-        if (selectedItem) {
-            window.addEventListener("keydown", handleKeyDown);
-            return () => window.removeEventListener("keydown", handleKeyDown);
-        }
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
     }, [selectedItem, items]);
 
-    // Calculate relative spatial transform from origin card to screen center
-    const getOriginDelta = () => {
+    // Calculate translation delta between clicked card and screen center
+    const calculateOriginDelta = () => {
         if (!originRect || typeof window === "undefined") {
-            return { x: 0, y: 30, scale: 0.95 };
+            return { x: 0, y: 0, scale: 0.85 };
         }
-        const viewportCenterX = window.innerWidth / 2;
-        const viewportCenterY = window.innerHeight / 2;
-        const cardCenterX = originRect.left + originRect.width / 2;
-        const cardCenterY = originRect.top + originRect.height / 2;
-        const deltaX = cardCenterX - viewportCenterX;
-        const deltaY = cardCenterY - viewportCenterY;
+
+        const modalCenterX = window.innerWidth / 2;
+        const modalCenterY = window.innerHeight / 2;
+        const originCenterX = originRect.left + originRect.width / 2;
+        const originCenterY = originRect.top + originRect.height / 2;
+
+        const deltaX = originCenterX - modalCenterX;
+        const deltaY = originCenterY - modalCenterY;
+
         const modalWidth = Math.min(window.innerWidth - 32, 672);
         const scale = Math.max(0.35, Math.min(0.85, originRect.width / modalWidth));
+
         return { x: deltaX, y: deltaY, scale };
     };
 
-    const originDelta = getOriginDelta();
-    const currentIndex = selectedItem ? items.findIndex((i) => i.id === selectedItem.id) : -1;
+    const originDelta = calculateOriginDelta();
 
     const content = (
         <div className="space-y-8">
@@ -144,8 +178,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                             onClick={() => handleOpenItem(item)}
                             className={clsx(
                                 "p-5 rounded-xl bg-white dark:bg-neutral-900/50 border border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.15] dark:hover:border-white/[0.20] hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-craft-card hover:shadow-craft-card-hover active:scale-[0.98]",
-                                isCurrentlyInspected &&
-                                    "ring-2 ring-[#ff1744] shadow-lg shadow-[#ff1744]/10 border-[#ff1744]/60 scale-[1.01]"
+                                isCurrentlyInspected && "ring-2 ring-[#ff1744]/50 dark:ring-[#ff1744]/60 opacity-60 scale-[0.98]"
                             )}
                         >
                             <div className="space-y-3">
@@ -196,276 +229,253 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                 })}
             </div>
 
-            {/* ORIGIN-AWARE LIGHTBOX INSPECTION MODAL */}
-            <AnimatePresence>
-                {selectedItem && (
-                    <div
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none overflow-hidden"
-                        role="dialog"
-                        aria-modal="true"
-                        aria-labelledby={`gallery-modal-title-${selectedItem.id}`}
-                    >
-                        {/* Backdrop with fade animation */}
-                        <motion.div
-                            key="gallery-modal-backdrop"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.22, ease: "easeOut" }}
-                            onClick={handleClose}
-                            className="absolute inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-md cursor-pointer"
-                        />
-
-                        {/* Origin-Aware Modal Box */}
-                        <motion.div
-                            key="gallery-modal-card"
-                            initial={{
-                                x: originDelta.x,
-                                y: originDelta.y,
-                                scale: originDelta.scale,
-                                opacity: 0.1,
-                            }}
-                            animate={{
-                                x: 0,
-                                y: 0,
-                                scale: 1,
-                                opacity: 1,
-                            }}
-                            exit={{
-                                x: originDelta.x,
-                                y: originDelta.y,
-                                scale: originDelta.scale,
-                                opacity: 0,
-                                transition: { duration: 0.2, ease: "easeInOut" },
-                            }}
-                            transition={{
-                                type: "spring",
-                                stiffness: 380,
-                                damping: 30,
-                                mass: 0.8,
-                            }}
-                            className="relative z-10 w-full max-w-2xl bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-black/[0.08] dark:border-white/[0.12] p-6 sm:p-8 overflow-hidden max-h-[90vh] overflow-y-auto"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            {/* Navigation Toolbar */}
-                            <div className="flex items-center justify-between gap-3 border-b border-black/[0.06] dark:border-white/[0.08] pb-4 mb-5 text-xs sm:text-sm font-mono">
-                                {/* Previous Item Button */}
-                                <button
-                                    type="button"
-                                    onClick={() => handleNavigate(-1)}
-                                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-all active:scale-95 cursor-pointer shrink-0"
-                                    aria-label="Previous blueprint"
-                                >
-                                    <ChevronLeft className="w-4 h-4 shrink-0" />
-                                    <span className="hidden sm:inline font-semibold">Prev</span>
-                                </button>
-
-                                {/* Segmented Indicators / Stepper */}
-                                <div className="flex items-center gap-1.5">
-                                    {items.map((item, idx) => {
-                                        const isCurrent = item.id === selectedItem.id;
-                                        return (
-                                            <button
-                                                key={item.id}
-                                                onClick={() => {
-                                                    const currentIdx = items.findIndex(
-                                                        (i) => i.id === selectedItem.id
-                                                    );
-                                                    const dir = idx > currentIdx ? 1 : -1;
-                                                    const el = itemRefs.current.get(item.id);
-                                                    if (el) setOriginRect(el.getBoundingClientRect());
-                                                    setNavDirection(dir);
-                                                    setSelectedItem(item);
-                                                }}
-                                                className={clsx(
-                                                    "h-2 rounded-full transition-all duration-300 cursor-pointer",
-                                                    isCurrent
-                                                        ? "w-6 bg-[#ff1744]"
-                                                        : "w-2 bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-600"
-                                                )}
-                                                aria-label={`Jump to blueprint ${idx + 1}`}
-                                            />
-                                        );
-                                    })}
-                                    <span className="ml-2 text-neutral-500 font-bold text-xs">
-                                        {String(currentIndex + 1).padStart(2, "0")} /{" "}
-                                        {String(items.length).padStart(2, "0")}
-                                    </span>
-                                </div>
-
-                                {/* Next & Close Controls */}
-                                <div className="flex items-center gap-1.5 shrink-0">
-                                    <button
-                                        type="button"
-                                        onClick={() => handleNavigate(1)}
-                                        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-all active:scale-95 cursor-pointer"
-                                        aria-label="Next blueprint"
-                                    >
-                                        <span className="hidden sm:inline font-semibold">Next</span>
-                                        <ChevronRight className="w-4 h-4 shrink-0" />
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        onClick={handleClose}
-                                        className="p-1.5 rounded-lg bg-stone-100 dark:bg-neutral-800 hover:bg-stone-200 dark:hover:bg-neutral-700 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all font-mono text-xs cursor-pointer active:scale-95 shrink-0 ml-1"
-                                        aria-label="Close lightbox"
-                                    >
-                                        <X className="w-4 h-4 shrink-0" />
-                                    </button>
-                                </div>
-                            </div>
-
-                            {/* Origin-Aware Directional Content Transition */}
-                            <AnimatePresence mode="wait" custom={navDirection}>
+            {/* ORIGIN-AWARE LIGHTBOX INSPECTION MODAL - Portaled to document.body to escape any section stacking contexts */}
+            {mounted &&
+                createPortal(
+                    <AnimatePresence>
+                        {selectedItem && (
+                            <div
+                                className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 select-none overflow-hidden touch-none overscroll-contain"
+                                role="dialog"
+                                aria-modal="true"
+                                aria-labelledby={`gallery-modal-title-${selectedItem.id}`}
+                            >
+                                {/* Backdrop with fade animation */}
                                 <motion.div
-                                    key={selectedItem.id}
-                                    custom={navDirection}
-                                    variants={{
-                                        enter: (direction: number) => ({
-                                            x: direction > 0 ? 50 : direction < 0 ? -50 : 0,
-                                            opacity: 0,
-                                            scale: 0.98,
-                                            filter: "blur(4px)",
-                                        }),
-                                        center: {
-                                            x: 0,
-                                            opacity: 1,
-                                            scale: 1,
-                                            filter: "blur(0px)",
-                                            transition: {
-                                                type: "spring",
-                                                stiffness: 420,
-                                                damping: 32,
-                                                mass: 0.7,
-                                            },
-                                        },
-                                        exit: (direction: number) => ({
-                                            x: direction > 0 ? -50 : direction < 0 ? 50 : 0,
-                                            opacity: 0,
-                                            scale: 0.98,
-                                            filter: "blur(4px)",
-                                            transition: {
-                                                duration: 0.16,
-                                                ease: "easeIn",
-                                            },
-                                        }),
+                                    key="gallery-modal-backdrop"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.22, ease: "easeOut" }}
+                                    onClick={handleClose}
+                                    className="absolute inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-md cursor-pointer touch-none"
+                                />
+
+                                {/* Origin-Aware Modal Box */}
+                                <motion.div
+                                    key="gallery-modal-card"
+                                    data-modal-scrollable="true"
+                                    initial={{
+                                        x: originDelta.x,
+                                        y: originDelta.y,
+                                        scale: originDelta.scale,
+                                        opacity: 0.1,
                                     }}
-                                    initial="enter"
-                                    animate="center"
-                                    exit="exit"
-                                    className="space-y-6"
+                                    animate={{
+                                        x: 0,
+                                        y: 0,
+                                        scale: 1,
+                                        opacity: 1,
+                                    }}
+                                    exit={{
+                                        x: originDelta.x,
+                                        y: originDelta.y,
+                                        scale: originDelta.scale,
+                                        opacity: 0,
+                                        transition: { duration: 0.2, ease: "easeInOut" },
+                                    }}
+                                    transition={{
+                                        type: "spring",
+                                        stiffness: 380,
+                                        damping: 30,
+                                        mass: 0.8,
+                                    }}
+                                    className="relative z-10 w-full max-w-2xl bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-black/[0.08] dark:border-white/[0.12] p-6 sm:p-8 max-h-[90vh] overflow-y-auto overscroll-contain touch-auto select-text"
+                                    onClick={(e) => e.stopPropagation()}
                                 >
-                                    {/* Modal Header Details */}
-                                    <div className="space-y-2">
-                                        <div className="flex items-center gap-2 flex-wrap">
-                                            <span className="text-xs sm:text-sm font-mono text-[#ff1744] font-bold">
-                                                #{selectedItem.number}
-                                            </span>
-                                            <span className="px-2 py-0.5 text-xs font-mono rounded bg-stone-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/[0.04] dark:border-white/[0.06] shrink-0">
-                                                {selectedItem.category}
-                                            </span>
-                                            <span className="px-2 py-0.5 text-xs font-mono rounded bg-[#ff1744]/10 text-[#ff1744] font-semibold shrink-0">
-                                                {selectedItem.badge}
-                                            </span>
-                                            {selectedItem.isPrivate && (
-                                                <span className="px-2 py-0.5 text-xs font-mono rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-semibold border border-amber-500/20 flex items-center gap-1 shrink-0">
-                                                    <Lock className="w-3 h-3 shrink-0" /> Private
-                                                </span>
-                                            )}
-                                        </div>
-                                        <h3
-                                            id={`gallery-modal-title-${selectedItem.id}`}
-                                            className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight"
+                                    {/* Navigation Toolbar */}
+                                    <div className="flex items-center justify-between gap-3 border-b border-black/[0.06] dark:border-white/[0.08] pb-4 mb-5 text-xs sm:text-sm font-mono">
+                                        {/* Previous Item Button */}
+                                        <button
+                                            type="button"
+                                            onClick={() => handleNavigate(-1)}
+                                            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-all active:scale-95 cursor-pointer shrink-0"
+                                            aria-label="Previous blueprint"
                                         >
-                                            {selectedItem.title}
-                                        </h3>
-                                    </div>
+                                            <ChevronLeft className="w-4 h-4 shrink-0" />
+                                            <span className="hidden sm:inline font-semibold">Prev</span>
+                                        </button>
 
-                                    {/* Description */}
-                                    <p className="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                                        {selectedItem.description}
-                                    </p>
+                                        {/* Segmented Indicators / Stepper */}
+                                        <div className="flex items-center gap-1.5">
+                                            {items.map((item, idx) => {
+                                                const isSelected = item.id === selectedItem.id;
+                                                return (
+                                                    <button
+                                                        key={item.id}
+                                                        type="button"
+                                                        onClick={() => {
+                                                            const currentIndex = items.findIndex((i) => i.id === selectedItem.id);
+                                                            setNavDirection(idx > currentIndex ? 1 : -1);
+                                                            const element = itemRefs.current.get(item.id);
+                                                            if (element) {
+                                                                setOriginRect(element.getBoundingClientRect());
+                                                            }
+                                                            setSelectedItem(item);
+                                                        }}
+                                                        aria-label={`Jump to ${item.title}`}
+                                                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                                                            isSelected
+                                                                ? "w-6 bg-[#ff1744]"
+                                                                : "w-2 bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-600"
+                                                        }`}
+                                                    />
+                                                );
+                                            })}
+                                        </div>
 
-                                    {/* Architectural / Engineering Highlights */}
-                                    <div className="space-y-2.5">
-                                        <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 block font-semibold">
-                                            Technical Specifications
-                                        </span>
-                                        <div className="space-y-2">
-                                            {selectedItem.details.map((detail, idx) => (
-                                                <div
-                                                    key={idx}
-                                                    className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2.5"
-                                                >
-                                                    <span className="text-[#ff1744] font-bold shrink-0 mt-0.5">•</span>
-                                                    <span>{detail}</span>
-                                                </div>
-                                            ))}
+                                        {/* Next Item & Close Actions */}
+                                        <div className="flex items-center gap-2">
+                                            <button
+                                                type="button"
+                                                onClick={() => handleNavigate(1)}
+                                                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-all active:scale-95 cursor-pointer shrink-0"
+                                                aria-label="Next blueprint"
+                                            >
+                                                <span className="hidden sm:inline font-semibold">Next</span>
+                                                <ChevronRight className="w-4 h-4 shrink-0" />
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                onClick={handleClose}
+                                                className="p-1.5 rounded-lg text-neutral-500 hover:text-neutral-900 dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors cursor-pointer shrink-0"
+                                                aria-label="Close modal"
+                                            >
+                                                <X className="w-5 h-5 shrink-0" />
+                                            </button>
                                         </div>
                                     </div>
 
-                                    {/* Tech Stack */}
-                                    <div className="space-y-2.5">
-                                        <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 block font-semibold">
-                                            Tech Stack
-                                        </span>
-                                        <div className="flex flex-wrap gap-1.5">
-                                            {selectedItem.technologies.map((tech, idx) => (
-                                                <span
-                                                    key={idx}
-                                                    className="px-2.5 py-1 text-xs sm:text-sm font-mono bg-stone-100 dark:bg-neutral-950 text-neutral-700 dark:text-neutral-300 rounded border border-black/[0.04] dark:border-white/[0.06] shrink-0"
+                                    {/* Content Body with Directional Slide Transition */}
+                                    <AnimatePresence mode="wait" custom={navDirection}>
+                                        <motion.div
+                                            key={selectedItem.id}
+                                            custom={navDirection}
+                                            initial={{
+                                                opacity: 0,
+                                                x: navDirection > 0 ? 24 : navDirection < 0 ? -24 : 0,
+                                            }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{
+                                                opacity: 0,
+                                                x: navDirection > 0 ? -24 : navDirection < 0 ? 24 : 0,
+                                            }}
+                                            transition={{ duration: 0.18, ease: "easeOut" }}
+                                            className="space-y-6"
+                                        >
+                                            {/* Modal Header */}
+                                            <div className="space-y-2 border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
+                                                <div className="flex items-center gap-2 flex-wrap">
+                                                    <span className="text-xs sm:text-sm font-mono text-[#ff1744] font-bold">
+                                                        #{selectedItem.number}
+                                                    </span>
+                                                    <span className="px-2 py-0.5 text-xs font-mono rounded bg-stone-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/[0.04] dark:border-white/[0.06] shrink-0">
+                                                        {selectedItem.category}
+                                                    </span>
+                                                    <span className="px-2 py-0.5 text-xs font-mono rounded bg-[#ff1744]/10 text-[#ff1744] font-semibold shrink-0">
+                                                        {selectedItem.badge}
+                                                    </span>
+                                                    {selectedItem.isPrivate && (
+                                                        <span className="px-2 py-0.5 text-xs font-mono rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-semibold border border-amber-500/20 flex items-center gap-1 shrink-0">
+                                                            <Lock className="w-3 h-3 shrink-0" /> Private
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <h3
+                                                    id={`gallery-modal-title-${selectedItem.id}`}
+                                                    className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100"
                                                 >
-                                                    {tech}
+                                                    {selectedItem.title}
+                                                </h3>
+                                            </div>
+
+                                            {/* Description */}
+                                            <p className="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                                                {selectedItem.description}
+                                            </p>
+
+                                            {/* Architectural / Engineering Highlights */}
+                                            <div className="space-y-2">
+                                                <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 block font-semibold">
+                                                    Technical Specifications
                                                 </span>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Action Buttons & Shortcut Indicator */}
-                                    <div className="flex flex-wrap items-center justify-between gap-3 pt-5 border-t border-black/[0.06] dark:border-white/[0.08]">
-                                        <span className="text-xs font-mono text-neutral-500">
-                                            Navigate: [<span className="text-neutral-700 dark:text-neutral-300">←</span>] [
-                                            <span className="text-neutral-700 dark:text-neutral-300">→</span>] &bull; Close: [
-                                            <span className="text-neutral-700 dark:text-neutral-300">Esc</span>]
-                                        </span>
-                                        <div className="flex flex-wrap items-center gap-2">
-                                            {selectedItem.isPrivate ? (
-                                                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-xs sm:text-sm font-mono font-medium shrink-0">
-                                                    <Lock className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                                                    <span>Private Spec</span>
+                                                <div className="space-y-1.5">
+                                                    {selectedItem.details.map((detail, idx) => (
+                                                        <div
+                                                            key={idx}
+                                                            className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"
+                                                        >
+                                                            <span className="text-[#ff1744] font-bold shrink-0 mt-0.5">•</span>
+                                                            <span>{detail}</span>
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ) : (
-                                                selectedItem.sourceUrl && (
-                                                    <a
-                                                        href={selectedItem.sourceUrl}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        className="px-3.5 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 text-xs sm:text-sm font-mono font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95 shrink-0"
-                                                    >
-                                                        <GithubIcon className="w-3.5 h-3.5 shrink-0" />
-                                                        <span>Repository ↗</span>
-                                                    </a>
-                                                )
-                                            )}
-                                            {selectedItem.demoUrl && !selectedItem.isPrivate && (
-                                                <a
-                                                    href={selectedItem.demoUrl}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="px-4 py-2 rounded-lg bg-[#ff1744] hover:bg-rose-500 text-white font-bold text-xs sm:text-sm font-mono transition-all shadow-[0_0_10px_rgba(255,23,68,0.4)] flex items-center gap-1.5 cursor-pointer active:scale-95 shrink-0"
-                                                >
-                                                    <span>Live Demo ↗</span>
-                                                </a>
-                                            )}
-                                        </div>
-                                    </div>
+                                            </div>
+
+                                            {/* Tech Stack */}
+                                            <div className="space-y-2.5">
+                                                <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 block font-semibold">
+                                                    Tech Stack
+                                                </span>
+                                                <div className="flex flex-wrap gap-1.5">
+                                                    {selectedItem.technologies.map((tech, idx) => (
+                                                        <span
+                                                            key={idx}
+                                                            className="px-2.5 py-1 text-xs sm:text-sm font-mono bg-stone-100 dark:bg-neutral-950 text-neutral-700 dark:text-neutral-300 rounded border border-black/[0.04] dark:border-white/[0.06] shrink-0"
+                                                        >
+                                                            {tech}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Action Buttons & Shortcut Indicator */}
+                                            <div className="flex flex-wrap items-center justify-between gap-3 pt-5 border-t border-black/[0.06] dark:border-white/[0.08]">
+                                                <span className="text-xs font-mono text-neutral-500">
+                                                    Navigate: [<span className="text-neutral-700 dark:text-neutral-300">←</span>] [
+                                                    <span className="text-neutral-700 dark:text-neutral-300">→</span>] &bull; Close: [
+                                                    <span className="text-neutral-700 dark:text-neutral-300">Esc</span>]
+                                                </span>
+                                                <div className="flex flex-wrap items-center gap-2">
+                                                    {selectedItem.isPrivate ? (
+                                                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-xs sm:text-sm font-mono font-medium shrink-0">
+                                                            <Lock className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                                                            <span>Private Spec</span>
+                                                        </div>
+                                                    ) : (
+                                                        selectedItem.sourceUrl && (
+                                                            <a
+                                                                href={selectedItem.sourceUrl}
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                                className="px-3.5 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 text-xs sm:text-sm font-mono font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95 shrink-0"
+                                                            >
+                                                                <GithubIcon className="w-3.5 h-3.5 shrink-0" />
+                                                                <span>Repository ↗</span>
+                                                            </a>
+                                                        )
+                                                    )}
+                                                    {selectedItem.demoUrl && !selectedItem.isPrivate && (
+                                                        <a
+                                                            href={selectedItem.demoUrl}
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            className="px-4 py-2 rounded-lg bg-[#ff1744] hover:bg-rose-500 text-white font-bold text-xs sm:text-sm font-mono transition-all shadow-[0_0_10px_rgba(255,23,68,0.4)] flex items-center gap-1.5 cursor-pointer active:scale-95 shrink-0"
+                                                        >
+                                                            <span>Live Demo ↗</span>
+                                                        </a>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    </AnimatePresence>
                                 </motion.div>
-                            </AnimatePresence>
-                        </motion.div>
-                    </div>
+                            </div>
+                        )}
+                    </AnimatePresence>,
+                    document.body
                 )}
-            </AnimatePresence>
         </div>
     );
 
