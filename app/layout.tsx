@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     },
     description: siteConfig.description,
     themeColor: [
-        { media: "(prefers-color-scheme: light)", color: "#0a0a0a" },
+        { media: "(prefers-color-scheme: light)", color: "#fafaf9" },
         { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
     ],
     icons: {
@@ -31,20 +31,20 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" suppressHydrationWarning className="scroll-smooth dark">
+        <html lang="en" suppressHydrationWarning className="scroll-smooth">
             <head />
             <body
                 className={clsx(
-                    "min-h-screen bg-neutral-950 text-neutral-100 font-sans antialiased selection:bg-rose-600 selection:text-white overflow-x-hidden",
+                    "min-h-screen bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans antialiased selection:bg-rose-600 selection:text-white overflow-x-hidden transition-colors duration-200",
                     fontSans.variable,
                     fontMono.variable,
                     fontScript.variable
                 )}
             >
                 <Providers
-                    themeProps={{ attribute: "class", defaultTheme: "dark" }}
+                    themeProps={{ attribute: "class", defaultTheme: "dark", enableSystem: true }}
                 >
-                    <div className="relative flex flex-col min-h-screen bg-neutral-950">
+                    <div className="relative flex flex-col min-h-screen bg-stone-50 dark:bg-neutral-950 transition-colors duration-200">
                         <Navbar />
                         <main className="w-full flex-grow">
                             {children}

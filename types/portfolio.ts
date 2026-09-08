@@ -1,4 +1,5 @@
 export type ProjectStageType = 'architecture' | 'flow' | 'code' | 'live';
+export type CaseStudyStage = ProjectStageType;
 
 export interface ProjectStage {
     type?: ProjectStageType;
@@ -39,6 +40,8 @@ export interface ProjectCaseStudy {
     }[];
     stages: Record<ProjectStageType, ProjectStage>;
 }
+
+export type FlagshipProject = ProjectCaseStudy;
 
 export interface InteractiveUIItem {
     id: string;
@@ -97,6 +100,7 @@ export interface Chapter {
 
 export interface EngineerProfile {
     name: string;
+    role?: string;
     tagline: string;
     headline: string;
     bioParagraphs: string[];
@@ -109,6 +113,7 @@ export interface EngineerProfile {
         status: string;
         link: string;
         period: string;
+        location?: string;
     };
     contact: {
         email: string;

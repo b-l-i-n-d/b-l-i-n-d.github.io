@@ -34,6 +34,25 @@ module.exports = {
           dark: '#3d0213',
         },
       },
+      boxShadow: {
+        // Emil Kowalski Craft Shadows: Multi-layered, subtle contact + diffuse ambient occlusion
+        'craft-subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
+        'craft-sm': '0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03)',
+        'craft-card': '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 6px 16px -2px rgba(0, 0, 0, 0.05)',
+        'craft-card-hover': '0 2px 6px 0 rgba(0, 0, 0, 0.04), 0 16px 32px -4px rgba(0, 0, 0, 0.08)',
+        'craft-elevated': '0 2px 6px 0 rgba(0, 0, 0, 0.04), 0 20px 36px -4px rgba(0, 0, 0, 0.08)',
+        'craft-float': '0 4px 12px 0 rgba(0, 0, 0, 0.05), 0 32px 64px -8px rgba(0, 0, 0, 0.12)',
+        'craft-inner': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.9), 0 1px 2px 0 rgba(0, 0, 0, 0.04)',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translate3d(0, 0, 0)' },
+          '100%': { transform: 'translate3d(-100%, 0, 0)' },
+        },
+      },
+      animation: {
+        marquee: 'marquee 35s linear infinite',
+      },
     },
   },
   darkMode: "class",

@@ -3,38 +3,30 @@ export type SiteConfig = typeof siteConfig;
 export const siteConfig = {
     name: "Fahim Faisal | Software Engineer",
     description:
-        "Cinematic portfolio of Fahim Faisal, Full Stack & Frontend Software Engineer at Ollyo. Core engineer on Tutor LMS 3.0–4.0 and EasyStore by JoomShaper. High-performance React, TypeScript, and locked 60 FPS motion engineering.",
+        "Portfolio of Fahim Faisal, Software Engineer at Ollyo. Core engineer on Tutor LMS 2.0–4.0 and EasyStore by JoomShaper. High-performance React, TypeScript, and fluid web architecture.",
     navItems: [
         {
             label: "Showreel",
             href: "#hero",
         },
         {
+            label: "Contents",
+            href: "#contents",
+        },
+        {
+            label: "About",
+            href: "#about",
+        },
+        {
             label: "Experience",
             href: "#experience",
         },
         {
-            label: "Tutor LMS",
+            label: "Work",
             href: "#tutor-lms",
         },
         {
-            label: "EasyStore",
-            href: "#easystore",
-        },
-        {
-            label: "E-Commerce",
-            href: "#ecommerce",
-        },
-        {
-            label: "Motion Lab",
-            href: "#motion-lab",
-        },
-        {
-            label: "Blueprints",
-            href: "#gallery",
-        },
-        {
-            label: "Credentials",
+            label: "Contact",
             href: "#profile",
         },
     ],
@@ -44,31 +36,27 @@ export const siteConfig = {
             href: "#hero",
         },
         {
+            label: "Contents",
+            href: "#contents",
+        },
+        {
+            label: "About",
+            href: "#about",
+        },
+        {
             label: "Experience",
             href: "#experience",
         },
         {
-            label: "Tutor LMS",
+            label: "Work",
             href: "#tutor-lms",
-        },
-        {
-            label: "EasyStore",
-            href: "#easystore",
-        },
-        {
-            label: "E-Commerce",
-            href: "#ecommerce",
         },
         {
             label: "Motion Lab",
             href: "#motion-lab",
         },
         {
-            label: "Blueprints",
-            href: "#gallery",
-        },
-        {
-            label: "Credentials",
+            label: "Contact",
             href: "#profile",
         },
     ],

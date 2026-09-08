@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { EngineerProfile, WorkExperience } from "@/types/portfolio";
+import { Briefcase, GraduationCap, ExternalLink } from "lucide-react";
 
 interface ExperienceSectionProps {
     profile: EngineerProfile;
@@ -12,11 +14,16 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile })
     const experiences = profile.experiences;
     const education = profile.education;
 
+    const tabs = [
+        { id: "career" as const, label: "Industry Career", Icon: Briefcase },
+        { id: "education" as const, label: "Academic Foundation", Icon: GraduationCap },
+    ];
+
     return (
         <section
             id="experience"
             data-chapter-id="experience"
-            className="relative min-h-screen py-24 px-4 sm:px-6 lg:px-12 bg-[#0c0c0c] text-white border-t border-neutral-800/80"
+            className="relative min-h-screen py-24 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#0c0c0c] text-neutral-900 dark:text-white border-t border-neutral-200 dark:border-neutral-800/80 transition-colors duration-200"
         >
             {/* Ambient Lighting */}
             <div className="absolute inset-0 pointer-events-none opacity-30">
@@ -25,222 +32,246 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile })
 
             <div className="relative z-10 max-w-6xl mx-auto space-y-12">
                 {/* Section Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-800/80 pb-8">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-200 dark:border-neutral-800/80 pb-8">
                     <div className="space-y-3">
                         <div className="flex items-center gap-3">
                             <span className="text-xs font-mono text-[#ff1744] font-bold tracking-widest uppercase px-2.5 py-1 rounded bg-[#ff1744]/10 border border-[#ff1744]/30">
-                                Chapter 01
+                                Chapter 03
                             </span>
                             <span className="text-xs font-mono text-neutral-500 uppercase tracking-wider">
                                 Track Record & Impact
                             </span>
                         </div>
-                        <h2 className="text-3xl sm:text-5xl font-extrabold text-neutral-100 tracking-tight">
+                        <h2 className="text-3xl sm:text-5xl font-extrabold text-neutral-900 dark:text-neutral-100 tracking-tight">
                             Professional Experience
                         </h2>
-                        <p className="text-neutral-400 max-w-2xl text-sm sm:text-base leading-relaxed">
+                        <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl text-sm sm:text-base leading-relaxed">
                             Engineering production-grade software platforms with high-concurrency architectures, 
-                            locked 60 FPS interactions, and millions of active end-users worldwide.
+                            fluid micro-interactions, and millions of active end-users worldwide.
                         </p>
                     </div>
 
-                    {/* View Switcher */}
-                    <div className="flex items-center p-1 bg-neutral-900 border border-neutral-800 rounded-xl self-start md:self-auto">
-                        <button
-                            onClick={() => setActiveTab("career")}
-                            className={`px-4 py-2 rounded-lg text-xs font-mono transition-all flex items-center gap-2 ${
-                                activeTab === "career"
-                                    ? "bg-neutral-800 text-white font-semibold shadow-sm border border-neutral-700/50"
-                                    : "text-neutral-400 hover:text-neutral-200"
-                            }`}
-                        >
-                            <span className="w-2 h-2 rounded-full bg-[#ff1744]" />
-                            Industry Career
-                        </button>
-                        <button
-                            onClick={() => setActiveTab("education")}
-                            className={`px-4 py-2 rounded-lg text-xs font-mono transition-all flex items-center gap-2 ${
-                                activeTab === "education"
-                                    ? "bg-neutral-800 text-white font-semibold shadow-sm border border-neutral-700/50"
-                                    : "text-neutral-400 hover:text-neutral-200"
-                            }`}
-                        >
-                            <span className="w-2 h-2 rounded-full bg-rose-400" />
-                            Academic Foundation
-                        </button>
+                    {/* View Switcher with Smooth Anchor Spring Pill */}
+                    <div
+                        className="relative flex items-center p-1 bg-stone-200/80 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 rounded-xl self-start md:self-auto gap-1"
+                        style={{ position: "relative" }}
+                    >
+                        {tabs.map((tab) => {
+                            const isSelected = activeTab === tab.id;
+                            const TabIcon = tab.Icon;
+                            return (
+                                <button
+                                    key={tab.id}
+                                    onClick={() => setActiveTab(tab.id)}
+                                    style={{
+                                        // @ts-ignore
+                                        anchorName: `--exp-tab-${tab.id}`,
+                                    }}
+                                    className={`relative z-10 px-4 py-2 rounded-lg text-xs font-mono transition-colors flex items-center gap-2 ${
+                                        isSelected
+                                            ? "text-neutral-900 dark:text-white font-semibold"
+                                            : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
+                                    }`}
+                                >
+                                    {isSelected && (
+                                        <motion.div
+                                            layoutId="exp-active-tab-pill"
+                                            className="absolute inset-0 bg-white dark:bg-neutral-800 rounded-lg shadow-craft-card ring-1 ring-black/[0.04] dark:ring-0 -z-10"
+                                            transition={{
+                                                type: "spring",
+                                                stiffness: 450,
+                                                damping: 32,
+                                            }}
+                                        />
+                                    )}
+                                    <TabIcon className={`w-3.5 h-3.5 ${isSelected ? "text-[#ff1744]" : "text-neutral-500"}`} />
+                                    <span>{tab.label}</span>
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
 
-                {/* Content Panel: Career */}
-                {activeTab === "career" && (
-                    <div className="space-y-10 animate-in fade-in duration-300">
-                        {experiences.map((exp: WorkExperience) => (
-                            <div
-                                key={exp.id}
-                                className="rounded-2xl border border-neutral-800 bg-neutral-900/60 backdrop-blur-md p-6 sm:p-10 space-y-8 shadow-xl"
-                            >
-                                {/* Role & Company Header */}
-                                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-neutral-800/80 pb-6">
-                                    <div className="space-y-1.5">
-                                        <div className="flex items-center gap-2 flex-wrap">
-                                            <h3 className="text-2xl font-bold text-white tracking-tight">
-                                                {exp.role}
-                                            </h3>
-                                            <span className="text-neutral-600 font-mono">@</span>
-                                            <a
-                                                href={exp.website}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="text-xl font-bold text-[#ff1744] hover:text-rose-400 transition-colors inline-flex items-center gap-1"
-                                            >
-                                                {exp.company}
-                                                <span className="text-xs">↗</span>
-                                            </a>
+                {/* Content Panel with AnimatePresence */}
+                <AnimatePresence mode="wait">
+                    {activeTab === "career" ? (
+                        <motion.div
+                            key="career"
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.22, ease: "easeInOut" }}
+                            className="space-y-10"
+                        >
+                            {experiences.map((exp: WorkExperience) => (
+                                <div
+                                    key={exp.id}
+                                    className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 backdrop-blur-md p-6 sm:p-10 space-y-8 shadow-craft-card ring-1 ring-black/[0.04] dark:ring-0 dark:shadow-xl"
+                                >
+                                    {/* Role & Company Header */}
+                                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-neutral-200 dark:border-neutral-800/80 pb-6">
+                                        <div className="space-y-1.5">
+                                            <div className="flex items-center gap-2 flex-wrap">
+                                                <h3 className="text-2xl font-bold text-neutral-900 dark:text-white tracking-tight">
+                                                    {exp.role}
+                                                </h3>
+                                                <span className="text-neutral-400 dark:text-neutral-600 font-mono">@</span>
+                                                <a
+                                                    href={exp.website}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="text-xl font-bold text-[#ff1744] hover:text-rose-500 transition-colors inline-flex items-center gap-1.5"
+                                                >
+                                                    <span>{exp.company}</span>
+                                                    <ExternalLink className="w-3.5 h-3.5" />
+                                                </a>
+                                            </div>
+                                            <p className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
+                                                {exp.department} · {exp.location}
+                                            </p>
                                         </div>
-                                        <p className="text-sm font-mono text-neutral-400">
-                                            {exp.department} · {exp.location}
-                                        </p>
+
+                                        <div className="flex items-center gap-3">
+                                            <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-mono font-medium">
+                                                {exp.period}
+                                            </span>
+                                        </div>
                                     </div>
 
-                                    <div className="flex items-center gap-3">
-                                        <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-medium">
-                                            {exp.period}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {/* Core Products Worked On */}
-                                <div className="space-y-4">
-                                    <h4 className="text-xs font-mono text-neutral-400 uppercase tracking-wider font-semibold">
-                                        Primary Products Engineered
-                                    </h4>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {exp.products.map((product) => (
-                                            <div
-                                                key={product.name}
-                                                className="p-5 rounded-xl bg-neutral-950/80 border border-neutral-800 hover:border-neutral-700 transition-all flex flex-col justify-between space-y-3 group"
-                                            >
-                                                <div className="space-y-2">
+                                    {/* Core Products Worked On */}
+                                    <div className="space-y-4">
+                                        <h4 className="text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-semibold">
+                                            Primary Products Engineered
+                                        </h4>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {exp.products.map((product) => (
+                                                <div
+                                                    key={product.name}
+                                                    className="p-5 rounded-xl bg-white dark:bg-neutral-950/60 border border-neutral-200 dark:border-neutral-800/80 space-y-2 hover:border-[#ff1744]/40 transition-all duration-200 shadow-craft-subtle hover:shadow-craft-card ring-1 ring-black/[0.03] dark:ring-0"
+                                                >
                                                     <div className="flex items-center justify-between">
-                                                        <h5 className="font-bold text-neutral-100 text-base group-hover:text-[#ff1744] transition-colors">
+                                                        <span className="text-sm font-bold text-neutral-900 dark:text-neutral-100">
                                                             {product.name}
-                                                        </h5>
+                                                        </span>
                                                         <a
                                                             href={product.url}
                                                             target="_blank"
                                                             rel="noreferrer"
-                                                            className="text-xs font-mono text-neutral-400 hover:text-white px-2 py-1 rounded bg-neutral-900 border border-neutral-800"
+                                                            className="text-xs font-mono text-[#ff1744] hover:text-rose-500 transition-colors inline-flex items-center gap-1"
                                                         >
-                                                            Visit Live ↗
+                                                            <span>Live Product</span>
+                                                            <ExternalLink className="w-3 h-3" />
                                                         </a>
                                                     </div>
-                                                    <p className="text-xs text-neutral-400 leading-relaxed">
+                                                    <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                                                         {product.roleNote}
                                                     </p>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Responsibilities & Impact */}
+                                    <div className="space-y-4">
+                                        <h4 className="text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-semibold">
+                                            Architectural Scope & Deliverables
+                                        </h4>
+                                        <ul className="space-y-3">
+                                            {exp.achievements.map((resp, idx) => (
+                                                <li key={idx} className="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-3">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] mt-2 shrink-0" />
+                                                    <span className="leading-relaxed">{resp}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    {/* Tech Stack Chips */}
+                                    <div className="space-y-3 pt-2 border-t border-neutral-200 dark:border-neutral-800/80">
+                                        <h4 className="text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-semibold">
+                                            Production Technologies Utilized
+                                        </h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {exp.technologies.map((tech, idx) => (
+                                                <span
+                                                    key={idx}
+                                                    className="px-3 py-1 rounded-lg text-xs font-mono bg-stone-100 dark:bg-neutral-950 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-800"
+                                                >
+                                                    {tech}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
-
-                                {/* Key Responsibilities & Achievements */}
-                                <div className="space-y-4">
-                                    <h4 className="text-xs font-mono text-neutral-400 uppercase tracking-wider font-semibold">
-                                        Key Engineering Contributions
-                                    </h4>
-                                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-neutral-300">
-                                        {exp.achievements.map((item, idx) => (
-                                            <li
-                                                key={idx}
-                                                className="flex items-start gap-2.5 p-3 rounded-lg bg-neutral-950/40 border border-neutral-800/60"
-                                            >
-                                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] mt-2 shrink-0" />
-                                                <span className="leading-relaxed">{item}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-
-                                {/* Technologies Used */}
-                                <div className="space-y-3 border-t border-neutral-800/80 pt-6">
-                                    <h4 className="text-xs font-mono text-neutral-400 uppercase tracking-wider font-semibold">
-                                        Technologies & Tooling
-                                    </h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {exp.technologies.map((tech) => (
-                                            <span
-                                                key={tech}
-                                                className="px-3 py-1 rounded-md bg-neutral-950 border border-neutral-800 text-xs font-mono text-neutral-300"
-                                            >
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                {/* Content Panel: Academic Foundation */}
-                {activeTab === "education" && (
-                    <div className="animate-in fade-in duration-300">
-                        <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 backdrop-blur-md p-6 sm:p-10 space-y-6 shadow-xl">
-                            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-neutral-800/80 pb-6">
+                            ))}
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key="education"
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.22, ease: "easeInOut" }}
+                            className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 backdrop-blur-md p-6 sm:p-10 space-y-8 shadow-craft-card ring-1 ring-black/[0.04] dark:ring-0 dark:shadow-xl"
+                        >
+                            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-neutral-200 dark:border-neutral-800/80 pb-6">
                                 <div className="space-y-1.5">
+                                    <h3 className="text-2xl font-bold text-neutral-900 dark:text-white tracking-tight">
+                                        {education.degree}
+                                    </h3>
                                     <div className="flex items-center gap-2 flex-wrap">
-                                        <h3 className="text-2xl font-bold text-white tracking-tight">
-                                            {education.degree}
-                                        </h3>
-                                        <span className="text-neutral-500">in</span>
-                                        <span className="text-xl font-bold text-[#ff1744]">
+                                        <span className="text-neutral-600 dark:text-neutral-400 font-medium">
+                                            {education.institute}
+                                        </span>
+                                        <span className="text-neutral-400 dark:text-neutral-600 font-mono">·</span>
+                                        <span className="text-neutral-500 font-mono text-sm">
                                             {education.department}
                                         </span>
                                     </div>
-                                    <a
-                                        href={education.link}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="text-base text-neutral-300 hover:text-white inline-flex items-center gap-1.5 transition-colors"
-                                    >
-                                        <span>{education.institute} ({education.shortInstitute})</span>
-                                        <span className="text-xs text-neutral-500">↗</span>
-                                    </a>
                                 </div>
 
                                 <div className="flex items-center gap-3">
                                     <span className="px-3 py-1 rounded-full bg-[#ff1744]/10 text-[#ff1744] border border-[#ff1744]/30 text-xs font-mono font-medium">
-                                        {education.period} · {education.status}
+                                        {education.period}
                                     </span>
                                 </div>
                             </div>
 
                             <div className="space-y-4">
-                                <h4 className="text-xs font-mono text-neutral-400 uppercase tracking-wider font-semibold">
-                                    Curriculum & Rigor
+                                <h4 className="text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-semibold">
+                                    Coursework & Academic Highlights
                                 </h4>
-                                <p className="text-sm text-neutral-300 leading-relaxed max-w-3xl">
-                                    Comprehensive engineering curriculum covering Data Structures & Algorithms, Object-Oriented Analysis, 
-                                    Distributed Database Systems, Operating Systems, Computer Networks, and High-Performance Software Architecture.
-                                </p>
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                                    <div className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 text-xs font-mono text-neutral-300 space-y-1">
-                                        <div className="text-neutral-500 uppercase">Specialization</div>
-                                        <div className="font-bold text-white">Full Stack & Web Architecture</div>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 text-xs font-mono text-neutral-300 space-y-1">
-                                        <div className="text-neutral-500 uppercase">Core Focus</div>
-                                        <div className="font-bold text-white">Systems Design & Algorithms</div>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 text-xs font-mono text-neutral-300 space-y-1">
-                                        <div className="text-neutral-500 uppercase">Graduation Status</div>
-                                        <div className="font-bold text-emerald-400">Verified Alumni</div>
-                                    </div>
-                                </div>
+                                <ul className="space-y-3">
+                                    {[
+    "Rigorous four-year curriculum covering Distributed Systems, Algorithms, Data Structures, and Software Architecture.",
+    "Specialized in high-performance web systems, reactive programming paradigms, and compiler theory.",
+    "Graduated from prestigious SUST CSE department with strong foundation in core computer science."
+  ].map((highlight, idx) => (
+                                        <li key={idx} className="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-3">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] mt-2 shrink-0" />
+                                            <span className="leading-relaxed">{highlight}</span>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                )}
+
+                            <div className="pt-2 border-t border-neutral-200 dark:border-neutral-800/80 flex items-center justify-between">
+                                <span className="text-xs font-mono text-neutral-500">
+                                    Institution Location: {education.location}
+                                </span>
+                                <a
+                                    href={education.link}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-xs font-mono text-[#ff1744] hover:text-rose-500 transition-colors inline-flex items-center gap-1.5 font-semibold"
+                                >
+                                    <span>Official University Portal</span>
+                                    <ExternalLink className="w-3 h-3" />
+                                </a>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </section>
     );

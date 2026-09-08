@@ -2,6 +2,7 @@ import { siteConfig } from "@/config/site";
 import { Link } from "@nextui-org/link";
 import { Tooltip } from "@nextui-org/tooltip";
 import React from "react";
+import { Heart } from "lucide-react";
 import {
     EmailIcon,
     FacebookIcon,
@@ -71,12 +72,14 @@ const Footer: React.FC = async () => {
 
             <Link
                 isExternal
-                className="flex items-center gap-1 text-current"
+                className="flex items-center gap-1.5 text-current text-sm"
                 href="https://github.com/b-l-i-n-d"
                 title="Github Profile"
             >
-                <span className="text-default-600">Made with ❤️ | </span>
-                <p className="text-primary">Fahim Faisal</p>
+                <span className="text-default-600 flex items-center gap-1">
+                    Made with <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 inline" /> |
+                </span>
+                <p className="text-primary font-medium">Fahim Faisal</p>
             </Link>
         </footer>
     );

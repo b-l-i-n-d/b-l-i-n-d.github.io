@@ -43,9 +43,8 @@ export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         if (typeof window === "undefined") return;
 
         const handleIntersection: IntersectionObserverCallback = (entries) => {
-            // Find highest intersecting entry
             let bestEntry: IntersectionObserverEntry | null = null;
-            let maxRatio = 0.2; // minimum threshold
+            let maxRatio = 0.2;
 
             entries.forEach((entry) => {
                 const target = entry.target as HTMLElement;
@@ -68,7 +67,6 @@ export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                 const target = (bestEntry as IntersectionObserverEntry).target as HTMLElement;
                 const bestId = target.dataset.videoId;
                 if (bestId && bestId !== activeVideoId) {
-                    // Pause previous video
                     if (activeVideoId) {
                         const prevEl = videosRef.current.get(activeVideoId);
                         if (prevEl && "pause" in prevEl && typeof prevEl.pause === "function") {
@@ -76,12 +74,9 @@ export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                         }
                     }
                     setActiveVideoId(bestId);
-                    // Play the new best video if reduced motion is not forced
                     const nextEl = videosRef.current.get(bestId);
                     if (nextEl && "play" in nextEl && typeof nextEl.play === "function") {
-                        nextEl.play().catch(() => {
-                            // Autoplay policy prevented playback; safely handle
-                        });
+                        nextEl.play().catch(() => {});
                     }
                 }
             }
@@ -93,7 +88,6 @@ export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         });
         observerRef.current = observer;
 
-        // Observe registered elements
         videosRef.current.forEach((element) => {
             observer.observe(element);
         });
@@ -119,32 +113,86 @@ export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         }
     }, []);
 
-    // Track active chapter as user scrolls
+    // Highly accurate, continuous scroll-based chapter tracking
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        const chapterObserver = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const chapterId = (entry.target as HTMLElement).dataset.chapterId;
-                        if (chapterId) {
-                            setActiveChapter(chapterId);
-                        }
-                    }
-                });
-            },
-            {
-                threshold: 0.3,
-                rootMargin: "-20% 0px -50% 0px",
-            }
-        );
+        let ticking = false;
 
-        const chapterElements = document.querySelectorAll("[data-chapter-id]");
-        chapterElements.forEach((el) => chapterObserver.observe(el));
+        const updateActiveChapterOnScroll = () => {
+            const chapterElements = Array.from(
+                document.querySelectorAll<HTMLElement>("[data-chapter-id]")
+            );
+
+            if (chapterElements.length === 0) return;
+
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const fullDocHeight = document.documentElement.scrollHeight;
+
+            // Handle very top
+            if (scrollY < 80) {
+                const firstId = chapterElements[0].dataset.chapterId;
+                if (firstId) setActiveChapter(firstId);
+                return;
+            }
+
+            // Handle very bottom
+            if (scrollY + windowHeight >= fullDocHeight - 80) {
+                const lastId = chapterElements[chapterElements.length - 1].dataset.chapterId;
+                if (lastId) setActiveChapter(lastId);
+                return;
+            }
+
+            // Focus point at 38% from top of viewport
+            const targetFocusY = windowHeight * 0.38;
+
+            let currentId: string | null = null;
+            let closestDistance = Infinity;
+
+            for (const el of chapterElements) {
+                const rect = el.getBoundingClientRect();
+                const chapterId = el.dataset.chapterId;
+                if (!chapterId) continue;
+
+                // Check if target focus point is inside this element
+                if (rect.top <= targetFocusY && rect.bottom >= targetFocusY) {
+                    currentId = chapterId;
+                    break;
+                }
+
+                // Fallback: find element whose center is closest to focus point
+                const center = (rect.top + rect.bottom) / 2;
+                const dist = Math.abs(center - targetFocusY);
+                if (dist < closestDistance) {
+                    closestDistance = dist;
+                    currentId = chapterId;
+                }
+            }
+
+            if (currentId) {
+                setActiveChapter(currentId);
+            }
+        };
+
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateActiveChapterOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        window.addEventListener("resize", handleScroll, { passive: true });
+        // Initial run
+        updateActiveChapterOnScroll();
 
         return () => {
-            chapterObserver.disconnect();
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleScroll);
         };
     }, []);
 
