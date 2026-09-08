@@ -54,7 +54,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                             <button
                                 key={chapter.id}
                                 onClick={() => scrollToChapter(chapter.id)}
-                                className="group relative flex items-center justify-center p-1 focus:outline-none"
+                                className="group relative flex items-center justify-center w-6 h-6 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
                                 aria-label={`Jump to chapter ${chapter.number}: ${chapter.title}`}
                             >
                                 {/* Tooltip label on hover */}
@@ -107,7 +107,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                                 key={chapter.id}
                                 onClick={() => scrollToChapter(chapter.id)}
                                 aria-label={`Scroll to ${chapter.title}`}
-                                className="p-1 focus:outline-none"
+                                className="w-6 h-6 flex items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
                             >
                                 <motion.div
                                     layout

@@ -36,7 +36,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                             Biography &amp; Profile
                         </span>
                     </div>
-                    <span className="text-xs sm:text-sm text-neutral-500 hidden sm:inline font-mono">
+                    <span className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 hidden sm:inline font-mono">
                         Dhaka, Bangladesh &middot; 2024 to Present
                     </span>
                 </div>
@@ -52,7 +52,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                                 alt={profile.name}
                                 fill
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 384px"
-                                priority
+                                loading="lazy"
                                 className="object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                             />
                             {/* Gradient Vignette */}
@@ -79,7 +79,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                                 <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)] shrink-0" />
                                 Available for Senior Roles
                             </span>
-                            <span className="text-neutral-500 font-medium shrink-0">Full-Time / Lead</span>
+                            <span className="text-neutral-600 dark:text-neutral-400 font-medium shrink-0">Full-Time / Lead</span>
                         </div>
                     </div>
 
@@ -92,7 +92,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                             </h3>
                             <p className="text-sm sm:text-base leading-relaxed text-neutral-700 dark:text-neutral-300 max-w-[65ch]">
                                 I am <strong className="chroma-text font-black text-lg">Abir</strong>{" "}
-                                <span className="text-neutral-500 text-sm">(Fahim Faisal)</span>, a Software Engineer with a B.Sc. in Software Engineering from{" "}
+                                <span className="text-neutral-600 dark:text-neutral-400 text-sm">(Fahim Faisal)</span>, a Software Engineer with a B.Sc. in Software Engineering from{" "}
                                 <strong className="text-neutral-900 dark:text-white font-semibold">
                                     Shahjalal University of Science and Technology (SUST)
                                 </strong>
@@ -201,7 +201,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                                             </span>
                                             <span className="text-[11px] font-script text-[#ff1744]">promoted</span>
                                         </div>
-                                        <p className="text-xs text-neutral-500 leading-relaxed">
+                                        <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                                             Continuous lesson player, dynamic quiz engines &amp; locked 60 FPS compositor motion.
                                         </p>
                                     </div>
@@ -226,7 +226,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                                             </span>
                                             <span className="text-[10px] font-mono text-neutral-400">Joined Ollyo</span>
                                         </div>
-                                        <p className="text-xs text-neutral-500 leading-relaxed">
+                                        <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                                             Tutor LMS 2.0 component library, state machine reducers &amp; course builder cockpit.
                                         </p>
                                     </div>

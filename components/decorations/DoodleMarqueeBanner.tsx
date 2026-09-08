@@ -61,7 +61,7 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
                                 width={600}
                                 height={56}
                                 className="h-14 w-[600px] object-contain object-center filter dark:brightness-110 contrast-125"
-                                priority={idx < 2}
+                                loading="lazy"
                             />
                         </div>
                     );

@@ -36,7 +36,7 @@ export const portfolioData: EngineerProfile = {
         badge: "PRODUCTION RELEASE",
         videoUrl: "https://tutorlms.com/wp-content/uploads/2026/07/home-hero-student-4.mp4",
         secondaryVideoUrl: "https://tutorlms.com/wp-content/uploads/2026/07/home-hero-instructor-3.mp4",
-        posterUrl: "https://tutorlms.com/wp-content/uploads/2026/07/Tutor-LMS-Learning-Experience-dashboard-with-course-modules-Classic-Mode.webp",
+        posterUrl: "/assets/hero-poster.webp",
         runtime: "02:45",
         framerate: "60 FPS",
         productTitle: "Tutor LMS by Themeum / Ollyo",
@@ -704,6 +704,7 @@ export async function reserveAppointmentSlot(req: Request, res: Response) {
     location: "Dhaka, Bangladesh",
     contact: {
         email: "fahim.faisal.abir@gmail.com",
+        locationMap: "https://maps.google.com/?q=Dhaka,Bangladesh",
         github: "https://github.com/b-l-i-n-d",
         linkedin: "https://www.linkedin.com/in/b-l-i-n-d/",
         cvUrl: "/assets/cv.pdf",

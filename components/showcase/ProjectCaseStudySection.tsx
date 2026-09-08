@@ -64,7 +64,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                         <span className="text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-300">
                             Engineering Case Study
                         </span>
-                        <span className="text-xs sm:text-sm text-neutral-500 font-mono">
+                        <span className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 font-mono">
                             {project.stats?.[0]?.value || ""}
                         </span>
                     </div>
@@ -92,7 +92,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                                         rel="noreferrer"
                                         className="px-4 py-2 rounded-xl bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-black/[0.08] dark:border-white/[0.10] text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 group shrink-0"
                                     >
-                                        <GithubIcon className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[#ff1744] transition-colors shrink-0" />
+                                        <GithubIcon className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-[#ff1744] transition-colors shrink-0" />
                                         <span>GitHub</span>
                                     </a>
                                 )
@@ -131,7 +131,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                             key={idx}
                             className="p-3.5 rounded-xl bg-white dark:bg-neutral-900/60 border border-black/[0.04] dark:border-white/[0.06] flex flex-col justify-center shadow-sm hover:shadow-craft-card transition-all duration-150"
                         >
-                            <span className="text-xs sm:text-sm text-neutral-500 font-medium">
+                            <span className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 font-medium">
                                 {stat.label}
                             </span>
                             <span className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-neutral-200 mt-0.5">
@@ -197,7 +197,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                                         />
                                     )}
 
-                                    <TabIcon className={`w-4 h-4 shrink-0 ${isSelected ? "text-[#ff1744]" : "text-neutral-500"}`} />
+                                    <TabIcon className={`w-4 h-4 shrink-0 ${isSelected ? "text-[#ff1744]" : "text-neutral-600 dark:text-neutral-400"}`} />
                                     <span>{tab.label}</span>
                                 </button>
                             );

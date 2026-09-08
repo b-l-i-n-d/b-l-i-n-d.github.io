@@ -42,7 +42,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                     </div>
 
                     {/* Quick Metadata Pill Strip */}
-                    <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-500">
+                    <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-600 dark:text-neutral-400">
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.05] dark:border-white/[0.06]">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                             <span className="text-neutral-700 dark:text-neutral-300 font-medium">Available for Senior Roles</span>
@@ -91,7 +91,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                                         Off-Duty // Tactical Gaming &amp; High-Tick Reflexes
                                     </h3>
                                 </div>
-                                <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">
+                                <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-400 uppercase tracking-wider">
                                     Sub-140ms Reaction
                                 </span>
                             </div>
@@ -138,7 +138,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                                             <h4 className="text-sm font-bold text-neutral-900 dark:text-neutral-100">
                                                 Chase
                                             </h4>
-                                            <span className="text-[11px] font-mono text-neutral-400 dark:text-neutral-500">
+                                            <span className="text-[11px] font-mono text-neutral-400 dark:text-neutral-400">
                                                 Kinetic Flow &bull; Pursuit
                                             </span>
                                         </div>
@@ -158,7 +158,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                         {/* Section 2C: Direct Action / Contact (Tactile Emil Kowalski Buttons, No Copy Button) */}
                         <div className="pt-8 border-t border-black/[0.06] dark:border-white/[0.08] space-y-4">
                             <div className="flex items-center justify-between">
-                                <span className="text-xs font-mono font-semibold uppercase tracking-widest text-neutral-500">
+                                <span className="text-xs font-mono font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400">
                                     Direct Channels
                                 </span>
                                 <span className="text-[11px] font-mono text-neutral-400">
@@ -248,7 +248,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                                     <span>{profile.name}</span>
                                     <span className="text-xs text-neutral-400 font-normal font-mono">(Abir)</span>
                                 </h3>
-                                <p className="text-xs text-neutral-500 font-mono">
+                                <p className="text-xs text-neutral-500 dark:text-neutral-400 font-mono">
                                     Core SWE &bull; Ollyo / Tutor LMS
                                 </p>
                             </div>
@@ -256,7 +256,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
 
                         {/* Credentials & Location Rows (Clean Metadata, No Heavy Nested Boxes) */}
                         <div className="space-y-4">
-                            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-neutral-500 block">
+                            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 block">
                                 Credentials &amp; Location
                             </span>
 
@@ -272,7 +272,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                                             {profile.education.period}
                                         </span>
                                     </div>
-                                    <p className="text-xs text-neutral-500">
+                                    <p className="text-xs text-neutral-600 dark:text-neutral-400">
                                         {profile.education.institute}
                                     </p>
                                     <a
@@ -294,7 +294,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                                     <span>{profile.location}</span>
                                 </div>
                                 <a
-                                    href={profile.contact.locationMap}
+                                    href={profile.contact.locationMap || "https://maps.google.com/?q=Dhaka,Bangladesh"}
                                     target="_blank"
                                     rel="noreferrer"
                                     className="text-xs text-neutral-400 hover:text-[#ff1744] transition-colors inline-flex items-center gap-1 font-mono"
@@ -308,7 +308,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                         {/* Technical Taxonomy & Competencies (Clean Typographic Hierarchy, No Boxy Cards) */}
                         <div className="space-y-6 pt-4 border-t border-black/[0.06] dark:border-white/[0.08]">
                             <div className="flex items-center justify-between">
-                                <span className="text-xs font-mono font-semibold uppercase tracking-widest text-neutral-500">
+                                <span className="text-xs font-mono font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400">
                                     Technical Taxonomy
                                 </span>
                                 <span className="text-[10px] font-mono text-neutral-400">

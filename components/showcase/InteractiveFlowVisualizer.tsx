@@ -705,7 +705,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                                     ? "bg-[#ff1744] text-white shadow-[0_0_8px_rgba(255,23,68,0.8)]"
                                                     : isPassed
                                                     ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
-                                                    : "bg-neutral-200 dark:bg-neutral-800 text-neutral-500"
+                                                    : "bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
                                             }`}
                                         >
                                             {step.number}
@@ -721,7 +721,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                         <span className="text-xs font-semibold block truncate text-neutral-900 dark:text-white">
                                             {step.title}
                                         </span>
-                                        <span className="text-[10px] text-neutral-500 font-mono block truncate mt-0.5">
+                                        <span className="text-[10px] text-neutral-600 dark:text-neutral-400 font-mono block truncate mt-0.5">
                                             {step.tech}
                                         </span>
                                     </div>
@@ -800,7 +800,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
 
                                     <div className="grid grid-cols-2 gap-3">
                                         <div className="p-3 rounded-xl bg-stone-50 dark:bg-neutral-800/60 border border-black/[0.04] dark:border-white/[0.04]">
-                                            <span className="text-[10px] uppercase font-mono text-neutral-500 block">
+                                            <span className="text-[10px] uppercase font-mono text-neutral-600 dark:text-neutral-400 block">
                                                 Latency
                                             </span>
                                             <span className="text-base font-bold text-neutral-900 dark:text-white font-mono mt-0.5 block">
@@ -808,7 +808,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                             </span>
                                         </div>
                                         <div className="p-3 rounded-xl bg-stone-50 dark:bg-neutral-800/60 border border-black/[0.04] dark:border-white/[0.04]">
-                                            <span className="text-[10px] uppercase font-mono text-neutral-500 block">
+                                            <span className="text-[10px] uppercase font-mono text-neutral-600 dark:text-neutral-400 block">
                                                 Throughput
                                             </span>
                                             <span className="text-base font-bold text-neutral-900 dark:text-white font-mono mt-0.5 block">
@@ -819,7 +819,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
 
                                     <div className="pt-2 border-t border-black/[0.04] dark:border-white/[0.06]">
                                         <div className="flex items-center justify-between text-xs">
-                                            <span className="text-neutral-500">Node Status:</span>
+                                            <span className="text-neutral-600 dark:text-neutral-400">Node Status:</span>
                                             <span className="font-mono font-semibold text-emerald-500 flex items-center gap-1.5">
                                                 <Check className="w-3 h-3" />
                                                 Active & Synchronized
@@ -918,7 +918,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                     className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition-colors ${
                                         Math.abs(zoom - level) < 0.1
                                             ? "bg-[#ff1744] text-white font-bold"
-                                            : "text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
+                                            : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
                                     }`}
                                 >
                                     {Math.round(level * 100)}%
@@ -932,7 +932,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                             <div className="text-rose-500 font-semibold text-sm">
                                 Mermaid Diagram Rendering Notice
                             </div>
-                            <p className="text-xs text-neutral-500 max-w-md mx-auto font-mono">
+                            <p className="text-xs text-neutral-600 dark:text-neutral-400 max-w-md mx-auto font-mono">
                                 {renderError}
                             </p>
                             <button

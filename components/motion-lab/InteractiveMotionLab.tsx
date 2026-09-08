@@ -37,7 +37,7 @@ export const InteractiveMotionLab: React.FC<InteractiveMotionLabProps> = ({ expe
                         </p>
                     </div>
 
-                    <div className="text-xs sm:text-sm font-mono text-neutral-500">
+                    <div className="text-xs sm:text-sm font-mono text-neutral-600 dark:text-neutral-400">
                         {experiments.length} Experimental Prototypes
                     </div>
                 </div>
@@ -66,14 +66,14 @@ export const InteractiveMotionLab: React.FC<InteractiveMotionLabProps> = ({ expe
                                             <span className="text-xs font-mono text-[#ff1744] font-semibold uppercase tracking-wider">
                                                 {item.category}
                                             </span>
-                                            <span className="text-xs font-mono text-neutral-500">
+                                            <span className="text-xs font-mono text-neutral-600 dark:text-neutral-400">
                                                 Hardware Accelerated
                                             </span>
                                         </div>
                                         <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-[#ff1744] transition-colors">
                                             {item.title}
                                         </h3>
-                                        <p className="text-xs sm:text-sm font-mono text-neutral-500">
+                                        <p className="text-xs sm:text-sm font-mono text-neutral-600 dark:text-neutral-400">
                                             {item.tagline}
                                         </p>
                                     </div>

@@ -53,7 +53,7 @@ export const Footer: React.FC = () => {
                         isExternal
                         href={siteConfig.links.github}
                         aria-label="GitHub"
-                        className="text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors shrink-0 p-1"
+                        className="text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors shrink-0 p-1"
                     >
                         <GithubIcon className="w-5 h-5 shrink-0" />
                     </Link>
@@ -63,7 +63,7 @@ export const Footer: React.FC = () => {
                         isExternal
                         href={siteConfig.links.linkedin}
                         aria-label="LinkedIn"
-                        className="text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors shrink-0 p-1"
+                        className="text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors shrink-0 p-1"
                     >
                         <LinkedinIcon className="w-5 h-5 shrink-0" />
                     </Link>
@@ -73,7 +73,7 @@ export const Footer: React.FC = () => {
                         isExternal
                         href={siteConfig.links.mail}
                         aria-label="Email"
-                        className="text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors shrink-0 p-1"
+                        className="text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors shrink-0 p-1"
                     >
                         <EmailIcon className="w-5 h-5 shrink-0" />
                     </Link>
@@ -83,7 +83,7 @@ export const Footer: React.FC = () => {
                         isExternal
                         href={siteConfig.links.twitter}
                         aria-label="X"
-                        className="text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors shrink-0 p-1"
+                        className="text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors shrink-0 p-1"
                     >
                         <TwitterIcon className="w-5 h-5 shrink-0" />
                     </Link>
@@ -96,7 +96,7 @@ export const Footer: React.FC = () => {
                 <span className="text-neutral-300 dark:text-neutral-700 shrink-0">•</span>
                 <span>Software Engineer at Ollyo</span>
                 <span className="text-neutral-300 dark:text-neutral-700 shrink-0">•</span>
-                <span className="text-neutral-400 dark:text-neutral-500 font-mono">B.Sc. in SWE from SUST</span>
+                <span className="text-neutral-600 dark:text-neutral-400 font-mono">B.Sc. in SWE from SUST</span>
             </div>
         </footer>
     );

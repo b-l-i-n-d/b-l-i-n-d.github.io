@@ -159,7 +159,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                     </h2>
                 </div>
 
-                <div className="text-xs sm:text-sm font-mono text-neutral-500">
+                <div className="text-xs sm:text-sm font-mono text-neutral-600 dark:text-neutral-400">
                     {items.length} Interactive Specifications
                 </div>
             </div>
@@ -183,7 +183,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                         >
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-xs sm:text-sm font-mono text-neutral-500 group-hover:text-[#ff1744] transition-colors font-bold">
+                                    <span className="text-xs sm:text-sm font-mono text-neutral-600 dark:text-neutral-400 group-hover:text-[#ff1744] transition-colors font-bold">
                                         #{item.number}
                                     </span>
                                     <div className="flex items-center gap-1.5 flex-wrap">
@@ -339,7 +339,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                                             <button
                                                 type="button"
                                                 onClick={handleClose}
-                                                className="p-1.5 rounded-lg text-neutral-500 hover:text-neutral-900 dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors cursor-pointer shrink-0"
+                                                className="p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors cursor-pointer shrink-0"
                                                 aria-label="Close modal"
                                             >
                                                 <X className="w-5 h-5 shrink-0" />
@@ -397,7 +397,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
 
                                             {/* Architectural / Engineering Highlights */}
                                             <div className="space-y-2">
-                                                <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 block font-semibold">
+                                                <span className="text-xs font-mono uppercase tracking-wider text-neutral-600 dark:text-neutral-400 block font-semibold">
                                                     Technical Specifications
                                                 </span>
                                                 <div className="space-y-1.5">
@@ -415,7 +415,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
 
                                             {/* Tech Stack */}
                                             <div className="space-y-2.5">
-                                                <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 block font-semibold">
+                                                <span className="text-xs font-mono uppercase tracking-wider text-neutral-600 dark:text-neutral-400 block font-semibold">
                                                     Tech Stack
                                                 </span>
                                                 <div className="flex flex-wrap gap-1.5">
@@ -432,7 +432,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
 
                                             {/* Action Buttons & Shortcut Indicator */}
                                             <div className="flex flex-wrap items-center justify-between gap-3 pt-5 border-t border-black/[0.06] dark:border-white/[0.08]">
-                                                <span className="text-xs font-mono text-neutral-500">
+                                                <span className="text-xs font-mono text-neutral-600 dark:text-neutral-400">
                                                     Navigate: [<span className="text-neutral-700 dark:text-neutral-300">←</span>] [
                                                     <span className="text-neutral-700 dark:text-neutral-300">→</span>] &bull; Close: [
                                                     <span className="text-neutral-700 dark:text-neutral-300">Esc</span>]

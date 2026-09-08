@@ -268,7 +268,7 @@ export const TutorArchitectureGraph: React.FC = () => {
                     {/* Layer 1: Client Presentation Layer & Interactive Builders */}
                     <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                            <div className="text-xs font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                            <div className="text-xs font-mono text-neutral-600 dark:text-neutral-400 uppercase tracking-wider font-semibold">
                                 01 · Presentation & Builders
                             </div>
                             <span className="text-xs font-mono text-rose-500 font-bold shrink-0">4 Modules</span>
@@ -287,7 +287,7 @@ export const TutorArchitectureGraph: React.FC = () => {
                                         }`}
                                     >
                                         <div className="flex items-center justify-between">
-                                            <span className="text-xs font-mono px-2 py-0.5 rounded bg-rose-500/10 text-[#ff1744] font-semibold shrink-0">
+                                            <span className="text-xs font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-700 dark:text-rose-400 font-semibold shrink-0">
                                                 {node.badge}
                                             </span>
                                             {isSelected && (
@@ -306,7 +306,7 @@ export const TutorArchitectureGraph: React.FC = () => {
                     {/* Layer 2: Core Architecture, Tooling & Telemetry */}
                     <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                            <div className="text-xs font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                            <div className="text-xs font-mono text-neutral-600 dark:text-neutral-400 uppercase tracking-wider font-semibold">
                                 02 · Core Architecture & DX
                             </div>
                             <span className="text-xs font-mono text-emerald-500 font-bold shrink-0">4 Modules</span>
@@ -344,7 +344,7 @@ export const TutorArchitectureGraph: React.FC = () => {
                     {/* Layer 3: Type System, Caching & REST Gateway */}
                     <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                            <div className="text-xs font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                            <div className="text-xs font-mono text-neutral-600 dark:text-neutral-400 uppercase tracking-wider font-semibold">
                                 03 · Types, Caching & REST
                             </div>
                             <span className="text-xs font-mono text-sky-500 font-bold shrink-0">4 Modules</span>
@@ -427,7 +427,7 @@ export const TutorArchitectureGraph: React.FC = () => {
                     </p>
 
                     <div className="p-3 rounded-xl bg-stone-100/70 dark:bg-neutral-950 border border-black/[0.04] dark:border-white/[0.06] text-xs sm:text-sm font-mono flex flex-wrap items-center justify-between gap-2">
-                        <span className="text-neutral-500">Core PR Contribution:</span>
+                        <span className="text-neutral-600 dark:text-neutral-400">Core PR Contribution:</span>
                         <a
                             href={selectedNode.prUrl}
                             target="_blank"
@@ -440,7 +440,7 @@ export const TutorArchitectureGraph: React.FC = () => {
                     </div>
 
                     <div className="space-y-2 pt-2">
-                        <div className="text-xs font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                        <div className="text-xs font-mono text-neutral-600 dark:text-neutral-400 uppercase tracking-wider font-semibold">
                             Verified Production Commits (authored by Fahim Faisal / b-l-i-n-d):
                         </div>
                         <div className="space-y-1.5">

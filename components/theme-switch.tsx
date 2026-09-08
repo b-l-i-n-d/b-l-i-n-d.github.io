@@ -112,7 +112,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
                 )}
                 aria-label="Toggle theme"
             >
-                <div className="w-[22px] h-[22px] flex items-center justify-center text-neutral-500">
+                <div className="w-[22px] h-[22px] flex items-center justify-center text-neutral-600 dark:text-neutral-400">
                     <SunFilledIcon size={22} />
                 </div>
             </div>

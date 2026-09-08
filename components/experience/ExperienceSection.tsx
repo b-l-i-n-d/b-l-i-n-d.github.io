@@ -68,7 +68,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile, e
                                 className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
                                     isActive
                                         ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 shadow-sm"
-                                        : "text-neutral-500 hover:text-neutral-900 dark:hover:text-white hover:bg-black/[0.03] dark:hover:bg-white/[0.03]"
+                                        : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/[0.03] dark:hover:bg-white/[0.03]"
                                 }`}
                             >
                                 <Icon className="w-4 h-4 shrink-0" />
@@ -99,7 +99,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile, e
                                     } p-6 sm:p-8 space-y-6 transition-all duration-200 hover:border-black/[0.15] dark:hover:border-white/[0.2]`}
                                 >
                                     {isOllyo && (
-                                        <div className="absolute -top-3 left-6 sm:left-8 px-3 py-0.5 rounded-full bg-[#ff1744] text-white text-[11px] font-mono font-bold uppercase tracking-wider shadow-sm flex items-center gap-1.5">
+                                        <div className="absolute -top-3 left-6 sm:left-8 px-3 py-0.5 rounded-full bg-rose-700 dark:bg-rose-600 text-white text-[11px] font-mono font-bold uppercase tracking-wider shadow-sm flex items-center gap-1.5">
                                             <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                                             <span>Current Employer</span>
                                         </div>
@@ -233,7 +233,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile, e
                                     <p className="text-base text-neutral-600 dark:text-neutral-300 font-medium">
                                         {education.institution || "Shahjalal University of Science and Technology (SUST)"}
                                     </p>
-                                    <p className="text-xs sm:text-sm text-neutral-500">
+                                    <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
                                         {education.location || "Sylhet, Bangladesh"} &middot; Class of {education.period || "2018 – 2023"}
                                     </p>
                                 </div>

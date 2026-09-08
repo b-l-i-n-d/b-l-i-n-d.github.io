@@ -37,7 +37,16 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" suppressHydrationWarning className="scroll-smooth">
-            <head />
+            <head>
+                <link
+                    rel="preload"
+                    as="image"
+                    href="/assets/hero-poster.webp"
+                    type="image/webp"
+                    // @ts-expect-error fetchpriority is supported in modern browsers
+                    fetchpriority="high"
+                />
+            </head>
             <body
                 suppressHydrationWarning
                 className={clsx(

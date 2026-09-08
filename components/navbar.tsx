@@ -105,7 +105,7 @@ export const Navbar = () => {
                                     Abir
                                 </span>
                             </div>
-                            <span className="font-mono text-xs text-neutral-400 dark:text-neutral-500 tracking-wider uppercase leading-tight mt-0.5 hidden sm:inline">
+                            <span className="font-mono text-xs text-neutral-400 dark:text-neutral-400 tracking-wider uppercase leading-tight mt-0.5 hidden sm:inline">
                                 Fahim Faisal
                             </span>
                         </div>

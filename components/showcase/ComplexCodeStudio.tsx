@@ -226,7 +226,7 @@ export const ComplexCodeStudio: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-2 pr-2">
-                    <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#ff1744]/10 text-[#ff1744] font-semibold shrink-0">
+                    <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#ff1744]/10 text-rose-700 dark:text-rose-400 font-semibold shrink-0">
                         {activeModule.badge}
                     </span>
                     {activeModule.prUrl && (
@@ -234,7 +234,7 @@ export const ComplexCodeStudio: React.FC = () => {
                             href={activeModule.prUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-xs font-mono text-neutral-500 hover:text-[#ff1744] flex items-center gap-1.5 transition-colors shrink-0"
+                            className="text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:text-[#ff1744] flex items-center gap-1.5 transition-colors shrink-0"
                         >
                             <GitPullRequest className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
                             <span className="hidden sm:inline">Verified Repo / PR</span>
@@ -253,7 +253,7 @@ export const ComplexCodeStudio: React.FC = () => {
                     {activeModule.description}
                 </p>
                 {activeModule.prHighlight && (
-                    <div className="text-xs font-mono text-neutral-500 pt-1 flex items-center gap-1.5">
+                    <div className="text-xs font-mono text-neutral-600 dark:text-neutral-400 pt-1 flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
                         <span>Source: {activeModule.prHighlight}</span>
                     </div>

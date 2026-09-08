@@ -276,7 +276,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 0.6 }}
                                 exit={{ opacity: 0 }}
-                                className="text-xs font-mono text-neutral-400 dark:text-neutral-500 hidden sm:block"
+                                className="text-xs font-mono text-neutral-400 dark:text-neutral-400 hidden sm:block"
                             >
                                 6 craft specializations
                             </motion.div>

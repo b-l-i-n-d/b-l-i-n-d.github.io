@@ -106,14 +106,14 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                     fill="none"
                 >
                     {/* Background Altitude Horizontal Guides */}
-                    <g className="opacity-15 dark:opacity-20 stroke-current text-neutral-500">
+                    <g className="opacity-15 dark:opacity-20 stroke-current text-neutral-600 dark:text-neutral-400">
                         <line x1="40" y1="70" x2="660" y2="70" strokeDasharray="3 6" strokeWidth="1" />
                         <line x1="40" y1="140" x2="660" y2="140" strokeDasharray="3 6" strokeWidth="1" />
                         <line x1="40" y1="210" x2="660" y2="210" strokeDasharray="3 6" strokeWidth="1" />
                     </g>
 
                     {/* Technical Crosshairs & Corner Targets */}
-                    <g className="opacity-25 dark:opacity-35 text-neutral-400 dark:text-neutral-600">
+                    <g className="opacity-25 dark:opacity-35 text-neutral-600 dark:text-neutral-400">
                         <circle cx="28" cy="28" r="5" stroke="currentColor" strokeWidth="1" />
                         <line x1="18" y1="28" x2="38" y2="28" stroke="currentColor" strokeWidth="1" />
                         <line x1="28" y1="18" x2="28" y2="38" stroke="currentColor" strokeWidth="1" />
@@ -182,7 +182,7 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                 </svg>
 
                 {/* Ambient Decorative Doodles */}
-                <div className="absolute top-3 left-12 text-[10px] font-mono text-neutral-500/70 pointer-events-none select-none hidden sm:block">
+                <div className="absolute top-3 left-12 text-[10px] font-mono text-neutral-600 dark:text-neutral-400/70 pointer-events-none select-none hidden sm:block">
                     <span>dy/dt &gt; 2.0x • momentum surge</span>
                 </div>
                 <div className="absolute top-3 right-12 text-[10px] font-mono text-emerald-500/80 pointer-events-none select-none flex items-center gap-1 hidden sm:flex">
