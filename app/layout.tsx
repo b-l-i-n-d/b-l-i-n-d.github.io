@@ -4,10 +4,17 @@ import { fontMono, fontSans, fontScript } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
 import clsx from "clsx";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Providers } from "./providers";
+
+export const viewport: Viewport = {
+    themeColor: [
+        { media: "(prefers-color-scheme: light)", color: "#fafaf9" },
+        { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    ],
+};
 
 export const metadata: Metadata = {
     title: {
@@ -15,10 +22,6 @@ export const metadata: Metadata = {
         template: `%s - ${siteConfig.name}`,
     },
     description: siteConfig.description,
-    themeColor: [
-        { media: "(prefers-color-scheme: light)", color: "#fafaf9" },
-        { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-    ],
     icons: {
         icon: "/zap.ico",
         shortcut: "/favicon-16x16.png",
