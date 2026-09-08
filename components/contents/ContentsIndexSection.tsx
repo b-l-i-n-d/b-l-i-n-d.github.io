@@ -1,7 +1,4 @@
-"use client";
-
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 import { ContentsColumn, ContentsItem } from "@/types/portfolio";
 
 interface ContentsIndexProps {
@@ -130,24 +127,15 @@ const DEFAULT_COLUMNS: ContentsColumn[] = [
 
 export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className = "" }) => {
     const columns = DEFAULT_COLUMNS;
-    const [hoveredId, setHoveredId] = useState<string | null>(null);
 
-    const scrollToId = (targetId: string) => {
-        const el = document.getElementById(targetId);
-        if (el) {
-            el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-    };
-
-    const renderDots = (count: number, isHovered: boolean) => {
-        const dotGlow = isHovered
-            ? "bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)] scale-125"
-            : "bg-neutral-300 dark:bg-neutral-700";
+    const renderDots = (count: number) => {
+        const dotBase =
+            "block w-1.5 h-1.5 rounded-full transition-all duration-200 bg-neutral-300 dark:bg-neutral-700 group-hover:bg-[#ff1744] group-hover:shadow-[0_0_8px_rgba(255,23,68,0.8)] group-hover:scale-125";
 
         if (count === 1) {
             return (
                 <div className="pt-2 shrink-0">
-                    <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+                    <span className={dotBase} />
                 </div>
             );
         }
@@ -155,8 +143,8 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
         if (count === 2) {
             return (
                 <div className="pt-2 flex flex-col gap-1 shrink-0">
-                    <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                    <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+                    <span className={dotBase} />
+                    <span className={dotBase} />
                 </div>
             );
         }
@@ -164,19 +152,19 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
         if (count === 3) {
             return (
                 <div className="pt-2 grid grid-cols-2 gap-1 w-3.5 shrink-0">
-                    <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                    <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                    <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+                    <span className={dotBase} />
+                    <span className={dotBase} />
+                    <span className={dotBase} />
                 </div>
             );
         }
 
         return (
             <div className="pt-2 grid grid-cols-2 gap-1 w-3.5 shrink-0">
-                <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
-                <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${dotGlow}`} />
+                <span className={dotBase} />
+                <span className={dotBase} />
+                <span className={dotBase} />
+                <span className={dotBase} />
             </div>
         );
     };
@@ -220,38 +208,19 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
                                 </h3>
                             </div>
 
-                            {/* Column Content Items with Smooth Anchor Hover Pill */}
-                            <div className="space-y-3">
+                            {/* Column Content Items with CSS Native Transitions */}
+                            <div className="space-y-2">
                                 {column.items.map((item: ContentsItem) => {
                                     const itemId = item.id || item.targetId;
-                                    const isHovered = hoveredId === itemId;
                                     return (
-                                        <div
+                                        <a
                                             key={itemId}
-                                            onMouseEnter={() => setHoveredId(itemId)}
-                                            onClick={() => scrollToId(item.targetId)}
-                                            style={{
-                                                // @ts-ignore
-                                                anchorName: `--content-item-${itemId}`,
-                                            }}
-                                            className="group relative block p-3 rounded-xl cursor-pointer transition-colors duration-150 active:scale-[0.98]"
+                                            href={`#${item.targetId}`}
+                                            className="group relative block p-3 rounded-xl transition-all duration-200 active:scale-[0.98] border border-transparent hover:border-black/[0.06] dark:hover:border-white/[0.10] hover:bg-white/95 dark:hover:bg-white/[0.08] hover:backdrop-blur-md hover:shadow-sm"
                                         >
-                                            {/* Shared Spring Anchor Glider across items */}
-                                            {isHovered && (
-                                                <motion.div
-                                                    layoutId="content-column-active-pill"
-                                                    className="absolute inset-0 bg-white/95 dark:bg-white/[0.08] backdrop-blur-md rounded-xl border border-black/[0.06] dark:border-white/[0.10] shadow-sm -z-10"
-                                                    transition={{
-                                                        type: "spring",
-                                                        stiffness: 450,
-                                                        damping: 32,
-                                                    }}
-                                                />
-                                            )}
-
                                             <div className="flex items-start gap-3">
                                                 {/* Dots cluster matching Behance token pattern */}
-                                                {renderDots(item.dotsCount || 1, isHovered)}
+                                                {renderDots(item.dotsCount || 1)}
 
                                                 {/* Content text */}
                                                 <div className="flex-1 min-w-0">
@@ -272,7 +241,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
                                                     )}
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     );
                                 })}
                             </div>

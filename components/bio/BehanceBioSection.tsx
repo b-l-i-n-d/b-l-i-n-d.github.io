@@ -4,7 +4,8 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { EngineerProfile } from "@/types/portfolio";
-import { InteractiveDoodleCloud } from "./InteractiveDoodleCloud";
+import dynamic from "next/dynamic";
+const InteractiveDoodleCloud = dynamic(() => import("./InteractiveDoodleCloud").then(m => m.InteractiveDoodleCloud), { ssr: false });
 import { CurvedDottedTimelineTrack } from "./CurvedDottedTimelineTrack";
 import {
     Atom,

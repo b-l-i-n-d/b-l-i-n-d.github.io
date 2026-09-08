@@ -74,10 +74,7 @@ export const CurvedDottedTimelineTrack: React.FC<CurvedDottedTimelineTrackProps>
     }, [containerRef, itemRefs]);
 
     useEffect(() => {
-        // Initial sync
-        updatePath();
-
-        // Re-measure on next animation frame after fonts and styles settle
+        // Defer measurement to next animation frame to prevent forced reflow during hydration
         const rafId = requestAnimationFrame(() => {
             updatePath();
         });

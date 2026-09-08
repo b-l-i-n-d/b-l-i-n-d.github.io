@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { MotionExperiment } from "@/types/portfolio";
 import { Check, Lock, ExternalLink } from "lucide-react";
