@@ -1,8 +1,5 @@
 import { IEducation, IExperience } from "@/interfaces";
-import { Avatar } from "@nextui-org/avatar";
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
-import { Image } from "@nextui-org/image";
-import { Link } from "@nextui-org/link";
+import { Avatar, Card, CardBody, CardHeader, Image, Link } from "@heroui/react";
 import { motion, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { SchoolIcon, WorkIcon } from "../icons";

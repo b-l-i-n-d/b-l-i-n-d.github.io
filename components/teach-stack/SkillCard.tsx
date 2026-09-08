@@ -1,8 +1,7 @@
 "use client";
 
 import { ISkill } from "@/interfaces";
-import { Card, CardBody, CardFooter } from "@nextui-org/card";
-import { Image } from "@nextui-org/image";
+import { Card, CardBody, CardFooter, Image } from "@heroui/react";
 import { FastAverageColor } from "fast-average-color";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";

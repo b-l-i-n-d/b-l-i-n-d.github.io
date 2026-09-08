@@ -1,10 +1,7 @@
 import { getData } from "@/actions/get-data";
 import { siteConfig } from "@/config/site";
 
-import { Image } from "@nextui-org/image";
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Image, Link, Snippet, Tooltip } from "@heroui/react";
 
 import React from "react";
 import {

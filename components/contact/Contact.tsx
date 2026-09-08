@@ -1,8 +1,5 @@
 import { siteConfig } from "@/config/site";
-import { Button } from "@nextui-org/button";
-import { Card, CardBody, CardFooter } from "@nextui-org/card";
-import { Input, Textarea } from "@nextui-org/input";
-import { Link } from "@nextui-org/link";
+import { Button, Card, CardBody, CardFooter, Link } from "@heroui/react";
 import React from "react";
 import AnimationWrapper from "../AnimationWrapper";
 import { EmailIcon, MapPinIcon } from "../icons";

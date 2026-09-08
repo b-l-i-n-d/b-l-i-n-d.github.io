@@ -3,8 +3,7 @@ import Typewriter from "@/components/Typewriter";
 import { DownloadIcon, MouseIcon, SendIcon } from "@/components/icons";
 import { highlight, subtitle, title } from "@/components/primitives";
 import { siteConfig } from "@/config/site";
-import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
+import { Button, Link } from "@heroui/react";
 import NextLink from "next/link";
 
 const Hero = async () => {

@@ -1,8 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['img.icons8.com', 'res.cloudinary.com']
-    }
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'img.icons8.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'res.cloudinary.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'github.com',
+            },
+        ],
+    },
+    reactCompiler: true,
 }
 
 module.exports = nextConfig

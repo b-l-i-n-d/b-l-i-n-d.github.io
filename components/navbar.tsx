@@ -8,8 +8,8 @@ import {
     NavbarItem,
     NavbarMenuItem,
     NavbarMenuToggle,
-} from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
+    Link,
+} from "@heroui/react";
 import clsx from "clsx";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";

@@ -4,7 +4,7 @@ import { ISkill } from "../../interfaces";
 import { BackendIcon, ClientIcon, ToolsIcon } from "../icons";
 import SkillCard from "./SkillCard";
 
-import { Tab, Tabs } from "@nextui-org/tabs";
+import { Tab, Tabs } from "@heroui/react";
 import React from "react";
 
 interface Props {

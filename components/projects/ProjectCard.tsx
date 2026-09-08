@@ -1,9 +1,5 @@
 import { IProject } from "@/interfaces";
-import { Button } from "@nextui-org/button";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Chip } from "@nextui-org/chip";
-import { Image } from "@nextui-org/image";
-import { Link } from "@nextui-org/link";
+import { Button, Card, CardBody, CardFooter, CardHeader, Chip, Image, Link } from "@heroui/react";
 import NextImage from "next/image";
 import React from "react";
 import { ArrowRight, GithubIcon } from "../icons";

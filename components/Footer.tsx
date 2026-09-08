@@ -1,8 +1,7 @@
 "use client";
 
 import { siteConfig } from "@/config/site";
-import { Link } from "@nextui-org/link";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Link, Tooltip } from "@heroui/react";
 import React from "react";
 import {
     EmailIcon,

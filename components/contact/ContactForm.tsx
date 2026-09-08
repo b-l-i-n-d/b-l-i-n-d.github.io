@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
-import { Input, Textarea } from "@nextui-org/input";
+import { Button, Input, Textarea } from "@heroui/react";
 
 import emailjs from "@emailjs/browser";
 import React, { useState } from "react";
@@ -99,7 +98,7 @@ const ContactForm: React.FC = () => {
                 {...register("email", {
                     required: true,
                     pattern:
-                        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/,
+                        /^(([^<>()[\\]\\.,;:\\s@"]+(\\.[^<>()[\\]\\.,;:\\s@"]+)*)|(".+"))@(([^<>()[\\]\\.,;:\\s@"]+\\.)+[^<>()[\\]\\.,;:\\s@"]{2,})$/,
                 })}
                 errorMessage={
                     errors.email?.type === "required"

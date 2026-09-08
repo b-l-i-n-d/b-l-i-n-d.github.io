@@ -1,15 +1,18 @@
 "use client";
 
 import { IProject } from "@/interfaces";
-import { Button } from "@nextui-org/button";
 import {
+    Button,
+    Chip,
+    Image,
+    Link,
     Modal,
     ModalBody,
     ModalContent,
     ModalFooter,
     ModalHeader,
     useDisclosure,
-} from "@nextui-org/modal";
+} from "@heroui/react";
 import React from "react";
 import { ArrowRight, ExternalLinkIcon, GithubIcon, LockIcon } from "../icons";
 
@@ -23,9 +26,6 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import { Chip } from "@nextui-org/chip";
-import { Image } from "@nextui-org/image";
-import { Link } from "@nextui-org/link";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
