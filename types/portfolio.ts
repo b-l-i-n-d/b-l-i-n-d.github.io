@@ -202,6 +202,19 @@ export interface EngineerProfile {
         email?: string;
         twitter?: string;
     };
+    gaming?: {
+        title: string;
+        description: string;
+        currentGames: {
+            name: string;
+            genre: string;
+            status: string;
+            tagline: string;
+            badge: string;
+            skills: string[];
+        }[];
+        vibeNote: string;
+    };
 }
 
 export type Education = EngineerProfile["education"];

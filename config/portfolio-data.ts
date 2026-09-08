@@ -705,12 +705,35 @@ export async function reserveAppointmentSlot(req: Request, res: Response) {
     contact: {
         email: "fahim.faisal.abir@gmail.com",
         github: "https://github.com/b-l-i-n-d",
-        linkedin: "https://linkedin.com/in/fahim-faisal-abir",
+        linkedin: "https://www.linkedin.com/in/b-l-i-n-d/",
         cvUrl: "/assets/cv.pdf",
     },
     socialLinks: {
         github: "https://github.com/b-l-i-n-d",
-        linkedin: "https://linkedin.com/in/fahim-faisal-abir",
+        linkedin: "https://www.linkedin.com/in/b-l-i-n-d/",
         email: "mailto:fahim.faisal.abir@gmail.com",
+    },
+    gaming: {
+        title: "Off-Duty Intel // High-Tick Gaming",
+        description: "Beyond the code editor, competitive gaming is where high-tick spatial anticipation, micro-second reflex calibration, and squad coordination are forged.",
+        currentGames: [
+            {
+                name: "Call of Duty: Warzone",
+                genre: "Tactical Battle Royale & Resurgence",
+                status: "Active Deployment",
+                tagline: "Designated squad sniper across Verdansk & Urzikstan drops: first-shot accuracy, long-range overwatch, bullet velocity prediction, and clutch endgame rotations under pressure.",
+                badge: "Squad Sniper // Overwatch",
+                skills: ["Sniper Trajectory Precision", "Long-Range Overwatch", "First-Shot Accuracy", "Squad Comms & Rotations"],
+            },
+            {
+                name: "Chase",
+                genre: "High-Speed Tactical Pursuit",
+                status: "Precision Drifts",
+                tagline: "High-speed vehicle pursuit, dynamic trajectory anticipation, and kinetic drift physics.",
+                badge: "Kinetic Velocity",
+                skills: ["Trajectory Prediction", "Obstacle Anticipation", "Zero-Latency Input", "Adrenaline Focus"],
+            },
+        ],
+        vibeNote: "Navigating 150-player combat lobbies and high-speed pursuits requires the same neurological muscle memory as engineering zero-latency, 60fps tactile web interfaces: split-second state changes, frame-perfect anticipation, and zero room for frame drops.",
     },
 };

@@ -78,11 +78,11 @@ export const Footer: React.FC = () => {
                         <EmailIcon className="w-5 h-5 shrink-0" />
                     </Link>
                 </Tooltip>
-                <Tooltip content="Twitter / X" placement="top">
+                <Tooltip content="X (Twitter)" placement="top">
                     <Link
                         isExternal
                         href={siteConfig.links.twitter}
-                        aria-label="Twitter"
+                        aria-label="X"
                         className="text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors shrink-0 p-1"
                     >
                         <TwitterIcon className="w-5 h-5 shrink-0" />

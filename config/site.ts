@@ -98,7 +98,7 @@ export const siteConfig = {
     ],
     links: {
         github: "https://github.com/b-l-i-n-d",
-        twitter: "https://twitter.com/fahimfaisalffa",
+        twitter: "https://x.com/fahimfaisalffa",
         mail: "mailto:fahim.faisal.abir@gmail.com",
         linkedin: "https://www.linkedin.com/in/b-l-i-n-d/",
         facebook: "https://www.facebook.com/abir.fahim.faisal/",
