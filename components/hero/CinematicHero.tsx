@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, Volume2, VolumeX, ExternalLink, Sparkles, GraduationCap } from "lucide-react";
 import { PortfolioProfile } from "@/types/portfolio";
@@ -49,6 +49,24 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
     ];
 
     const currentVideoSrc = tabs.find((t) => t.id === activeClip)?.src || profile.heroReel.videoUrl;
+
+    // Ensure muted autoplay triggers reliably across Safari, Chrome, and iOS
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+        video.muted = isMuted;
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise
+                .then(() => setIsPlaying(true))
+                .catch((err) => {
+                    // Fallback to strict muted play if browser blocks sound
+                    video.muted = true;
+                    setIsMuted(true);
+                    video.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+                });
+        }
+    }, [currentVideoSrc, isMuted]);
 
     return (
         <section
@@ -185,15 +203,18 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                                 ref={videoRef}
                                 src={currentVideoSrc}
                                 poster={profile.heroReel.posterUrl}
+                                autoPlay
                                 playsInline
                                 muted={isMuted}
                                 loop
-                                preload="metadata"
+                                preload="auto"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.3 }}
                                 className="w-full h-full object-cover"
+                                onPlay={() => setIsPlaying(true)}
+                                onPause={() => setIsPlaying(false)}
                             />
                         </AnimatePresence>
 

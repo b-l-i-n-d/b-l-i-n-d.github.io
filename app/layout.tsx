@@ -39,6 +39,7 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning className="scroll-smooth">
             <head />
             <body
+                suppressHydrationWarning
                 className={clsx(
                     "min-h-screen bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans antialiased selection:bg-rose-600 selection:text-white overflow-x-hidden transition-colors duration-200",
                     fontSans.variable,

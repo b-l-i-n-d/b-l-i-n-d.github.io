@@ -150,11 +150,11 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ profile, e
                                             <h4 className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 font-semibold">
                                                 Primary products engineered
                                             </h4>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div className={`grid gap-4 ${exp.products.length > 1 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"}`}>
                                                 {exp.products.map((product) => (
                                                     <div
                                                         key={product.name}
-                                                        className="p-5 rounded-xl bg-stone-50/70 dark:bg-white/[0.02] border border-black/[0.04] dark:border-white/[0.06] space-y-2 hover:border-[#ff1744]/40 transition-all duration-200 shadow-sm hover:shadow-craft-card"
+                                                        className="p-5 sm:p-6 rounded-xl bg-stone-50/70 dark:bg-white/[0.02] border border-black/[0.04] dark:border-white/[0.06] space-y-2.5 hover:border-[#ff1744]/40 transition-all duration-200 shadow-sm hover:shadow-craft-card"
                                                     >
                                                         <div className="flex items-center justify-between">
                                                             <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-neutral-100">

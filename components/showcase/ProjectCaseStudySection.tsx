@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CaseStudyProject } from "@/types/portfolio";
 import { TutorArchitectureGraph } from "./TutorArchitectureGraph";
 import { ComplexCodeStudio } from "./ComplexCodeStudio";
+import { portfolioData } from "@/config/portfolio-data";
 import { InteractiveFlowVisualizer } from "./InteractiveFlowVisualizer";
 import { HybridGallery } from "../gallery/HybridGallery";
 import { GithubIcon } from "../icons";
@@ -28,11 +29,25 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
     const [hoveredTab, setHoveredTab] = useState<StageType | null>(null);
 
     const tabs: { type: StageType; label: string; Icon: React.ComponentType<{ className?: string }> }[] = [
-        { type: "architecture", label: "01. Architecture Graph", Icon: Network },
-        { type: "code", label: "02. Production Source", Icon: GitPullRequest },
-        { type: "flow", label: "03. Interactive Flow", Icon: Layers },
-        { type: "gallery", label: "04. Product Blueprints", Icon: LayoutTemplate },
+        { type: "architecture", label: "Architecture Graph", Icon: Network },
+        { type: "code", label: "Production Source", Icon: GitPullRequest },
+        { type: "flow", label: "Interactive Flow", Icon: Layers },
+        { type: "gallery", label: "Product Blueprints", Icon: LayoutTemplate },
     ];
+
+    // Curated blueprints matching the project domain so blueprints are never empty
+    const getProjectGallery = () => {
+        if (project.gallery && project.gallery.length > 0) return project.gallery;
+        const projectGalleryMap: Record<string, string[]> = {
+            "tutor-lms": ["tutor-telemetry", "folder-tree-node", "drag-flip-engine", "3d-card-flip"],
+            "enclave": ["enclave-vault", "stripe-webhook-idempotency", "kinetic-friction", "drag-flip-engine"],
+            "edtech": ["edtech-lms", "folder-tree-node", "tutor-telemetry", "temporal-calendar"],
+            "docapp": ["docapp-clinic", "temporal-calendar", "sust-thesis", "stripe-webhook-idempotency"],
+        };
+        const targetIds = projectGalleryMap[project.id] || [];
+        const matched = portfolioData.hybridGallery.filter((item) => targetIds.includes(item.id));
+        return matched.length > 0 ? matched : portfolioData.hybridGallery.slice(0, 4);
+    };
 
     return (
         <section
@@ -246,7 +261,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                                     exit={{ opacity: 0, y: -10 }}
                                     transition={{ duration: 0.2 }}
                                 >
-                                    <HybridGallery items={project.gallery || []} isEmbedded />
+                                    <HybridGallery items={getProjectGallery()} isEmbedded />
                                 </motion.div>
                             )}
                         </AnimatePresence>

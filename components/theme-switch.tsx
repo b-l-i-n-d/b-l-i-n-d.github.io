@@ -3,7 +3,7 @@
 import { SwitchProps, useSwitch, VisuallyHidden } from "@heroui/react";
 import clsx from "clsx";
 import { useTheme } from "next-themes";
-import { FC, useSyncExternalStore } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { MoonFilledIcon, SunFilledIcon } from "@/components/icons";
 
@@ -12,31 +12,51 @@ export interface ThemeSwitchProps {
     classNames?: SwitchProps["classNames"];
 }
 
-const emptySubscribe = () => () => {};
-
 export const ThemeSwitch: FC<ThemeSwitchProps> = ({
     className,
     classNames,
 }) => {
-    const { theme, setTheme } = useTheme();
-    const isSSR = useSyncExternalStore(emptySubscribe, () => false, () => true);
+    const [mounted, setMounted] = useState(false);
+    const { theme, resolvedTheme, setTheme } = useTheme();
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const isDark = (resolvedTheme || theme) === "dark";
 
     const onChange = () => {
-        theme === "light" ? setTheme("dark") : setTheme("light");
+        setTheme(isDark ? "light" : "dark");
     };
 
     const {
         Component,
         slots,
-        isSelected,
         getBaseProps,
         getInputProps,
         getWrapperProps,
     } = useSwitch({
-        isSelected: theme === "light",
-        "aria-label": `Switch to ${theme === "light" ? "dark" : "light"} mode`,
+        isSelected: !isDark,
+        "aria-label": `Switch to ${isDark ? "light" : "dark"} mode`,
         onChange,
     });
+
+    if (!mounted) {
+        return (
+            <div
+                className={clsx(
+                    "w-8 h-8 flex items-center justify-center cursor-pointer opacity-80",
+                    className,
+                    classNames?.base
+                )}
+                aria-label="Toggle theme"
+            >
+                <div className="w-[22px] h-[22px] flex items-center justify-center text-default-500">
+                    <SunFilledIcon size={22} />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <Component
@@ -70,10 +90,10 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
                     ),
                 })}
             >
-                {!isSelected || isSSR ? (
-                    <SunFilledIcon size={22} />
-                ) : (
+                {isDark ? (
                     <MoonFilledIcon size={22} />
+                ) : (
+                    <SunFilledIcon size={22} />
                 )}
             </div>
         </Component>

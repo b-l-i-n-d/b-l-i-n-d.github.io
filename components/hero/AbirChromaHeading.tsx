@@ -13,7 +13,7 @@ interface NameEntry {
 
 const NAME_CYCLES: NameEntry[] = [
     { name: "Abir", lang: "English", meaning: "Radiant Color", flag: "✨" },
-    { name: "আবীর", lang: "Bengali", meaning: "Festive Color & Joy", flag: "🇧🇩" },
+    { name: "আবির", lang: "Bengali", meaning: "Festive Color & Joy", flag: "🇧🇩" },
     { name: "عَبِير", lang: "Arabic", meaning: "Sweet Fragrance", flag: "🇸🇦" },
     { name: "अबीर", lang: "Hindi", meaning: "Sacred Color Powder", flag: "🇮🇳" },
     { name: "アビール", lang: "Japanese", meaning: "Vibrance & Hues", flag: "🇯🇵" },
