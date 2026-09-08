@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/navbar";
+import Footer from "@/components/Footer";
 import { fontMono, fontSans, fontScript } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
@@ -49,6 +50,7 @@ export default function RootLayout({
                         <main className="w-full flex-grow">
                             {children}
                         </main>
+                        <Footer />
                     </div>
                     <ToastContainer />
                 </Providers>

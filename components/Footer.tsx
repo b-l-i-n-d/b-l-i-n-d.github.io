@@ -1,32 +1,55 @@
+"use client";
+
 import { siteConfig } from "@/config/site";
 import { Link } from "@nextui-org/link";
 import { Tooltip } from "@nextui-org/tooltip";
 import React from "react";
 import {
     EmailIcon,
-    FacebookIcon,
     GithubIcon,
     LinkedinIcon,
     TwitterIcon,
 } from "./icons";
 
-const Footer: React.FC = async () => {
+const FOOTER_NAV = [
+    { label: "Showreel", targetId: "hero" },
+    { label: "Contents", targetId: "contents" },
+    { label: "About", targetId: "about" },
+    { label: "Experience", targetId: "experience" },
+    { label: "Case Study", targetId: "case-study" },
+    { label: "Motion Lab", targetId: "motion-lab" },
+    { label: "Blueprints", targetId: "gallery" },
+    { label: "Dossier", targetId: "profile" },
+];
+
+export const Footer: React.FC = () => {
+    const handleScroll = (e: React.MouseEvent, targetId: string) => {
+        e.preventDefault();
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+            targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    };
+
     return (
-        <footer className="w-full flex flex-col items-center justify-center py-8 gap-4 bg-stone-100 dark:bg-[#0c0c0e] border-t border-black/[0.06] dark:border-white/[0.08] transition-colors">
-            <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-medium">
-                {siteConfig.navItems.map((item) => (
-                    <Link
+        <footer className="w-full flex flex-col items-center justify-center py-12 px-4 gap-6 bg-stone-100/70 dark:bg-[#0c0c0e]/80 backdrop-blur-xl border-t border-black/[0.06] dark:border-white/[0.08] transition-colors">
+            {/* Quick Navigation Jump Links */}
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-mono">
+                {FOOTER_NAV.map((item) => (
+                    <a
                         key={item.label}
-                        href={item.href}
-                        className="text-neutral-600 dark:text-neutral-400 hover:text-[#ff1744] dark:hover:text-white transition-colors"
+                        href={`#${item.targetId}`}
+                        onClick={(e) => handleScroll(e, item.targetId)}
+                        className="text-neutral-600 dark:text-neutral-400 hover:text-[#ff1744] dark:hover:text-white transition-colors cursor-pointer"
                     >
                         {item.label}
-                    </Link>
+                    </a>
                 ))}
             </div>
 
+            {/* Social & Contact Presence */}
             <div className="flex items-center justify-center gap-5">
-                <Tooltip content="GitHub" placement="top">
+                <Tooltip content="GitHub Profile" placement="top">
                     <Link
                         isExternal
                         href={siteConfig.links.github}
@@ -36,7 +59,7 @@ const Footer: React.FC = async () => {
                         <GithubIcon className="w-4 h-4" />
                     </Link>
                 </Tooltip>
-                <Tooltip content="LinkedIn" placement="top">
+                <Tooltip content="LinkedIn Profile" placement="top">
                     <Link
                         isExternal
                         href={siteConfig.links.linkedin}
@@ -46,7 +69,7 @@ const Footer: React.FC = async () => {
                         <LinkedinIcon className="w-4 h-4" />
                     </Link>
                 </Tooltip>
-                <Tooltip content="Email" placement="top">
+                <Tooltip content="Send Email" placement="top">
                     <Link
                         isExternal
                         href={siteConfig.links.mail}
@@ -56,7 +79,7 @@ const Footer: React.FC = async () => {
                         <EmailIcon className="w-4 h-4" />
                     </Link>
                 </Tooltip>
-                <Tooltip content="Twitter" placement="top">
+                <Tooltip content="Twitter / X" placement="top">
                     <Link
                         isExternal
                         href={siteConfig.links.twitter}
@@ -68,10 +91,13 @@ const Footer: React.FC = async () => {
                 </Tooltip>
             </div>
 
-            <div className="text-xs text-neutral-500 dark:text-neutral-400 flex items-center gap-1 font-normal">
+            {/* Attribution & Legal */}
+            <div className="text-xs text-neutral-500 dark:text-neutral-400 flex flex-wrap items-center justify-center gap-2 text-center font-normal">
                 <span>Handcrafted by Fahim Faisal</span>
-                <span className="text-neutral-400 dark:text-neutral-600">•</span>
+                <span className="text-neutral-300 dark:text-neutral-700">•</span>
                 <span>Software Engineer at Ollyo / Themeum</span>
+                <span className="text-neutral-300 dark:text-neutral-700">•</span>
+                <span className="text-neutral-400 dark:text-neutral-500 font-mono">B.Sc. in CSE from SUST</span>
             </div>
         </footer>
     );

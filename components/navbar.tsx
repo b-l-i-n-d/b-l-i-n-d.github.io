@@ -10,22 +10,12 @@ import {
     NavbarMenuToggle,
 } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
-import { link as linkStyles } from "@nextui-org/theme";
-import NextLink from "next/link";
 import clsx from "clsx";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-import {
-    TwitterIcon,
-    GithubIcon,
-    DiscordIcon,
-    HeartFilledIcon,
-    SearchIcon,
-    Logo,
-} from "@/components/icons";
+import { Logo } from "@/components/icons";
 import { useViewport } from "@/components/viewport/ViewportController";
 
 interface NavItem {
@@ -100,16 +90,17 @@ export const Navbar = () => {
 
     return (
         <NextUINavbar
-            maxWidth="xl"
+            maxWidth="2xl"
             position="sticky"
-            className="fixed"
+            className="fixed top-0 inset-x-0 z-50 bg-white/70 dark:bg-black/60 backdrop-blur-xl border-b border-black/[0.04] dark:border-white/[0.06]"
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={setIsMenuOpen}
         >
-            <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-                <NavbarBrand as="li" className="gap-3 max-w-fit">
+            {/* Left: Brand / Logo */}
+            <NavbarContent className="basis-auto shrink-0" justify="start">
+                <NavbarBrand as="li" className="gap-3 max-w-fit shrink-0">
                     <Link
-                        className="flex justify-start items-center gap-1"
+                        className="flex justify-start items-center gap-1 cursor-pointer"
                         href="/"
                         onClick={(e) => {
                             e.preventDefault();
@@ -121,10 +112,12 @@ export const Navbar = () => {
                         <Logo />
                     </Link>
                 </NavbarBrand>
+            </NavbarContent>
 
-                {/* Desktop Nav with Anchor Positioning & Spring Glider Pill */}
+            {/* Center: Desktop Nav with Spring Glider Pill & Never-Wrap Single Line */}
+            <NavbarContent className="hidden md:flex flex-1 justify-center" justify="center">
                 <ul
-                    className="hidden sm:flex items-center gap-1 p-1 bg-white/70 dark:bg-[#161618]/70 backdrop-blur-xl rounded-full border border-black/[0.06] dark:border-white/[0.08] shadow-sm ml-2"
+                    className="flex items-center gap-0.5 xl:gap-1 p-1 bg-white/80 dark:bg-[#161618]/80 backdrop-blur-xl rounded-full border border-black/[0.06] dark:border-white/[0.08] shadow-sm max-w-fit shrink-0"
                     onMouseLeave={() => setHoveredNavId(null)}
                 >
                     {NAV_ITEMS.map((item) => {
@@ -132,7 +125,7 @@ export const Navbar = () => {
                         const isHovered = hoveredNavId === item.id;
 
                         return (
-                            <li key={item.id} className="relative">
+                            <li key={item.id} className="relative shrink-0">
                                 <a
                                     href={item.href}
                                     onClick={(e) => handleNavClick(e, item)}
@@ -142,7 +135,7 @@ export const Navbar = () => {
                                         anchorName: `--top-nav-${item.id}`,
                                     }}
                                     className={clsx(
-                                        "relative z-10 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-colors duration-150 flex items-center gap-1.5 select-none cursor-pointer",
+                                        "relative z-10 px-2.5 xl:px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-colors duration-150 flex items-center gap-1.5 select-none cursor-pointer whitespace-nowrap shrink-0",
                                         isActive
                                             ? "text-neutral-950 dark:text-white font-bold"
                                             : "text-neutral-600 hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white"
@@ -182,7 +175,7 @@ export const Navbar = () => {
                                         <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)] shrink-0" />
                                     )}
 
-                                    <span>{item.label}</span>
+                                    <span className="whitespace-nowrap">{item.label}</span>
                                 </a>
                             </li>
                         );
@@ -190,20 +183,23 @@ export const Navbar = () => {
                 </ul>
             </NavbarContent>
 
+            {/* Right: Desktop Theme Switch */}
             <NavbarContent
-                className="hidden sm:flex basis-1/5 sm:basis-full"
+                className="hidden md:flex basis-auto shrink-0"
                 justify="end"
             >
-                <NavbarItem className="hidden sm:flex gap-4">
+                <NavbarItem className="flex gap-4">
                     <ThemeSwitch />
                 </NavbarItem>
             </NavbarContent>
 
-            <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+            {/* Mobile / Tablet Toggle */}
+            <NavbarContent className="md:hidden basis-1 pl-4" justify="end">
                 <ThemeSwitch />
                 <NavbarMenuToggle />
             </NavbarContent>
 
+            {/* Mobile Drawer Menu */}
             <NavbarMenu className="bg-stone-50/95 dark:bg-neutral-950/95 backdrop-blur-xl pt-6">
                 <div className="mx-4 mt-2 flex flex-col gap-2">
                     {NAV_ITEMS.map((item) => {

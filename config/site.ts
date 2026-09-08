@@ -22,11 +22,19 @@ export const siteConfig = {
             href: "#experience",
         },
         {
-            label: "Work",
-            href: "#tutor-lms",
+            label: "Case Study",
+            href: "#case-study",
         },
         {
-            label: "Contact",
+            label: "Motion Lab",
+            href: "#motion-lab",
+        },
+        {
+            label: "Blueprints",
+            href: "#gallery",
+        },
+        {
+            label: "Dossier",
             href: "#profile",
         },
     ],
@@ -48,15 +56,19 @@ export const siteConfig = {
             href: "#experience",
         },
         {
-            label: "Work",
-            href: "#tutor-lms",
+            label: "Case Study",
+            href: "#case-study",
         },
         {
             label: "Motion Lab",
             href: "#motion-lab",
         },
         {
-            label: "Contact",
+            label: "Blueprints",
+            href: "#gallery",
+        },
+        {
+            label: "Dossier",
             href: "#profile",
         },
     ],
@@ -68,6 +80,6 @@ export const siteConfig = {
         facebook: "https://www.facebook.com/abir.fahim.faisal/",
         cv: "/assets/cv.pdf",
         location: "Dhaka, Bangladesh",
-        mapPin: "https://goo.gl/maps/DbUNvX2C7X9ZJrKC7",
+        mapPin: "https://maps.google.com/?q=Dhaka,Bangladesh",
     },
 };
