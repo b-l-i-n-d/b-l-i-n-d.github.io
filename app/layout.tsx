@@ -5,8 +5,6 @@ import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
 import clsx from "clsx";
 import { Metadata, Viewport } from "next";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Providers } from "./providers";
 
 export const viewport: Viewport = {
@@ -55,7 +53,6 @@ export default function RootLayout({
                         </main>
                         <Footer />
                     </div>
-                    <ToastContainer />
                 </Providers>
             </body>
         </html>

@@ -1,11 +1,9 @@
 "use client";
 
-import { SwitchProps, useSwitch } from "@heroui/react";
-import { useIsSSR } from "@react-aria/ssr";
-import { VisuallyHidden } from "@react-aria/visually-hidden";
+import { SwitchProps, useSwitch, VisuallyHidden } from "@heroui/react";
 import clsx from "clsx";
 import { useTheme } from "next-themes";
-import { FC } from "react";
+import { FC, useSyncExternalStore } from "react";
 
 import { MoonFilledIcon, SunFilledIcon } from "@/components/icons";
 
@@ -14,12 +12,14 @@ export interface ThemeSwitchProps {
     classNames?: SwitchProps["classNames"];
 }
 
+const emptySubscribe = () => () => {};
+
 export const ThemeSwitch: FC<ThemeSwitchProps> = ({
     className,
     classNames,
 }) => {
     const { theme, setTheme } = useTheme();
-    const isSSR = useIsSSR();
+    const isSSR = useSyncExternalStore(emptySubscribe, () => false, () => true);
 
     const onChange = () => {
         theme === "light" ? setTheme("dark") : setTheme("light");
