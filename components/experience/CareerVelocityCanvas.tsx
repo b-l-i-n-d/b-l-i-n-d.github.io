@@ -148,7 +148,7 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                         }}
                     />
 
-                    {/* Primary Dynamic Kinetic Ascension Curve */}
+                    {/* Primary Dynamic Kinetic Ascension Curve: Only animates when scrolled into view */}
                     <motion.path
                         d="M 50 230 C 180 225, 260 160, 360 135 C 460 110, 520 65, 650 45"
                         stroke="url(#velocityGrad)"
@@ -156,7 +156,8 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                         strokeDasharray="6 8"
                         strokeLinecap="round"
                         initial={{ strokeDashoffset: 0 }}
-                        animate={{ strokeDashoffset: -56 }}
+                        whileInView={{ strokeDashoffset: -56 }}
+                        viewport={{ once: false, amount: 0.15 }}
                         transition={{
                             repeat: Infinity,
                             ease: "linear",

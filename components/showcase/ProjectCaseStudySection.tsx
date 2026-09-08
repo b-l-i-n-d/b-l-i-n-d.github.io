@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import { CaseStudyProject } from "@/types/portfolio";
 import { TutorArchitectureGraph } from "./TutorArchitectureGraph";
-import { ComplexCodeStudio } from "./ComplexCodeStudio";
 import { portfolioData } from "@/config/portfolio-data";
-import { InteractiveFlowVisualizer } from "./InteractiveFlowVisualizer";
 import { HybridGallery } from "../gallery/HybridGallery";
 import { GithubIcon } from "../icons";
 import { 
@@ -17,6 +16,31 @@ import {
     ExternalLink, 
     Lock
 } from "lucide-react";
+
+// Dynamically load heavy interactive stages on demand
+const ComplexCodeStudio = dynamic(
+    () => import("./ComplexCodeStudio").then((m) => m.ComplexCodeStudio),
+    { 
+        ssr: false,
+        loading: () => (
+            <div className="h-96 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.08] flex items-center justify-center text-xs font-mono text-neutral-400">
+                Loading production source studio...
+            </div>
+        )
+    }
+);
+
+const InteractiveFlowVisualizer = dynamic(
+    () => import("./InteractiveFlowVisualizer").then((m) => m.InteractiveFlowVisualizer),
+    { 
+        ssr: false,
+        loading: () => (
+            <div className="h-96 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.08] flex items-center justify-center text-xs font-mono text-neutral-400">
+                Loading interactive state flow visualizer...
+            </div>
+        )
+    }
+);
 
 type StageType = "architecture" | "code" | "flow" | "gallery";
 

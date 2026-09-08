@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 
 interface DoodleMarqueeBannerProps {
     direction?: "left" | "right";
@@ -14,20 +13,12 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
     speed = 40,
     className = "",
 }) => {
-    // Array with an even count (8 segments) so mirrored tiles ping-pong seamlessly:
-    // Segment 0 (even): [dark -> bright]
-    // Segment 1 (odd):  [bright -> dark] (flipped)
-    // Segment 2 (even): [dark -> bright]
-    // Segment 3 (odd):  [bright -> dark] (flipped)
-    // Segment 4 (even): [dark -> bright]
-    // Segment 5 (odd):  [bright -> dark] (flipped)
-    // Segment 6 (even): [dark -> bright]
-    // Segment 7 (odd):  [bright -> dark] (flipped, ends at dark, connecting to [dark -> bright])
-    const tileCount = 8;
+    // 4 tiles at 600px width = 2,400px, seamlessly spanning any standard, ultrawide, or mobile viewport
+    const tileCount = 4;
 
     return (
         <div
-            className={`w-full h-20 overflow-hidden bg-stone-100 dark:bg-[#0c0c0c] border-y border-black/[0.06] dark:border-white/[0.08] relative flex items-center select-none pointer-events-none transition-colors duration-200 ${className}`}
+            className={`w-full h-20 overflow-hidden bg-stone-100 dark:bg-[#0c0c0c] border-y border-black/[0.06] dark:border-white/[0.08] relative flex items-center select-none pointer-events-none ${className}`}
             aria-hidden="true"
         >
             {/* Soft ambient edge gradient masks */}
@@ -40,6 +31,8 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
                 style={{
                     animationDirection: direction === "right" ? "reverse" : "normal",
                     animationDuration: `${speed}s`,
+                    transform: "translate3d(0,0,0)",
+                    willChange: "transform",
                 }}
             >
                 {[...Array(tileCount)].map((_, idx) => {
@@ -55,13 +48,14 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
                                 transform: isFlipped ? "scaleX(-1)" : "none",
                             }}
                         >
-                            <Image
+                            <img
                                 src="/assets/doodle-ribbon-transparent.png"
-                                alt="Doodle ribbon marquee"
+                                alt=""
                                 width={600}
                                 height={56}
-                                className="h-14 w-[600px] object-contain object-center filter dark:brightness-110 contrast-125"
                                 loading="lazy"
+                                decoding="async"
+                                className="h-14 w-[600px] object-contain object-center filter dark:brightness-110 contrast-125 pointer-events-none"
                             />
                         </div>
                     );
@@ -75,6 +69,8 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
                 style={{
                     animationDirection: direction === "right" ? "reverse" : "normal",
                     animationDuration: `${speed}s`,
+                    transform: "translate3d(0,0,0)",
+                    willChange: "transform",
                 }}
             >
                 {[...Array(tileCount)].map((_, idx) => {
@@ -90,12 +86,14 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
                                 transform: isFlipped ? "scaleX(-1)" : "none",
                             }}
                         >
-                            <Image
+                            <img
                                 src="/assets/doodle-ribbon-transparent.png"
                                 alt=""
                                 width={600}
                                 height={56}
-                                className="h-14 w-[600px] object-contain object-center filter dark:brightness-110 contrast-125"
+                                loading="lazy"
+                                decoding="async"
+                                className="h-14 w-[600px] object-contain object-center filter dark:brightness-110 contrast-125 pointer-events-none"
                             />
                         </div>
                     );

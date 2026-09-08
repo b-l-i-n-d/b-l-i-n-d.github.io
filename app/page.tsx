@@ -1,14 +1,48 @@
+import dynamic from "next/dynamic";
 import { portfolioData } from "@/config/portfolio-data";
 import { ChapterScrubber } from "@/components/navigation/ChapterScrubber";
 import { CinematicHero } from "@/components/hero/CinematicHero";
-import { DoodleMarqueeBanner } from "@/components/decorations/DoodleMarqueeBanner";
-import { ContentsIndexSection } from "@/components/contents/ContentsIndexSection";
-import { BehanceBioSection } from "@/components/bio/BehanceBioSection";
-import { ExperienceSection } from "@/components/experience/ExperienceSection";
-import { ProjectCaseStudySection } from "@/components/showcase/ProjectCaseStudySection";
-import { InteractiveMotionLab } from "@/components/motion-lab/InteractiveMotionLab";
-import { HybridGallery } from "@/components/gallery/HybridGallery";
-import { ProfileOutro } from "@/components/profile/ProfileOutro";
+
+// Dynamic imports for below-the-fold sections to optimize initial main-thread execution
+const DoodleMarqueeBanner = dynamic(
+    () => import("@/components/decorations/DoodleMarqueeBanner").then((m) => m.DoodleMarqueeBanner),
+    { ssr: true }
+);
+
+const ContentsIndexSection = dynamic(
+    () => import("@/components/contents/ContentsIndexSection").then((m) => m.ContentsIndexSection),
+    { ssr: true }
+);
+
+const BehanceBioSection = dynamic(
+    () => import("@/components/bio/BehanceBioSection").then((m) => m.BehanceBioSection),
+    { ssr: true }
+);
+
+const ExperienceSection = dynamic(
+    () => import("@/components/experience/ExperienceSection").then((m) => m.ExperienceSection),
+    { ssr: true }
+);
+
+const ProjectCaseStudySection = dynamic(
+    () => import("@/components/showcase/ProjectCaseStudySection").then((m) => m.ProjectCaseStudySection),
+    { ssr: true }
+);
+
+const InteractiveMotionLab = dynamic(
+    () => import("@/components/motion-lab/InteractiveMotionLab").then((m) => m.InteractiveMotionLab),
+    { ssr: true }
+);
+
+const HybridGallery = dynamic(
+    () => import("@/components/gallery/HybridGallery").then((m) => m.HybridGallery),
+    { ssr: true }
+);
+
+const ProfileOutro = dynamic(
+    () => import("@/components/profile/ProfileOutro").then((m) => m.ProfileOutro),
+    { ssr: true }
+);
 
 export default function Home() {
     return (

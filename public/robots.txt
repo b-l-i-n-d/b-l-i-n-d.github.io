@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://b-l-i-n-d.github.io/sitemap.xml
