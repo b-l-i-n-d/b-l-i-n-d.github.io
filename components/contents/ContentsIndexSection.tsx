@@ -18,31 +18,31 @@ const DEFAULT_COLUMNS: ContentsColumn[] = [
                 title: "Course & Curriculum Builder",
                 subtitle: "Zero-CLS FLIP Reorder Tree",
                 subtitlePosition: "above",
-                targetId: "case-study",
+                targetId: "tutor-lms",
                 dotsCount: 1,
             },
             {
-                id: "course-bundle",
-                title: "Course Bundle & Analytics",
-                subtitle: "Monetization Suite",
+                id: "core-registry",
+                title: "Tutor Core Component Registry",
+                subtitle: "Decoupled Hydration & Extension",
                 subtitlePosition: "below",
-                targetId: "case-study",
+                targetId: "tutor-lms",
                 dotsCount: 2,
             },
             {
-                id: "quiz-engine",
-                title: "Quiz & Assessment Suite",
-                subtitle: "Automated Evaluation Engine",
+                id: "motion-coordinator",
+                title: "useTutorMotion Coordinator Hook",
+                subtitle: "WCAG 2.1 AAA Motion State",
                 subtitlePosition: "below",
-                targetId: "case-study",
+                targetId: "tutor-lms",
                 dotsCount: 3,
             },
             {
-                id: "email-system",
-                title: "Email Template Customizer",
-                subtitle: "Visual Builder Engine",
+                id: "lesson-cockpit",
+                title: "Lesson Cockpit & Telemetry",
+                subtitle: "Sub-50ms Response · 120K+ Academies",
                 subtitlePosition: "below",
-                targetId: "case-study",
+                targetId: "tutor-lms",
                 dotsCount: 4,
             },
         ],
@@ -50,38 +50,38 @@ const DEFAULT_COLUMNS: ContentsColumn[] = [
     {
         id: "two",
         numberScript: "Two :",
-        title: "EasyStore E-Commerce",
+        title: "Engineered Systems",
         items: [
             {
-                id: "variant-generator",
-                title: "Variant Generator Engine",
-                subtitle: "O(1) Matrix Lookup Table",
+                id: "enclave-vault",
+                title: "Enclave Zero-Knowledge Vault",
+                subtitle: "Argon2id · AES-256-GCM · React Native",
                 subtitlePosition: "above",
-                targetId: "experience",
+                targetId: "enclave",
                 dotsCount: 1,
             },
             {
-                id: "cart-checkout",
-                title: "Optimistic Cart & Checkout",
-                subtitle: "Sub-16ms Multi-Step Pipeline",
+                id: "enclave-sync",
+                title: "Google Drive 3-Way Sync Engine",
+                subtitle: "Hardware Biometrics & Dynamic TOTP",
                 subtitlePosition: "below",
-                targetId: "experience",
+                targetId: "enclave",
                 dotsCount: 2,
             },
             {
-                id: "inventory-matrix",
-                title: "Inventory Matrix & SKU Tree",
-                subtitle: "Real-time Stock Synchronization",
+                id: "edtech-platform",
+                title: "EdTech Learning Monorepo",
+                subtitle: "Automated Quiz Engine & RTK Query",
                 subtitlePosition: "below",
-                targetId: "experience",
+                targetId: "edtech",
                 dotsCount: 3,
             },
             {
-                id: "headless-apis",
-                title: "Headless APIs & Webhooks",
-                subtitle: "State Machine Synchronization",
+                id: "docapp-suite",
+                title: "DocApp Healthcare Suite",
+                subtitle: "Multi-Role RBAC & Appointment Engine",
                 subtitlePosition: "below",
-                targetId: "experience",
+                targetId: "docapp",
                 dotsCount: 4,
             },
         ],
@@ -92,9 +92,9 @@ const DEFAULT_COLUMNS: ContentsColumn[] = [
         title: "Dossier & Motion Specs",
         items: [
             {
-                id: "bio-outro",
+                id: "bio-dossier",
                 title: "Senior Engineer Dossier",
-                subtitle: "Academic Background & History",
+                subtitle: "Academic Background · SUST B.Sc. SWE",
                 subtitlePosition: "above",
                 targetId: "about",
                 dotsCount: 1,
@@ -102,7 +102,7 @@ const DEFAULT_COLUMNS: ContentsColumn[] = [
             {
                 id: "motion-lab-index",
                 title: "Interactive Motion Lab",
-                subtitle: "Hardware-Accelerated Prototypes",
+                subtitle: "Hardware-Accelerated Physics Prototypes",
                 subtitlePosition: "below",
                 targetId: "motion-lab",
                 dotsCount: 2,
@@ -110,7 +110,7 @@ const DEFAULT_COLUMNS: ContentsColumn[] = [
             {
                 id: "hybrid-gallery",
                 title: "12 Architectural Blueprints",
-                subtitle: "Production UI Specifications",
+                subtitle: "Production UI & Systems Specifications",
                 subtitlePosition: "below",
                 targetId: "gallery",
                 dotsCount: 3,
@@ -218,6 +218,20 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
         placeIndicator(event.currentTarget);
     };
 
+    const handleItemClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+        const element =
+            document.getElementById(targetId) ||
+            document.querySelector(`[data-chapter-id="${targetId}"]`) ||
+            document.querySelector(`[data-project-id="${targetId}"]`);
+        if (element) {
+            e.preventDefault();
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+            if (typeof window !== "undefined" && window.history?.pushState) {
+                window.history.pushState(null, "", `#${targetId}`);
+            }
+        }
+    };
+
     const renderDots = (count: number) => {
         const dotBase =
             "block w-1.5 h-1.5 rounded-full transition-all duration-200 bg-neutral-300 dark:bg-neutral-700 group-hover:bg-[#ff1744] group-hover:shadow-[0_0_8px_rgba(255,23,68,0.8)] group-hover:scale-125";
@@ -281,7 +295,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
                             Contents & Navigation
                         </h2>
                         <p className="text-sm text-neutral-500 dark:text-neutral-400 max-w-md">
-                            Direct jump table across production platforms, interactive lab experiments, and engineering blueprints.
+                            Direct jump table across flagship enterprise platforms, engineered mobile systems, and architectural blueprints.
                         </p>
                     </div>
                 </div>
@@ -314,6 +328,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
                                         <a
                                             key={itemId}
                                             href={`#${item.targetId}`}
+                                            onClick={(e) => handleItemClick(e, item.targetId)}
                                             onPointerEnter={handlePointerEnter}
                                             className="group relative block p-3 rounded-xl active:scale-[0.98] transition-transform duration-150"
                                         >

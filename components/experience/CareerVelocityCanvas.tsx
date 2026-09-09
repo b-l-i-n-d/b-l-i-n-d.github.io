@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Move, Sparkles, TrendingUp, CheckCircle2, Award, Zap } from "lucide-react";
+import { Move, Sparkles, TrendingUp, Zap } from "lucide-react";
 import { PromotionStage } from "@/types/portfolio";
 
 interface CareerVelocityCanvasProps {
@@ -227,20 +227,8 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                             className="cursor-grab active:cursor-grabbing select-none group/milestone max-w-[280px] sm:max-w-none"
                         >
                             <div className="relative flex flex-col items-start">
-                                {/* Subtle Glow Backdrop on Hover */}
-                                {isHovered && (
-                                    <motion.div
-                                        layoutId="milestone-glow"
-                                        className="absolute -inset-3 rounded-2xl bg-[#ff1744]/10 dark:bg-[#ff1744]/15 -z-10 blur-md pointer-events-none"
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.15 }}
-                                    />
-                                )}
-
                                 {/* Top Pill Badge: Year & Status */}
-                                <div className="flex items-center gap-1.5 mb-0.5">
+                                <div className="flex items-center gap-1.5 mb-1">
                                     <span
                                         className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-bold transition-colors ${
                                             item.isCurrent
@@ -260,18 +248,27 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                                     )}
                                 </div>
 
-                                {/* Main Title in Signature Handcrafted Script */}
-                                <span
-                                    className={`font-script tracking-wide transition-colors duration-200 text-xl sm:text-2xl md:text-3xl font-bold leading-tight ${
-                                        item.isCurrent
-                                            ? "text-[#ff1744] drop-shadow-[0_2px_10px_rgba(255,23,68,0.4)]"
-                                            : isHovered || isDragged
-                                            ? "text-[#ff1744]"
-                                            : "text-neutral-800 dark:text-neutral-100 group-hover/milestone:text-[#ff1744]"
-                                    }`}
-                                >
-                                    {item.role}
-                                </span>
+                                {/* Main Title with Clipped Frosted Glass Backing & Text-Only Glow */}
+                                <div className="relative inline-flex items-center">
+                                    {/* Frosted Glass Layer strictly clipped to text */}
+                                    <span
+                                        aria-hidden="true"
+                                        className="absolute inset-0 -inset-x-2.5 -inset-y-1 rounded-xl bg-white/75 dark:bg-neutral-950/80 backdrop-blur-md border border-black/[0.06] dark:border-white/[0.08] shadow-[0_2px_8px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.4)] pointer-events-none -z-10"
+                                    />
+                                    <span
+                                        className={`font-script tracking-wide transition-all duration-200 text-xl sm:text-2xl md:text-3xl font-bold leading-tight select-none ${
+                                            item.isCurrent
+                                                ? isHovered || isDragged
+                                                    ? "text-[#ff1744] drop-shadow-[0_0_12px_rgba(255,23,68,0.9)] drop-shadow-[0_0_24px_rgba(255,23,68,0.5)]"
+                                                    : "text-[#ff1744] drop-shadow-[0_0_8px_rgba(255,23,68,0.45)]"
+                                                : isHovered || isDragged
+                                                ? "text-[#ff1744] drop-shadow-[0_0_12px_rgba(255,23,68,0.9)] drop-shadow-[0_0_24px_rgba(255,23,68,0.5)]"
+                                                : "text-neutral-800 dark:text-neutral-100 group-hover/milestone:text-[#ff1744] group-hover/milestone:drop-shadow-[0_0_12px_rgba(255,23,68,0.9)] group-hover/milestone:drop-shadow-[0_0_24px_rgba(255,23,68,0.5)]"
+                                        }`}
+                                    >
+                                        {item.role}
+                                    </span>
+                                </div>
 
                                 {/* Animated Hand-drawn Underline Scribble when Hovered */}
                                 {isHovered && (
@@ -294,7 +291,7 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                                 )}
 
                                 {/* Micro-Doodle Tag */}
-                                <span className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 mt-0.5">
+                                <span className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 mt-1">
                                     {item.meta}
                                 </span>
                             </div>
