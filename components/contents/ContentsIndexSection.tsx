@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useRef } from "react";
 import { ContentsColumn, ContentsItem } from "@/types/portfolio";
 
 interface ContentsIndexProps {
@@ -125,8 +127,96 @@ const DEFAULT_COLUMNS: ContentsColumn[] = [
     },
 ];
 
+const contentsAnchorCss = `
+#contents .contents-grid { position: relative; }
+#contents .cc-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0.98);
+  transition:
+    opacity 0.18s ease,
+    top 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    left 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.dark #contents .cc-indicator {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.10);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+#contents .contents-grid[data-hover="true"] .cc-indicator {
+  opacity: 1;
+  transform: scale(1);
+  animation: contentsIndexPop 0.22s ease;
+}
+@keyframes contentsIndexPop {
+  0%   { transform: scale(0.985); }
+  40%  { transform: scale(1.008); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #contents .cc-indicator {
+    transition: none;
+    animation: none;
+  }
+}
+`;
+
 export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className = "" }) => {
     const columns = DEFAULT_COLUMNS;
+    const gridRef = useRef<HTMLDivElement>(null);
+    const indicatorRef = useRef<HTMLDivElement>(null);
+
+    const placeIndicator = (target: HTMLAnchorElement) => {
+        const grid = gridRef.current;
+        const indicator = indicatorRef.current;
+        if (!grid || !indicator) return;
+
+        const gridRect = grid.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+
+        const firstPlacement = grid.dataset.placed !== "true";
+        if (firstPlacement) {
+            indicator.style.transition = "opacity 0.18s ease";
+        }
+
+        indicator.style.top = `${targetRect.top - gridRect.top}px`;
+        indicator.style.left = `${targetRect.left - gridRect.left}px`;
+        indicator.style.width = `${targetRect.width}px`;
+        indicator.style.height = `${targetRect.height}px`;
+
+        grid.dataset.placed = "true";
+        grid.dataset.hover = "true";
+
+        if (firstPlacement) {
+            requestAnimationFrame(() => {
+                indicator.style.transition = "";
+            });
+        }
+    };
+
+    const clearIndicator = () => {
+        const grid = gridRef.current;
+        if (!grid) return;
+        grid.dataset.hover = "false";
+    };
+
+    const handlePointerEnter = (event: React.PointerEvent<HTMLAnchorElement>) => {
+        placeIndicator(event.currentTarget);
+    };
 
     const renderDots = (count: number) => {
         const dotBase =
@@ -175,6 +265,8 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
             data-chapter-id="contents"
             className={`relative py-24 px-6 sm:px-10 lg:px-16 bg-stone-50 dark:bg-[#0c0c0c] text-neutral-900 dark:text-white border-t border-black/[0.06] dark:border-white/[0.08] overflow-hidden transition-colors duration-200 ${className}`}
         >
+            <style dangerouslySetInnerHTML={{ __html: contentsAnchorCss }} />
+
             <div className="relative z-10 max-w-6xl mx-auto space-y-16">
                 {/* Header (Clean, quiet, informative) */}
                 <div className="space-y-3 border-b border-black/[0.06] dark:border-white/[0.08] pb-8">
@@ -194,10 +286,16 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
                     </div>
                 </div>
 
-                {/* 3-Column Contents Grid matching Behance Design Pattern */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14">
+                {/* 3-Column Contents Grid with a single grid-wide sliding Hover Indicator */}
+                <div
+                    ref={gridRef}
+                    onPointerLeave={clearIndicator}
+                    className="contents-grid relative grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14"
+                >
+                    <div ref={indicatorRef} className="cc-indicator" aria-hidden="true" />
+
                     {columns.map((column) => (
-                        <div key={column.id} className="space-y-6">
+                        <div key={column.id} className="space-y-6 min-w-0">
                             {/* Column Header: Handwritten Number + Clean Title */}
                             <div className="flex items-baseline gap-2.5 pb-2 border-b border-black/[0.06] dark:border-white/[0.08]">
                                 <span className="font-script text-3xl sm:text-4xl text-[#ff1744] select-none font-bold">
@@ -208,7 +306,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
                                 </h3>
                             </div>
 
-                            {/* Column Content Items with CSS Native Transitions */}
+                            {/* Column Content Items, each an anchor target for the shared indicator */}
                             <div className="space-y-2">
                                 {column.items.map((item: ContentsItem) => {
                                     const itemId = item.id || item.targetId;
@@ -216,7 +314,8 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
                                         <a
                                             key={itemId}
                                             href={`#${item.targetId}`}
-                                            className="group relative block p-3 rounded-xl transition-all duration-200 active:scale-[0.98] border border-transparent hover:border-black/[0.06] dark:hover:border-white/[0.10] hover:bg-white/95 dark:hover:bg-white/[0.08] hover:backdrop-blur-md hover:shadow-sm"
+                                            onPointerEnter={handlePointerEnter}
+                                            className="group relative block p-3 rounded-xl active:scale-[0.98] transition-transform duration-150"
                                         >
                                             <div className="flex items-start gap-3">
                                                 {/* Dots cluster matching Behance token pattern */}
