@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
-import { CaseStudyProject } from "@/types/portfolio";
+import { ProjectStage } from "@/types/portfolio";
 import { portfolioData } from "@/config/portfolio-data";
+import { caseStudyShowcase } from "@/config/case-study-data";
 import { GithubIcon } from "../icons";
 import { 
     GitPullRequest, 
@@ -16,8 +17,8 @@ import {
 } from "lucide-react";
 
 // Dynamically load heavy interactive stages on demand
-const TutorArchitectureGraph = dynamic(
-    () => import("./TutorArchitectureGraph").then((m) => m.TutorArchitectureGraph),
+const ArchitectureGraph = dynamic(
+    () => import("./ArchitectureGraph").then((m) => m.ArchitectureGraph),
     { 
         ssr: false,
         loading: () => (
@@ -70,9 +71,86 @@ interface ProjectCaseStudySectionProps {
     project: any;
 }
 
+// Data-driven stage panel: renders a project's own stages content
+// (description, highlights, optional code snippet) for non-Tutor projects.
+const DataDrivenStageView: React.FC<{ stage: ProjectStage }> = ({ stage }) => {
+    const [copied, setCopied] = useState(false);
+    const snippet = stage.codeSnippet;
+
+    const copyCode = (code: string) => {
+        navigator.clipboard.writeText(code);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+    };
+
+    return (
+        <div className="space-y-6">
+            <div className="space-y-1.5">
+                <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
+                    {stage.title}
+                </h3>
+                <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                    {stage.subtitle}
+                </p>
+            </div>
+
+            <p className="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                {stage.description}
+            </p>
+
+            <ul className="grid gap-2.5">
+                {stage.highlights.map((highlight, idx) => (
+                    <li
+                        key={idx}
+                        className="flex items-start gap-3 p-3.5 rounded-xl bg-white/70 dark:bg-white/[0.02] border border-black/[0.04] dark:border-white/[0.06] text-xs sm:text-sm text-neutral-700 dark:text-neutral-300"
+                    >
+                        <span className="w-6 h-6 rounded-full bg-[#ff1744]/10 text-[#ff1744] flex items-center justify-center text-[11px] font-bold shrink-0">
+                            {idx + 1}
+                        </span>
+                        <span className="leading-relaxed">{highlight}</span>
+                    </li>
+                ))}
+            </ul>
+
+            {snippet && (
+                <div className="rounded-2xl bg-[#0d1117] border border-black/[0.08] dark:border-white/[0.10] overflow-hidden shadow-2xl select-text">
+                    <div className="flex items-center justify-between px-4 py-2.5 bg-[#161b22] border-b border-[#30363d]">
+                        <div className="flex items-center gap-2">
+                            <span className="w-3 h-3 rounded-full bg-[#ff5f56] shrink-0" />
+                            <span className="w-3 h-3 rounded-full bg-[#ffbd2e] shrink-0" />
+                            <span className="w-3 h-3 rounded-full bg-[#27c93f] shrink-0" />
+                            <span className="text-xs text-[#8b949e] ml-2 font-mono">{snippet.filename}</span>
+                            <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider bg-[#ff1744]/15 text-[#ff1744] font-semibold">
+                                {snippet.language}
+                            </span>
+                        </div>
+                        <button
+                            onClick={() => copyCode(snippet.code)}
+                            className="px-2.5 py-1 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-[#c9d1d9] flex items-center gap-1.5 transition-colors active:scale-95 text-xs shrink-0"
+                        >
+                            {copied ? (
+                                <span className="text-emerald-400 font-semibold">Copied</span>
+                            ) : (
+                                <span>Copy Code</span>
+                            )}
+                        </button>
+                    </div>
+                    <pre className="p-5 text-xs sm:text-sm text-[#e6edf3] font-mono leading-relaxed overflow-x-auto max-h-[500px]">
+                        <code>{snippet.code}</code>
+                    </pre>
+                </div>
+            )}
+        </div>
+    );
+};
+
 export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = ({ project }) => {
     const [activeStage, setActiveStage] = useState<StageType>("architecture");
     const [hoveredTab, setHoveredTab] = useState<StageType | null>(null);
+
+    // Rich Tutor-format showcase data for this project (graph, flow, code studio).
+    // Falls back to the data-driven stage view when a project has no showcase data.
+    const showcase = caseStudyShowcase[project.id];
 
     const tabs: { type: StageType; label: string; Icon: React.ComponentType<{ className?: string }> }[] = [
         { type: "architecture", label: "Architecture Graph", Icon: Network },
@@ -265,14 +343,18 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
-                                                Interactive Architecture Map
+                                                {showcase?.graph.navTitle ?? "Interactive Architecture Map"}
                                             </h3>
                                             <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                                                Inspect modular boundaries, cache hierarchies, and transactional pipelines
+                                                {showcase?.graph.navSubtitle ?? "Inspect modular boundaries, cache hierarchies, and transactional pipelines"}
                                             </p>
                                         </div>
                                     </div>
-                                    <TutorArchitectureGraph />
+                                    {showcase ? (
+                                        <ArchitectureGraph data={showcase.graph} />
+                                    ) : (
+                                        <DataDrivenStageView stage={project.stages.architecture} />
+                                    )}
                                 </motion.div>
                             )}
 
@@ -284,7 +366,11 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                                     exit={{ opacity: 0, y: -10 }}
                                     transition={{ duration: 0.2 }}
                                 >
-                                    <ComplexCodeStudio />
+                                    {showcase ? (
+                                        <ComplexCodeStudio modules={showcase.codeModules} />
+                                    ) : (
+                                        <DataDrivenStageView stage={project.stages.code} />
+                                    )}
                                 </motion.div>
                             )}
 
@@ -296,7 +382,11 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                                     exit={{ opacity: 0, y: -10 }}
                                     transition={{ duration: 0.2 }}
                                 >
-                                    <InteractiveFlowVisualizer />
+                                    {showcase ? (
+                                        <InteractiveFlowVisualizer flow={showcase.flow} />
+                                    ) : (
+                                        <DataDrivenStageView stage={project.stages.flow} />
+                                    )}
                                 </motion.div>
                             )}
 

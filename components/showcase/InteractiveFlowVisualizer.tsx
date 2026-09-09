@@ -25,332 +25,19 @@ import {
     Copy,
 } from "lucide-react";
 
-interface InteractiveFlowVisualizerProps {
-    projectId?: string;
-}
+import type { ShowcaseFlow, ShowcaseFlowStep } from "@/types/portfolio";
 
-interface PipelineStep {
-    id: string;
-    number: string;
-    title: string;
-    description: string;
-    tech: string;
-    codeSnippet: string;
-    systemMetrics: {
-        latency: string;
-        ops: string;
-        status: "healthy" | "processing" | "ready";
-    };
-    logs: string[];
+interface InteractiveFlowVisualizerProps {
+    flow: ShowcaseFlow;
 }
 
 const MIN_ZOOM = 0.25; // 25% min zoom (bird's-eye view)
 const MAX_ZOOM = 8.0;  // 800% max zoom (deep sequence diagram inspection)
 
-const TUTOR_LMS_STEPS: PipelineStep[] = [
-    {
-        id: "mount",
-        number: "01",
-        title: "Micro-Front Mount & Registry",
-        description:
-            "Course Builder boots inside WordPress dashboard. React micro-front mounts to targeted host DOM node with zero conflict with legacy jQuery/TinyMCE scripts.",
-        tech: "React 18 · Dynamic Import · Custom Event Bus",
-        codeSnippet: `// Isolated micro-frontend bootstrap
-const mountPoint = document.getElementById("tutor-course-builder-root");
-if (mountPoint && !window.__TUTOR_BUILDER_INITIALIZED__) {
-  window.__TUTOR_BUILDER_INITIALIZED__ = true;
-  const root = createRoot(mountPoint);
-  root.render(
-    <StrictMode>
-      <TutorStoreProvider initialCourseId={mountPoint.dataset.courseId}>
-        <CurriculumBuilderApp telemetry={window.TutorTelemetry} />
-      </TutorStoreProvider>
-    </StrictMode>
-  );
-}`,
-        systemMetrics: {
-            latency: "4.2ms",
-            ops: "1.2k req/s",
-            status: "ready",
-        },
-        logs: [
-            "Mounted React micro-front #tutor-course-builder-root",
-            "Loaded 14 custom question plugin extensions from Registry",
-            "IndexedDB local curriculum cache hot (1.8MB state validated)",
-        ],
-    },
-    {
-        id: "drag-flip",
-        number: "02",
-        title: "60 FPS Drag & FLIP Engine",
-        description:
-            "Instructor drags lessons across multi-topic chapters. Custom RAF FLIP calculation interpolates physical transforms without triggering browser layout thrashing.",
-        tech: "FLIP Animation · requestAnimationFrame · Transform Matrix",
-        codeSnippet: `// 60 FPS FLIP drag reordering engine
-function onLessonDragDrop(draggedId: string, targetTopicId: string, newIndex: number) {
-  const firstRects = captureNodeRects(topicTree);
-  // Atomic Reducer State Reordering
-  dispatch({ type: 'MOVE_LESSON', payload: { draggedId, targetTopicId, newIndex } });
-  requestAnimationFrame(() => {
-    const lastRects = captureNodeRects(topicTree);
-    applyInvertedTransforms(firstRects, lastRects, {
-      duration: 220,
-      easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
-    });
-  });
-}`,
-        systemMetrics: {
-            latency: "0.8ms",
-            ops: "60 FPS Locked",
-            status: "healthy",
-        },
-        logs: [
-            "Lesson #204 picked up from Topic #12 ('PHP Concurrency')",
-            "Hovering over Topic #14 ('Event Driven Architecture')",
-            "FLIP invert vector: dx: 0px, dy: -84px, scaleY: 1.0 (Zero CLS)",
-        ],
-    },
-    {
-        id: "optimistic",
-        number: "03",
-        title: "Optimistic State & Undo History",
-        description:
-            "Local state updates instantly with 0ms perceived latency. Action is pushed to time-travel undo stack while mutation is enqueued for debounced background sync.",
-        tech: "Immer.js · Redux Toolkit · Snapshot Buffer",
-        codeSnippet: `// Optimistic state change with automatic rollback snapshot
-function executeOptimisticMutation(state: CourseState, action: CurriculumAction) {
-  const rollbackSnapshot = cloneDeep(state.curriculum);
-  historyStack.push({ type: action.type, snapshot: rollbackSnapshot });
-  try {
-    applyMutation(state.curriculum, action);
-    syncQueue.enqueue({ action, timestamp: Date.now(), retryCount: 0 });
-  } catch (err) {
-    state.curriculum = rollbackSnapshot;
-    Sonner.error("State mutation failed; rolled back to previous checkpoint");
-  }
-}`,
-        systemMetrics: {
-            latency: "0.2ms",
-            ops: "3.4k ops/s",
-            status: "healthy",
-        },
-        logs: [
-            "Optimistic state applied: Topic #14 now contains 6 lessons",
-            "History checkpoint created (Undo Stack: 8 actions deep)",
-            "SyncQueue: payload staged, waiting 400ms debounce interval",
-        ],
-    },
-    {
-        id: "rest-sync",
-        number: "04",
-        title: "Debounced REST Batch Pipeline",
-        description:
-            "Network payload is batched and compressed to prevent API spam. Authenticated via WordPress nonce with SHA-256 idempotency header.",
-        tech: "WordPress REST API · Fetch KeepAlive · Idempotency Key",
-        codeSnippet: `// Debounced batch synchronization to WordPress core
-const debouncedSync = debounce(async (batchPayload: SyncPayload) => {
-  const response = await fetch('/wp-json/tutor/v1/course-builder/batch-sync', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-WP-Nonce': window.tutorBuilderConfig.nonce,
-      'X-Idempotency-Key': generatePayloadHash(batchPayload)
-    },
-    body: JSON.stringify(batchPayload)
-  });
-  if (!response.ok) throw new Error("Batch sync rejected by WP REST API");
-  return response.json();
-}, 400);`,
-        systemMetrics: {
-            latency: "18.4ms",
-            ops: "54 req/s",
-            status: "processing",
-        },
-        logs: [
-            "Debounce resolved: sending payload of 3 mutated topics",
-            "POST /wp-json/tutor/v1/course-builder/batch-sync (HTTP 200 OK)",
-            "Idempotency verified: 8f2c9e... (Duplicate request rejected)",
-        ],
-    },
-    {
-        id: "sql-commit",
-        number: "05",
-        title: "Atomic PHP/SQL DB Transaction",
-        description:
-            "Tutor LMS backend initiates SQL transaction, verifies user capabilities, updates nested topics/lessons order indexes, and flushes persistent object caches.",
-        tech: "PHP 8.2 · $wpdb Transaction · Redis Object Cache",
-        codeSnippet: `// PHP backend atomic write with cache invalidation
-function tutor_atomic_reorder_curriculum(WP_REST_Request $request) {
-    global $wpdb;
-    $wpdb->query('START TRANSACTION');
-    try {
-        foreach ($request->get_param('topics') as $topic) {
-            $wpdb->update($wpdb->posts, ['menu_order' => $topic['order']], ['ID' => $topic['id']]);
-            tutor_sync_lesson_order_recursive($topic['lessons']);
-        }
-        $wpdb->query('COMMIT');
-        wp_cache_delete('tutor_course_curriculum_' . $request['course_id'], 'tutor');
-        return new WP_REST_Response(['status' => 'synced', 'ts' => microtime(true)], 200);
-    } catch (Exception $e) {
-        $wpdb->query('ROLLBACK');
-        return new WP_Error('tutor_db_sync_failed', $e->getMessage(), ['status' => 500]);
-    }
-}`,
-        systemMetrics: {
-            latency: "12.8ms",
-            ops: "980 tx/s",
-            status: "healthy",
-        },
-        logs: [
-            "SQL START TRANSACTION across 34 post rows",
-            "Updated menu_order indexes for 6 lessons in Topic #14",
-            "Redis wp_cache_delete executed; SQL COMMIT ACK received",
-        ],
-    },
-];
-
-const TUTOR_MERMAID_ARCH = `flowchart TD
-    classDef client fill:#1e1e24,stroke:#ff1744,stroke-width:1.5px,color:#fff;
-    classDef engine fill:#131d1b,stroke:#10b981,stroke-width:1.5px,color:#fff;
-    classDef gateway fill:#131a26,stroke:#0ea5e9,stroke-width:1.5px,color:#fff;
-    classDef backend fill:#241818,stroke:#f59e0b,stroke-width:1.5px,color:#fff;
-
-    subgraph Client["React Client Application (Course Builder)"]
-        UI["Builder DOM UI"]:::client
-        Reg["Plugin Registry & Hooks"]:::client
-        FLIP["60 FPS FLIP Drag Engine"]:::engine
-        Store["Atomic Redux/Immer Store"]:::client
-        Cache["IndexedDB Local Cache"]:::client
-    end
-
-    subgraph Transport["Network & Middleware Layer"]
-        Queue["Debounced Action Queue (400ms)"]:::gateway
-        Idemp["Idempotency SHA-256 Hashing"]:::gateway
-        Fetcher["Fetch API KeepAlive Client"]:::gateway
-    end
-
-    subgraph Server["WordPress Core & Tutor LMS Backend"]
-        WPN["WP REST API Gateway & Nonce"]:::backend
-        Sanitizer["LaTeX & Content Sanitizer"]:::backend
-        PHP["Tutor PHP 8.x Controller"]:::backend
-        DB[("MySQL Database ($wpdb)")]:::backend
-        Hooks["apply_filters Action Hooks"]:::backend
-    end
-
-    UI --> FLIP
-    FLIP --> Store
-    Store --> Cache
-    Store --> Queue
-    Reg --> UI
-    Queue --> Idemp
-    Idemp --> Fetcher
-    Fetcher --> WPN
-    WPN --> Sanitizer
-    Sanitizer --> PHP
-    PHP --> DB
-    PHP --> Hooks`;
-
-const TUTOR_MERMAID_SEQ = `sequenceDiagram
-    autonumber
-    actor Instructor as Course Creator / Admin
-    participant Builder as Tutor Builder React UI
-    participant Registry as Component Registry
-    participant Addons as 3rd-Party Addons & Plugins
-    participant Reactive as In-House Form & Query Engine
-    participant Cache as Client LRU Cache & IndexedDB
-    participant Gateway as WP REST Gateway (_wpnonce)
-    participant PHP as Tutor PHP Core (namespace TUTOR)
-    participant DB as MySQL Database ($wpdb)
-
-    Note over Instructor,Registry: 120,000+ Active Deployments Worldwide
-    Instructor->>Builder: Mount Course / Quiz Builder View
-    Builder->>Registry: Request Registered Field Schemas
-    Registry->>Addons: Execute Injection Hooks (apply_filters)
-    Addons-->>Registry: Inject Custom Question Types & Math Meta
-    Registry-->>Builder: Composite Typed Component Tree
-
-    Instructor->>Builder: Reorder Topics (Drag-and-Drop) / Edit Quiz
-    Builder->>Reactive: Dispatch Atomic Mutation Event
-    Note over Reactive,Cache: Sub-16ms FLIP Calculation (0.00 CLS)
-    Reactive->>Cache: Commit Optimistic UI State (Tag: course:curriculum)
-    Cache-->>Builder: Update DOM Instantly (0ms perceived latency)
-
-    Reactive->>Gateway: Debounced Batch Payload (POST /wp-json/tutor/v1)
-    Gateway->>Gateway: Verify WP Nonce & Sanitize LaTeX Content
-    Gateway->>PHP: Route to TUTOR Controller (PHP 8.x)
-    PHP->>DB: $wpdb->prepare() & Atomic SQL Transaction
-    alt Transaction Succeeded
-        DB-->>PHP: Commit ACK
-        PHP-->>Gateway: HTTP 200 { success: true, updated_at }
-        Gateway-->>Reactive: Reconcile State & Clear Rollback Snapshot
-    else Connection Drop / Database Conflict
-        DB--xPHP: Lock Timeout / Error
-        PHP-->>Gateway: HTTP 500 / Network Error
-        Gateway-->>Reactive: Trigger Automatic Rollback
-        Reactive->>Cache: Restore Memory Snapshot & Buffer into IndexedDB
-        Cache-->>Builder: Revert DOM State with Emil-Polish Alert
-    end`;
-
-const EASYSTORE_MERMAID_ARCH = `flowchart TD
-    classDef client fill:#1e1e24,stroke:#ff1744,stroke-width:1.5px,color:#fff;
-    classDef engine fill:#131d1b,stroke:#10b981,stroke-width:1.5px,color:#fff;
-    classDef gateway fill:#131a26,stroke:#0ea5e9,stroke-width:1.5px,color:#fff;
-    classDef backend fill:#241818,stroke:#f59e0b,stroke-width:1.5px,color:#fff;
-
-    subgraph Client["React / Next.js Admin & POS Interface"]
-        POS["Cashier POS & Cart Engine"]:::client
-        Scan["Hardware Barcode Scanner"]:::client
-        State["Optimistic IndexedDB Store"]:::client
-    end
-
-    subgraph Engine["Offline Engine & Sync Manager"]
-        Worker["Web Worker Sync Daemon"]:::engine
-        Conflict["CRDT Conflict Resolver"]:::engine
-        Crypto["AES-256 Payload Encryption"]:::engine
-    end
-
-    subgraph Backend["Multi-Tenant Backend & Microservices"]
-        Gate["Kong API Gateway & JWT Auth"]:::gateway
-        OrderSvc["Node.js Order Processing Service"]:::backend
-        PG[("PostgreSQL Multi-Tenant DB")]:::backend
-        Redis[("Redis Distributed Cache")]:::backend
-    end
-
-    POS --> State
-    Scan --> POS
-    State --> Worker
-    Worker --> Conflict
-    Conflict --> Crypto
-    Crypto --> Gate
-    Gate --> OrderSvc
-    OrderSvc --> Redis
-    OrderSvc --> PG`;
-
-const EASYSTORE_MERMAID_SEQ = `sequenceDiagram
-    autonumber
-    actor Cashier as Store Associate / Cashier
-    participant Terminal as POS Terminal UI
-    participant Worker as Sync Worker Daemon
-    participant Gateway as API Gateway (mTLS)
-    participant Engine as Order & Inventory Engine
-    participant DB as PostgreSQL Cluster
-
-    Cashier->>Terminal: Scan Item Barcode (USB HID)
-    Terminal->>Terminal: Evaluate Tax, Coupons & Local Price Rules
-    Terminal->>Worker: Enqueue Transaction with Offline Signature
-    Worker->>Gateway: Flush Enqueued Batches (gRPC Streaming)
-    Gateway->>Engine: Validate Inventory Lock & Merchant Quota
-    Engine->>DB: Atomic Serializable Transaction
-    DB-->>Engine: Transaction Committed
-    Engine-->>Gateway: Ingestion Acknowledged
-    Gateway-->>Worker: Sync Receipt Confirmed
-    Worker-->>Terminal: Mark Order Synced & Print Thermal Receipt`;
-
-export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps> = ({ projectId = "tutor-lms" }) => {
-    const isTutor = projectId === "tutor-lms";
-    const steps = TUTOR_LMS_STEPS;
-    const archDiagram = isTutor ? TUTOR_MERMAID_ARCH : EASYSTORE_MERMAID_ARCH;
-    const seqDiagram = isTutor ? TUTOR_MERMAID_SEQ : EASYSTORE_MERMAID_SEQ;
+export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps> = ({ flow }) => {
+    const steps = flow.steps;
+    const archDiagram = flow.archMermaid;
+    const seqDiagram = flow.seqMermaid;
 
     const [activeTab, setActiveTab] = useState<"simulator" | "architecture" | "sequence" | "code">("simulator");
     const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
@@ -746,7 +433,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                     <div className="flex items-center justify-between border-b border-black/[0.04] dark:border-white/[0.06] pb-3">
                                         <div>
                                             <span className="text-xs font-mono text-[#ff1744] font-semibold">
-                                                STAGE {currentStep.number} OF 05
+                                                STAGE {currentStep.number} OF {String(steps.length).padStart(2, "0")}
                                             </span>
                                             <h4 className="text-lg font-bold text-neutral-900 dark:text-white">
                                                 {currentStep.title}
@@ -770,7 +457,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
                                                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                                             </div>
-                                            <span className="text-neutral-400 ml-2">production-pipeline.ts</span>
+                                            <span className="text-neutral-400 ml-2">{currentStep.codeFile}</span>
                                         </div>
                                         <button
                                             onClick={() => copyCode(currentStep.codeSnippet)}

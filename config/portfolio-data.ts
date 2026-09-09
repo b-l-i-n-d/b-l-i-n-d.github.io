@@ -294,25 +294,37 @@ export function useTutorMotion(preset: "snappy" | "gentle" | "modal" = "snappy")
                 },
                 code: {
                     title: "Argon2id Master Key Derivation & AES-256-GCM Cryptographic Engine",
-                    subtitle: "Native Quick Crypto & NIST-Grade Symmetric Encryption",
+                    subtitle: "Native Quick Crypto & AES-256-GCM Authenticated Encryption",
                     description:
-                        "Core cryptographic pipeline deriving 256-bit encryption keys and performing authenticated AES-GCM encryption with randomized IVs and SHA-256 HMAC integrity checks.",
+                        "Core cryptographic pipeline deriving 256-bit vault keys with native Argon2id and performing authenticated AES-GCM encryption with a random 96-bit IV and a 128-bit auth tag appended to the ciphertext.",
                     highlights: [
                         "NIST SP 800-38D compliant AES-256-GCM authenticated cipher",
-                        "Secure hardware random byte generator for initialization vectors and salts",
+                        "Native Argon2id key derivation (64MB memory, 3 passes, 1 lane, 256-bit output)",
+                        "Secure hardware random bytes for initialization vectors and salts",
                     ],
                     codeSnippet: {
-                        filename: "lib/crypto/EnclaveCryptoEngine.ts",
+                        filename: "lib/crypto/encryption.ts",
                         language: "typescript",
-                        code: `// Enclave Cryptographic Engine
-import QuickCrypto from "react-native-quick-crypto";
+                        code: `// Enclave cryptographic engine (lib/crypto/encryption.ts)
+const IV_LENGTH = 12;        // 96-bit IV for AES-GCM
+const AUTH_TAG_LENGTH = 16;  // 128-bit auth tag
 
-export async function encryptVaultRecord(plaintext: string, derivedKey: Buffer) {
-    const iv = QuickCrypto.randomBytes(12);
-    const cipher = QuickCrypto.createCipheriv("aes-256-gcm", derivedKey, iv);
-    const encrypted = Buffer.concat([cipher.update(plaintext, "utf8"), cipher.final()]);
-    const tag = cipher.getAuthTag();
-    return { ciphertext: encrypted.toString("base64"), iv: iv.toString("base64"), tag: tag.toString("base64") };
+export async function encryptJson<T>(vaultKeyBase64: string, plaintext: T) {
+    const keyBytes = Buffer.from(vaultKeyBase64, "base64");
+    const iv = QuickCrypto.getRandomValues(new Uint8Array(IV_LENGTH));
+    const plaintextBytes = Buffer.from(JSON.stringify(plaintext), "utf8");
+
+    const cipher = QuickCrypto.createCipheriv("aes-256-gcm", keyBytes, iv);
+    const encrypted = Buffer.concat([cipher.update(plaintextBytes), cipher.final()]);
+    const authTag: Buffer = cipher.getAuthTag();
+
+    // Auth tag is appended to the ciphertext so tampering fails decryption
+    const combined = Buffer.concat([encrypted, authTag]);
+
+    return {
+        ciphertext: combined.toString("base64"),
+        iv: Buffer.from(iv).toString("base64"),
+    };
 }`,
                     },
                 },
@@ -339,87 +351,109 @@ export async function encryptVaultRecord(plaintext: string, derivedKey: Buffer) 
             timeline: "2023 – 2024",
             role: "Full-Stack Architect & Creator",
             stack: [
-                "Next.js",
+                "Next.js 13",
                 "TypeScript",
-                "Node.js",
-                "Express",
-                "MongoDB",
-                "Mongoose",
+                "React 18",
                 "Redux Toolkit & RTK Query",
                 "Redux Persist",
-                "Cloudinary Video",
-                "JWT & Passport",
                 "Ant Design",
+                "Node.js",
+                "Express",
+                "MongoDB & Mongoose",
+                "JWT & Passport",
+                "Joi Validation",
+                "NodeMailer & Handlebars",
             ],
             stats: [
-                { label: "Architecture", value: "Next.js + Express" },
-                { label: "State Sync", value: "RTK Query Cache" },
-                { label: "Assessment", value: "Quizzes & Assignments" },
-                { label: "Leaderboard", value: "Real-Time Ranking" },
+                { label: "Architecture", value: "Client + Server Monorepo" },
+                { label: "State Sync", value: "RTK Query + Persist" },
+                { label: "Assessment", value: "5-Mark Quiz Grading" },
+                { label: "Leaderboard", value: "Mongo Aggregation" },
             ],
-            liveUrl: "https://github.com/b-l-i-n-d/edTech",
+            liveUrl: "https://ed-tech-six.vercel.app",
             githubUrl: "https://github.com/b-l-i-n-d/edTech",
             isPrivate: false,
             stages: {
                 architecture: {
-                    title: "Full-Stack Next.js & Express Micro-Architecture with Video Telemetry",
-                    subtitle: "Decoupled Media Delivery, Normalized State & Automated Marking",
+                    title: "Client/Server Monorepo & Service-Layer REST Backbone",
+                    subtitle: "Next.js 13 Pages Router + Express Models → Services → Controllers → Routes",
                     description:
-                        "EdTech provides a complete learning management ecosystem connecting students and instructors. Features video course players with progress tracking, interactive multiple-choice quizzes with automated grading, assignment submission portals with instructor marking, and real-time student leaderboard rankings.",
+                        "EdTech ships as a two-folder monorepo. The client/ is a Next.js 13 (pages router) TypeScript app styled with Ant Design, connecting through Redux Toolkit domain slices (auth, videos, quiz sets, quizzes, assignment marks) and RTK Query endpoints rehydrated from redux-persist. The server/ is an ESM Express REST API organized into a strict models → services → controllers → routes layering with Joi request validation, Mongoose models (user, video, quizz, quizzSet, assignment, quizzMark, assignmentMark, token), Passport JWT access/refresh auth, and a Swagger OpenAPI spec served at runtime.",
                     highlights: [
-                        "Next.js SSR frontend with Redux Toolkit and RTK Query normalized cache hydration",
-                        "Express REST backend with JWT authentication and Passport security strategies",
-                        "Cloudinary video player integration with bookmarking and playback telemetry",
-                        "Automated quiz scoring pipeline and instructor assignment grading with feedback loop",
+                        "Two-folder monorepo: Next.js 13 client and an ESM Express service-layer API",
+                        "RTK Query endpoint per domain (auth, video, quiz, assignment, leaderboard) with redux-persist rehydration",
+                        "Mongoose paginate plugin for cursor-free paging and service-layer separation of concerns",
+                        "Helmet, xss-clean, express-rate-limit and express-mongo-sanitize hardening the REST surface",
+                        "Swagger-jsdoc OpenAPI spec exposed via swagger-ui-express",
+                        "NodeMailer + Handlebars password-reset email template with Joi-validated flows",
                     ],
                 },
                 flow: {
-                    title: "Interaction Flow: Course Video Playback → Live Quiz → Leaderboard Rank",
-                    subtitle: "End-to-End Student Assessment & Telemetry Lifecycle",
+                    title: "Student Journey: Watch → Quiz → Assignment → Leaderboard",
+                    subtitle: "Persisted JWT Sessions, react-player Modules & Rank Aggregation",
                     description:
-                        "Student completes streaming lesson modules, takes dynamically timed quizzes, submits coursework assignments, and receives instant grade calculation that updates global leaderboard standings.",
+                        "Students register or log in through a persisted auth slice (next-redux-wrapper + redux-persist), then browse course modules and watch lessons in a react-player view with per-video RTK Query state. Completing a module unlocks its quiz; submissions are graded by comparing the student's selected answers against the correct-option keys stored on each question (five marks per question). Assignments upload to an instructor review queue with marks and written feedback, and every score folds into a MongoDB aggregation leaderboard ranking the top 25 students with shared ranks for ties.",
                     highlights: [
-                        "1. Video player streams course media with auto-progress tracking into RTK Query cache",
-                        "2. Quiz engine renders randomized questions and calculates total score in real-time",
-                        "3. Assignment submission uploads project files and notifies course instructors",
-                        "4. Global leaderboard evaluates aggregate quiz & assignment marks to update student rank",
+                        "1. Route guards (LoginGuard / UserOnly / AdminOnly) wrapping persisted JWT sessions",
+                        "2. react-player video playback in the course page with per-video RTK Query state",
+                        "3. Quiz engine credits 5 points per correct answer and rejects duplicate submissions",
+                        "4. Assignment portal plus an admin marking UI (marks & feedback)",
+                        "5. MongoDB $group/$lookup aggregation ranks students 1–25 with tied ranks",
                     ],
                 },
                 code: {
-                    title: "Automated Quiz Evaluation & Leaderboard Calculation Engine",
-                    subtitle: "Express Controller & MongoDB Transaction Pipeline",
+                    title: "Automated Quiz Evaluation & Duplicate-Submission Guard",
+                    subtitle: "Express Service-Layer Grading with Mongoose (quizzMark.service.js)",
                     description:
-                        "Backend evaluation controller verifying student answer sheets against question keys, executing atomic grade recording, and computing updated student leaderboard standings.",
+                        "The grading service loads the video's question set, builds the correct-answer key from the isCorrect flags on each option, compares the student's selections with structural JSON equality, and persists the result atomically as a QuizzMark document recording totalQuizzes, totalCorrect, totalWrong, totalMarks and marks. A mark that already exists for the same student + video short-circuits with HTTP 400, closing the resubmission loophole before any grading runs.",
                     highlights: [
-                        "Atomic score calculation preventing duplicate submission exploits",
-                        "Leaderboard rank aggregation computing cumulative marks and peer percentiles",
+                        "Duplicate-submission rejection: same video + student raises 400 before grading",
+                        "Answer keys derived from persisted isCorrect option flags, never from client claims",
+                        "Marks model: totalMarks = questions × 5, marks = correct × 5",
+                        "Paginated queries with video/student population for admin and student views",
                     ],
                     codeSnippet: {
-                        filename: "server/controllers/quizMark.controller.ts",
-                        language: "typescript",
-                        code: `// Automated Quiz Score Evaluator & Leaderboard Mutator
-export async function evaluateQuizSubmission(req: Request, res: Response) {
-    const { studentId, videoId, answers } = req.body;
-    const questions = await Question.find({ video_id: videoId });
-    let totalMark = 0;
-    questions.forEach(q => {
-        if (isAnswersMatch(q.options, answers[q._id])) totalMark += q.mark;
+                        filename: "server/src/services/quizzMark.service.js",
+                        language: "javascript",
+                        code: `// Server-side quiz grading (quizzMark.service.js excerpt)
+const correctAnswers = quizzes.map((quizz) => ({
+    [quizz._id]: quizz.options.filter((option) => option.isCorrect).map((option) => option._id.toString()),
+}));
+
+const { selectedAnswers } = quizzMarkBody;
+
+const countTotalCorrect = (correctAns, selectedAns) => {
+    let totalCorrect = 0;
+    correctAns.forEach((correctObject, index) => {
+        const selectedObject = selectedAns[index];
+        if (JSON.stringify(correctObject) === JSON.stringify(selectedObject)) totalCorrect += 1;
     });
-    await QuizMark.findOneAndUpdate({ student_id: studentId, video_id: videoId }, { mark: totalMark, totalMark: questions.length * 5 }, { upsert: true });
-    return res.status(200).json({ success: true, score: totalMark });
-}`,
+    return totalCorrect;
+};
+
+const totalCorrect = countTotalCorrect(correctAnswers, selectedAnswers);
+
+return QuizzMark.create({
+    ...quizzMarkBody,
+    totalQuizzes: quizzes.length,
+    totalCorrect,
+    totalWrong: quizzes.length - totalCorrect,
+    totalMarks: quizzes.length * 5,
+    marks: totalCorrect * 5,
+    correctAnswers,
+});`,
                     },
                 },
                 live: {
-                    title: "Course Dashboard, Cloudinary Video & Real-Time Leaderboards",
-                    subtitle: "Comprehensive Student & Admin Cockpit Experience",
+                    title: "Live Deployed Student & Admin Cockpit",
+                    subtitle: "Vercel Frontend, Containerized API & OpenAPI Docs",
                     description:
-                        "Explore the live features of the EdTech platform: student learning dashboard, video module navigator, quiz score breakdown, and admin course creation studio.",
+                        "The platform's student dashboard, course video player, quiz/assignment grading and the real-time leaderboard are deployed live on Vercel, backed by the Docker/PM2-ready Express API with Swagger documentation.",
                     highlights: [
-                        "Complete role-based access control for students and administrators",
-                        "Dynamic leaderboard ranking based on combined quiz and assignment scores",
-                        "Responsive Next.js client with Ant Design UI and smooth Markdown rendering",
-                        "100% open-source architecture with modular Express API endpoints",
+                        "Live product deployed at ed-tech-six.vercel.app (Vercel)",
+                        "Docker Compose dev/prod/test profiles with PM2 process manager",
+                        "Jest + supertest + node-mocks-http test suite with Husky lint-staged pre-commit",
+                        "100% open-source MIT-licensed monorepo with seeded demo data",
                     ],
                 },
             },
@@ -433,73 +467,94 @@ export async function evaluateQuizSubmission(req: Request, res: Response) {
             timeline: "2023",
             role: "Full-Stack Architect & Creator",
             stack: [
-                "React",
+                "React 18",
+                "Vite",
                 "Redux Toolkit & RTK Query",
-                "Node.js",
-                "Express",
-                "MongoDB",
-                "Mongoose",
-                "React PDF Renderer",
                 "Ant Design",
                 "Tailwind CSS",
+                "daisyUI",
+                "Chart.js",
+                "React PDF Renderer",
+                "Node.js",
+                "Express",
+                "MongoDB & Mongoose",
                 "Cloudinary",
-                "NodeMailer",
             ],
             stats: [
                 { label: "Portals", value: "Patient · Doctor · Admin" },
-                { label: "State Engine", value: "ACID Booking Locks" },
-                { label: "Export", value: "Dynamic Medical PDF" },
-                { label: "Auth", value: "JWT & Cookie Rotation" },
+                { label: "Auth", value: "Cookie JWT Rotation" },
+                { label: "Export", value: "React-PDF Dossier" },
+                { label: "Client", value: "React 18 + Vite" },
             ],
-            liveUrl: "https://github.com/b-l-i-n-d/docapp",
+            liveUrl: "https://docapp-five.vercel.app",
             githubUrl: "https://github.com/b-l-i-n-d/docapp",
             isPrivate: false,
             stages: {
                 architecture: {
-                    title: "Three-Tier Clinical Scheduling Architecture & Availability State Engine",
-                    subtitle: "Multi-Role RBAC, Concurrency Locks & Dynamic PDF Generation",
+                    title: "Three-Tier Clinical Scheduling Architecture & Component-Based API",
+                    subtitle: "Multi-Role RBAC, Cookie-JWT Rotation & React-PDF Export",
                     description:
-                        "DocApp delivers an enterprise-grade clinical appointment workflow coordinating patients, healthcare practitioners, and clinic administrators. The system prevents scheduling collisions using optimistic slot locking, validates doctor credentials, and generates patient appointment dossiers via React PDF Renderer.",
+                        "DocApp coordinates patients, doctors, and clinic administrators across a Vite/React client and a component-based Express API (models → controllers → routes per domain: users, doctors, departments, districts, workplaces, appointments). Authentication uses rotating cookie-borne JWT access/refresh tokens behind Passport-free middleware, images flow through Cloudinary, and appointment dossiers render to PDF client-side via @react-pdf/renderer.",
                     highlights: [
                         "Multi-role role-based access control (Patients, Verified Doctors, System Administrators)",
-                        "Deterministic booking state machine preventing double-booking race conditions",
-                        "Dynamic client-side and server-side PDF prescription and appointment dossier export",
-                        "NodeMailer automated appointment confirmation and schedule change alerts",
+                        "Rotating cookie JWT access/refresh exchange with per-route verifyAccessToken middleware",
+                        "Component-based Express organization mirroring each domain's model + controller + routes",
+                        "Cloudinary asset upload/delete and NodeMailer + Handlebars password-reset email templates",
                     ],
                 },
                 flow: {
-                    title: "Interaction Flow: Doctor Search → Slot Reservation → PDF Export",
-                    subtitle: "Synchronized Booking Pipeline & Notification Broadcast",
+                    title: "Interaction Flow: Doctor Search → Booking Request → PDF Export",
+                    subtitle: "Department & District Filtering, Validated Booking & Client Dossier",
                     description:
-                        "Patients filter doctors by medical department and district, select available time slots with instantaneous concurrency lock, receive email confirmations, and export medical appointment summaries.",
+                        "Patients filter approved doctors by department, workplace, and district, open a doctor profile, and submit a booking with name, age, gender, phone, and appointment date. The API validates the doctor's ObjectId and existence, then persists the appointment to the patient's ledger. Doctors and admins review bookings through date-scoped dashboards, and any listing can be exported as a formatted medical dossier PDF.",
                     highlights: [
                         "1. Patient filters approved doctors by department, workplace, and geographic district",
-                        "2. Slot reservation executes atomic availability check to eliminate scheduling conflicts",
-                        "3. Doctor reviews incoming patient consultation queue and confirms appointment",
-                        "4. Dynamic React PDF renderer generates formatted medical summary dossier for offline access",
+                        "2. Booking controller validates doctor identity and persists a date-stamped appointment",
+                        "3. Doctor dashboard lists incoming patient queues with date and recent-5 feeds",
+                        "4. React-PDF renderer exports a formatted medical summary dossier client-side",
                     ],
                 },
                 code: {
-                    title: "Doctor Appointment Concurrency Lock & Slot Reservation Controller",
-                    subtitle: "MongoDB / Mongoose Transaction Engine with ACID Guarantees",
+                    title: "Doctor Appointment Creation & Validation Controller",
+                    subtitle: "Express Component-Based Architecture with Mongoose",
                     description:
-                        "Express route controller executing atomic appointment booking, verifying doctor working hours and preventing duplicate slot allocation.",
+                        "The appointments controller validates the requested doctor, rejects malformed ObjectIds, and persists a date-stamped appointment bound to the authenticated user from the cookie-borne JWT. Listings are filterable per doctor or per patient ('me'), by date, with aggregation-style recent views and paginated query helpers.",
                     highlights: [
-                        "Atomic MongoDB findOneAndUpdate query preventing concurrent slot claims",
-                        "Automated email notification trigger dispatched to both patient and practitioner",
+                        "Container-objective validation: ObjectId format + doctor existence before insert",
+                        "User identity resolved from the access-token payload (res.locals.data), never from the body",
+                        "Appointment ledger queries scoped by userId ('/me'), doctorId, date, and a recent-5 doctor feed",
+                        "React-PDF renderer generates an appointment dossier client-side from the ledger",
                     ],
                     codeSnippet: {
-                        filename: "server/controllers/appointment.controller.ts",
-                        language: "typescript",
-                        code: `// Doctor Appointment Atomic Reservation Lock
-export async function reserveAppointmentSlot(req: Request, res: Response) {
-    const { doctorId, patientId, slotTime, appointmentDate } = req.body;
-    const existing = await Appointment.findOne({ doctorId, appointmentDate, slotTime, status: { $ne: "CANCELLED" } });
-    if (existing) return res.status(409).json({ error: "Selected consultation slot has already been reserved." });
-    const appointment = await Appointment.create({ doctorId, patientId, slotTime, appointmentDate, status: "PENDING" });
-    await sendConfirmationEmail(appointment);
-    return res.status(201).json({ success: true, appointment });
-}`,
+                        filename: "server/components/appointments/appointments.controller.js",
+                        language: "javascript",
+                        code: `// Express appointment creation (appointments.controller.js excerpt)
+const createAppointment = async (req, res) => {
+    const { doctorId, name, age, gender, date, type, phone } = req.body;
+    const userId = res.locals.data._id;
+
+    if (!mongoose.Types.ObjectId.isValid(doctorId)) {
+        return res.status(400).json({ error: 'Invalid doctor id' });
+    }
+
+    const doctor = await doctorsModel.findById(doctorId).lean();
+    if (!doctor) {
+        return res.status(404).json({ error: 'Doctor not found' });
+    }
+
+    const appointment = await Appointment.create({
+        doctorId,
+        userId,
+        date: new Date(date),
+        name,
+        age,
+        gender,
+        type,
+        phone,
+    });
+
+    return res.status(200).json(appointment);
+};`,
                     },
                 },
                 live: {
@@ -645,36 +700,36 @@ export async function reserveAppointmentSlot(req: Request, res: Response) {
         {
             id: "blueprint-04",
             number: "04",
-            title: "Automated Quiz & Leaderboard Sync Engine",
+            title: "Automated Quiz & Leaderboard Aggregation Engine",
             category: "EdTech Fullstack Platform",
             badge: "LEARNING ENGINE",
             description:
-                "Interactive learning management platform with video playback telemetry, synchronized chapter bookmarks, timed quiz evaluation with instant score computation, and live peer rankings.",
+                "Interactive learning management platform with react-player video modules, automated 5-mark quiz graduation with duplicate-submission guards, instructor-marked assignments, and a MongoDB-aggregated peer leaderboard.",
             details: [
-                "Client-side RTK Query caching with optimistic bookmark updating",
-                "Automated quiz grading engine supporting multi-choice and boolean assessments",
-                "Video progress tracking with automatic completion triggers",
-                "Role-based authorization separating instructors from enrolled students",
+                "Client-side RTK Query domain slices rehydrated via redux-persist",
+                "Automated quiz grading built on stored isCorrect option keys (5 marks per question)",
+                "react-player lesson playback with persisted progress state",
+                "Role-based authorization separating admins from enrolled students",
             ],
-            technologies: ["Next.js", "Express.js", "MongoDB", "Redux Toolkit", "RTK Query", "Tailwind CSS"],
+            technologies: ["Next.js", "Express.js", "MongoDB", "Redux Toolkit", "RTK Query", "Ant Design"],
             demoUrl: "https://github.com/b-l-i-n-d/edTech",
             sourceUrl: "https://github.com/b-l-i-n-d/edTech",
         },
         {
             id: "blueprint-05",
             number: "05",
-            title: "Clinical Concurrency Locks & PDF Generator",
+            title: "Clinical Booking Validation & PDF Dossier Generator",
             category: "Healthcare Systems",
-            badge: "HIGH CONCURRENCY",
+            badge: "ROLE-GATED BOOKING",
             description:
-                "Medical consultation and appointment management platform with multi-tier role authorization (Admin, Doctor, Patient). Features deterministic double-booking prevention and dynamic prescription PDF generation.",
+                "Medical consultation and appointment management platform with multi-tier role authorization (Admin, Doctor, Patient). Features doctor-validated appointment booking, rotating cookie-JWT sessions, and client-side React-PDF dossier export.",
             details: [
-                "Atomic reservation locks preventing concurrent slot race conditions",
+                "Doctor-validated booking with ObjectId checks before appointment persistence",
                 "Role-gated dashboards with personalized appointment histories",
-                "Automated PDF prescription generation and secure patient download pipeline",
-                "Doctor availability window configuration with blackout periods",
+                "Client-side React-PDF dossier generation from the appointment ledger",
+                "Date-scoped appointment queries for doctor and admin review feeds",
             ],
-            technologies: ["React", "Node.js", "Express", "MongoDB", "Mongoose", "PDFKit"],
+            technologies: ["React", "Vite", "Express", "MongoDB", "Mongoose", "React-PDF"],
             demoUrl: "https://github.com/b-l-i-n-d/docapp",
             sourceUrl: "https://github.com/b-l-i-n-d/docapp",
         },

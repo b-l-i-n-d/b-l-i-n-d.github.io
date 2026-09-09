@@ -109,6 +109,79 @@ export interface Chapter {
     label: string;
 }
 
+export type ShowcaseColumnAccent = "rose" | "emerald" | "sky";
+
+export interface ShowcaseGraphNode {
+    id: string;
+    label: string;
+    version: string;
+    badge: string;
+    description: string;
+    prHighlight: string;
+    prUrl: string;
+    metrics: string;
+    commits: string[];
+}
+
+export interface ShowcaseGraphColumn {
+    title: string;
+    nodeIds: string[];
+    accent: ShowcaseColumnAccent;
+}
+
+export interface ShowcaseGraph {
+    navTitle: string;
+    navSubtitle: string;
+    title: string;
+    countLabel: string;
+    verifyLabel: string;
+    verifyUrl: string;
+    inspectLabel: string;
+    commitsHeading: string;
+    commitPrefix: string;
+    columns: ShowcaseGraphColumn[];
+    nodes: ShowcaseGraphNode[];
+}
+
+export interface ShowcaseFlowStep {
+    id: string;
+    number: string;
+    title: string;
+    description: string;
+    tech: string;
+    codeFile: string;
+    codeSnippet: string;
+    systemMetrics: {
+        latency: string;
+        ops: string;
+        status: "healthy" | "processing" | "ready";
+    };
+    logs: string[];
+}
+
+export interface ShowcaseFlow {
+    steps: ShowcaseFlowStep[];
+    archMermaid: string;
+    seqMermaid: string;
+}
+
+export interface ShowcaseCodeModule {
+    id: string;
+    filename: string;
+    badge: string;
+    title: string;
+    description: string;
+    prUrl?: string;
+    prHighlight?: string;
+    code: string;
+}
+
+export interface ProjectShowcase {
+    graph: ShowcaseGraph;
+    flow: ShowcaseFlow;
+    codeModules: ShowcaseCodeModule[];
+}
+
 export interface SystemArchitectureMetric {
     label: string;
     value: string;
