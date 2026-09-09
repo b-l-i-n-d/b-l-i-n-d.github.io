@@ -136,14 +136,19 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
                                 {selectedNode.metrics}
                             </span>
                             <a
-                                href={selectedNode.prUrl}
+                                href={selectedNode.prUrl ?? "#"}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-mono bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:text-[#ff1744] border border-black/[0.06] dark:border-white/[0.08] transition-colors inline-flex items-center gap-1.5 shrink-0"
+                                aria-disabled={!selectedNode.prUrl}
+                                className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-mono border border-black/[0.06] dark:border-white/[0.08] transition-colors inline-flex items-center gap-1.5 shrink-0 ${
+                                    selectedNode.prUrl
+                                        ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:text-[#ff1744]"
+                                        : "bg-neutral-50 dark:bg-neutral-900 text-neutral-400 dark:text-neutral-500 cursor-default"
+                                }`}
                             >
                                 <GitPullRequest className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
-                                <span>{data.inspectLabel}</span>
-                                <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                                <span>{selectedNode.prUrl ? data.inspectLabel : "No PR Reference"}</span>
+                                {selectedNode.prUrl && <ExternalLink className="w-3.5 h-3.5 shrink-0" />}
                             </a>
                         </div>
                     </div>
@@ -154,15 +159,21 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
 
                     <div className="p-3 rounded-xl bg-stone-100/70 dark:bg-neutral-950 border border-black/[0.04] dark:border-white/[0.06] text-xs sm:text-sm font-mono flex flex-wrap items-center justify-between gap-2">
                         <span className="text-neutral-600 dark:text-neutral-400">Primary Contribution:</span>
-                        <a
-                            href={selectedNode.prUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-[#ff1744] hover:underline font-semibold flex items-center gap-1"
-                        >
-                            <span>{selectedNode.prHighlight}</span>
-                            <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-                        </a>
+                        {selectedNode.prUrl && selectedNode.prHighlight ? (
+                            <a
+                                href={selectedNode.prUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-[#ff1744] hover:underline font-semibold flex items-center gap-1"
+                            >
+                                <span>{selectedNode.prHighlight}</span>
+                                <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                            </a>
+                        ) : (
+                            <span className="text-neutral-500 dark:text-neutral-500 italic">
+                                Internal product architecture — not source-verified
+                            </span>
+                        )}
                     </div>
 
                     <div className="space-y-2 pt-2">
@@ -170,15 +181,21 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
                             {data.commitsHeading}
                         </div>
                         <div className="space-y-1.5">
-                            {selectedNode.commits.map((commit, idx) => (
-                                <div
-                                    key={idx}
-                                    className="p-2.5 rounded-lg bg-stone-50/70 dark:bg-neutral-950 border border-black/[0.04] dark:border-white/[0.06] font-mono text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 flex items-center gap-2"
-                                >
-                                    <span className="text-[#ff1744] font-bold shrink-0">{data.commitPrefix}</span>
-                                    <span className="truncate">{commit}</span>
+                            {selectedNode.commits?.length ? (
+                                selectedNode.commits.map((commit, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="p-2.5 rounded-lg bg-stone-50/70 dark:bg-neutral-950 border border-black/[0.04] dark:border-white/[0.06] font-mono text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 flex items-center gap-2"
+                                    >
+                                        <span className="text-[#ff1744] font-bold shrink-0">{data.commitPrefix}</span>
+                                        <span className="truncate">{commit}</span>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="p-2.5 rounded-lg bg-stone-50/70 dark:bg-neutral-950 border border-black/[0.04] dark:border-white/[0.06] font-mono text-xs sm:text-sm text-neutral-500 dark:text-neutral-500 italic">
+                                    No public source commit mapping available.
                                 </div>
-                            ))}
+                            )}
                         </div>
                     </div>
                 </motion.div>

@@ -31,7 +31,7 @@ export const portfolioData: EngineerProfile = {
         },
     ],
     heroReel: {
-        title: "Tutor LMS 2.0 to 4.0 Architecture",
+        title: "Tutor LMS Architecture",
         tagline: "Core Frontend & Lesson Cockpit Engineering",
         badge: "PRODUCTION RELEASE",
         videoUrl: "https://tutorlms.com/wp-content/uploads/2026/07/home-hero-student-4.mp4",
@@ -112,7 +112,7 @@ export const portfolioData: EngineerProfile = {
         {
             id: "tutor-lms",
             chapterNumber: "04",
-            title: "Tutor LMS 2.0 to 4.0",
+            title: "Tutor LMS",
             tagline: "Enterprise EdTech Architecture at Global Scale",
             category: "Enterprise Learning Management System",
             timeline: "2024 – Present",
@@ -582,7 +582,7 @@ const createAppointment = async (req, res) => {
                 "Zero-layout-shift drag-and-drop sortable list using pure pointer event tracking, FLIP coordinate calculations, and interruptible springs.",
             technologies: ["React", "TypeScript", "Pointer Events", "FLIP Technique", "Web Animations API"],
             demoUrl: "/demos/drag-sort",
-            githubUrl: "https://github.com/b-l-i-n-d/tutor-curriculum-engine",
+            githubUrl: "https://github.com/b-l-i-n-d/dragdiv",
             fpsTarget: 120,
             highlights: [
                 "120 FPS continuous framerate during multi-item reorder",
@@ -599,7 +599,7 @@ const createAppointment = async (req, res) => {
                 "Deep tree directory visualizer handling 10,000+ nodes with virtualized windowing, multi-select ranges, keyboard navigation, and inline mutation.",
             technologies: ["React", "TypeScript", "Tree Traversal", "DOM Virtualization", "Tailwind CSS"],
             demoUrl: "/demos/folder-tree",
-            githubUrl: "https://github.com/b-l-i-n-d/tutor-curriculum-engine",
+            githubUrl: "https://github.com/b-l-i-n-d/folder-manager",
             fpsTarget: 60,
             highlights: [
                 "Virtualized rendering supporting 10,000+ deep nested items",
@@ -616,7 +616,7 @@ const createAppointment = async (req, res) => {
                 "Hardware-accelerated 3D book cover and page-turn experience using CSS 3D matrix transforms, pointer-following dynamic shadow falloff, and realistic page curvature.",
             technologies: ["React", "CSS 3D Transforms", "Matrix3D", "Pointer Physics", "RAF"],
             demoUrl: "/demos/3d-book",
-            githubUrl: "https://github.com/b-l-i-n-d/tutor-curriculum-engine",
+            githubUrl: "https://github.com/b-l-i-n-d/book-animation",
             fpsTarget: 60,
             highlights: [
                 "Hardware GPU compositing with zero main thread layout thrashing",
@@ -633,7 +633,7 @@ const createAppointment = async (req, res) => {
                 "Accessible date and range picker engineered from pure date arithmetic. Supports multi-month views, keyboard navigation, locale formatting, and collision-free booking windows.",
             technologies: ["TypeScript", "Native Date Math", "Intl API", "CSS Grid", "Accessibility"],
             demoUrl: "/demos/calendar",
-            githubUrl: "https://github.com/b-l-i-n-d/tutor-curriculum-engine",
+            githubUrl: "https://github.com/b-l-i-n-d/calendar",
             fpsTarget: 60,
             highlights: [
                 "Zero external date libraries (no date-fns, no moment, no dayjs)",
@@ -658,8 +658,8 @@ const createAppointment = async (req, res) => {
                 "Hierarchical category and billboard management system",
             ],
             technologies: ["Next.js (App Router)", "TypeScript", "Tailwind CSS", "Prisma", "Stripe API", "MySQL"],
-            demoUrl: "https://github.com/b-l-i-n-d/e-commerce",
-            sourceUrl: "https://github.com/b-l-i-n-d/e-commerce",
+            demoUrl: "https://github.com/b-l-i-n-d/ecommerce-store",
+            sourceUrl: "https://github.com/b-l-i-n-d/ecommerce-store",
         },
         {
             id: "blueprint-02",

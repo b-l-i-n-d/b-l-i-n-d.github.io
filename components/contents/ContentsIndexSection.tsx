@@ -9,7 +9,7 @@ const DEFAULT_COLUMNS: ContentsColumn[] = [
     {
         id: "one",
         numberScript: "One :",
-        title: "Tutor LMS 2.0 to 4.0",
+        title: "Tutor LMS",
         items: [
             {
                 id: "curriculum-builder",

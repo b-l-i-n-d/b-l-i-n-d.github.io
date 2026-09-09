@@ -117,10 +117,10 @@ export interface ShowcaseGraphNode {
     version: string;
     badge: string;
     description: string;
-    prHighlight: string;
-    prUrl: string;
+    prHighlight?: string;
+    prUrl?: string;
     metrics: string;
-    commits: string[];
+    commits?: string[];
 }
 
 export interface ShowcaseGraphColumn {
@@ -173,6 +173,7 @@ export interface ShowcaseCodeModule {
     description: string;
     prUrl?: string;
     prHighlight?: string;
+    originRepo?: string;
     code: string;
 }
 

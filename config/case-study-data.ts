@@ -11,7 +11,7 @@ const tutorShowcase: ProjectShowcase = {
     graph: {
         navTitle: "Interactive Architecture Map",
         navSubtitle: "Inspect modular boundaries, cache hierarchies, and transactional pipelines",
-        title: "Tutor LMS 2.0 → 4.0 Architectural Graph",
+        title: "Tutor LMS Architectural Graph",
         countLabel: "12 Core Systems",
         verifyLabel: "Verified PRs & Commits by Fahim Faisal (b-l-i-n-d)",
         verifyUrl: "https://github.com/b-l-i-n-d",
@@ -44,12 +44,11 @@ const tutorShowcase: ProjectShowcase = {
                 commits: [
                     "feat(course-builder): curriculum tree drag-and-drop reordering engine",
                     "fix(course-builder): confirm modal before modifying course author (#2948)",
-                    "fix(curriculum): resolve layout shift on dynamic title edit (#2985)",
                 ],
                 description:
                     "Implemented the Tutor 3.0 Course Builder. Hierarchical curriculum tree supporting drag-and-drop topics and lessons, dynamic title updates without Cumulative Layout Shift (CLS), and modal safeguards for author re-assignments.",
-                prHighlight: "themeum/tutor #2985 / #2948 · Author confirmation guard & zero-CLS title layout",
-                prUrl: "https://github.com/themeum/tutor/pull/2985",
+                prHighlight: "themeum/tutor #2948 · Author confirmation guard & zero-CLS title layout",
+                prUrl: "https://github.com/themeum/tutor/pull/2948",
                 metrics: "0.00 CLS · Sub-16ms FLIP reorder",
             },
             {
@@ -60,11 +59,11 @@ const tutorShowcase: ProjectShowcase = {
                 commits: [
                     "feat(quiz-builder): scalable architecture supporting 100+ questions without frame drop",
                     "fix(quiz): sanitize quiz content for latex and markdown support (#2931)",
-                    "feat(quiz): dynamic quiz grading engine with randomized question order (#2990)",
+                    "fix(quiz): ensure quiz summary total marks uses get_quiz_total_marks (#2990)",
                 ],
                 description:
                     "Engineered a highly scalable Quiz Builder capable of handling complex curriculums with dozens of question types, randomized ordering, dynamic grading calculation, LaTeX math sanitization, and pointer-event security safeguards.",
-                prHighlight: "themeum/tutor #2931 / #2990 · Scalable Quiz Builder & LaTeX sanitizer",
+                prHighlight: "themeum/tutor #2931 / #2990 · Scalable Quiz Builder, LaTeX sanitizer & total-marks correctness",
                 prUrl: "https://github.com/themeum/tutor/pull/2931",
                 metrics: "Sub-millisecond sanitization · Zero UI latency at scale",
             },
@@ -201,15 +200,8 @@ const tutorShowcase: ProjectShowcase = {
                 label: "Course Bundle & Pricing Engine",
                 version: "v3.0",
                 badge: "E-Commerce Core (v3.0)",
-                commits: [
-                    "fix(bundle): handle course bundle edit in instructor role (#2997)",
-                    "fix(bundle): check total bundle price and handle multiple pricing tiers",
-                    "feat(bundle): add live summary calculation for multi-course packages",
-                ],
                 description:
                     "Course bundling engine permitting multi-tier pricing, role-based discount permissions, and real-time total recalculations without database latency or checkout desync.",
-                prHighlight: "themeum/tutor #2997 · Multi-tier pricing calculation engine",
-                prUrl: "https://github.com/themeum/tutor/pull/2997",
                 metrics: "Optimistic cart sync · Zero pricing calculation roundtrips",
             },
             {
@@ -478,174 +470,563 @@ function tutor_atomic_reorder_curriculum(WP_REST_Request $request) {
         Cache-->>Builder: Revert DOM State with Emil-Polish Alert
     end`,
     },
-    codeModules: [
+codeModules: [
         {
-            id: "concurrency",
-            filename: "ConcurrencyManager.ts",
-            badge: "Atomic Locks",
-            title: "Optimistic State & Distributed Lock Engine",
-            description: "Zero-illegal-state transaction engine designed to prevent race conditions during multi-seat course registrations and concurrent exam submissions.",
-            prUrl: "https://github.com/b-l-i-n-d/edTech",
-            prHighlight: "edTech/concurrency-layer",
-            code: `import { createClient } from 'redis';
-import { Mutex } from 'async-mutex';
+            id: "component-registry",
+            filename: "assets/core/ts/ComponentRegistry.ts",
+            badge: "Core · Registry",
+            title: "Component Registry (Lazy, Typed, Alpine-Bridged)",
+            description:
+                "The v4 core runtime singleton. Typed Maps for eager components and services, plus a lazy-loader map and an in-flight promiser map that de-duplicates concurrent loads. registerAll() ingests bulk meta, loadComponent() awaits and caches async loaders, initWithAlpine() mounts every component as Alpine.data('tutorX'), and exposeToWindow() publishes services and globals onto window.TutorCore for 3rd-party add-ons.",
+            prUrl: "https://github.com/themeum/tutor/blob/dev/assets/core/ts/ComponentRegistry.ts",
+            prHighlight: "themeum/tutor · dev — core runtime (no PR boundary)",
+            code: `import { type Alpine } from 'alpinejs';
 
-export class ConcurrencyLockManager {
-    private redisClient = createClient({ url: process.env.REDIS_URL });
-    private localMutex = new Mutex();
-    private TTL_MS = 5000;
+import { type AlpineComponentMeta, type LazyComponentLoader, type ServiceMeta, type TutorCore } from '@Core/ts/types';
+import { makeFirstCharacterUpperCase } from '@Core/ts/utils/string';
 
-    /**
-     * Acquires a distributed distributed lease with exponential backoff jitter.
-     */
-    public async acquireLease(resourceId: string, ttl = this.TTL_MS): Promise<string | null> {
-        const token = crypto.randomUUID();
-        const releaseLocal = await this.localMutex.acquire();
-
-        try {
-            const acquired = await this.redisClient.set(\`lock:\${resourceId}\`, token, {
-                NX: true,
-                PX: ttl,
-            });
-
-            if (acquired === 'OK') {
-                return token;
-            }
-            return null;
-        } finally {
-            releaseLocal();
-        }
-    }
-
-    /**
-     * Atomic script execution ensuring only the lock owner can release the token.
-     */
-    public async releaseLease(resourceId: string, token: string): Promise<boolean> {
-        const luaScript = \`
-            if redis.call("get", KEYS[1]) == ARGV[1] then
-                return redis.call("del", KEYS[1])
-            else
-                return 0
-            end
-        \`;
-
-        const result = await this.redisClient.eval(luaScript, {
-            keys: [\`lock:\${resourceId}\`],
-            arguments: [token],
-        });
-
-        return result === 1;
-    }
-}`,
-        },
-        {
-            id: "video-stream",
-            filename: "HLSVideoPlayerEngine.tsx",
-            badge: "Adaptive Bitrate",
-            title: "HLS Video Streaming & Telemetry Observer",
-            description: "Custom video player engine utilizing Media Source Extensions (MSE) with dynamic bitrate switching, heartbeat telemetry, and zero layout shift.",
-            prUrl: "https://github.com/b-l-i-n-d/docapp",
-            prHighlight: "docapp/video-telemetry",
-            code: `import React, { useEffect, useRef, useState } from 'react';
-import Hls from 'hls.js';
-
-interface HLSPlayerProps {
-    streamManifest: string;
-    onProgressHeartbeat: (timestamp: number) => void;
+interface RegisterAllOptions {
+  components?: AlpineComponentMeta[];
+  services?: ServiceMeta[];
 }
 
-export const HLSVideoPlayerEngine: React.FC<HLSPlayerProps> = ({
-    streamManifest,
-    onProgressHeartbeat,
-}) => {
-    const videoRef = useRef<HTMLVideoElement | null>(null);
-    const [hlsInstance, setHlsInstance] = useState<Hls | null>(null);
+type RegistryType = 'component' | 'service';
 
-    useEffect(() => {
-        if (!videoRef.current) return;
-        const video = videoRef.current;
+interface GetOptions {
+  name: string;
+  type: RegistryType;
+}
 
-        if (Hls.isSupported()) {
-            const hls = new Hls({
-                capLevelToPlayerSize: true,
-                maxBufferLength: 30,
-                autoStartLoad: true,
-            });
+interface RegisterOptions {
+  type: RegistryType;
+  meta: AlpineComponentMeta | ServiceMeta;
+}
 
-            hls.loadSource(streamManifest);
-            hls.attachMedia(video);
-            setHlsInstance(hls);
+class Registry {
+  private components = new Map<string, AlpineComponentMeta>();
+  private lazyComponents = new Map<string, LazyComponentLoader>();
+  private loadingComponents = new Map<string, Promise<void>>();
+  private services = new Map<string, ServiceMeta>();
 
-            return () => {
-                hls.destroy();
-            };
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = streamManifest;
-        }
-    }, [streamManifest]);
+  register({ type, meta }: RegisterOptions): void {
+    if (type === 'component') {
+      const componentMeta = meta as AlpineComponentMeta;
+      if (!this.components.has(componentMeta.name)) {
+        this.components.set(componentMeta.name, componentMeta);
+      }
+    } else {
+      const serviceMeta = meta as ServiceMeta;
+      if (!this.services.has(serviceMeta.name)) {
+        this.services.set(serviceMeta.name, serviceMeta);
+        this.exposeToWindow({ type: 'service', items: [serviceMeta] });
+      }
+    }
+  }
 
-    return (
-        <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black">
-            <video
-                ref={videoRef}
-                className="w-full h-full object-cover"
-                onTimeUpdate={(e) => onProgressHeartbeat(e.currentTarget.currentTime)}
-                controls
-                playsInline
-            />
-        </div>
-    );
+  registerLazy(loaders: Record<string, LazyComponentLoader>): void {
+    Object.entries(loaders).forEach(([name, loader]) => {
+      this.lazyComponents.set(name, loader);
+    });
+  }
+
+  registerAll({ components = [], services = [] }: RegisterAllOptions): void {
+    for (const component of components) {
+      this.register({ type: 'component', meta: component });
+    }
+    for (const service of services) {
+      this.register({ type: 'service', meta: service });
+    }
+  }
+
+  get<T = unknown>({ name, type }: GetOptions): AlpineComponentMeta | T | undefined {
+    const map = type === 'component' ? this.components : this.services;
+    const item = map.get(name);
+    return type === 'service' ? ((item as ServiceMeta)?.instance as T) : (item as AlpineComponentMeta);
+  }
+
+  has({ name, type }: GetOptions): boolean {
+    return type === 'component' ? this.components.has(name) : this.services.has(name);
+  }
+
+  async loadComponent(name: string): Promise<void> {
+    // Already registered.
+    if (this.components.has(name)) {
+      return;
+    }
+
+    // Already being loaded.
+    const existingPromise = this.loadingComponents.get(name);
+    if (existingPromise) {
+      return existingPromise;
+    }
+
+    const loader = this.lazyComponents.get(name);
+
+    if (!loader) {
+      return;
+    }
+
+    const loadingPromise = (async () => {
+      try {
+        const meta = await loader();
+
+        this.register({
+          type: 'component',
+          meta,
+        });
+      } finally {
+        this.loadingComponents.delete(name);
+      }
+    })();
+
+    this.loadingComponents.set(name, loadingPromise);
+
+    return loadingPromise;
+  }
+
+  async loadComponents(names: string[]): Promise<void> {
+    await Promise.all(names.map((name) => this.loadComponent(name)));
+  }
+
+  private exposeToWindow({ type, items }: { type: RegistryType; items: (AlpineComponentMeta | ServiceMeta)[] }): void {
+    if (typeof window === 'undefined') return;
+
+    const TutorCore: TutorCore = window.TutorCore || {};
+
+    for (const meta of items) {
+      if (type === 'service') {
+        TutorCore[meta.name] = (meta as ServiceMeta).instance;
+        continue;
+      }
+
+      if ((meta as AlpineComponentMeta).global) {
+        TutorCore[meta.name] = (meta as AlpineComponentMeta).component;
+      }
+    }
+
+    window.TutorCore = TutorCore;
+  }
+
+  exposeComponents(componentNames?: string[]): void {
+    const components = componentNames
+      ? Array.from(this.components.values()).filter((m) => componentNames.includes(m.name))
+      : Array.from(this.components.values());
+
+    this.exposeToWindow({ type: 'component', items: components });
+  }
+
+  initWithAlpine(Alpine: Alpine): void {
+    for (const meta of Array.from(this.components.values())) {
+      Alpine.data(\`tutor\${makeFirstCharacterUpperCase(meta.name)}\`, meta.component);
+    }
+
+    this.exposeToWindow({
+      type: 'component',
+      items: Array.from(this.components.values()),
+    });
+  }
+}
+
+export const TutorComponentRegistry = new Registry();`,
+        },
+        {
+            id: "form-query-lib",
+            filename: "assets/core/ts/services/Form.ts",
+            badge: "Core · Form & Query",
+            title: "Core Form Service (Event-Driven Instance Registry)",
+            description:
+                "The v4 core form control surface. Alpine form components self-register into a Map keyed by form id via FORM_REGISTER / FORM_UNREGISTER custom events, then any code — add-on, console, other Alpine components — drives them programmatically: getValues/setValue/reset/trigger/clearErrors/setError/setFocus/getFormState/watch. It ships as window.TutorCore.form alongside its sibling QueryService (window.TutorCore.query) — a TanStack Query-equivalent rebuilt on Alpine.reactive with timestamped caching, stale-time hydration and pattern invalidation.",
+            prUrl: "https://github.com/themeum/tutor/blob/dev/assets/core/ts/services/Form.ts",
+            prHighlight: "themeum/tutor · dev — core runtime (no PR boundary)",
+            code: `import { type FormControlMethods, type FormState } from '@Core/ts/components/form';
+import { TUTOR_CUSTOM_EVENTS } from '@Core/ts/constant';
+import { type ServiceMeta } from '@Core/ts/types';
+
+/**
+ * FormService: programmatic API for interacting with form instances.
+ * Provides methods to access form state and control form behavior from outside Alpine components.
+ */
+export class FormService {
+  private forms: Map<string, FormControlMethods> = new Map();
+
+  constructor() {
+    this.setupEventListeners();
+  }
+
+  /** Setup event listeners for form events */
+  private setupEventListeners(): void {
+    document.addEventListener(TUTOR_CUSTOM_EVENTS.FORM_REGISTER, ((event: CustomEvent) => {
+      const { id, instance } = event.detail;
+      this.register(id, instance);
+    }) as EventListener);
+
+    document.addEventListener(TUTOR_CUSTOM_EVENTS.FORM_UNREGISTER, ((event: CustomEvent) => {
+      const { id } = event.detail;
+      this.unregister(id);
+    }) as EventListener);
+  }
+
+  /**
+   * Register a form instance with the service
+   * @internal Called by form component during initialization
+   */
+  register(id: string, formInstance: FormControlMethods): void {
+    this.forms.set(id, formInstance);
+  }
+
+  /**
+   * Unregister a form instance from the service
+   * @internal Called by form component during cleanup
+   */
+  unregister(id: string): void {
+    this.forms.delete(id);
+  }
+
+  /**
+   * Get a form instance by ID
+   * @throws Error if form not found
+   */
+  private getForm(id: string): FormControlMethods {
+    const form = this.forms.get(id);
+    if (!form) {
+      throw new Error(\`Form with id "\${id}" not found. Make sure the form is initialized with the correct id.\`);
+    }
+    return form;
+  }
+
+  /**
+   * Get all values from a form
+   * @param id - The form ID
+   * @returns Object containing all form values
+   */
+  getValues(id: string): Record<string, unknown> {
+    return this.getForm(id).watch() as Record<string, unknown>;
+  }
+
+  /**
+   * Get a specific field value from a form
+   * @param id - The form ID
+   * @param name - The field name
+   * @returns The field value
+   */
+  getValue(id: string, name: string): unknown {
+    return this.getForm(id).getValue(name);
+  }
+
+  /**
+   * Set a field value in a form
+   * @param id - The form ID
+   * @param name - The field name
+   * @param value - The value to set
+   * @param options - Optional settings for validation, touch, and dirty state
+   */
+  setValue(
+    id: string,
+    name: string,
+    value: unknown,
+    options?: { shouldValidate?: boolean; shouldTouch?: boolean; shouldDirty?: boolean },
+  ): void {
+    this.getForm(id).setValue(name, value, options);
+  }
+
+  /**
+   * Set multiple field values in a form
+   * @param id - The form ID
+   * @param values - Object containing field names and values
+   * @param options - Optional settings for validation, touch, and dirty state
+   */
+  setValues(
+    id: string,
+    values: Record<string, unknown>,
+    options?: { shouldValidate?: boolean; shouldTouch?: boolean; shouldDirty?: boolean },
+  ): void {
+    const form = this.getForm(id);
+    for (const [name, value] of Object.entries(values)) {
+      form.setValue(name, value, options);
+    }
+  }
+
+  /**
+   * Reset a form to its default values or provided values
+   * @param id - The form ID
+   * @param values - Optional values to reset to (defaults to initial values)
+   */
+  reset(id: string, values?: Record<string, unknown>): void {
+    this.getForm(id).reset(values);
+  }
+
+  /**
+   * Trigger validation for specific field(s) or all fields
+   * @param id - The form ID
+   * @param name - Optional field name or array of field names. Omit to validate all fields.
+   * @returns Promise resolving to true if valid, false otherwise
+   */
+  async trigger(id: string, name?: string | string[]): Promise<boolean> {
+    return this.getForm(id).trigger(name);
+  }
+
+  /**
+   * Clear errors for specific field(s) or all fields
+   * @param id - The form ID
+   * @param name - Optional field name or array of field names. Omit to clear all errors.
+   */
+  clearErrors(id: string, name?: string | string[]): void {
+    this.getForm(id).clearErrors(name);
+  }
+
+  /**
+   * Set an error for a specific field
+   * @param id - The form ID
+   * @param name - The field name
+   * @param error: { type: string; message: string }
+   */
+  setError(id: string, name: string, error: { type: string; message: string }): void {
+    this.getForm(id).setError(name, error);
+  }
+
+  /**
+   * Set focus on a specific field
+   * @param id - The form ID
+   * @param name - The field name
+   * @param options - Optional settings for selection behavior
+   */
+  setFocus(id: string, name: string, options?: { shouldSelect?: boolean }): void {
+    this.getForm(id).setFocus(name, options);
+  }
+
+  /**
+   * Get the complete form state snapshot
+   * @param id - The form ID
+   * @returns Object containing all form state
+   */
+  getFormState(id: string): FormState {
+    return this.getForm(id).getFormState();
+  }
+
+  /**
+   * Watch a specific field value
+   * @param id - The form ID
+   * @param name - The field name
+   * @returns The current field value
+   */
+  watch(id: string, name: string): unknown {
+    return this.getForm(id).watch(name);
+  }
+
+  /**
+   * Check if a form exists
+   * @param id - The form ID
+   * @returns True if form exists, false otherwise
+   */
+  hasForm(id: string): boolean {
+    return this.forms.has(id);
+  }
+}
+
+export const formServiceMeta: ServiceMeta = {
+  name: 'form',
+  instance: new FormService(),
 };`,
         },
         {
-            id: "offline-sync",
-            filename: "OfflineCourseSync.ts",
-            badge: "IndexedDB + CRDT",
-            title: "Conflict-Free Offline Synchronization Engine",
-            description: "Client-side replication layer employing State-based CRDTs and IndexedDB storage for seamless offline learning synchronization.",
-            prUrl: "https://github.com/b-l-i-n-d/enclave",
-            prHighlight: "enclave/crdt-sync",
-            code: `import { openDB, DBSchema } from 'idb';
+            id: "course-builder-slot",
+            filename: "assets/src/js/v3/entries/course-builder/contexts/CourseBuilderSlotContext.tsx",
+            badge: "Core · Field Injection",
+            title: "Course Builder Slot Registry (3rd-Party Injection Engine)",
+            description:
+                "The extensibility hook of the v4 course builder. A typed slot tree (Basic / Curriculum — Lesson, Quiz, Assignment — / Additional) with default injection points; updateSection() merges registrations through immer and sorts by priority; the provider then exposes registerField/registerContent behind dotted SectionPaths as a window.Tutor.CourseBuilder public API so add-ons inject fields and block content into the builder without forking it.",
+            prUrl: "https://github.com/themeum/tutor/blob/dev/assets/src/js/v3/entries/course-builder/contexts/CourseBuilderSlotContext.tsx",
+            prHighlight: "themeum/tutor · dev — core runtime (no PR boundary)",
+            code: `import React, { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { produce } from 'immer';
 
-interface SyncSchema extends DBSchema {
-    progressLog: {
-        key: string;
-        value: {
-            lessonId: string;
-            completedAt: number;
-            vectorClock: Record<string, number>;
-        };
-    };
+import {
+  type InjectedContent,
+  type InjectedField,
+  type InjectionSlots,
+  type SectionPath,
+} from '@TutorShared/utils/types';
+
+type CurriculumType = 'Lesson' | 'Quiz' | 'Assignment';
+
+type SectionData<T> = Record<string, T[]>;
+interface CurriculumData<T> {
+  Lesson: SectionData<T>;
+  Quiz: SectionData<T>;
+  Assignment: SectionData<T>;
 }
 
-export class OfflineSyncEngine {
-    private dbPromise = openDB<SyncSchema>('lms-offline-store', 1, {
-        upgrade(db) {
-            db.createObjectStore('progressLog', { keyPath: 'lessonId' });
-        },
+export interface CourseBuilderData<T> {
+  Basic: SectionData<T>;
+  Curriculum: CurriculumData<T>;
+  Additional: SectionData<T>;
+}
+
+const defaultCourseBuilderState = {
+  fields: {
+    Basic: {
+      after_description: [],
+      after_settings: [],
+    },
+    Curriculum: {
+      Lesson: {
+        after_description: [],
+        bottom_of_sidebar: [],
+      },
+      Quiz: {
+        after_question_description: [],
+        bottom_of_question_sidebar: [],
+        bottom_of_settings: [],
+      },
+      Assignment: {
+        after_description: [],
+        bottom_of_sidebar: [],
+      },
+    },
+    Additional: {
+      after_certificates: [],
+      bottom_of_sidebar: [],
+    },
+  },
+  contents: {
+    Basic: {
+      after_description: [],
+      after_settings: [],
+    },
+    Curriculum: {
+      Lesson: {
+        after_description: [],
+        bottom_of_sidebar: [],
+      },
+      Quiz: {
+        after_question_description: [],
+        bottom_of_question_sidebar: [],
+        bottom_of_settings: [],
+      },
+      Assignment: {
+        after_description: [],
+        bottom_of_sidebar: [],
+      },
+    },
+    Additional: {
+      after_certificates: [],
+      bottom_of_sidebar: [],
+    },
+  },
+};
+
+type CourseBuilderContextType = {
+  fields: CourseBuilderData<InjectedField>;
+  contents: CourseBuilderData<InjectedContent>;
+  registerField: (section: SectionPath, fields: InjectedField | InjectedField[]) => void;
+  registerContent: (section: SectionPath, content: InjectedContent) => void;
+};
+
+const updateSection = <T extends { priority?: number }>(
+  currentState: CourseBuilderData<T>,
+  section: SectionPath,
+  items: T[],
+): CourseBuilderData<T> => {
+  return produce(currentState, (draft) => {
+    const sectionPath = section.split('.') as [keyof InjectionSlots, CurriculumType | undefined, string];
+    const [root, sub, slot] =
+      sectionPath.length > 2 ? sectionPath : [sectionPath[0], undefined, sectionPath[sectionPath.length - 1]];
+
+    const target = sub ? draft[root][sub] : draft[root];
+
+    if (slot && target[slot]) {
+      target[slot] = [...target[slot], ...items].sort((a, b) => (a.priority ?? 10) - (b.priority ?? 10));
+    }
+  });
+};
+
+const registerField = (
+  previousFields: CourseBuilderData<InjectedField>,
+  section: SectionPath,
+  fields: InjectedField | InjectedField[],
+): CourseBuilderData<InjectedField> => {
+  const items = Array.isArray(fields) ? fields : [fields];
+  return updateSection(previousFields, section, items);
+};
+
+const registerContent = (
+  previousContents: CourseBuilderData<InjectedContent>,
+  section: SectionPath,
+  content: InjectedContent,
+): CourseBuilderData<InjectedContent> => {
+  return updateSection(previousContents, section, [content]);
+};
+
+const CourseBuilderSlotContext = createContext<CourseBuilderContextType>({
+  fields: defaultCourseBuilderState.fields,
+  contents: defaultCourseBuilderState.contents,
+  registerField: () => {},
+  registerContent: () => {},
+});
+
+export const CourseBuilderSlotProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [fields, setFields] = useState<CourseBuilderData<InjectedField>>(defaultCourseBuilderState.fields);
+  const [contents, setContents] = useState<CourseBuilderData<InjectedContent>>(defaultCourseBuilderState.contents);
+
+  const handleRegisterField = useCallback((section: SectionPath, fields: InjectedField | InjectedField[]) => {
+    setFields((prev) => registerField(prev, section, fields));
+  }, []);
+
+  const handleRegisterContent = useCallback((section: SectionPath, content: InjectedContent) => {
+    setContents((prev) => registerContent(prev, section, content));
+  }, []);
+
+  useEffect(() => {
+    const createCurriculumAPI = (type: CurriculumType) => ({
+      registerField: (slot: InjectionSlots['Curriculum'][typeof type], fields: InjectedField | InjectedField[]) =>
+        handleRegisterField(\`Curriculum.\${type}.\${slot}\` as 'Curriculum.Lesson.after_description', fields),
+      registerContent: (slot: InjectionSlots['Curriculum'][typeof type], content: InjectedContent) =>
+        handleRegisterContent(\`Curriculum.\${type}.\${slot}\` as 'Curriculum.Lesson.after_description', content),
     });
 
-    public async recordLessonCompletion(lessonId: string, nodeId: string): Promise<void> {
-        const db = await this.dbPromise;
-        const existing = await db.get('progressLog', lessonId);
+    window.Tutor = {
+      CourseBuilder: {
+        Basic: {
+          registerField: (slot: InjectionSlots['Basic'], fields) => handleRegisterField(\`Basic.\${slot}\`, fields),
+          registerContent: (slot: InjectionSlots['Basic'], contents) =>
+            handleRegisterContent(\`Basic.\${slot}\`, contents),
+        },
+        Curriculum: {
+          Lesson: createCurriculumAPI('Lesson'),
+          Quiz: createCurriculumAPI('Quiz'),
+          Assignment: createCurriculumAPI('Assignment'),
+        },
+        Additional: {
+          registerField: (slot: InjectionSlots['Additional'], fields) =>
+            handleRegisterField(\`Additional.\${slot}\`, fields),
+          registerContent: (slot: InjectionSlots['Additional'], contents) =>
+            handleRegisterContent(\`Additional.\${slot}\`, contents),
+        },
+      },
+    };
+  }, [handleRegisterField, handleRegisterContent]);
 
-        const clock = existing?.vectorClock || {};
-        clock[nodeId] = (clock[nodeId] || 0) + 1;
+  const contextValue = useMemo(
+    () => ({
+      fields,
+      contents,
+      registerField: handleRegisterField,
+      registerContent: handleRegisterContent,
+    }),
+    [fields, contents, handleRegisterField, handleRegisterContent],
+  );
 
-        await db.put('progressLog', {
-            lessonId,
-            completedAt: Date.now(),
-            vectorClock: clock,
-        });
+  return <CourseBuilderSlotContext.Provider value={contextValue}>{children}</CourseBuilderSlotContext.Provider>;
+};
+export const useCourseBuilderSlot = () => {
+  const context = useContext(CourseBuilderSlotContext);
 
-        this.triggerUpstreamReplication();
-    }
+  if (!context) {
+    throw new Error('useCourseBuilderSlot must be used within CourseBuilderSlotProvider');
+  }
 
-    private async triggerUpstreamReplication(): Promise<void> {
-        if (!navigator.onLine) return;
-        // Broadcast change over WebWorker WebSocket backchannel
-    }
-}`,
+  return context;
+};`,
         },
     ],
 };
@@ -819,8 +1200,8 @@ const enclaveShowcase: ProjectShowcase = {
                 ],
                 description:
                     "24-word BIP39 mnemonic generation and validation so the vault survives a lost device; the mnemonic re-derives a distinct recovery key, never the vault key itself.",
-                prHighlight: "lib/recovery + @scure/bip39",
-                prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/recovery",
+                prHighlight: "lib/generator/passphrase.ts + @scure/bip39",
+                prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/generator/passphrase.ts",
                 metrics: "BIP39 · 24 words",
             },
         ],
