@@ -7,12 +7,6 @@ import { EngineerProfile } from "@/types/portfolio";
 import dynamic from "next/dynamic";
 const InteractiveDoodleCloud = dynamic(() => import("./InteractiveDoodleCloud").then(m => m.InteractiveDoodleCloud), { ssr: false });
 import { CurvedDottedTimelineTrack } from "./CurvedDottedTimelineTrack";
-import {
-    Atom,
-    Zap,
-    Wrench,
-    Shield,
-} from "lucide-react";
 
 interface BehanceBioSectionProps {
     profile: EngineerProfile;
@@ -42,8 +36,8 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                     </span>
                 </div>
 
-                {/* 3-Column Asymmetric Layout (Behance / Editorial Style) */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+                {/* 2-Column Balanced Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start">
                     {/* Left Column (Cols 1-4): Portrait & Status Card */}
                     <div className="lg:col-span-4 space-y-6">
                         {/* Portrait Frame with Subtle Grain and Accent */}
@@ -84,8 +78,8 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                         </div>
                     </div>
 
-                    {/* Middle Column (Cols 5-8): Greeting, Bio, Vertical Career Ascension, "Also best at" doodle cloud */}
-                    <div className="lg:col-span-5 space-y-8 text-neutral-700 dark:text-neutral-300">
+                    {/* Right Column (Cols 5-12): Greeting, Bio, Vertical Career Ascension, "Also best at" doodle cloud */}
+                    <div className="lg:col-span-8 space-y-8 text-neutral-700 dark:text-neutral-300">
                         {/* Greeting & Summary */}
                         <div className="space-y-3">
                             <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white tracking-tight">
@@ -262,70 +256,6 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
 
                         {/* "Also best at :" Interactive Doodle/Sketch Cloud */}
                         <InteractiveDoodleCloud />
-                    </div>
-
-                    {/* Right Column (Cols 9-12): "Know the language of" Skills List */}
-                    <div className="lg:col-span-3 space-y-6">
-                        <div className="space-y-2">
-                            <h4 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white tracking-tight">
-                                Know the language of
-                            </h4>
-                            <div className="w-12 h-1 bg-[#ff1744] rounded-full" />
-                        </div>
-
-                        <div className="space-y-6 text-xs sm:text-sm">
-                            {/* Group 1: Modern Web & Mobile */}
-                            <div className="space-y-2">
-                                <div className="flex items-center gap-2.5 text-neutral-900 dark:text-white font-semibold">
-                                    <span className="w-7 h-7 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center shrink-0">
-                                        <Atom className="w-4 h-4 text-[#ff1744] shrink-0" />
-                                    </span>
-                                    <span>Web & Mobile Architecture</span>
-                                </div>
-                                <p className="text-neutral-600 dark:text-neutral-400 pl-9.5 text-xs leading-relaxed">
-                                    TypeScript (Strict), React & Next.js (App Router), React Native & Expo SDK 57, Tailwind CSS & Design Systems.
-                                </p>
-                            </div>
-
-                            {/* Group 2: Performance & Motion */}
-                            <div className="space-y-2">
-                                <div className="flex items-center gap-2.5 text-neutral-900 dark:text-white font-semibold">
-                                    <span className="w-7 h-7 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center shrink-0">
-                                        <Zap className="w-4 h-4 text-[#ff1744] shrink-0" />
-                                    </span>
-                                    <span>Performance & Motion</span>
-                                </div>
-                                <p className="text-neutral-600 dark:text-neutral-400 pl-9.5 text-xs leading-relaxed">
-                                    Hardware Compositing & RAF, FLIP Layout Transitions, HTML5 Canvas & Video APIs, Zero CLS (0.00).
-                                </p>
-                            </div>
-
-                            {/* Group 3: Systems & Data */}
-                            <div className="space-y-2">
-                                <div className="flex items-center gap-2.5 text-neutral-900 dark:text-white font-semibold">
-                                    <span className="w-7 h-7 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center shrink-0">
-                                        <Wrench className="w-4 h-4 text-[#ff1744] shrink-0" />
-                                    </span>
-                                    <span>Systems, Backend & Data</span>
-                                </div>
-                                <p className="text-neutral-600 dark:text-neutral-400 pl-9.5 text-xs leading-relaxed">
-                                    WordPress REST API & PHP 8.x, Node.js, Express & RTK Query, MongoDB, Mongoose & SQLite, MySQL / MariaDB ($wpdb).
-                                </p>
-                            </div>
-
-                            {/* Group 4: Cryptography & Scale */}
-                            <div className="space-y-2">
-                                <div className="flex items-center gap-2.5 text-neutral-900 dark:text-white font-semibold">
-                                    <span className="w-7 h-7 rounded-lg bg-rose-500/10 text-[#ff1744] flex items-center justify-center shrink-0">
-                                        <Shield className="w-4 h-4 text-[#ff1744] shrink-0" />
-                                    </span>
-                                    <span>Cryptography & Scale</span>
-                                </div>
-                                <p className="text-neutral-600 dark:text-neutral-400 pl-9.5 text-xs leading-relaxed">
-                                    Native Quick Crypto & Argon2id, Authenticated AES-256-GCM, RFC 6238 TOTP & BIP39 Recovery, Concurrency Locks & PDF Engines.
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

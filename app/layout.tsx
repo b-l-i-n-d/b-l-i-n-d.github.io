@@ -43,8 +43,7 @@ export default function RootLayout({
                     as="image"
                     href="/assets/hero-poster.webp"
                     type="image/webp"
-                    // @ts-expect-error fetchpriority is supported in modern browsers
-                    fetchpriority="high"
+                    fetchPriority="high"
                 />
             </head>
             <body
