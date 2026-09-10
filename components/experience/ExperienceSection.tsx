@@ -4,8 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { WorkExperience, Education } from "@/types/portfolio";
 import { ExternalLink, Briefcase, GraduationCap, ArrowUpRight, TrendingUp } from "lucide-react";
-import dynamic from "next/dynamic";
-const CareerVelocityCanvas = dynamic(() => import("./CareerVelocityCanvas").then(m => m.CareerVelocityCanvas), { ssr: false });
+import { CareerVelocityCanvas } from "./CareerVelocityCanvas";
 
 interface ExperienceSectionProps {
     profile?: any;

@@ -103,6 +103,7 @@ body {
 /* 
  * Monochrome Text Shimmer & Sweep Animation
  * Strictly clipped to text glyphs only (no background aura or bleed)
+ * Flows smoothly from BOTTOM to TOP at a slow, elegant pace
  * Pure monochrome palette (blacks, grays, silvers, platinums, and pure whites)
  */
 @keyframes dia-chroma-vertical {
@@ -125,12 +126,13 @@ body {
     #171717 100%
   );
   background-size: 100% 200%;
-  background-position: 0 50%;
+  background-position: 0 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  transition: background-position 0.4s ease;
+  will-change: background-position;
+  animation: dia-chroma-vertical 14s linear infinite;
 }
 
 .dark .chroma-text {
@@ -145,7 +147,7 @@ body {
 }
 
 .chroma-text:hover {
-  animation: dia-chroma-vertical 8s linear infinite;
+  animation-duration: 8s;
 }
 
 .chroma-text-navbar {
@@ -157,12 +159,11 @@ body {
     #171717 100%
   );
   background-size: 100% 200%;
-  background-position: 0 50%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  transition: background-position 0.4s ease;
+  animation: dia-chroma-vertical 12s linear infinite;
 }
 
 .dark .chroma-text-navbar {
@@ -175,47 +176,51 @@ body {
   );
 }
 
-.chroma-text-navbar:hover {
-  animation: dia-chroma-vertical 8s linear infinite;
-}
-
 /* 
- * View Transitions Theme Switch Effect (rudrodip/theme-toggle-effect origin-aware)
- * Origin-aware circular expansion using View Transitions API + Web Animations API
+ * View Transitions Theme Switch Effect
+ * Origin-aware circular expansion using View Transitions API + CSS Keyframes
  */
 :root {
-  --expo-out: linear(
-    0 0%,
-    0.1684 2.66%,
-    0.3165 5.49%,
-    0.446 8.52%,
-    0.5581 11.78%,
-    0.6535 15.29%,
-    0.7341 19.11%,
-    0.8011 23.3%,
-    0.8557 27.93%,
-    0.8962 32.68%,
-    0.9283 38.01%,
-    0.9529 44.08%,
-    0.9711 51.14%,
-    0.9833 59.06%,
-    0.9915 68.74%,
-    1 100%
-  );
+  --theme-x: calc(100vw - 32px);
+  --theme-y: 32px;
+  --theme-r: 150vmax;
 }
 
-::view-transition-old(root),
-.dark::view-transition-old(root) {
+/* Temporarily disable CSS transitions during view transitions so snapshots capture final styles instantly */
+html.is-transitioning,
+html.is-transitioning *,
+html.is-transitioning *::before,
+html.is-transitioning *::after {
+  transition: none !important;
+}
+
+::view-transition-image-pair(root) {
+  isolation: auto;
+}
+
+::view-transition-group(root) {
+  animation: none;
+}
+
+::view-transition-old(root) {
   animation: none;
   mix-blend-mode: normal;
   z-index: 1;
 }
 
-::view-transition-new(root),
-.dark::view-transition-new(root) {
-  animation: none;
+::view-transition-new(root) {
+  animation: circle-theme-expand 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   mix-blend-mode: normal;
   z-index: 9999;
+}
+
+@keyframes circle-theme-expand {
+  0% {
+    clip-path: circle(0px at var(--theme-x, calc(100vw - 32px)) var(--theme-y, 32px));
+  }
+  100% {
+    clip-path: circle(var(--theme-r, 150vmax) at var(--theme-x, calc(100vw - 32px)) var(--theme-y, 32px));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -224,10 +229,4 @@ body {
   ::view-transition-old(root) {
     animation: none !important;
   }
-}
-
-/* Offscreen content rendering optimization for mobile & desktop layout performance */
-.content-auto {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 900px;
 }

@@ -234,7 +234,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
 
     const renderDots = (count: number) => {
         const dotBase =
-            "block w-1.5 h-1.5 rounded-full transition-all duration-200 bg-neutral-300 dark:bg-neutral-700 group-hover:bg-[#ff1744] group-hover:shadow-[0_0_8px_rgba(255,23,68,0.8)] group-hover:scale-125";
+            "block w-1.5 h-1.5 rounded-full transition-all duration-200 bg-neutral-300 dark:bg-neutral-700 group-hover:bg-[#ff1744] dark:group-hover:bg-[#ff1744] group-hover:shadow-[0_0_8px_rgba(255,23,68,0.8)] dark:group-hover:shadow-[0_0_12px_rgba(255,23,68,0.95)] group-hover:scale-125";
 
         if (count === 1) {
             return (

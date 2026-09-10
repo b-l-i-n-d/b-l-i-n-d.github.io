@@ -30,7 +30,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
 
     const isDark = (resolvedTheme || theme) === "dark";
 
-    const toggleTheme = () => {
+    const toggleTheme = (e?: React.MouseEvent<HTMLButtonElement>) => {
         if (isTransitioningRef.current) return;
 
         const nextTheme = isDark ? "light" : "dark";
@@ -45,17 +45,28 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
             return;
         }
 
-        // Get exact center of the button element
+        // Get exact coordinates from click event or button center in viewport
         const rect = buttonRef.current?.getBoundingClientRect();
-        const x = rect ? rect.left + rect.width / 2 : window.innerWidth - 32;
-        const y = rect ? rect.top + rect.height / 2 : 32;
+        const x = (e && typeof e.clientX === "number" && e.clientX > 0)
+            ? e.clientX
+            : (rect ? rect.left + rect.width / 2 : window.innerWidth - 32);
+        const y = (e && typeof e.clientY === "number" && e.clientY > 0)
+            ? e.clientY
+            : (rect ? rect.top + rect.height / 2 : 32);
 
-        // Radius needed to reach the furthest corner of the screen from the button center
+        // Radius needed to cover entire viewport from origin
         const endRadius = Math.hypot(
             Math.max(x, window.innerWidth - x),
             Math.max(y, window.innerHeight - y)
         );
 
+        // Set CSS custom properties on :root synchronously so compositor catches them at frame 0
+        document.documentElement.style.setProperty("--theme-x", `${x}px`);
+        document.documentElement.style.setProperty("--theme-y", `${y}px`);
+        document.documentElement.style.setProperty("--theme-r", `${Math.ceil(endRadius)}px`);
+
+        // Disable CSS color transitions during snapshot capture so final styles are recorded immediately
+        document.documentElement.classList.add("is-transitioning");
         isTransitioningRef.current = true;
 
         try {
@@ -72,32 +83,17 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
                 }
             });
 
-            transition.ready
-                .then(() => {
-                    const animation = document.documentElement.animate(
-                        {
-                            clipPath: [
-                                `circle(0px at ${x}px ${y}px)`,
-                                `circle(${endRadius}px at ${x}px ${y}px)`,
-                            ],
-                        },
-                        {
-                            duration: 550,
-                            easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-                            pseudoElement: "::view-transition-new(root)",
-                        }
-                    );
-                    return animation.finished;
-                })
+            transition.finished
                 .catch((err) => {
-                    // Catch AbortError if transition was skipped or aborted
                     console.debug("View transition skipped or aborted:", err);
                 })
                 .finally(() => {
                     isTransitioningRef.current = false;
+                    document.documentElement.classList.remove("is-transitioning");
                 });
         } catch (err) {
             isTransitioningRef.current = false;
+            document.documentElement.classList.remove("is-transitioning");
             setTheme(nextTheme);
         }
     };
@@ -106,13 +102,13 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
         return (
             <div
                 className={clsx(
-                    "w-8 h-8 flex items-center justify-center cursor-pointer opacity-80",
+                    "p-1.5 rounded-xl flex items-center justify-center text-neutral-600 dark:text-neutral-400 opacity-80",
                     className,
                     classNames?.base
                 )}
                 aria-label="Toggle theme"
             >
-                <div className="w-[22px] h-[22px] flex items-center justify-center text-neutral-600 dark:text-neutral-400">
+                <div className="w-[22px] h-[22px] flex items-center justify-center text-neutral-500">
                     <SunFilledIcon size={22} />
                 </div>
             </div>
@@ -123,16 +119,20 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
         <button
             ref={buttonRef}
             type="button"
-            onClick={toggleTheme}
             aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
             className={clsx(
-                "p-1.5 rounded-xl transition-all duration-200 hover:opacity-80 active:scale-95 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer focus:outline-none",
+                "relative w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#ff1744] select-none cursor-pointer",
                 className,
                 classNames?.base
             )}
+            onClick={(e) => toggleTheme(e)}
         >
-            <div className={clsx("w-[22px] h-[22px] flex items-center justify-center", classNames?.wrapper)}>
-                {isDark ? <SunFilledIcon size={22} /> : <MoonFilledIcon size={22} />}
+            <div className="relative w-5 h-5 flex items-center justify-center pointer-events-none">
+                {isDark ? (
+                    <MoonFilledIcon size={18} className="transition-transform duration-200" />
+                ) : (
+                    <SunFilledIcon size={18} className="transition-transform duration-200" />
+                )}
             </div>
         </button>
     );

@@ -6,7 +6,7 @@ import { Move, Sparkles, TrendingUp, Zap } from "lucide-react";
 import { PromotionStage } from "@/types/portfolio";
 
 interface CareerVelocityCanvasProps {
-    promotions: PromotionStage[];
+    promotions?: PromotionStage[];
 }
 
 interface MilestoneNode {
@@ -18,7 +18,7 @@ interface MilestoneNode {
     x: string;
     y: string;
     rot: number;
-    isCurrent: boolean;
+    isCurrent?: boolean;
     stageIndex: number;
 }
 
@@ -61,6 +61,45 @@ const MILESTONES: MilestoneNode[] = [
     },
 ];
 
+const MOBILE_OLLYO_TRAJECTORY = [
+    {
+        year: "2026",
+        role: "Software Engineer",
+        tagType: "current" as const,
+        tagText: "Current Role",
+        company: "Ollyo",
+        subtitle: "Themeum • Tutor LMS Core",
+        description: "Frontend architecture, dynamic state orchestration & high-concurrency client engines across 120,000+ academies globally.",
+        isCurrent: true,
+        yearColor: "text-[#ff1744]",
+        curvePath: "M 12 0 C -2 32, 2 68, 12 100",
+    },
+    {
+        year: "2025",
+        role: "Associate Software Engineer",
+        tagType: "script" as const,
+        tagText: "1st promotion",
+        company: "Ollyo",
+        subtitle: "Performance & Video Pipeline",
+        description: "Continuous lesson video player, dynamic quiz runners & locked 60 FPS compositor physics.",
+        isCurrent: false,
+        yearColor: "text-neutral-400 dark:text-neutral-500",
+        curvePath: "M 12 0 C 1 28, -3 72, 12 100",
+    },
+    {
+        year: "2024",
+        role: "Junior Software Engineer",
+        tagType: "mono" as const,
+        tagText: "Joined Ollyo",
+        company: "Ollyo",
+        subtitle: "Foundation Phase",
+        description: "Tutor LMS 2.0 core component library, form state reducers, and architectural design token primitives.",
+        isCurrent: false,
+        yearColor: "text-neutral-400 dark:text-neutral-500",
+        curvePath: null,
+    },
+];
+
 export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ promotions }) => {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [draggedNode, setDraggedNode] = useState<string | null>(null);
@@ -70,28 +109,151 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
 
     return (
         <div className="space-y-3 pt-2">
-            {/* Artistic Section Header with Action Hint */}
+            {/* Section Header: Matches Original Desktop Design with Mobile Responsiveness */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-[#ff1744] shrink-0" />
                     <h4 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white tracking-tight flex items-center gap-2">
                         <span>Career Trajectory at Ollyo :</span>
-                        <span className="hidden sm:inline-block text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#ff1744]/10 text-[#ff1744] font-semibold">
+                        <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#ff1744]/10 text-[#ff1744] font-semibold">
                             2x in 2 Years
                         </span>
                     </h4>
                 </div>
-                <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5 opacity-90 select-none">
+
+                <span className="hidden sm:flex text-xs font-mono text-neutral-500 dark:text-neutral-400 items-center gap-1.5 opacity-90 select-none">
                     <Move className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
                     <span className="hidden xs:inline">drag milestones to test physics</span>
                     <span className="xs:hidden">drag physics</span>
                 </span>
             </div>
 
-            {/* Interactive Sketchpad & Ascension Trajectory Canvas */}
+            {/* ------------------------------------------------------------------ */}
+            {/* MOBILE PRESENTATION (< sm): Curvy Animated Timeline Track          */}
+            {/* ------------------------------------------------------------------ */}
+            <div data-role="career-mobile-track" className="block sm:hidden py-1">
+                <div className="space-y-0">
+                    {MOBILE_OLLYO_TRAJECTORY.map((item, idx) => (
+                        <div key={item.year} className="relative flex items-start gap-3.5 pb-7 last:pb-1">
+                            {/* Left Rail: Dot Anchor */}
+                            <div className="relative w-6 shrink-0 flex items-center justify-center pt-0.5">
+                                {item.isCurrent ? (
+                                    <div className="relative z-10 flex items-center justify-center w-6 h-6">
+                                        <span className="absolute inset-0 rounded-full bg-[#ff1744]/20 animate-pulse" />
+                                        <span className="absolute inset-1 rounded-full bg-[#ff1744]/25" />
+                                        <span className="relative w-2.5 h-2.5 rounded-full bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
+                                    </div>
+                                ) : (
+                                    <div className="relative z-10 flex items-center justify-center w-6 h-6">
+                                        <span className="w-2 h-2 rounded-full bg-neutral-300 dark:bg-neutral-600 border border-neutral-400/30" />
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Animated Curvy Dashed Line: Connects current dot center to next dot center */}
+                            {item.curvePath && (
+                                <svg
+                                    className="absolute left-0 w-6 overflow-visible pointer-events-none"
+                                    style={{ top: "14px", height: "100%" }}
+                                    preserveAspectRatio="none"
+                                    viewBox="0 0 24 100"
+                                    fill="none"
+                                >
+                                    <motion.path
+                                        d={item.curvePath}
+                                        stroke="#ff1744"
+                                        strokeWidth="1.75"
+                                        strokeDasharray="4 3.5"
+                                        strokeLinecap="round"
+                                        className="opacity-50 dark:opacity-65"
+                                        vectorEffect="non-scaling-stroke"
+                                        initial={{ strokeDashoffset: 0 }}
+                                        animate={{ strokeDashoffset: -24 }}
+                                        transition={{
+                                            repeat: Infinity,
+                                            ease: "linear",
+                                            duration: 2.2,
+                                        }}
+                                    />
+                                </svg>
+                            )}
+
+                            {/* Fading tail below final node (2024 Joined Ollyo) */}
+                            {idx === MOBILE_OLLYO_TRAJECTORY.length - 1 && (
+                                <svg
+                                    className="absolute left-0 top-[14px] w-6 h-8 overflow-visible pointer-events-none"
+                                    preserveAspectRatio="none"
+                                    viewBox="0 0 24 32"
+                                    fill="none"
+                                >
+                                    <motion.path
+                                        d="M 12 0 C 6 10, 8 20, 9 32"
+                                        stroke="#ff1744"
+                                        strokeWidth="1.75"
+                                        strokeDasharray="4 3.5"
+                                        strokeLinecap="round"
+                                        className="opacity-25 dark:opacity-35"
+                                        vectorEffect="non-scaling-stroke"
+                                        initial={{ strokeDashoffset: 0 }}
+                                        animate={{ strokeDashoffset: -24 }}
+                                        transition={{
+                                            repeat: Infinity,
+                                            ease: "linear",
+                                            duration: 2.2,
+                                        }}
+                                    />
+                                </svg>
+                            )}
+
+                            {/* Milestone Content */}
+                            <div className="flex-1 min-w-0 pt-0.5 space-y-1">
+                                {/* Title Line: Year + Role + Badge */}
+                                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                                    <span className={`font-mono text-sm font-bold ${item.yearColor}`}>
+                                        {item.year}
+                                    </span>
+                                    <span className="text-base font-bold text-neutral-900 dark:text-white tracking-tight">
+                                        {item.role}
+                                    </span>
+                                    {item.tagType === "current" && (
+                                        <span className="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-semibold border border-emerald-500/25">
+                                            {item.tagText}
+                                        </span>
+                                    )}
+                                    {item.tagType === "script" && (
+                                        <span className="font-script text-base text-[#ff1744] font-semibold -rotate-2 select-none">
+                                            {item.tagText}
+                                        </span>
+                                    )}
+                                    {item.tagType === "mono" && (
+                                        <span className="text-xs font-mono text-neutral-400 dark:text-neutral-500">
+                                            {item.tagText}
+                                        </span>
+                                    )}
+                                </div>
+
+                                {/* Description Paragraph */}
+                                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                                    {item.company && (
+                                        <strong className="font-bold text-neutral-900 dark:text-neutral-100">
+                                            {item.company} •{" "}
+                                        </strong>
+                                    )}
+                                    {item.description}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* ------------------------------------------------------------------ */}
+            {/* DESKTOP PRESENTATION (sm+): Exact Original Canvas Layout           */}
+            {/* ------------------------------------------------------------------ */}
             <div
                 ref={containerRef}
-                className="relative w-full h-72 sm:h-80 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.08] p-4 sm:p-5 overflow-hidden group select-none shadow-sm backdrop-blur-[2px] transition-all duration-300 hover:border-black/[0.12] dark:hover:border-white/[0.15]"
+                data-role="career-desktop-canvas"
+                className="hidden sm:block relative w-full h-72 sm:h-80 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.08] p-4 sm:p-5 overflow-hidden group select-none shadow-sm backdrop-blur-[2px] transition-all duration-300 hover:border-black/[0.12] dark:hover:border-white/[0.15]"
                 style={{
                     backgroundImage: `radial-gradient(circle, currentColor 0.85px, transparent 0.85px)`,
                     backgroundSize: "22px 22px",
@@ -130,10 +292,6 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                             <stop offset="50%" stopColor="#ff1744" stopOpacity="0.75" />
                             <stop offset="100%" stopColor="#ff1744" stopOpacity="1" />
                         </linearGradient>
-                        <filter id="trajectoryGlow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feGaussianBlur stdDeviation="3.5" result="blur" />
-                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                        </filter>
                     </defs>
 
                     {/* Ambient Glow Spline Path */}
@@ -142,13 +300,10 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                         stroke="#ff1744"
                         strokeWidth="7"
                         strokeLinecap="round"
-                        style={{
-                            opacity: hoveredIndex !== null ? 0.25 : 0.12,
-                            filter: "url(#trajectoryGlow)",
-                        }}
+                        className={hoveredIndex !== null ? "opacity-25" : "opacity-12"}
                     />
 
-                    {/* Primary Dynamic Kinetic Ascension Curve: Only animates when scrolled into view */}
+                    {/* Primary Dynamic Kinetic Ascension Curve: travels forward/upward */}
                     <motion.path
                         d="M 50 230 C 180 225, 260 160, 360 135 C 460 110, 520 65, 650 45"
                         stroke="url(#velocityGrad)"
@@ -156,8 +311,7 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                         strokeDasharray="6 8"
                         strokeLinecap="round"
                         initial={{ strokeDashoffset: 0 }}
-                        whileInView={{ strokeDashoffset: -56 }}
-                        viewport={{ once: false, amount: 0.15 }}
+                        animate={{ strokeDashoffset: -56 }}
                         transition={{
                             repeat: Infinity,
                             ease: "linear",
@@ -169,7 +323,7 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                     />
 
                     {/* Milestone Coordinates on Spline */}
-                    {/* 2024 Node Anchor: (90, 222) */}
+                    {/* 2024 Node Anchor: (95, 222) */}
                     <circle cx="95" cy="222" r="4.5" fill="#ff1744" />
                     <circle cx="95" cy="222" r="10" stroke="#ff1744" strokeWidth="1" opacity="0.3" />
 
@@ -191,111 +345,117 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                     <span>Active Peak Stage</span>
                 </div>
 
-                {/* Floating Handcrafted Milestone Capsules */}
+                {/* Floating Handcrafted Milestone Capsules (Original Script Typography & Glow) */}
                 {MILESTONES.map((item, idx) => {
                     const isHovered = hoveredIndex === idx;
                     const isDragged = draggedNode === item.year;
 
                     return (
-                        <motion.div
+                        <div
                             key={item.year}
-                            drag
-                            dragConstraints={containerRef}
-                            dragElastic={0.35}
-                            dragSnapToOrigin
-                            onDragStart={() => setDraggedNode(item.year)}
-                            onDragEnd={() => setDraggedNode(null)}
                             onMouseEnter={() => setHoveredIndex(idx)}
                             onMouseLeave={() => setHoveredIndex(null)}
-                            initial={{ rotate: item.rot }}
-                            animate={{
-                                rotate: isHovered || isDragged ? 0 : item.rot,
-                                scale: isDragged ? 1.18 : isHovered ? 1.12 : 1,
-                                zIndex: isHovered || isDragged ? 30 : 10,
-                            }}
-                            whileTap={{ scale: 1.08 }}
-                            transition={{
-                                type: "spring",
-                                stiffness: 450,
-                                damping: 26,
-                            }}
                             style={{
                                 top: item.y,
                                 left: item.x,
                                 position: "absolute",
+                                zIndex: isHovered || isDragged ? 30 : 10,
                             }}
-                            className="cursor-grab active:cursor-grabbing select-none group/milestone max-w-[280px] sm:max-w-none"
+                            className="p-3 -m-3 select-none group/milestone max-w-[280px] sm:max-w-none transform-gpu"
                         >
-                            <div className="relative flex flex-col items-start">
-                                {/* Top Pill Badge: Year & Status */}
-                                <div className="flex items-center gap-1.5 mb-1">
-                                    <span
-                                        className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-bold transition-colors ${
-                                            item.isCurrent
-                                                ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shadow-[0_0_8px_rgba(16,185,129,0.3)]"
-                                                : isHovered
-                                                ? "bg-[#ff1744]/15 text-[#ff1744] border border-[#ff1744]/30"
-                                                : "bg-black/[0.05] dark:bg-white/[0.08] text-neutral-600 dark:text-neutral-400 border border-black/[0.04] dark:border-white/[0.06]"
-                                        }`}
-                                    >
-                                        {item.year} • {item.status}
-                                    </span>
-                                    {item.isCurrent && (
-                                        <span className="flex h-2 w-2 relative">
-                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            <motion.div
+                                drag
+                                dragConstraints={containerRef}
+                                dragElastic={0.35}
+                                dragSnapToOrigin
+                                onDragStart={() => setDraggedNode(item.year)}
+                                onDragEnd={() => setDraggedNode(null)}
+                                initial={{ rotate: item.rot }}
+                                animate={{
+                                    rotate: isHovered || isDragged ? 0 : item.rot,
+                                    scale: isDragged ? 1.18 : isHovered ? 1.12 : 1,
+                                }}
+                                whileTap={{ scale: 1.08 }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 450,
+                                    damping: 26,
+                                }}
+                                className="cursor-grab active:cursor-grabbing select-none [backface-visibility:hidden]"
+                            >
+                                <div className="relative flex flex-col items-start">
+                                    {/* Top Pill Badge: Year & Status */}
+                                    <div className="flex items-center gap-1.5 mb-1">
+                                        <span
+                                            className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-bold transition-colors ${
+                                                item.isCurrent
+                                                    ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shadow-[0_0_8px_rgba(16,185,129,0.3)]"
+                                                    : isHovered
+                                                    ? "bg-[#ff1744]/15 text-[#ff1744] border border-[#ff1744]/30"
+                                                    : "bg-black/[0.05] dark:bg-white/[0.08] text-neutral-600 dark:text-neutral-400 border border-black/[0.04] dark:border-white/[0.06]"
+                                            }`}
+                                        >
+                                            {item.year} • {item.status}
                                         </span>
-                                    )}
-                                </div>
+                                        {item.isCurrent && (
+                                            <span className="flex h-2 w-2 relative">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                            </span>
+                                        )}
+                                    </div>
 
-                                {/* Main Title with Clipped Frosted Glass Backing & Text-Only Glow */}
-                                <div className="relative inline-flex items-center">
-                                    {/* Frosted Glass Layer strictly clipped to text */}
-                                    <span
-                                        aria-hidden="true"
-                                        className="absolute inset-0 -inset-x-2.5 -inset-y-1 rounded-xl bg-white/75 dark:bg-neutral-950/80 backdrop-blur-md border border-black/[0.06] dark:border-white/[0.08] shadow-[0_2px_8px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.4)] pointer-events-none -z-10"
-                                    />
-                                    <span
-                                        className={`font-script tracking-wide transition-all duration-200 text-xl sm:text-2xl md:text-3xl font-bold leading-tight select-none ${
-                                            item.isCurrent
-                                                ? isHovered || isDragged
-                                                    ? "text-[#ff1744] drop-shadow-[0_0_12px_rgba(255,23,68,0.9)] drop-shadow-[0_0_24px_rgba(255,23,68,0.5)]"
-                                                    : "text-[#ff1744] drop-shadow-[0_0_8px_rgba(255,23,68,0.45)]"
-                                                : isHovered || isDragged
-                                                ? "text-[#ff1744] drop-shadow-[0_0_12px_rgba(255,23,68,0.9)] drop-shadow-[0_0_24px_rgba(255,23,68,0.5)]"
-                                                : "text-neutral-800 dark:text-neutral-100 group-hover/milestone:text-[#ff1744] group-hover/milestone:drop-shadow-[0_0_12px_rgba(255,23,68,0.9)] group-hover/milestone:drop-shadow-[0_0_24px_rgba(255,23,68,0.5)]"
-                                        }`}
-                                    >
-                                        {item.role}
+                                    {/* Main Title with Clipped Frosted Glass Backing & Text-Only Glow */}
+                                    <div className="relative inline-flex items-center">
+                                        {/* Frosted Glass Layer strictly clipped to text (z-0 avoids Firefox negative-z WebRender culling) */}
+                                        <span
+                                            aria-hidden="true"
+                                            className="absolute inset-0 -inset-x-2.5 -inset-y-1 rounded-xl bg-white/75 dark:bg-neutral-950/80 backdrop-blur-md border border-black/[0.06] dark:border-white/[0.08] shadow-[0_2px_8px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.4)] pointer-events-none z-0"
+                                        />
+                                        <span
+                                            className={`relative z-10 font-script tracking-wide transition-all duration-200 text-xl sm:text-2xl md:text-3xl font-bold leading-tight select-none ${
+                                                item.isCurrent
+                                                    ? isHovered || isDragged
+                                                        ? "text-[#ff1744] [text-shadow:0_0_12px_rgba(255,23,68,0.9),0_0_24px_rgba(255,23,68,0.5)]"
+                                                        : "text-[#ff1744] [text-shadow:0_0_8px_rgba(255,23,68,0.45)]"
+                                                    : isHovered || isDragged
+                                                    ? "text-[#ff1744] [text-shadow:0_0_12px_rgba(255,23,68,0.9),0_0_24px_rgba(255,23,68,0.5)]"
+                                                    : "text-neutral-800 dark:text-neutral-100 group-hover/milestone:text-[#ff1744] group-hover/milestone:[text-shadow:0_0_12px_rgba(255,23,68,0.9),0_0_24px_rgba(255,23,68,0.5)]"
+                                            }`}
+                                        >
+                                            {item.role}
+                                        </span>
+                                    </div>
+
+                                    {/* Animated Hand-drawn Underline Scribble when Hovered - Zero layout-shift container to prevent hover flicker */}
+                                    <div className="h-2 w-full relative pointer-events-none overflow-visible -mt-0.5">
+                                        {isHovered && (
+                                            <motion.svg
+                                                className="w-full h-2 pointer-events-none overflow-visible"
+                                                viewBox="0 0 120 8"
+                                                preserveAspectRatio="none"
+                                            >
+                                                <motion.path
+                                                    d="M 0 4 Q 30 7, 60 3 T 120 5"
+                                                    stroke="#ff1744"
+                                                    strokeWidth="2.5"
+                                                    strokeLinecap="round"
+                                                    fill="none"
+                                                    initial={{ pathLength: 0 }}
+                                                    animate={{ pathLength: 1 }}
+                                                    transition={{ duration: 0.2 }}
+                                                />
+                                            </motion.svg>
+                                        )}
+                                    </div>
+
+                                    {/* Micro-Doodle Tag */}
+                                    <span className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 mt-0.5">
+                                        {item.meta}
                                     </span>
                                 </div>
-
-                                {/* Animated Hand-drawn Underline Scribble when Hovered */}
-                                {isHovered && (
-                                    <motion.svg
-                                        className="w-full h-2 pointer-events-none overflow-visible -mt-0.5"
-                                        viewBox="0 0 120 8"
-                                        preserveAspectRatio="none"
-                                    >
-                                        <motion.path
-                                            d="M 0 4 Q 30 7, 60 3 T 120 5"
-                                            stroke="#ff1744"
-                                            strokeWidth="2.5"
-                                            strokeLinecap="round"
-                                            fill="none"
-                                            initial={{ pathLength: 0 }}
-                                            animate={{ pathLength: 1 }}
-                                            transition={{ duration: 0.2 }}
-                                        />
-                                    </motion.svg>
-                                )}
-
-                                {/* Micro-Doodle Tag */}
-                                <span className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 mt-1">
-                                    {item.meta}
-                                </span>
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        </div>
                     );
                 })}
 

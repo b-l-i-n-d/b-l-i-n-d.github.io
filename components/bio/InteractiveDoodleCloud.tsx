@@ -21,7 +21,7 @@ const SKILLS_DOODLE: SkillDoodle[] = [
         subtitle: "Tokenized UI with mathematical rhythm",
         badge: "Atomic Systems",
         x: "4%",
-        y: "14%",
+        y: "12%",
         size: "text-xl sm:text-2xl",
         weight: "font-bold",
         rot: -4,
@@ -31,7 +31,7 @@ const SKILLS_DOODLE: SkillDoodle[] = [
         subtitle: "120 FPS interruptible spring physics",
         badge: "120 FPS",
         x: "58%",
-        y: "16%",
+        y: "14%",
         size: "text-base sm:text-lg",
         weight: "font-semibold",
         rot: 3,
@@ -41,7 +41,7 @@ const SKILLS_DOODLE: SkillDoodle[] = [
         subtitle: "Predictable, zero-illegal-state UI",
         badge: "Deterministic",
         x: "8%",
-        y: "52%",
+        y: "44%",
         size: "text-xl sm:text-2xl",
         weight: "font-extrabold",
         rot: -3,
@@ -50,8 +50,8 @@ const SKILLS_DOODLE: SkillDoodle[] = [
         name: "Optimization",
         subtitle: "18X build pipeline & bundle tree-shaking",
         badge: "18X Fast",
-        x: "48%",
-        y: "46%",
+        x: "54%",
+        y: "42%",
         size: "text-sm sm:text-base",
         weight: "font-medium",
         rot: 6,
@@ -60,8 +60,8 @@ const SKILLS_DOODLE: SkillDoodle[] = [
         name: "Micro-Interactions",
         subtitle: "Tactile gestures & magnetic pointer physics",
         badge: "Tactile",
-        x: "16%",
-        y: "78%",
+        x: "10%",
+        y: "74%",
         size: "text-sm sm:text-base",
         weight: "font-normal",
         rot: 2,
@@ -70,8 +70,8 @@ const SKILLS_DOODLE: SkillDoodle[] = [
         name: "Zero CLS",
         subtitle: "FLIP layout geometry pre-computation",
         badge: "Score: 0.000",
-        x: "64%",
-        y: "72%",
+        x: "62%",
+        y: "70%",
         size: "text-base sm:text-lg",
         weight: "font-bold",
         rot: -5,
@@ -84,7 +84,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     return (
-        <div className="space-y-3 border-t border-black/[0.06] dark:border-white/[0.08] pt-6">
+        <div className="space-y-2.5 border-t border-black/[0.06] dark:border-white/[0.08] pt-6">
             {/* Header with Title and subtle playful hint */}
             <div className="flex items-center justify-between">
                 <h4 className="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">
@@ -250,39 +250,42 @@ export const InteractiveDoodleCloud: React.FC = () => {
                         </motion.div>
                     );
                 })}
+            </div>
 
-                {/* Micro Telemetry Pill: Dynamically displays active skill context at bottom */}
-                <div className="absolute bottom-2.5 right-3 pointer-events-none">
-                    <AnimatePresence mode="wait">
-                        {hoveredSkill ? (
-                            <motion.div
-                                key={hoveredSkill.name}
-                                initial={{ opacity: 0, y: 4, scale: 0.95 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, y: 2, scale: 0.95 }}
-                                transition={{ duration: 0.15 }}
-                                className="px-3 py-1 rounded-full bg-white/95 dark:bg-neutral-900/95 border border-[#ff1744]/25 shadow-sm flex items-center gap-1.5 text-xs font-mono text-neutral-800 dark:text-neutral-200 backdrop-blur-sm"
-                            >
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] animate-pulse shrink-0" />
-                                <span className="font-semibold text-[#ff1744] shrink-0">
-                                    {hoveredSkill.badge}:
-                                </span>
-                                <span className="text-neutral-600 dark:text-neutral-400">
-                                    {hoveredSkill.subtitle}
-                                </span>
-                            </motion.div>
-                        ) : (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 0.6 }}
-                                exit={{ opacity: 0 }}
-                                className="text-xs font-mono text-neutral-400 dark:text-neutral-400 hidden sm:block"
-                            >
-                                6 craft specializations
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </div>
+            {/* Dedicated Telemetry Status Line (positioned below canvas to strictly prevent overlap with doodles) */}
+            <div className="min-h-[26px] flex items-center justify-between px-1 text-xs font-mono select-none">
+                <AnimatePresence mode="wait">
+                    {hoveredSkill ? (
+                        <motion.div
+                            key={hoveredSkill.name}
+                            initial={{ opacity: 0, y: 3 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -2 }}
+                            transition={{ duration: 0.15 }}
+                            className="flex items-center gap-2"
+                        >
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] animate-pulse shrink-0" />
+                            <span className="font-semibold text-[#ff1744] shrink-0">
+                                {hoveredSkill.badge}:
+                            </span>
+                            <span className="text-neutral-600 dark:text-neutral-400">
+                                {hoveredSkill.subtitle}
+                            </span>
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key="idle"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="flex items-center gap-2 text-neutral-400 dark:text-neutral-500 text-[11px]"
+                        >
+                            <span>6 craft specializations</span>
+                            <span>•</span>
+                            <span>hover or drag doodles to inspect tactile telemetry</span>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );
