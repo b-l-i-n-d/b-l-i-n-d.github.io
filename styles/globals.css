@@ -187,20 +187,87 @@ html.is-transitioning *::after {
   isolation: auto;
 }
 
-::view-transition-group(root) {
+/* Theme Toggle Circular Expansion Transition (strictly scoped to theme switch) */
+html.is-transitioning::view-transition-group(root) {
   animation: none;
 }
-
-::view-transition-old(root) {
+html.is-transitioning::view-transition-old(root) {
   animation: none;
   mix-blend-mode: normal;
   z-index: 1;
 }
-
-::view-transition-new(root) {
+html.is-transitioning::view-transition-new(root) {
   animation: circle-theme-expand 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   mix-blend-mode: normal;
   z-index: 9999;
+}
+
+/* Persistent Fixed Elements - Zero movement or jump during navigation */
+::view-transition-old(site-header),
+::view-transition-new(site-header),
+::view-transition-old(case-study-breadcrumb),
+::view-transition-new(case-study-breadcrumb) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Route Switch & Project Navigation - Zero layout shift pure optical crossfade */
+html.route-transitioning::view-transition-old(root) {
+  animation: route-crossfade-out 180ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  mix-blend-mode: normal;
+}
+html.route-transitioning::view-transition-new(root) {
+  animation: route-crossfade-in 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  mix-blend-mode: normal;
+}
+
+@keyframes route-crossfade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes route-crossfade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Tab Content & Stage Content View Transitions - Zero dimension shifts */
+::view-transition-old(interactive-flow-tab-content),
+::view-transition-old(case-study-stage-content) {
+  animation: tab-crossfade-out 160ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(interactive-flow-tab-content),
+::view-transition-new(case-study-stage-content) {
+  animation: tab-crossfade-in 190ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  mix-blend-mode: normal;
+}
+
+@keyframes tab-crossfade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes tab-crossfade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes circle-theme-expand {

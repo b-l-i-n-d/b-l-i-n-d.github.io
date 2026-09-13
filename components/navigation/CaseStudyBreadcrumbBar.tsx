@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { ArrowLeft, ArrowRight, Layers, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
 import { ProjectCaseStudy } from "@/types/portfolio";
+import { ViewTransitionLink } from "./ViewTransitionLink";
 
 interface CaseStudyBreadcrumbBarProps {
   currentProject: ProjectCaseStudy;
@@ -20,10 +20,16 @@ export const CaseStudyBreadcrumbBar: React.FC<CaseStudyBreadcrumbBarProps> = ({
   nextProject,
 }) => {
   return (
-    <div className="sticky top-16 z-40 w-full backdrop-blur-xl bg-stone-50/85 dark:bg-neutral-950/85 border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200">
+    <div
+      style={{
+        // @ts-ignore
+        viewTransitionName: "case-study-breadcrumb",
+      }}
+      className="sticky top-16 z-40 w-full backdrop-blur-xl bg-stone-50/85 dark:bg-neutral-950/85 border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between text-xs sm:text-sm font-medium">
         {/* Left: Back to Homepage link */}
-        <Link
+        <ViewTransitionLink
           href="/#case-study"
           className="group inline-flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors"
         >
@@ -39,7 +45,7 @@ export const CaseStudyBreadcrumbBar: React.FC<CaseStudyBreadcrumbBarProps> = ({
           <span className="text-neutral-500 dark:text-neutral-400 hidden sm:inline">
             Flagship Engineering
           </span>
-        </Link>
+        </ViewTransitionLink>
 
         {/* Center: Current Project Indicator */}
         <div className="flex items-center gap-2">
@@ -54,7 +60,7 @@ export const CaseStudyBreadcrumbBar: React.FC<CaseStudyBreadcrumbBarProps> = ({
 
         {/* Right: Quick Next Link */}
         {nextProject ? (
-          <Link
+          <ViewTransitionLink
             href={`/case-study/${nextProject.id}`}
             className="group inline-flex items-center gap-1.5 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors"
           >
@@ -71,7 +77,7 @@ export const CaseStudyBreadcrumbBar: React.FC<CaseStudyBreadcrumbBarProps> = ({
             >
               <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent transition-colors" />
             </motion.div>
-          </Link>
+          </ViewTransitionLink>
         ) : (
           <div className="w-16" />
         )}

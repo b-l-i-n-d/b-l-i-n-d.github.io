@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import { ViewTransitionLink } from "@/components/navigation/ViewTransitionLink";
 import { motion } from "motion/react";
 import {
   ArrowRight,
@@ -191,7 +191,7 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
 
                       {/* Prominent Case Study Exploration CTA */}
                       <div className="pt-4">
-                        <Link
+                        <ViewTransitionLink
                           href={`/case-study/${project.id}`}
                           className="group/btn inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-semibold text-sm sm:text-base shadow-craft-card hover:shadow-craft-elevated active:scale-[0.98] transition-all duration-200"
                         >
@@ -203,7 +203,7 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                           >
                             <ArrowRight className="w-4 h-4 text-accent transition-colors" />
                           </motion.div>
-                        </Link>
+                        </ViewTransitionLink>
                       </div>
                     </div>
 
@@ -260,13 +260,13 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                         </div>
 
                         <div className="pt-2">
-                          <Link
+                          <ViewTransitionLink
                             href={`/case-study/${project.id}`}
                             className="w-full py-2 px-3 rounded-xl bg-white dark:bg-neutral-900 border border-black/[0.06] dark:border-white/[0.08] text-neutral-700 dark:text-neutral-300 hover:text-accent dark:hover:text-accent text-xs font-mono flex items-center justify-center gap-2 transition-colors"
                           >
                             <span>Open Full Interactive Studio</span>
                             <ArrowRight className="w-3 h-3" />
-                          </Link>
+                          </ViewTransitionLink>
                         </div>
                       </div>
                     </div>

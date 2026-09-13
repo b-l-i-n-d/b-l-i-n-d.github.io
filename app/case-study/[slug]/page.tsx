@@ -5,7 +5,6 @@ import { portfolioData } from "@/config/portfolio-data";
 import { ProjectCaseStudySection } from "@/components/showcase/ProjectCaseStudySection";
 import { CaseStudyBreadcrumbBar } from "@/components/navigation/CaseStudyBreadcrumbBar";
 import { CaseStudyFooterNav } from "@/components/navigation/CaseStudyFooterNav";
-import { DoodleMarqueeBanner } from "@/components/decorations/DoodleMarqueeBanner";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -52,7 +51,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
   const nextProject = projects[(currentIndex + 1) % projects.length];
 
   return (
-    <div className="min-h-screen bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors duration-200">
+    <div className="min-h-screen pt-16 bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors duration-200">
       {/* Contextual Case Study Breadcrumb Bar */}
       <CaseStudyBreadcrumbBar
         currentProject={currentProject}
@@ -61,13 +60,10 @@ export default async function CaseStudyPage({ params }: PageProps) {
         nextProject={nextProject}
       />
 
-      {/* Ribbon Divider */}
-      <DoodleMarqueeBanner direction="left" speed={28} />
-
       {/* Main Case Study Interactive Deep-Dive Container */}
-      <div className="pt-6 sm:pt-10">
+      <main>
         <ProjectCaseStudySection project={currentProject} />
-      </div>
+      </main>
 
       {/* Next & Previous Project Traversal Footer */}
       <CaseStudyFooterNav prevProject={prevProject} nextProject={nextProject} />

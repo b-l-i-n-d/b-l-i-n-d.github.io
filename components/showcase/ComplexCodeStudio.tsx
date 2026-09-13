@@ -182,7 +182,7 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
         </div>
 
         {/* Code Body */}
-        <div className="p-4 overflow-auto max-h-[540px] leading-relaxed select-text">
+        <div className="p-4 overflow-auto h-[440px] leading-relaxed select-text">
           {language && SUPPORTED_LANGUAGES.has(language) ? (
             <Highlight code={activeModule.code} language={language} theme={themes.oneDark}>
               {({ style, tokens, getLineProps, getTokenProps }) => (

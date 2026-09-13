@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { useRouter } from "next/navigation";
+import { registerRouteTransition } from "@/components/navigation/ViewTransitionWatcher";
 import { ContentsColumn, ContentsItem } from "@/types/portfolio";
 
 interface ContentsIndexProps {
@@ -224,7 +225,21 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
     const caseStudySlugs = ["tutor-lms", "enclave", "omnicommerce", "docapp"];
     if (caseStudySlugs.includes(targetId)) {
       e.preventDefault();
-      router.push(`/case-study/${targetId}`);
+      const targetHref = `/case-study/${targetId}`;
+      if (
+        typeof document !== "undefined" &&
+        "startViewTransition" in document &&
+        typeof (document as any).startViewTransition === "function"
+      ) {
+        (document as any).startViewTransition(() => {
+          return new Promise<void>((resolve) => {
+            registerRouteTransition(resolve);
+            router.push(targetHref, { scroll: false });
+          });
+        });
+      } else {
+        router.push(targetHref);
+      }
       return;
     }
 

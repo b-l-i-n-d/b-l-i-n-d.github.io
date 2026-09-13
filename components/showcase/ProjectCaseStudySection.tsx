@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { flushSync } from "react-dom";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "motion/react";
 import { ProjectStage } from "@/types/portfolio";
@@ -127,6 +128,23 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
   const [activeStage, setActiveStage] = useState<StageType>("architecture");
   const [hoveredTab, setHoveredTab] = useState<StageType | null>(null);
 
+  const handleStageChange = (stage: StageType) => {
+    if (stage === activeStage) return;
+    if (
+      typeof document !== "undefined" &&
+      "startViewTransition" in document &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      document.startViewTransition(() => {
+        flushSync(() => {
+          setActiveStage(stage);
+        });
+      });
+    } else {
+      setActiveStage(stage);
+    }
+  };
+
   // Rich Tutor-format showcase data for this project (graph, flow, code studio).
   // Falls back to the data-driven stage view when a project has no showcase data.
   const showcase = caseStudyShowcase[project.id];
@@ -146,7 +164,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
       id={project.id}
       data-chapter-id="case-study"
       data-project-id={project.id}
-      className="relative py-20 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#080808] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 transition-colors duration-200"
+      className="relative pt-8 sm:pt-12 pb-20 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#080808] text-neutral-900 dark:text-white transition-colors duration-200"
     >
       <div className="relative z-10 max-w-7xl mx-auto space-y-8">
         {/* Section Narrative Banner */}
@@ -301,7 +319,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
               return (
                 <button
                   key={tab.type}
-                  onClick={() => setActiveStage(tab.type)}
+                  onClick={() => handleStageChange(tab.type)}
                   onMouseEnter={() => setHoveredTab(tab.type)}
                   onMouseLeave={() => setHoveredTab(null)}
                   style={{
@@ -349,69 +367,60 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
             })}
           </div>
 
-          {/* Stage Presentation Viewports */}
-          <div className="p-4 sm:p-8 min-h-[500px]">
-            <AnimatePresence mode="wait">
-              {activeStage === "architecture" && (
-                <motion.div
-                  key="architecture"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="space-y-6"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
-                        {showcase?.graph.navTitle ?? "Interactive Architecture Map"}
-                      </h3>
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                        {showcase?.graph.navSubtitle ??
-                          "Inspect modular boundaries, cache hierarchies, and transactional pipelines"}
-                      </p>
-                    </div>
-                  </div>
-                  {showcase ? (
-                    <ArchitectureGraph data={showcase.graph} />
-                  ) : (
-                    <DataDrivenStageView stage={project.stages.architecture} />
-                  )}
-                </motion.div>
+          {/* Stage Presentation Viewports - Stable height, zero layout shift */}
+          <div
+            className="p-4 sm:p-8 min-h-[720px] relative"
+            style={{
+              // @ts-ignore
+              viewTransitionName: "case-study-stage-content",
+            }}
+          >
+            {/* Stage 1: Architecture Graph */}
+            <div
+              style={{ display: activeStage === "architecture" ? "block" : "none" }}
+              className="h-[684px] overflow-y-auto pr-1 space-y-6 scrollbar-thin"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
+                    {showcase?.graph.navTitle ?? "Interactive Architecture Map"}
+                  </h3>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                    {showcase?.graph.navSubtitle ??
+                      "Inspect modular boundaries, cache hierarchies, and transactional pipelines"}
+                  </p>
+                </div>
+              </div>
+              {showcase ? (
+                <ArchitectureGraph data={showcase.graph} />
+              ) : (
+                <DataDrivenStageView stage={project.stages.architecture} />
               )}
+            </div>
 
-              {activeStage === "code" && (
-                <motion.div
-                  key="code"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {showcase ? (
-                    <ComplexCodeStudio modules={showcase.codeModules} />
-                  ) : (
-                    <DataDrivenStageView stage={project.stages.code} />
-                  )}
-                </motion.div>
+            {/* Stage 2: Production Source Code Studio */}
+            <div
+              style={{ display: activeStage === "code" ? "block" : "none" }}
+              className="h-[684px]"
+            >
+              {showcase ? (
+                <ComplexCodeStudio modules={showcase.codeModules} />
+              ) : (
+                <DataDrivenStageView stage={project.stages.code} />
               )}
+            </div>
 
-              {activeStage === "flow" && (
-                <motion.div
-                  key="flow"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {showcase ? (
-                    <InteractiveFlowVisualizer flow={showcase.flow} />
-                  ) : (
-                    <DataDrivenStageView stage={project.stages.flow} />
-                  )}
-                </motion.div>
+            {/* Stage 3: Interactive Flow Visualizer */}
+            <div
+              style={{ display: activeStage === "flow" ? "block" : "none" }}
+              className="h-[684px]"
+            >
+              {showcase ? (
+                <InteractiveFlowVisualizer flow={showcase.flow} />
+              ) : (
+                <DataDrivenStageView stage={project.stages.flow} />
               )}
-            </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>

@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { ArrowLeft, ArrowRight, Grid, Sparkles } from "lucide-react";
-import { motion } from "motion/react";
+import { ArrowLeft, ArrowRight, Grid } from "lucide-react";
 import { ProjectCaseStudy } from "@/types/portfolio";
+import { ViewTransitionLink } from "./ViewTransitionLink";
 
 interface CaseStudyFooterNavProps {
   prevProject: ProjectCaseStudy;
@@ -28,18 +27,18 @@ export const CaseStudyFooterNav: React.FC<CaseStudyFooterNavProps> = ({
               Chapter Navigation
             </span>
           </div>
-          <Link
+          <ViewTransitionLink
             href="/#case-study"
             className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors"
           >
             <Grid className="w-3.5 h-3.5" />
             <span>All Projects</span>
-          </Link>
+          </ViewTransitionLink>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {/* Previous Case Study */}
-          <Link
+          <ViewTransitionLink
             href={`/case-study/${prevProject.id}`}
             className="group relative p-6 sm:p-8 rounded-2xl bg-white dark:bg-neutral-900/60 border border-black/6 dark:border-white/8 hover:border-accent/40 dark:hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-all duration-200 flex flex-col justify-between"
           >
@@ -58,10 +57,10 @@ export const CaseStudyFooterNav: React.FC<CaseStudyFooterNavProps> = ({
                 {prevProject.tagline}
               </p>
             </div>
-          </Link>
+          </ViewTransitionLink>
 
           {/* Next Case Study */}
-          <Link
+          <ViewTransitionLink
             href={`/case-study/${nextProject.id}`}
             className="group relative p-6 sm:p-8 rounded-2xl bg-white dark:bg-neutral-900/60 border border-black/6 dark:border-white/8 hover:border-accent/40 dark:hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-all duration-200 flex flex-col justify-between text-right"
           >
@@ -80,7 +79,7 @@ export const CaseStudyFooterNav: React.FC<CaseStudyFooterNavProps> = ({
                 {nextProject.tagline}
               </p>
             </div>
-          </Link>
+          </ViewTransitionLink>
         </div>
       </div>
     </nav>
