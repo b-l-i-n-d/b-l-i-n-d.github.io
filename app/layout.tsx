@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { fontMono, fontSans, fontScript } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
-import clsx from "clsx";
+import { cn as clsx } from "@/lib/utils";
 import { Metadata, Viewport } from "next";
 import { Providers } from "./providers";
 

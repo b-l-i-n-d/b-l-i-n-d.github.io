@@ -37,7 +37,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
           Also best at :
         </h4>
         <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5 opacity-90 select-none">
-          <Move className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
+          <Move className="w-3.5 h-3.5 text-accent shrink-0" />
           <span>drag to test physics</span>
         </span>
       </div>
@@ -145,7 +145,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
                 {isHovered && (
                   <motion.div
                     layoutId="doodle-glow"
-                    className="absolute -inset-2 rounded-xl bg-[#ff1744]/10 dark:bg-[#ff1744]/15 -z-10 blur-sm pointer-events-none"
+                    className="absolute -inset-2 rounded-xl bg-accent/10 dark:bg-accent/15 -z-10 blur-sm pointer-events-none"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
@@ -157,8 +157,8 @@ export const InteractiveDoodleCloud: React.FC = () => {
                 <span
                   className={`font-script tracking-wide ${item.size} ${item.weight} whitespace-nowrap transition-colors duration-200 ${
                     isHovered || isDragged
-                      ? "text-[#ff1744] drop-shadow-[0_2px_8px_rgba(255,23,68,0.35)]"
-                      : "text-neutral-700 dark:text-neutral-200 group-hover/item:text-[#ff1744]"
+                      ? "text-accent drop-shadow-[0_2px_8px_rgba(255,23,68,0.35)]"
+                      : "text-neutral-700 dark:text-neutral-200 group-hover/item:text-accent"
                   }`}
                 >
                   {item.name}
@@ -204,7 +204,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
               transition={{ duration: 0.15 }}
               className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200 min-w-0 overflow-hidden"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shrink-0 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0 animate-pulse" />
               <span className="font-bold text-neutral-900 dark:text-white shrink-0 whitespace-nowrap">
                 {hoveredSkill.name}:
               </span>
@@ -226,7 +226,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            className="hidden sm:inline-block px-2 py-0.5 rounded-md bg-[#ff1744]/10 text-[#ff1744] text-[10px] font-bold tracking-wider uppercase shrink-0 whitespace-nowrap"
+            className="hidden sm:inline-block px-2 py-0.5 rounded-md bg-accent/10 text-accent text-[10px] font-bold tracking-wider uppercase shrink-0 whitespace-nowrap"
           >
             {hoveredSkill.badge}
           </motion.span>

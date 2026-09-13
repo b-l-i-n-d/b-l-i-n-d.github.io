@@ -1,6 +1,7 @@
+import type { Linter } from "eslint";
 import nextConfig from "eslint-config-next";
 
-const eslintConfig = [
+const eslintConfig: Linter.Config[] = [
   ...nextConfig,
   {
     rules: {

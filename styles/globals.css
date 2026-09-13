@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@config "../tailwind.config.js";
-
 html {
   overflow-x: hidden;
   max-width: 100vw;

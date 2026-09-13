@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { ShowcaseItem } from "@/types/portfolio";
 import { GithubIcon } from "../icons";
 import { X, Lock, ChevronLeft, ChevronRight } from "lucide-react";
-import clsx from "clsx";
+import { cn as clsx } from "@/lib/utils";
 
 interface HybridGalleryProps {
   items: ShowcaseItem[];

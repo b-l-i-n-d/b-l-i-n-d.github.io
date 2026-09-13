@@ -1,6 +1,6 @@
 "use client";
 
-import clsx from "clsx";
+import { cn as clsx } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
@@ -124,7 +124,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className, classNames }) => 
       type="button"
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
       className={clsx(
-        "relative w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#ff1744] select-none cursor-pointer",
+        "relative w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-accent select-none cursor-pointer",
         className,
         classNames?.base
       )}

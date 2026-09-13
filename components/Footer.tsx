@@ -25,7 +25,7 @@ export const Footer: React.FC = () => {
             key={item.label}
             href={`#${item.targetId}`}
             onClick={(e) => handleScroll(e, item.targetId)}
-            className="text-neutral-600 dark:text-neutral-400 hover:text-[#ff1744] dark:hover:text-white transition-colors cursor-pointer"
+            className="text-neutral-600 dark:text-neutral-400 hover:text-accent dark:hover:text-white transition-colors cursor-pointer"
           >
             {item.label}
           </a>

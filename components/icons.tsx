@@ -3,7 +3,7 @@
 import { IconSvgProps } from "@/types";
 import { motion, type Variants } from "motion/react";
 import * as React from "react";
-import clsx from "clsx";
+import { cn as clsx } from "@/lib/utils";
 
 /**
  * Motion variants for BlindSkullIcon

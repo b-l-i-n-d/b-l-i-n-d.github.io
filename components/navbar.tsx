@@ -73,8 +73,8 @@ export const Navbar = () => {
                 onClick={(e) => handleNavClick(e, "#hero", "showreel")}
                 className="flex items-center gap-2.5 group cursor-pointer"
               >
-                <div className="p-1.5 rounded-lg bg-black/4 dark:bg-white/6 group-hover:bg-[#ff1744]/10 dark:group-hover:bg-[#ff1744]/20 transition-colors">
-                  <BlindSkullIcon className="w-5 h-5 text-neutral-800 dark:text-neutral-200 group-hover:text-[#ff1744] transition-colors" />
+                <div className="p-1.5 rounded-lg bg-black/4 dark:bg-white/6 group-hover:bg-accent/10 dark:group-hover:bg-accent/20 transition-colors">
+                  <BlindSkullIcon className="w-5 h-5 text-neutral-800 dark:text-neutral-200 group-hover:text-accent transition-colors" />
                 </div>
                 <div className="flex flex-col">
                   <span className="font-mono text-xs font-bold tracking-wider uppercase text-neutral-900 dark:text-white">
@@ -182,12 +182,12 @@ export const Navbar = () => {
                         }}
                         className={`w-full flex items-center justify-between p-3 rounded-xl font-mono text-sm transition-all ${
                           isActive
-                            ? "bg-[#ff1744]/10 text-[#ff1744] font-bold border border-[#ff1744]/20"
+                            ? "bg-accent/10 text-accent font-bold border border-accent/20"
                             : "text-neutral-700 dark:text-neutral-300 hover:bg-black/4 dark:hover:bg-white/6"
                         }`}
                       >
                         <span>{item.label}</span>
-                        {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744]" />}
+                        {isActive && <span className="w-1.5 h-1.5 rounded-full bg-accent" />}
                       </Link>
                     </NavbarMenuItem>
                   );
