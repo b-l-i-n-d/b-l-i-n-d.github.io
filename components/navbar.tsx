@@ -9,8 +9,8 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-} from "@heroui/navbar";
-import { Link } from "@heroui/react";
+  Link,
+} from "@heroui/react";
 import React, { useState } from "react";
 import { GithubIcon, BlindSkullIcon } from "./icons";
 import { ThemeSwitch } from "./theme-switch";
