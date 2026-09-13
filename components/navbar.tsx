@@ -19,8 +19,8 @@ import { motion } from "motion/react";
 
 const NAV_ITEMS = [
   { id: "showreel", label: "Showreel", href: "#hero", chapter: "hero" },
-  { id: "contents", label: "Contents", href: "#contents", chapter: "contents" },
   { id: "about", label: "About", href: "#about", chapter: "about" },
+  { id: "contents", label: "Contents", href: "#contents", chapter: "contents" },
   { id: "experience", label: "Experience", href: "#experience", chapter: "experience" },
   { id: "case-study", label: "Case Study", href: "#case-study", chapter: "case-study" },
   { id: "motion-lab", label: "Motion Lab", href: "#motion-lab", chapter: "motion-lab" },
@@ -160,28 +160,29 @@ export const Navbar = () => {
                   {item.label}
                 </Link>
 
-                {/* Active Pill Glider (Spring Physics) */}
+                {/* Active Floating Pill with spring layout physics */}
                 {isActive && (
                   <motion.div
-                    layoutId="desktop-navbar-active-glider"
-                    className="absolute inset-0 bg-neutral-200/80 dark:bg-white/10 rounded-full border border-black/[0.04] dark:border-white/[0.08] shadow-sm"
-                    transition={{
-                      type: "spring",
-                      stiffness: 500,
-                      damping: 38,
-                    }}
-                  />
-                )}
-
-                {/* Hover Preview Pill */}
-                {isHovered && !isActive && (
-                  <motion.div
-                    layoutId="desktop-navbar-hover-glider"
-                    className="absolute inset-0 bg-black/[0.03] dark:bg-white/[0.04] rounded-full -z-0"
+                    layoutId="active-pill"
+                    className="absolute inset-0 bg-neutral-100 dark:bg-white/[0.12] rounded-full border border-black/[0.04] dark:border-white/[0.14] shadow-xs -z-0"
                     transition={{
                       type: "spring",
                       stiffness: 450,
                       damping: 35,
+                      mass: 0.8,
+                    }}
+                  />
+                )}
+
+                {/* Hover Aura indicator if not active */}
+                {isHovered && !isActive && (
+                  <motion.div
+                    layoutId="hover-pill"
+                    className="absolute inset-0 bg-neutral-100/60 dark:bg-white/[0.05] rounded-full -z-0"
+                    transition={{
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 38,
                     }}
                   />
                 )}
@@ -191,51 +192,77 @@ export const Navbar = () => {
         </ul>
       </NavbarContent>
 
-      {/* Right: GitHub & Theme Switch */}
-      <NavbarContent as="div" className="basis-auto shrink-0" justify="end">
-        <NavbarItem as="div" className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+      {/* Right: Actions, Theme Switcher & Mobile Menu Toggle */}
+      <NavbarContent as="div" className="basis-auto shrink-0 gap-2.5" justify="end">
+        {/* GitHub Source Link */}
+        <NavbarItem className="hidden sm:flex">
           <Link
             isExternal
-            href="https://github.com/b-l-i-n-d"
             aria-label="GitHub Repository"
-            className="p-2 rounded-xl text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors shrink-0"
+            href="https://github.com/b-l-i-n-d/b-l-i-n-d.github.io"
+            className="p-2 rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
           >
-            <GithubIcon size={20} className="shrink-0" />
+            <GithubIcon className="w-4 h-4" />
           </Link>
-          <div className="shrink-0 flex items-center">
-            <ThemeSwitch />
-          </div>
+        </NavbarItem>
+
+        {/* Tactile Dark/Light Theme Switch */}
+        <NavbarItem>
+          <ThemeSwitch />
+        </NavbarItem>
+
+        {/* Mobile Hamburger Toggle */}
+        <NavbarItem className="md:hidden">
           <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="md:hidden p-2 rounded-xl text-neutral-600 dark:text-neutral-400 shrink-0"
+            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            className="w-9 h-9 flex items-center justify-center text-neutral-700 dark:text-neutral-200"
           />
         </NavbarItem>
       </NavbarContent>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile Drawer Menu */}
       <NavbarMenu className="bg-stone-50/95 dark:bg-neutral-950/95 backdrop-blur-2xl pt-6 px-6 border-t border-black/[0.06] dark:border-white/[0.08]">
-        <div className="flex flex-col gap-2">
-          {NAV_ITEMS.map((item) => {
+        <div className="flex flex-col gap-2 max-w-sm mx-auto w-full">
+          <div className="pb-3 mb-2 border-b border-black/[0.06] dark:border-white/[0.08]">
+            <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 dark:text-neutral-400">
+              Directory Chapters
+            </span>
+          </div>
+
+          {NAV_ITEMS.map((item, index) => {
             const isActive = activeNavId === item.id;
             return (
               <NavbarMenuItem key={item.id}>
                 <Link
+                  className={`w-full py-2.5 px-3 rounded-xl text-base font-medium flex items-center justify-between transition-colors ${
+                    isActive
+                      ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-semibold"
+                      : "text-neutral-700 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/5"
+                  }`}
                   href={item.href}
                   onClick={(e: React.MouseEvent<any>) =>
                     handleNavClick(e, item.href, item.id, item.chapter)
                   }
-                  className={`w-full py-3 px-4 rounded-xl text-sm sm:text-base font-medium flex items-center justify-between transition-all ${
-                    isActive
-                      ? "bg-neutral-200 dark:bg-white/10 text-neutral-900 dark:text-white font-semibold"
-                      : "text-neutral-600 dark:text-neutral-400 hover:bg-black/[0.03] dark:hover:bg-white/[0.05]"
-                  }`}
                 >
                   <span>{item.label}</span>
-                  {isActive && <span className="w-2 h-2 rounded-full bg-accent shrink-0" />}
+                  <span className="font-mono text-xs text-neutral-400 dark:text-neutral-400">
+                    0{index}
+                  </span>
                 </Link>
               </NavbarMenuItem>
             );
           })}
+
+          <div className="pt-4 mt-4 border-t border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400 font-mono">
+            <span>Fahim Faisal / Portfolio</span>
+            <Link
+              isExternal
+              href="https://github.com/b-l-i-n-d/b-l-i-n-d.github.io"
+              className="text-accent hover:underline flex items-center gap-1"
+            >
+              GitHub Source ↗
+            </Link>
+          </div>
         </div>
       </NavbarMenu>
     </NextUINavbar>

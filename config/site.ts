@@ -10,12 +10,12 @@ export const siteConfig = {
       href: "#hero",
     },
     {
-      label: "Contents",
-      href: "#contents",
-    },
-    {
       label: "About",
       href: "#about",
+    },
+    {
+      label: "Contents",
+      href: "#contents",
     },
     {
       label: "Experience",
@@ -56,12 +56,12 @@ export const siteConfig = {
       href: "#hero",
     },
     {
-      label: "Contents",
-      href: "#contents",
-    },
-    {
       label: "About",
       href: "#about",
+    },
+    {
+      label: "Contents",
+      href: "#contents",
     },
     {
       label: "Experience",

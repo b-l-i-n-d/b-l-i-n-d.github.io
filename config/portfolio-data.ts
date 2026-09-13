@@ -135,8 +135,8 @@ export const portfolioData: EngineerProfile = {
   ],
   chapters: [
     { id: "hero", number: "00", title: "Overview", label: "Overview" },
-    { id: "contents", number: "01", title: "Contents", label: "Index" },
-    { id: "about", number: "02", title: "Biography", label: "Bio & Technical Breadth" },
+    { id: "about", number: "01", title: "Biography", label: "Bio & Technical Breadth" },
+    { id: "contents", number: "02", title: "Contents", label: "Index Directory" },
     { id: "experience", number: "03", title: "Track Record", label: "Career & Education" },
     { id: "case-study", number: "04", title: "Flagship", label: "Flagship Case Studies" },
     {

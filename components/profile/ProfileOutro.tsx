@@ -31,7 +31,6 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
       // Fallback if clipboard API is restricted
     }
 
-    // Always clear existing timer on repetitive clicks to prevent desync
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
@@ -39,7 +38,6 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
     setCopied(true);
     setPulseKey((k) => k + 1);
 
-    // Reset after 2.2s of inactivity
     timeoutRef.current = setTimeout(() => {
       setCopied(false);
     }, 2200);
@@ -114,21 +112,25 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                   <ArrowUpRight className="w-4 h-4 opacity-70" />
                 </a>
 
-                {/* Tactile Non-Shrinking Copy Email Button with Spam-Proof Spring Transitions */}
+                {/* Tactile Copy Email Button with Smooth Zero-Shift Width Collapse */}
                 <motion.button
+                  layout
                   type="button"
                   onClick={handleCopyEmail}
                   whileTap={{ scale: 0.97 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 28 }}
-                  className={`group relative px-4 py-3 rounded-full text-xs sm:text-sm font-mono text-neutral-700 dark:text-neutral-300 flex items-center gap-2.5 transition-colors duration-200 border cursor-pointer select-none ${
+                  transition={{
+                    layout: { type: "spring", stiffness: 450, damping: 32 },
+                    scale: { type: "spring", stiffness: 500, damping: 28 },
+                  }}
+                  className={`group relative px-4 py-3 rounded-full text-xs sm:text-sm font-mono text-neutral-700 dark:text-neutral-300 flex items-center transition-colors duration-200 border cursor-pointer select-none ${
                     copied
                       ? "bg-emerald-500/[0.08] dark:bg-emerald-500/15 border-emerald-500/30 text-emerald-700 dark:text-emerald-300"
                       : "bg-black/4 dark:bg-white/5 hover:bg-black/7 dark:hover:bg-white/9 border-black/8 dark:border-white/10"
                   }`}
                   title="Click to copy email address"
                 >
-                  {/* Morphing Icon: Interruptible continuous spring transitions (no mode='wait' stutter) */}
-                  <div className="relative w-4 h-4 shrink-0">
+                  {/* Morphing Icon */}
+                  <div className="relative w-4 h-4 shrink-0 mr-2.5">
                     <motion.div
                       animate={{
                         scale: copied ? 0 : 1,
@@ -156,24 +158,37 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                     </motion.div>
                   </div>
 
-                  {/* Fixed Email Text - Permanently preserved so button NEVER shrinks */}
+                  {/* Fixed Email Text */}
                   <span className="tracking-tight">
                     {profile.contact.email || "fahim.faisal.abir@gmail.com"}
                   </span>
 
-                  {/* Animated Spring Status Tag (Persistent key to prevent flickering on repetitive clicks) */}
+                  {/* Perfectly Smooth Collapsing Wrapper (Zero snap, zero remaining padding/gap) */}
                   <AnimatePresence>
                     {copied && (
-                      <motion.span
-                        key="copied-pill"
-                        initial={{ opacity: 0, scale: 0.85, width: 0, x: -4 }}
-                        animate={{ opacity: 1, scale: 1, width: "auto", x: 0 }}
-                        exit={{ opacity: 0, scale: 0.85, width: 0, x: -4 }}
-                        transition={{ type: "spring", stiffness: 480, damping: 26 }}
-                        className="overflow-hidden inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-sans font-semibold bg-emerald-500/20 dark:bg-emerald-500/30 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 whitespace-nowrap"
+                      <motion.div
+                        key="copied-pill-container"
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: "auto", opacity: 1 }}
+                        exit={{ width: 0, opacity: 0 }}
+                        transition={{
+                          width: { type: "spring", stiffness: 450, damping: 32 },
+                          opacity: { duration: 0.18, ease: "easeInOut" },
+                        }}
+                        className="overflow-hidden flex items-center shrink-0"
                       >
-                        Copied!
-                      </motion.span>
+                        <div className="pl-2.5">
+                          <motion.span
+                            initial={{ scale: 0.8 }}
+                            animate={{ scale: 1 }}
+                            exit={{ scale: 0.8 }}
+                            transition={{ type: "spring", stiffness: 500, damping: 28 }}
+                            className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-sans font-semibold bg-emerald-500/20 dark:bg-emerald-500/30 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 whitespace-nowrap"
+                          >
+                            Copied!
+                          </motion.span>
+                        </div>
+                      </motion.div>
                     )}
                   </AnimatePresence>
                 </motion.button>
@@ -213,7 +228,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
               </div>
             </div>
 
-            {/* Playful Off-Duty Reflexes Micro-Strip (1 Scannable Line, Zero Text Bloat) */}
+            {/* Playful Off-Duty Reflexes Micro-Strip */}
             <div className="pt-4 border-t border-black/6 dark:border-white/8 flex items-center gap-3 text-xs text-neutral-500 dark:text-neutral-400">
               <div className="w-7 h-7 rounded-lg bg-black/4 dark:bg-white/6 flex items-center justify-center shrink-0 text-accent">
                 <Gamepad2 className="w-3.5 h-3.5" />
@@ -255,7 +270,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                 </div>
               </div>
 
-              {/* Quick Spec Matrix (Compact & Typographic) */}
+              {/* Quick Spec Matrix */}
               <div className="space-y-2.5 pt-3 border-t border-black/6 dark:border-white/8 text-xs">
                 <div className="flex items-center justify-between">
                   <span className="text-neutral-500 dark:text-neutral-400 font-mono">Pedigree</span>

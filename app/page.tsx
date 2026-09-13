@@ -36,12 +36,14 @@ export default function Home() {
       {/* Behance Ribbon Divider Banner */}
       <DoodleMarqueeBanner direction="left" speed={35} />
 
-      {/* Chapter 01: Behance Contents Directory Section */}
-      <ContentsIndexSection />
-
-      {/* Chapter 02: Behance Bio, Portrait, Timeline & Interactive Skill Cloud */}
+      {/* Chapter 01: Behance Bio, Portrait, Timeline & Interactive Skill Cloud */}
       <div className="content-auto">
         <BehanceBioSection profile={portfolioData} />
+      </div>
+
+      {/* Chapter 02: Behance Contents Directory Section */}
+      <div className="content-auto">
+        <ContentsIndexSection />
       </div>
 
       {/* Reverse Ribbon Divider Banner */}
