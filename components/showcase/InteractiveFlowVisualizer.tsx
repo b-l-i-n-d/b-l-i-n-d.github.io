@@ -146,8 +146,14 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
 
         const id = `mermaid-${activeTab}-${Math.random().toString(36).substring(2, 9)}`;
         const { svg } = await mermaid.render(id, currentDiagram);
+
+        // Strip out Mermaid v12 inline stroke-dash styles so CSS direction-aware animation takes full effect
+        const cleanedSvg = svg
+          .replace(/stroke-dasharray:\s*[^;"]+;?/gi, "")
+          .replace(/stroke-dashoffset:\s*[^;"]+;?/gi, "");
+
         if (isMounted) {
-          setRenderedSvg(svg);
+          setRenderedSvg(cleanedSvg);
         }
       } catch (err: any) {
         if (isMounted) {

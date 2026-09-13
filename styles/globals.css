@@ -221,3 +221,89 @@ html.is-transitioning *::after {
     animation: none !important;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* Animated Mermaid Diagram Direction-Aware Data Flow Lines                   */
+/* -------------------------------------------------------------------------- */
+@keyframes mermaid-flow-forward {
+  0% {
+    stroke-dashoffset: 0px;
+  }
+  100% {
+    stroke-dashoffset: -28px;
+  }
+}
+
+/* Target all Mermaid connection paths and lines (flowcharts, state diagrams, sequence diagrams) */
+svg[id^="mermaid-"] path.flowchart-link,
+svg[id^="mermaid-"] .edgePath path,
+svg[id^="mermaid-"] path[class*="flowchart-link"],
+svg[id^="mermaid-"] line.messageLine0,
+svg[id^="mermaid-"] line.messageLine1,
+svg[id^="mermaid-"] path.messageLine0,
+svg[id^="mermaid-"] path.messageLine1,
+svg[id^="mermaid-"] line.loopLine {
+  stroke-dasharray: 8px 6px !important;
+  animation: mermaid-flow-forward 1.2s linear infinite !important;
+  will-change: stroke-dashoffset;
+}
+
+/* Interactive hover highlights connection path */
+svg[id^="mermaid-"] path.flowchart-link:hover,
+svg[id^="mermaid-"] .edgePath:hover path,
+svg[id^="mermaid-"] line.messageLine0:hover,
+svg[id^="mermaid-"] line.messageLine1:hover {
+  stroke: #ff1744 !important;
+  stroke-width: 2.5px !important;
+  animation-duration: 0.7s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  svg[id^="mermaid-"] path.flowchart-link,
+  svg[id^="mermaid-"] .edgePath path,
+  svg[id^="mermaid-"] path[class*="flowchart-link"],
+  svg[id^="mermaid-"] line.messageLine0,
+  svg[id^="mermaid-"] line.messageLine1,
+  svg[id^="mermaid-"] path.messageLine0,
+  svg[id^="mermaid-"] path.messageLine1,
+  svg[id^="mermaid-"] line.loopLine {
+    animation: none !important;
+    stroke-dasharray: none !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Modern Rounded Geometry for Mermaid Architecture & Sequence Diagrams     */
+/* -------------------------------------------------------------------------- */
+svg[id^="mermaid-"] .node rect,
+svg[id^="mermaid-"] rect.basic.label-container,
+svg[id^="mermaid-"] rect.actor,
+svg[id^="mermaid-"] rect.actor-top,
+svg[id^="mermaid-"] rect.actor-bottom,
+svg[id^="mermaid-"] .note rect,
+svg[id^="mermaid-"] rect.note {
+  rx: 14px !important;
+  ry: 14px !important;
+}
+
+/* Rounded Subgraph Clusters / Groups */
+svg[id^="mermaid-"] .cluster rect {
+  rx: 20px !important;
+  ry: 20px !important;
+  stroke-dasharray: 6 4 !important;
+}
+
+/* Rounded Sequence Activation Bars */
+svg[id^="mermaid-"] rect.activation0,
+svg[id^="mermaid-"] rect.activation1,
+svg[id^="mermaid-"] rect.activation2 {
+  rx: 4px !important;
+  ry: 4px !important;
+}
+
+/* Rounded Sequence Alt / Loop Label Boxes */
+svg[id^="mermaid-"] rect.labelBox,
+svg[id^="mermaid-"] .loopGroup rect {
+  rx: 8px !important;
+  ry: 8px !important;
+}
