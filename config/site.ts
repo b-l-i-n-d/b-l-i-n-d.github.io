@@ -30,8 +30,8 @@ export const siteConfig = {
       href: "#enclave",
     },
     {
-      label: "EdTech",
-      href: "#edtech",
+      label: "OmniCommerce",
+      href: "#omnicommerce",
     },
     {
       label: "DocApp",
@@ -76,8 +76,8 @@ export const siteConfig = {
       href: "#enclave",
     },
     {
-      label: "EdTech",
-      href: "#edtech",
+      label: "OmniCommerce",
+      href: "#omnicommerce",
     },
     {
       label: "DocApp",

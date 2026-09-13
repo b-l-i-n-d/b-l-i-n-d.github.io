@@ -165,7 +165,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
         "kinetic-friction",
         "drag-flip-engine",
       ],
-      edtech: ["edtech-lms", "folder-tree-node", "tutor-telemetry", "temporal-calendar"],
+      omnicommerce: ["ecommerce-store", "ecommerce-admin", "stripe-webhook", "zustand-cart"],
       docapp: ["docapp-clinic", "temporal-calendar", "sust-thesis", "stripe-webhook-idempotency"],
     };
     const targetIds = projectGalleryMap[project.id] || [];
@@ -209,7 +209,32 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                   <span>Private Repository</span>
                 </div>
               ) : (
-                project.githubUrl && (
+                project.githubUrl &&
+                (project.secondaryGithubUrl ? (
+                  <div className="flex items-center gap-1 p-1 rounded-xl bg-white dark:bg-neutral-900 border border-black/8 dark:border-white/10 shadow-sm shrink-0">
+                    <span className="text-xs font-semibold px-2 text-neutral-500 dark:text-neutral-400 font-mono">
+                      Source:
+                    </span>
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
+                    >
+                      <GithubIcon className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
+                      <span>{project.id === "omnicommerce" ? "Admin" : "App"}</span>
+                    </a>
+                    <a
+                      href={project.secondaryGithubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
+                    >
+                      <GithubIcon className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
+                      <span>{project.id === "omnicommerce" ? "Store" : "Extension"}</span>
+                    </a>
+                  </div>
+                ) : (
                   <a
                     href={project.githubUrl}
                     target="_blank"
@@ -219,19 +244,45 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                     <GithubIcon className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
                     <span>GitHub</span>
                   </a>
-                )
+                ))
               )}
-              {project.liveUrl && !project.isPrivate && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-4 py-2.5 rounded-xl bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-black/8 dark:border-white/10 text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out group shrink-0"
-                >
-                  <span>{project.title} Production</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
-                </a>
-              )}
+              {project.liveUrl &&
+                !project.isPrivate &&
+                (project.secondaryLiveUrl ? (
+                  <div className="flex items-center gap-1 p-1 rounded-xl bg-white dark:bg-neutral-900 border border-black/8 dark:border-white/10 shadow-sm shrink-0">
+                    <span className="text-xs font-semibold px-2 text-neutral-500 dark:text-neutral-400 font-mono">
+                      Live:
+                    </span>
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
+                    >
+                      <span>Storefront</span>
+                      <ExternalLink className="w-3 h-3 text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
+                    </a>
+                    <a
+                      href={project.secondaryLiveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
+                    >
+                      <span>Admin</span>
+                      <ExternalLink className="w-3 h-3 text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
+                    </a>
+                  </div>
+                ) : (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-4 py-2.5 rounded-xl bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-black/8 dark:border-white/10 text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out group shrink-0"
+                  >
+                    <span>{project.title} Production</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
+                  </a>
+                ))}
             </div>
           </div>
 

@@ -29,7 +29,7 @@ export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const lockUntilRef = useRef<number>(0);
 
   const setActiveChapter = useCallback((chapter: string, lockMs?: number) => {
-    const normalized = ["tutor-lms", "enclave", "edtech", "docapp"].includes(chapter)
+    const normalized = ["tutor-lms", "enclave", "omnicommerce", "docapp"].includes(chapter)
       ? "case-study"
       : chapter;
     setActiveChapterState(normalized);
@@ -170,7 +170,7 @@ export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         const rect = el.getBoundingClientRect();
         let chapterId = el.dataset.chapterId;
         if (!chapterId) continue;
-        if (["tutor-lms", "enclave", "edtech", "docapp"].includes(chapterId)) {
+        if (["tutor-lms", "enclave", "omnicommerce", "docapp"].includes(chapterId)) {
           chapterId = "case-study";
         }
 

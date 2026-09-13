@@ -16,7 +16,13 @@ export const NAV_ITEMS: NavItem[] = [
   { id: "dossier", label: "Dossier", href: "#profile", chapter: "profile" },
 ];
 
-export const CASE_STUDY_CHAPTER_IDS = ["tutor-lms", "enclave", "edtech", "docapp", "case-study"];
+export const CASE_STUDY_CHAPTER_IDS = [
+  "tutor-lms",
+  "enclave",
+  "omnicommerce",
+  "docapp",
+  "case-study",
+];
 
 export interface FooterNavItem {
   label: string;

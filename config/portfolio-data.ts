@@ -10,7 +10,7 @@ export const portfolioData: EngineerProfile = {
   bioParagraphs: [
     "Software Engineer with a B.Sc. in Software Engineering from Shahjalal University of Science and Technology (SUST). I specialize in architecting production web platforms, tactile state machines, and hardware-accelerated user interfaces.",
     "At Ollyo (parent company of Themeum), I lead core frontend engineering for Tutor LMS across versions 2.0 to 4.0. My work centers on high-scale reactive UI systems: building zero-CLS layout engines, authoring the centralized useTutorMotion coordinator, and developing continuous learning telemetry that syncs seamlessly with WordPress REST APIs for over 120,000 active academies worldwide.",
-    "Beyond enterprise EdTech, I architect secure local-first and full-stack software systems: Enclave (a zero-knowledge mobile vault in React Native with AES-256-GCM, Argon2id, and Google Drive 3-way sync), EdTech (an interactive video learning platform with automated quizzes and assignment grading), and DocApp (a multi-role medical booking suite with deterministic booking locks and dynamic PDF generation).",
+    "Beyond enterprise EdTech, I architect secure local-first and full-stack software systems: Enclave (a zero-knowledge mobile vault in React Native with AES-256-GCM, Argon2id, and Google Drive 3-way sync), OmniCommerce (a decoupled headless commerce platform with Next.js App Router, multi-tenant Prisma admin, and idempotent Stripe webhook fulfillment), and DocApp (a multi-role medical booking suite with deterministic booking locks and dynamic PDF generation).",
   ],
   skillCategories: [
     {
@@ -384,118 +384,135 @@ export async function encryptJson<T>(vaultKeyBase64: string, plaintext: T) {
       },
     },
     {
-      id: "edtech",
+      id: "omnicommerce",
       chapterNumber: "06",
-      title: "EdTech Learning Platform",
+      title: "OmniCommerce Headless Platform",
       tagline:
-        "Full-Stack Interactive Education Platform with Video Streaming, Quizzes & Assignment Evaluation",
-      category: "Full-Stack LMS Platform",
+        "Multi-Tenant Merchant Control Plane, Headless Storefront & Stripe Webhook Fulfillment Engine",
+      category: "Full-Stack E-Commerce Architecture",
       timeline: "2023 – 2024",
       role: "Full-Stack Architect & Creator",
       stack: [
-        "Next.js 13",
+        "Next.js 13+ (App Router)",
         "TypeScript",
         "React 18",
-        "Redux Toolkit & RTK Query",
-        "Redux Persist",
-        "Ant Design",
-        "Node.js",
-        "Express",
-        "MongoDB & Mongoose",
-        "JWT & Passport",
-        "Joi Validation",
-        "NodeMailer & Handlebars",
+        "Prisma ORM",
+        "MySQL / PlanetScale",
+        "Stripe Payments API",
+        "Clerk Authentication",
+        "Zustand (Persistent Store)",
+        "Radix UI & Tailwind CSS",
+        "TanStack Table",
+        "Recharts",
+        "Cloudinary Media CDN",
       ],
       stats: [
-        { label: "Architecture", value: "Client + Server Monorepo" },
-        { label: "State Sync", value: "RTK Query + Persist" },
-        { label: "Assessment", value: "5-Mark Quiz Grading" },
-        { label: "Leaderboard", value: "Mongo Aggregation" },
+        { label: "Architecture", value: "Decoupled Headless Pair" },
+        { label: "Payments Engine", value: "Stripe Webhook Sync" },
+        { label: "Multi-Tenancy", value: "Clerk + Multi-Store DB" },
+        { label: "Inventory", value: "SizeStock Variant Matrix" },
       ],
-      liveUrl: "https://ed-tech-six.vercel.app",
-      githubUrl: "https://github.com/b-l-i-n-d/edTech",
+      liveUrl: "https://ecommerce-store-b-l-i-n-d.vercel.app",
+      secondaryLiveUrl: "https://ecommerce-admin-ruddy-nu.vercel.app",
+      githubUrl: "https://github.com/b-l-i-n-d/ecommerce-admin",
+      secondaryGithubUrl: "https://github.com/b-l-i-n-d/ecommerce-store",
       isPrivate: false,
       stages: {
         architecture: {
-          title: "Client/Server Monorepo & Service-Layer REST Backbone",
-          subtitle: "Next.js 13 Pages Router + Express Models → Services → Controllers → Routes",
+          title: "Decoupled Headless Topology: Control Plane & Dynamic Storefront",
+          subtitle: "Multi-Store Admin Engine + Next.js App Router Headless Client",
           description:
-            "EdTech ships as a two-folder monorepo. The client/ is a Next.js 13 (pages router) TypeScript app styled with Ant Design, connecting through Redux Toolkit domain slices (auth, videos, quiz sets, quizzes, assignment marks) and RTK Query endpoints rehydrated from redux-persist. The server/ is an ESM Express REST API organized into a strict models → services → controllers → routes layering with Joi request validation, Mongoose models (user, video, quizz, quizzSet, assignment, quizzMark, assignmentMark, token), Passport JWT access/refresh auth, and a Swagger OpenAPI spec served at runtime.",
+            "OmniCommerce is engineered as an enterprise headless commerce system composed of two decoupled Next.js codebases. The Admin Control Plane (b-l-i-n-d/ecommerce-admin) serves as a multi-tenant merchant portal powered by Clerk authentication, Prisma ORM, and PlanetScale/MySQL. It exposes a unified REST API allowing merchants to manage multiple distinct storefronts, categories, billboards, dynamic color/size attributes, and revenue telemetry. The Headless Storefront (b-l-i-n-d/ecommerce-store) consumes these API routes dynamically, delivering sub-second page loads, persistent multi-variant cart states with Zustand, and Stripe checkout handoff.",
           highlights: [
-            "Two-folder monorepo: Next.js 13 client and an ESM Express service-layer API",
-            "RTK Query endpoint per domain (auth, video, quiz, assignment, leaderboard) with redux-persist rehydration",
-            "Mongoose paginate plugin for cursor-free paging and service-layer separation of concerns",
-            "Helmet, xss-clean, express-rate-limit and express-mongo-sanitize hardening the REST surface",
-            "Swagger-jsdoc OpenAPI spec exposed via swagger-ui-express",
-            "NodeMailer + Handlebars password-reset email template with Joi-validated flows",
+            "Decoupled two-repo architecture: multi-tenant SaaS control plane + headless consumer storefront",
+            "Multi-store relational schema in Prisma with Store, Billboard, Category, Product, Size, Color, and Order models",
+            "Clerk multi-tenant authentication with protected API route handlers and store-switcher middleware",
+            "Cloudinary image upload pipelines with automated CDN optimization and responsive visual assets",
+            "TanStack Table data grids with multi-field search, pagination, and atomic batch actions",
+            "Recharts analytics dashboard calculating monthly revenue curves and sales velocity metrics",
           ],
         },
         flow: {
-          title: "Student Journey: Watch → Quiz → Assignment → Leaderboard",
-          subtitle: "Persisted JWT Sessions, react-player Modules & Rank Aggregation",
+          title: "Consumer Journey: Browse → Persistent Cart → Stripe Checkout → Webhook",
+          subtitle: "Zustand Local Storage, Dynamic SizeStock Validation & Signed Webhooks",
           description:
-            "Students register or log in through a persisted auth slice (next-redux-wrapper + redux-persist), then browse course modules and watch lessons in a react-player view with per-video RTK Query state. Completing a module unlocks its quiz; submissions are graded by comparing the student's selected answers against the correct-option keys stored on each question (five marks per question). Assignments upload to an instructor review queue with marks and written feedback, and every score folds into a MongoDB aggregation leaderboard ranking the top 25 students with shared ranks for ties.",
+            "Shoppers browse catalog categories dynamically rendered from active billboards. Product cards load live size and color variants. Adding an item triggers Zustand persistent storage with client-side stock headroom validation. At checkout, the storefront posts line items to the admin API, which validates product availability against Prisma, locks initial order states as unpaid, and returns a verified Stripe Checkout URL. When payment completes, Stripe invokes the webhook endpoint with cryptographic signature verification (Stripe-Signature), flipping isPaid to true, recording buyer delivery credentials, and atomically decrementing SizeStock inventory.",
           highlights: [
-            "1. Route guards (LoginGuard / UserOnly / AdminOnly) wrapping persisted JWT sessions",
-            "2. react-player video playback in the course page with per-video RTK Query state",
-            "3. Quiz engine credits 5 points per correct answer and rejects duplicate submissions",
-            "4. Assignment portal plus an admin marking UI (marks & feedback)",
-            "5. MongoDB $group/$lookup aggregation ranks students 1–25 with tied ranks",
+            "1. Persistent multi-variant shopping cart powered by Zustand and local storage middleware",
+            "2. Interactive Radix UI modals for quick product preview and multi-image gallery carousels",
+            "3. Server-validated checkout sessions creating pending Order and OrderItem records in MySQL",
+            "4. Cryptographically signed Stripe webhook endpoint (stripe.webhooks.constructEvent)",
+            "5. Atomic inventory deduction updating SizeStock balances across purchased sizes upon payment capture",
           ],
         },
         code: {
-          title: "Automated Quiz Evaluation & Duplicate-Submission Guard",
-          subtitle: "Express Service-Layer Grading with Mongoose (quizzMark.service.js)",
+          title: "Idempotent Stripe Webhook & Atomic Inventory Decrementing",
+          subtitle: "Next.js Route Handler with Signature Verification (app/api/webhook/route.ts)",
           description:
-            "The grading service loads the video's question set, builds the correct-answer key from the isCorrect flags on each option, compares the student's selections with structural JSON equality, and persists the result atomically as a QuizzMark document recording totalQuizzes, totalCorrect, totalWrong, totalMarks and marks. A mark that already exists for the same student + video short-circuits with HTTP 400, closing the resubmission loophole before any grading runs.",
+            "The webhook listener validates raw payload bytes against process.env.STRIPE_WEBHOOK_SECRET using the Stripe SDK. Upon checkout.session.completed, it executes an atomic Prisma transaction: updates order status to isPaid: true, persists customer name/phone/shipping address, and iterates through purchased order items to decrement the corresponding SizeStock record balances, preventing overselling in high-concurrency flash drops.",
           highlights: [
-            "Duplicate-submission rejection: same video + student raises 400 before grading",
-            "Answer keys derived from persisted isCorrect option flags, never from client claims",
-            "Marks model: totalMarks = questions × 5, marks = correct × 5",
-            "Paginated queries with video/student population for admin and student views",
+            "Cryptographic signature check preventing webhook spoofing attacks",
+            "Customer shipping address normalization into comma-separated delivery records",
+            "Automated product stock synchronization deducting order item quantities from SizeStock",
+            "Prisma relationMode = prisma optimized for distributed MySQL deployments",
           ],
           codeSnippet: {
-            filename: "server/src/services/quizzMark.service.js",
-            language: "javascript",
-            code: `// Server-side quiz grading (quizzMark.service.js excerpt)
-const correctAnswers = quizzes.map((quizz) => ({
-    [quizz._id]: quizz.options.filter((option) => option.isCorrect).map((option) => option._id.toString()),
-}));
+            filename: "ecommerce-admin/app/api/webhook/route.ts",
+            language: "typescript",
+            code: `// Stripe webhook fulfillment & inventory decrement (excerpt)
+if (event.type === "checkout.session.completed") {
+  const order = await prismadb.order.update({
+    where: {
+      id: sessions?.metadata?.orderId,
+    },
+    data: {
+      isPaid: true,
+      address: addressString,
+      phone: sessions?.customer_details?.phone || "",
+      name: sessions?.customer_details?.name || "",
+    },
+    include: {
+      orderItems: {
+        include: {
+          product: {
+            include: {
+              sizes: true,
+            },
+          },
+          size: true,
+        },
+      },
+    },
+  });
 
-const { selectedAnswers } = quizzMarkBody;
+  // Atomically decrement stock for each ordered size variant
+  for (const orderItem of order.orderItems) {
+    const product = orderItem.product;
+    const size = orderItem.size;
+    const productSize = product.sizes.find((s) => s.sizeId === size.id);
 
-const countTotalCorrect = (correctAns, selectedAns) => {
-    let totalCorrect = 0;
-    correctAns.forEach((correctObject, index) => {
-        const selectedObject = selectedAns[index];
-        if (JSON.stringify(correctObject) === JSON.stringify(selectedObject)) totalCorrect += 1;
-    });
-    return totalCorrect;
-};
-
-const totalCorrect = countTotalCorrect(correctAnswers, selectedAnswers);
-
-return QuizzMark.create({
-    ...quizzMarkBody,
-    totalQuizzes: quizzes.length,
-    totalCorrect,
-    totalWrong: quizzes.length - totalCorrect,
-    totalMarks: quizzes.length * 5,
-    marks: totalCorrect * 5,
-    correctAnswers,
-});`,
+    if (productSize) {
+      await prismadb.sizeStock.update({
+        where: { id: productSize.id },
+        data: {
+          stock: productSize.stock - orderItem.quantity,
+        },
+      });
+    }
+  }
+}`,
           },
         },
         live: {
-          title: "Live Deployed Student & Admin Cockpit",
-          subtitle: "Vercel Frontend, Containerized API & OpenAPI Docs",
+          title: "Dual Production Deployments on Vercel",
+          subtitle: "Live Merchant Control Plane & High-Speed Headless Storefront",
           description:
-            "The platform's student dashboard, course video player, quiz/assignment grading and the real-time leaderboard are deployed live on Vercel, backed by the Docker/PM2-ready Express API with Swagger documentation.",
+            "Both platforms are deployed on Vercel with real-time continuous integration. The Admin control plane provides instant store management, while the Storefront delivers zero-CLS shopping experiences with live Stripe payment flows.",
           highlights: [
-            "Live product deployed at ed-tech-six.vercel.app (Vercel)",
-            "Docker Compose dev/prod/test profiles with PM2 process manager",
-            "Jest + supertest + node-mocks-http test suite with Husky lint-staged pre-commit",
-            "100% open-source MIT-licensed monorepo with seeded demo data",
+            "Storefront Live: ecommerce-store-b-l-i-n-d.vercel.app",
+            "Admin Live: ecommerce-admin-ruddy-nu.vercel.app",
+            "Open source dual repositories: b-l-i-n-d/ecommerce-admin & b-l-i-n-d/ecommerce-store",
+            "Comprehensive TypeScript type-safety across API boundaries and client state",
           ],
         },
       },

@@ -1561,641 +1561,700 @@ export async function checkPasswordBreached(password: string): Promise<HibpResul
   ],
 };
 
-const edTechShowcase: ProjectShowcase = {
+const omniCommerceShowcase: ProjectShowcase = {
   graph: {
     navTitle: "Interactive Architecture Map",
     navSubtitle:
-      "Inspect the Next.js client, the service-layer Express API, and the hardening/ops stack",
-    title: "EdTech LMS Platform Architecture Graph",
+      "Inspect the Next.js Headless Storefront, Multi-Tenant Admin Control Plane, and Stripe Webhook Pipeline",
+    title: "OmniCommerce Decoupled Platform Architecture Graph",
     countLabel: "9 Core Systems",
-    verifyLabel: "Source modules verified in b-l-i-n-d/edTech",
-    verifyUrl: "https://github.com/b-l-i-n-d/edTech",
+    verifyLabel: "Source modules verified in b-l-i-n-d/ecommerce-admin & ecommerce-store",
+    verifyUrl: "https://github.com/b-l-i-n-d/ecommerce-admin",
     inspectLabel: "Inspect Source",
-    commitsHeading: "Key Source Modules (b-l-i-n-d/edTech):",
+    commitsHeading: "Key Architecture Modules (b-l-i-n-d/ecommerce-*):",
     commitPrefix: "src:",
     columns: [
       {
-        title: "01 · Client & State",
-        nodeIds: ["next-client", "rtk", "react-player"],
+        title: "01 · Headless Storefront",
+        nodeIds: ["storefront-client", "zustand-cart", "gallery-slider"],
         accent: "rose",
       },
       {
-        title: "02 · Service-Layer API",
-        nodeIds: ["express-api", "mongoose-models", "auth-jwt"],
+        title: "02 · Multi-Tenant Control Plane",
+        nodeIds: ["admin-dashboard", "prisma-models", "clerk-auth"],
         accent: "emerald",
       },
       {
-        title: "03 · Security & Ops",
-        nodeIds: ["swagger", "hardening", "ops"],
+        title: "03 · Payments & Fulfillment",
+        nodeIds: ["stripe-checkout", "webhook-listener", "inventory-engine"],
         accent: "sky",
       },
     ],
     nodes: [
       {
-        id: "next-client",
-        label: "Next.js 13 Client",
-        version: "Next.js 13",
-        badge: "Pages Router · TypeScript · AntD",
+        id: "storefront-client",
+        label: "Headless Next.js Storefront",
+        version: "Next.js 13+ App Router",
+        badge: "App Router · Radix UI · Tailwind CSS",
         commits: [
-          "client/pages — course, quiz & admin routes with generation helpers",
-          "client/components — AppLayout shell + shared UI kit",
-          "client/redux — typed state injected via next-redux-wrapper",
+          "app/(routes)/page.tsx — dynamic category & billboard composition",
+          "app/(routes)/products/[productId] — variant selectors (Size & Color)",
+          "components/ui/product-card.tsx — responsive image cards & quick preview",
         ],
         description:
-          "Next.js 13 front-end with the AppLayout shell, lesson/player pages wired to RTK Query hooks, Ant Design componentry, and role-split dashboards for students, admins, and instructors.",
-        prHighlight: "client/pages · client/components",
-        prUrl: "https://github.com/b-l-i-n-d/edTech/tree/master/client",
-        metrics: "Pages router · TypeScript · AntD",
+          "High-converting headless customer storefront built with Next.js App Router, Radix UI primitives, dynamic billboard banners, and multi-variant product galleries.",
+        prHighlight: "app/(routes) · components/ui",
+        prUrl: "https://github.com/b-l-i-n-d/ecommerce-store",
+        metrics: "App Router · Radix UI · Tailwind CSS",
       },
       {
-        id: "rtk",
-        label: "RTK Slices & RTK Query",
-        version: "Redux Toolkit",
-        badge: "Slices · injectEndpoints",
+        id: "zustand-cart",
+        label: "Persistent Cart Store",
+        version: "Zustand 4.4",
+        badge: "Local Storage · Stock Validation",
         commits: [
-          "client/redux/api/apiSlice.ts — fetchBaseQuery with Bearer prepareHeaders",
-          "HYDRATE extractRehydrationInfo for server-render rebase",
-          "redux-persist token persistence across refreshes",
+          "hooks/use-cart.ts — persist middleware with createJSONStorage",
+          "Stock ceiling verification against SizeStock before cart increments",
+          "Real-time subtotal, quantity adjustments, and toast notifications via Sonner",
         ],
         description:
-          "Domain slices (auth, videos, quizzes, assignments, marks) built on RTK Query's injectEndpoints; prepared Authorization header, tag-based invalidation, and a 401-driven logout from the base query.",
-        prHighlight: "client/redux — apiSlice.ts baseQuery",
-        prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/client/redux/api/apiSlice.ts",
-        metrics: "Tag-based invalidation · Neon sync",
+          "Client-side shopping cart state with local storage hydration, optimistic quantity management, and real-time inventory ceiling checks before incrementing item counts.",
+        prHighlight: "hooks/use-cart.ts",
+        prUrl: "https://github.com/b-l-i-n-d/ecommerce-store/blob/master/hooks/use-cart.ts",
+        metrics: "Zustand persist · Stock Headroom Gates",
       },
       {
-        id: "react-player",
-        label: "Lesson Video Modules",
-        version: "Media",
-        badge: "react-player · Lesson Player",
+        id: "gallery-slider",
+        label: "Multi-Image Swiper Gallery",
+        version: "Swiper 10 + Radix UI",
+        badge: "Cloudinary CDN · Responsive Tabs",
         commits: [
-          "client/video — player module with progress state",
-          "videosApi — auto-selected current video from the lesson list",
-          "quizzMark tied to the video being watched",
+          "components/gallery/index.tsx — dynamic thumbnail tab synchronization",
+          "components/gallery/gallery-tab.tsx — Cloudinary next-gen format optimization",
+          "components/preview-modal.tsx — quick-view modal dialogs with Radix Dialog",
         ],
         description:
-          "Lesson player layer built on react-player; the video list query auto-selects the current lesson and feeds quiz/assignment gates per video.",
-        prHighlight: "client + server video services",
-        prUrl: "https://github.com/b-l-i-n-d/edTech",
-        metrics: "Adaptive playback · Progress gating",
+          "Hardware-accelerated product visualizer with fluid image swipe transitions, responsive aspect ratio management, and high-DPI zoom previews.",
+        prHighlight: "components/gallery · components/preview-modal.tsx",
+        prUrl: "https://github.com/b-l-i-n-d/ecommerce-store/tree/master/components/gallery",
+        metrics: "Swiper 10 · Next-Gen WebP/AVIF",
       },
       {
-        id: "express-api",
-        label: "Express Service-Layer API",
-        version: "Express",
-        badge: "Models → Services → Controllers → Routes",
+        id: "admin-dashboard",
+        label: "Merchant SaaS Control Plane",
+        version: "Next.js App Router",
+        badge: "Multi-Store · TanStack Table",
         commits: [
-          "server/src/services — quizzMark, leaderboard, assignment, dashboard",
-          "server/src/controllers — thin HTTP adapters over services",
-          "server/src/routes/v1 — Joi-validated route modules",
+          "app/(dashboard)/[storeId]/page.tsx — revenue charts & stock telemetry",
+          "components/store-switcher.tsx — instant multi-tenant tenant context switching",
+          "components/ui/data-table.tsx — TanStack Table pagination, sorting & filters",
         ],
         description:
-          "Layered Express API (ES modules). Services own business rules, controllers adapt to HTTP, and route middlewares validate with Joi — a classic deep-module data flow.",
-        prHighlight: "server/src — service-layer architecture",
-        prUrl: "https://github.com/b-l-i-n-d/edTech/tree/master/server/src",
-        metrics: "ESM · One-way dependency flow",
+          "Comprehensive administration suite enabling vendors to manage multiple distinct digital storefronts, categories, billboards, variants, and revenue analytics from one unified hub.",
+        prHighlight: "app/(dashboard)/[storeId] · components/store-switcher.tsx",
+        prUrl: "https://github.com/b-l-i-n-d/ecommerce-admin",
+        metrics: "Multi-Store Context · TanStack Table",
       },
       {
-        id: "mongoose-models",
-        label: "Mongoose Domain Models",
-        version: "Mongoose",
-        badge: "user · video · quizz · assignment · marks",
+        id: "prisma-models",
+        label: "Relational Multi-Store Schema",
+        version: "Prisma ORM 5.3",
+        badge: "MySQL / PlanetScale · Cascading Relations",
         commits: [
-          "server/src/models/video.model.js — video/section trees",
-          "server/src/models/quizz.model.js — option isCorrect flags",
-          "leaderboard aggregates across marks models",
+          "prisma/schema.prisma — Store, Billboard, Category, Product, SizeStock, Order models",
+          "RelationMode = prisma for decoupled, serverless relational integrity",
+          "OrderItem → Product → SizeStock composite indexing for fast lookups",
         ],
         description:
-          "Domain models for users, videos, quizzes, assignments, and aggregate marks with Mongoose pagination on list endpoints and lean() reads in hot paths.",
-        prHighlight: "server/src/models",
-        prUrl: "https://github.com/b-l-i-n-d/edTech/tree/master/server/src/models",
-        metrics: "10+ schemas · Lean reads",
+          "Normalized database architecture handling multi-tenancy, multi-tier product hierarchies, dynamic billboard associations, and granular size/color stock variant tracking.",
+        prHighlight: "prisma/schema.prisma",
+        prUrl: "https://github.com/b-l-i-n-d/ecommerce-admin/blob/master/prisma/schema.prisma",
+        metrics: "Prisma ORM · Serverless MySQL",
       },
       {
-        id: "auth-jwt",
-        label: "JWT + Passport Cookie Auth",
-        version: "Passport · JWT",
-        badge: "auth.service · passport.js",
+        id: "clerk-auth",
+        label: "Clerk Multi-Tenant Auth",
+        version: "Clerk Next.js SDK",
+        badge: "JWT Sessions · Route Protection",
         commits: [
-          "server/src/services/auth.service.js — local strategy, token pair",
-          "server/src/services/token.service.js — signed access/refresh",
-          "passport-jwt strategy guarding REST routes",
+          "middleware.ts — route authorization gates for merchant portals",
+          "app/(auth) — customized dark/light auth modals matching dashboard palette",
+          "User-to-Store tenant ownership validation on every CRUD invocation",
         ],
         description:
-          "Cookie-borne JWT sessions with a passport local strategy for login, signed access/refresh token lifecycle, and role-aware route protection.",
-        prHighlight: "server/src/services/auth.service.js",
+          "Enterprise authentication guarding admin routes with biometric session tokens, role-based store ownership enforcement, and isolated tenant queries.",
+        prHighlight: "middleware.ts · app/(auth)",
+        prUrl: "https://github.com/b-l-i-n-d/ecommerce-admin",
+        metrics: "Clerk Auth · Middleware Gates",
+      },
+      {
+        id: "stripe-checkout",
+        label: "Checkout Session Creator",
+        version: "Stripe API v13",
+        badge: "Hosted Checkout · Server Order Lock",
+        commits: [
+          "app/api/[storeId]/checkout/route.ts — price integrity verification",
+          "Pre-session Order creation with pending status and relational OrderItems",
+          "Success/Cancel callback routing with session metadata binding",
+        ],
+        description:
+          "Server-side Stripe Checkout session generator that verifies pricing against database records, prevents client-tampered cart amounts, and links pending orders.",
+        prHighlight: "app/api/[storeId]/checkout/route.ts",
         prUrl:
-          "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/services/auth.service.js",
-        metrics: "Role-gated routes · Token pair",
+          "https://github.com/b-l-i-n-d/ecommerce-admin/blob/master/app/api/%5BstoreId%5D/checkout/route.ts",
+        metrics: "Stripe Checkout · Cryptographic Price Lock",
       },
       {
-        id: "swagger",
-        label: "Swagger OpenAPI Docs",
-        version: "OpenAPI",
-        badge: "swagger-jsdoc · swagger-ui-express",
+        id: "webhook-listener",
+        label: "Signed Webhook Listener",
+        version: "Stripe Webhooks",
+        badge: "HMAC Signature · Idempotent Processing",
         commits: [
-          "server/src/utils/swagger.js — live REST documentation",
-          "Schemas documented across every service-layer endpoint",
+          "app/api/webhook/route.ts — constructEvent with STRIPE_WEBHOOK_SECRET",
+          "checkout.session.completed event handler with transaction guarantees",
+          "Customer delivery address & contact parsing into normalized order records",
         ],
         description:
-          "Generated OpenAPI documentation served live with swagger-ui-express, keeping every REST contract inspectable from the browser.",
-        prHighlight: "server/src/utils/swagger.js",
-        prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/utils/swagger.js",
-        metrics: "100% endpoint coverage",
+          "Event-driven webhook handler verifying raw Stripe signatures, ensuring zero spoofing attacks, and atomically transitions orders from pending to paid upon confirmation.",
+        prHighlight: "app/api/webhook/route.ts",
+        prUrl: "https://github.com/b-l-i-n-d/ecommerce-admin/blob/master/app/api/webhook/route.ts",
+        metrics: "HMAC Signature · Sub-200ms Execution",
       },
       {
-        id: "hardening",
-        label: "REST Hardening",
-        version: "Security",
-        badge: "helmet · xss-clean · rate-limit",
+        id: "inventory-engine",
+        label: "Atomic SizeStock Decrement",
+        version: "Prisma Transactions",
+        badge: "Oversell Prevention · Variant Matrix",
         commits: [
-          "server/src/app.js — helmet CSP + header defaults",
-          "xss-clean + mongo-sanitize payload cleaning",
-          "express-rate-limit against brute-force login",
+          "app/api/webhook/route.ts — looping orderItems to update SizeStock balances",
+          "Dynamic size variant matching against product catalog",
+          "Real-time stock depletion preventing concurrent flash-sale collisions",
         ],
         description:
-          "REST hardening stack: security headers via helmet, request sanitization (xss-clean, mongo-sanitize), rate limiting, and a locked-down CORS policy.",
-        prHighlight: "server/src/app.js",
-        prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/app.js",
-        metrics: "XSS / CSRF / NoSQLi mitigation",
-      },
-      {
-        id: "ops",
-        label: "Docker · PM2 · Jest",
-        version: "Deploy",
-        badge: "compose · ecosystem · supertest",
-        commits: [
-          "docker-compose.yml — api + client + db orchestration",
-          "ecosystem.config.js — PM2 cluster mode",
-          "Jest + supertest integration suite over the API",
-        ],
-        description:
-          "Containerized orchestration with a PM2 cluster mode ecosystem file and a Jest/supertest integration suite guarding the API contracts.",
-        prHighlight: "docker-compose.yml · ecosystem.config.js",
-        prUrl: "https://github.com/b-l-i-n-d/edTech",
-        metrics: "Cluster mode · CI-gated",
+          "Automated inventory management engine that atomically reduces stock counts across precise size/color combinations immediately upon completed payment.",
+        prHighlight: "app/api/webhook/route.ts",
+        prUrl: "https://github.com/b-l-i-n-d/ecommerce-admin/blob/master/app/api/webhook/route.ts",
+        metrics: "Prisma Atomic Updates · Variant Integrity",
       },
     ],
   },
   flow: {
     steps: [
       {
-        id: "auth",
+        id: "step-1",
         number: "01",
-        title: "Auth & Token Pipeline",
+        title: "Catalog Browsing & Variant Matrix Selection",
         description:
-          "Login dispatches an auth mutation; prepareHeaders attaches the Bearer access token to every subsequent query, and a 401 or expired refresh token triggers an explicit logout.",
-        tech: "RTK Query · redux-persist",
-        codeFile: "client/redux/api/apiSlice.ts",
-        codeSnippet: `const baseQuery = fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: async (headers, { getState }: { getState: () => AppState }) => {
-        const token = getState().auth?.tokens?.access?.token;
-        if (token) {
-            headers.set("Authorization", \`Bearer \${token}\`);
-        }
-        return headers;
-    },
+          "Shoppers discover curated collections rendered through dynamic billboard banners. Selecting a product loads real-time size and color attributes fetched from the control plane REST API.",
+        tech: "Next.js App Router · Radix UI · Tailwind CSS",
+        codeFile: "ecommerce-store/app/(routes)/products/[productId]/page.tsx",
+        codeSnippet: `// Fetch product with expanded size/color variant matrix
+const product = await getProduct(params.productId);
+const suggestedProducts = await getProducts({
+  categoryId: product?.category?.id
 });`,
         systemMetrics: {
-          latency: "9.6ms",
-          ops: "160 req/s",
+          latency: "42ms",
+          ops: "60 FPS Render",
           status: "healthy",
         },
         logs: [
-          "v1/auth/login mutation dispatched from authApi",
-          "Tokens persisted — redux-persist rehydrates store",
-          "prepareHeaders attached Bearer access token",
+          "[Storefront] Fetching product attributes from admin API",
+          "[Prisma] Product resolved with 3 size variants and 2 color schemes",
+          "[Radix UI] Modal preview hydrated with zero layout shift",
         ],
       },
       {
-        id: "videos",
+        id: "step-2",
         number: "02",
-        title: "Course Video Queue",
+        title: "Persistent Cart & Stock Headroom Check",
         description:
-          "The videosApi list query fetches the lesson queue, provides Videos tags for cache invalidation, and auto-selects the current video id so the player always mirrors the route.",
-        tech: "RTK Query · injectEndpoints",
-        codeFile: "client/redux/features/videos/videosApi.ts",
-        codeSnippet: `export const videosApi = apiSlice.injectEndpoints({
-    endpoints: (builder) => ({
-        getVideos: builder.query<IVideos, IVideosQueryParams>({
-            query: (params) => ({
-                url: generateQueryUrl("videos", params),
-                method: "GET",
-            }),
-            providesTags: (result) =>
-                result
-                    ? [
-                          "Videos",
-                          ...result.results.map(({ id }) => ({ type: "Videos" as const, id })),
-                          { type: "Videos", id: "LIST" },
-                      ]
-                    : [{ type: "Videos", id: "LIST" }],
-        }),
-    }),
-});`,
+          "Shopper selects their preferred size and clicks Add to Cart. Zustand checks active SizeStock limits in local storage before persisting the item to avoid adding out-of-stock variants.",
+        tech: "Zustand 4.4 · LocalStorage Middleware · Sonner Toasts",
+        codeFile: "ecommerce-store/hooks/use-cart.ts",
+        codeSnippet: `// Stock limit verification before incrementing
+if (selectedSize && item.sizes.find(s => s.size.id === selectedSize)?.stock > currentQty) {
+  toast.success("Item added to cart");
+  set({ items: updatedItems });
+} else {
+  toast.error("Item out of stock");
+}`,
         systemMetrics: {
-          latency: "34ms",
-          ops: "90 req/s",
-          status: "ready",
+          latency: "0.8ms",
+          ops: "Client-Local Memory",
+          status: "healthy",
         },
         logs: [
-          "GET v1/videos?page=1&limit=20 → lesson queue",
-          "videoSelected dispatched (current id from query)",
-          "Videos LIST tag refreshed — cache hot",
+          "[useCart] Validating selected size variant against stock balance",
+          "[Zustand] Persisting cart JSON payload to browser storage",
+          "[UI] Sonner toast dispatched with instant haptic visual feedback",
         ],
       },
       {
-        id: "quiz",
+        id: "step-3",
         number: "03",
-        title: "Graded Quiz Submission",
+        title: "Checkout Handoff & Server Price Locking",
         description:
-          "createQuizzMark rejects duplicate video+student submissions with a 400, loads the video's quizzes, and compares selected answers against the stored isCorrect option keys with JSON.stringify equality.",
-        tech: "Mongoose · ApiError",
-        codeFile: "server/src/services/quizzMark.service.js",
-        codeSnippet: `const createQuizzMark = async (quizzMarkBody) => {
-    const quizzMark = await queryQuizzMarks(
-        { video: quizzMarkBody.video, student: quizzMarkBody.student },
-        {}
-    );
-    if (quizzMark.length > 0) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Quizz mark already exists');
-    }
-    // ... video + student + quizzes existence checks ...
-
-    const correctAnswers = quizzes.map((quizz) => ({
-        [quizz._id]: quizz.options
-            .filter((option) => option.isCorrect)
-            .map((option) => option._id.toString()),
-    }));
-
-    let totalCorrect = 0;
-    correctAnswers.forEach((correctObject, index) => {
-        if (JSON.stringify(correctObject) === JSON.stringify(selectedAnswers[index])) {
-            totalCorrect += 1;
-        }
-    });
-
-    return QuizzMark.create({
-        ...quizzMarkBody,
-        totalQuizzes: quizzes.length,
-        totalCorrect,
-        totalWrong: quizzes.length - totalCorrect,
-        totalMarks: quizzes.length * 5,
-        marks: totalCorrect * 5,
-        correctAnswers,
-    });
-};`,
+          "Customer proceeds to checkout. Storefront posts item IDs and sizes to admin checkout route. The server verifies unit prices in MySQL, creates a pending order, and spawns a Stripe Checkout session.",
+        tech: "Stripe Checkout API · Prisma ORM · Next.js Route Handler",
+        codeFile: "ecommerce-admin/app/api/[storeId]/checkout/route.ts",
+        codeSnippet: `const session = await stripe.checkout.sessions.create({
+  line_items,
+  mode: "payment",
+  billing_address_collection: "required",
+  success_url: process.env.FRONTEND_STORE_URL + "/cart?success=1",
+  cancel_url: process.env.FRONTEND_STORE_URL + "/cart?canceled=1",
+  metadata: { orderId: order.id }
+});`,
         systemMetrics: {
-          latency: "21ms",
-          ops: "5-mark scoring",
+          latency: "185ms",
+          ops: "Stripe API Handshake",
           status: "processing",
         },
         logs: [
-          "Duplicate guard hit → HTTP 400 (mark already exists)",
-          "Quizz.find({ video }) → 8 questions loaded",
-          "totalMarks = 40 · marks = 5 × correct (35) · persisted",
+          "[Checkout API] Validating product pricing against database",
+          "[Prisma] Created pending order record with relational OrderItems",
+          "[Stripe] Generated secure hosted checkout redirect URL",
         ],
       },
       {
-        id: "assignment",
+        id: "step-4",
         number: "04",
-        title: "Assignment Submission",
+        title: "Cryptographic Webhook & Order Settlement",
         description:
-          "createAssignmentMark refuses unknown assignments or students, rejects a second submission for the same assignment with a 400, and blocks submissions past the assignment due date.",
-        tech: "Mongoose · ApiError",
-        codeFile: "server/src/services/assignmentMark.service.js",
-        codeSnippet: `const createAssignmentMark = async (assignmentMarkBody) => {
-    const assignment = await assignmentService.getAssignmentById(assignmentMarkBody.assignment);
-    if (!assignment) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Assignment not found');
-    }
-    // mark already exists check ...
-    if (assignmentMark.length > 0) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Assignment mark already exists');
-    }
-    if (new Date() > assignment.dueDate) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Assignment is overdue');
-    }
-    return AssignmentMark.create({
-        ...assignmentMarkBody,
-        status: 'pending',
-        marks: 0,
-    });
-};`,
+          "Customer completes card payment. Stripe emits a checkout.session.completed event. The admin webhook handler verifies the cryptographic signature and updates order status to isPaid: true.",
+        tech: "Stripe Webhook SDK · HMAC Signature · Prisma Client",
+        codeFile: "ecommerce-admin/app/api/webhook/route.ts",
+        codeSnippet: `event = stripe.webhooks.constructEvent(
+  body,
+  signature,
+  process.env.STRIPE_WEBHOOK_SECRET!
+);
+
+if (event.type === "checkout.session.completed") {
+  await prismadb.order.update({
+    where: { id: sessions?.metadata?.orderId },
+    data: { isPaid: true, address: addressString }
+  });
+}`,
         systemMetrics: {
-          latency: "18ms",
-          ops: "pending → graded",
+          latency: "110ms",
+          ops: "Signed Verification",
           status: "healthy",
         },
         logs: [
-          "Assignment + student existence verified",
-          "Due-date gate passed — submission accepted",
-          "AssignmentMark created with status: pending, marks: 0",
+          "[Stripe Webhook] Received event payload with valid Stripe-Signature",
+          "[Security] HMAC SHA-256 signature verified against secret",
+          "[Prisma] Order marked paid; customer delivery record recorded",
         ],
       },
       {
-        id: "leaderboard",
+        id: "step-5",
         number: "05",
-        title: "Leaderboard Aggregation",
+        title: "Atomic SizeStock Decrement & Real-Time Telemetry",
         description:
-          "Quiz and assignment marks are aggregated with $group/$lookup, merged per student, ranked by descending total with shared ranks, and the top 25 returned.",
-        tech: "Mongoose Aggregate",
-        codeFile: "server/src/services/leaderboard.services.js",
-        codeSnippet: `const quizzMarkLeaderboard = await QuizzMark.aggregate([
-    { $group: { _id: '$student', totalMarks: { $sum: '$marks' } } },
-    {
-        $lookup: {
-            from: 'users', localField: '_id', foreignField: '_id', as: 'student',
-        },
-    },
-    { $unwind: '$student' },
-    { $project: { id: '$student._id', name: '$student.name', quizzTotalMarks: '$totalMarks' } },
-    { $sort: { quizzTotalMarks: -1 } },
-]);
-// ... merged with assignment marks, ranked by totalMarks ...
-let currentRank = 0;
-let prevMarks = null;
-const ranked = leaderboard.map((st) => {
-    if (prevMarks !== st.totalMarks) currentRank += 1;
-    prevMarks = st.totalMarks;
-    return { ...st, rank: currentRank };
-});
-return student
-    ? { student: ranked.find((st) => st.id === student), leaderboard: ranked.slice(0, 25) }
-    : { leaderboard: ranked.slice(0, 25) };`,
+          "The webhook iterates through each purchased item, finding its matching SizeStock row in Prisma and decrementing available inventory atomically. Recharts dashboard updates instantly.",
+        tech: "Prisma ORM · MySQL · Recharts Telemetry",
+        codeFile: "ecommerce-admin/app/api/webhook/route.ts",
+        codeSnippet: `for (const orderItem of order.orderItems) {
+  const productSize = orderItem.product.sizes.find(s => s.sizeId === orderItem.size.id);
+  if (productSize) {
+    await prismadb.sizeStock.update({
+      where: { id: productSize.id },
+      data: { stock: productSize.stock - orderItem.quantity }
+    });
+  }
+}`,
         systemMetrics: {
-          latency: "64ms",
-          ops: "Top 25 ranks",
+          latency: "65ms",
+          ops: "Atomic Inventory Lock",
           status: "ready",
         },
         logs: [
-          "QuizzMark $group + $lookup → per-student totals",
-          "AssignmentMark aggregate merged into the matrix",
-          "Ranked 25 rows — shared ranks respected",
+          "[Inventory] Decrementing SizeStock row for purchased SKU variant",
+          "[Analytics] Order revenue factored into monthly Recharts aggregate",
+          "[Pipeline] Fulfillment state finalized; confirmation email triggered",
         ],
       },
     ],
-    archMermaid: `flowchart TD
-    classDef client fill:#1e1e24,stroke:#ff1744,stroke-width:1.5px,color:#fff;
-    classDef engine fill:#131d1b,stroke:#10b981,stroke-width:1.5px,color:#fff;
-    classDef backend fill:#131a26,stroke:#0ea5e9,stroke-width:1.5px,color:#fff;
-
-    subgraph Client["Next.js 13 Client (client/)"]
-        Pages["Pages Router + Ant Design"]:::client
-        RTK["RTK Slices + RTK Query"]:::client
-        Persist["redux-persist Rehydration"]:::client
-        Player["react-player Lessons"]:::client
-    end
-
-    subgraph Transport["REST Transport"]
-        API["apiSlice fetchBaseQuery (Bearer token)"]:::engine
-        JWT["Access/Refresh JWT"]:::engine
-    end
-
-    subgraph Server["Express Service-Layer API (server/)"]
-        Routes["v1 Routes + Joi Validation"]:::backend
-        Controllers["Controllers (quizzMark, leaderboard, ...)"]:::backend
-        Services["Services + Mongoose Models"]:::backend
-        Mongo[("MongoDB (Mongoose)")]:::backend
-        Docs["Swagger OpenAPI"]:::backend
-    end
-
-    Pages --> RTK
-    RTK --> Persist
-    Player --> RTK
-    RTK --> API
-    API --> JWT
-    JWT --> Routes
-    Routes --> Controllers
-    Controllers --> Services
-    Services --> Mongo
-    Routes --> Docs`,
+    archMermaid: `graph TD
+    Client[Next.js Headless Storefront] -->|Browse & Cart| StorefrontUI[Radix UI / Zustand Store]
+    StorefrontUI -->|POST /api/checkout| AdminAPI[Next.js Admin Control Plane]
+    AdminAPI -->|Verify Prices & Create Pending Order| DB[(MySQL / PlanetScale DB)]
+    AdminAPI -->|Create Session| Stripe[Stripe Checkout Engine]
+    Stripe -->|Customer Pays| Webhook[Signed Webhook Endpoint]
+    Webhook -->|Verify Signature & Mark isPaid| DB
+    Webhook -->|Atomically Decrement Stock| SizeStock[SizeStock Inventory Matrix]
+    Merchant[Merchant Admin Portal] -->|Clerk Auth & Dashboard| AdminAPI`,
     seqMermaid: `sequenceDiagram
     autonumber
-    actor Student as Enrolled Student
-    participant UI as Next.js Client
-    participant RTK as RTK Query Slices
-    participant API as Express REST API
-    participant Service as Quiz Mark Service
-    participant DB as MongoDB (Mongoose)
+    actor Customer
+    participant Store as Headless Storefront
+    participant Admin as Admin Control Plane
+    participant DB as Prisma (MySQL)
+    participant Stripe as Stripe Gateway
 
-    Student->>UI: Login (email + password)
-    UI->>RTK: dispatch auth login
-    RTK->>API: POST /v1/auth/login
-    API-->>RTK: tokens (persisted via redux-persist)
-
-    Student->>UI: Open course video
-    UI->>RTK: getVideos list (auto-select current)
-    RTK-->>UI: lesson queue rendered
-
-    Student->>UI: Submit quiz answers
-    UI->>API: POST /v1/quizz-marks
-    API->>Service: createQuizzMark(video, student, answers)
-    Service->>DB: Quizz.find({ video })
-    DB-->>Service: questions + isCorrect option keys
-    Service->>Service: JSON.stringify equality scoring
-    Service->>DB: QuizzMark.create (marks = correct * 5)
-    alt Duplicate submission
-        API-->>UI: HTTP 400 (mark already exists)
-    else Valid submission
-        API-->>UI: HTTP 201 { totalMarks, marks }
-    end`,
+    Customer->>Store: Add item with Size selection
+    Store->>Store: Validate stock in Zustand persistent store
+    Customer->>Store: Click Checkout
+    Store->>Admin: POST /api/{storeId}/checkout
+    Admin->>DB: Query exact Product & Size prices
+    Admin->>DB: Create Order (isPaid: false)
+    Admin->>Stripe: Create Checkout Session with metadata.orderId
+    Stripe-->>Admin: Return session.url
+    Admin-->>Store: Return { url }
+    Store-->>Customer: Redirect to Stripe Checkout
+    Customer->>Stripe: Authorize card payment
+    Stripe->>Admin: POST /api/webhook (Stripe-Signature)
+    Admin->>Admin: constructEvent(body, signature, secret)
+    Admin->>DB: Update Order (isPaid: true, delivery info)
+    Admin->>DB: Decrement SizeStock (stock - quantity)
+    Stripe-->>Customer: Redirect to Store /cart?success=1`,
   },
   codeModules: [
     {
-      id: "quizz-mark",
-      filename: "server/src/services/quizzMark.service.js",
-      badge: "Grading Engine",
-      title: "Graded Quiz Marking Service",
+      id: "stripe-webhook",
+      filename: "ecommerce-admin/app/api/webhook/route.ts",
+      badge: "Payment Fulfillment",
+      title: "Signed Stripe Webhook & SizeStock Decrement",
       description:
-        "Five-marks-per-question scoring: builds the correct-answer key from isCorrect option flags, compares with JSON.stringify equality, and rejects duplicate video+student submissions with a 400.",
-      prUrl:
-        "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/services/quizzMark.service.js",
-      prHighlight: "server/src/services/quizzMark.service.js",
-      code: `import httpStatus from 'http-status';
-import { Quizz, QuizzMark } from '../models/index.js';
-import ApiError from '../utils/ApiError.js';
-import userService from './user.service.js';
-import videoService from './video.service.js';
+        "Validates Stripe signature headers, locks order states to paid upon completion, captures delivery addresses, and atomically decrements variant inventory across SizeStock models.",
+      prUrl: "https://github.com/b-l-i-n-d/ecommerce-admin/blob/master/app/api/webhook/route.ts",
+      prHighlight: "app/api/webhook/route.ts",
+      code: `import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
+import prismadb from "@/lib/prismadb";
+import { stripe } from "@/lib/stripe";
 
-const createQuizzMark = async (quizzMarkBody) => {
-    const quizzMark = await queryQuizzMarks(
-        {
-            video: quizzMarkBody.video,
-            student: quizzMarkBody.student,
-        },
-        {}
-    );
+export async function POST(req: Request) {
+    const body = await req.text();
+    const signature = headers().get("Stripe-Signature") as string;
 
-    if (quizzMark.length > 0) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Quizz mark already exists');
+    let event: Stripe.Event;
+    try {
+        event = stripe.webhooks.constructEvent(
+            body,
+            signature,
+            process.env.STRIPE_WEBHOOK_SECRET!
+        );
+    } catch (error: any) {
+        return new Response(\`WebHook error: \${error.message}\`, { status: 400 });
     }
 
-    const video = await videoService.getVideoById(quizzMarkBody.video);
-    if (!video) throw new ApiError(httpStatus.NOT_FOUND, 'Video not found');
+    const sessions = event.data.object as Stripe.Checkout.Session;
+    const address = sessions?.customer_details?.address;
+    const addressComponents = [
+        address?.line1,
+        address?.line2,
+        address?.city,
+        address?.state,
+        address?.postal_code,
+        address?.country,
+    ];
+    const addressString = addressComponents.filter((c) => c !== null).join(", ");
 
-    const student = await userService.getUserById(quizzMarkBody.student);
-    if (!student) throw new ApiError(httpStatus.NOT_FOUND, 'Student not found');
+    if (event.type === "checkout.session.completed") {
+        const order = await prismadb.order.update({
+            where: {
+                id: sessions?.metadata?.orderId,
+            },
+            data: {
+                isPaid: true,
+                address: addressString,
+                phone: sessions?.customer_details?.phone || "",
+                name: sessions?.customer_details?.name || "",
+            },
+            include: {
+                orderItems: {
+                    include: {
+                        product: {
+                            include: {
+                                sizes: true,
+                            },
+                        },
+                        size: true,
+                    },
+                },
+            },
+        });
 
-    const quizzes = await Quizz.find({ video: quizzMarkBody.video });
-    if (quizzes.length === 0) throw new ApiError(httpStatus.NOT_FOUND, 'Quizzes not found');
+        // Atomically update product variant stock
+        for (const orderItem of order.orderItems) {
+            const product = orderItem.product;
+            const size = orderItem.size;
+            const productSize = product.sizes.find((s) => s.sizeId === size.id);
 
-    const correctAnswers = quizzes.map((quizz) => {
-        return {
-            [quizz._id]: quizz.options
-                .filter((option) => option.isCorrect)
-                .map((option) => option._id.toString()),
-        };
-    });
-
-    const { selectedAnswers } = quizzMarkBody;
-
-    const countTotalCorrect = (correctAns, selectedAns) => {
-        let totalCorrect = 0;
-        correctAns.forEach((correctObject, index) => {
-            const selectedObject = selectedAns[index];
-            if (JSON.stringify(correctObject) === JSON.stringify(selectedObject)) {
-                totalCorrect += 1;
+            if (productSize) {
+                await prismadb.sizeStock.update({
+                    where: {
+                        id: productSize.id,
+                    },
+                    data: {
+                        stock: productSize.stock - orderItem.quantity,
+                    },
+                });
             }
-        });
-        return totalCorrect;
-    };
+        }
+    }
 
-    const totalCorrect = countTotalCorrect(correctAnswers, selectedAnswers);
-
-    return QuizzMark.create({
-        ...quizzMarkBody,
-        totalQuizzes: quizzes.length,
-        totalCorrect,
-        totalWrong: quizzes.length - totalCorrect,
-        totalMarks: quizzes.length * 5,
-        marks: totalCorrect * 5,
-        correctAnswers,
-    });
-};
-
-export default { queryQuizzMarks, createQuizzMark };`,
+    return new NextResponse(null, { status: 200 });
+}`,
     },
     {
-      id: "leaderboard",
-      filename: "server/src/services/leaderboard.services.js",
-      badge: "Aggregation",
-      title: "Leaderboard Rank Aggregation",
+      id: "checkout-session",
+      filename: "ecommerce-admin/app/api/[storeId]/checkout/route.ts",
+      badge: "Checkout Gateway",
+      title: "Secure Checkout Session Creation",
       description:
-        "Two $group/$lookup aggregates (quiz + assignment marks) merged per student, ranked by descending total with shared ranks honored, and the top 25 exposed.",
+        "CORS-enabled route handler that queries product pricing directly from MySQL, compiles Stripe line items with size descriptors, and persists pending orders before payment handoff.",
       prUrl:
-        "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/services/leaderboard.services.js",
-      prHighlight: "server/src/services/leaderboard.services.js",
-      code: `import { AssignmentMark, QuizzMark } from '../models/index.js';
+        "https://github.com/b-l-i-n-d/ecommerce-admin/blob/master/app/api/%5BstoreId%5D/checkout/route.ts",
+      prHighlight: "app/api/[storeId]/checkout/route.ts",
+      code: `import { NextResponse } from "next/server";
+import Stripe from "stripe";
+import prismadb from "@/lib/prismadb";
+import { stripe } from "@/lib/stripe";
 
-const queryLeaderboard = async (student) => {
-    const quizzMarkLeaderboard = await QuizzMark.aggregate([
-        { $group: { _id: '$student', totalMarks: { $sum: '$marks' } } },
-        {
-            $lookup: {
-                from: 'users', localField: '_id', foreignField: '_id', as: 'student',
-            },
-        },
-        { $unwind: '$student' },
-        {
-            $project: {
-                id: '$student._id', name: '$student.name',
-                photo: '$student.photo', quizzTotalMarks: '$totalMarks',
-            },
-        },
-        { $sort: { quizzTotalMarks: -1 } },
-    ]);
-
-    // same aggregate for AssignmentMark.assignmentTotalMarks ...
-    const combinedMarks = [...quizzMarkLeaderboard, ...assignmentMarkLeaderboard];
-
-    const leaderboard = combinedMarks.reduce((acc, curr) => {
-        const existingStudent = acc.find((st) => st.id.toString() === curr.id.toString());
-        if (existingStudent) {
-            existingStudent.quizzTotalMarks = (existingStudent.quizzTotalMarks || 0) + (curr.quizzTotalMarks || 0);
-            existingStudent.assignmentTotalMarks =
-                (existingStudent.assignmentTotalMarks || 0) + (curr.assignmentTotalMarks || 0);
-        } else {
-            acc.push({
-                ...curr,
-                quizzTotalMarks: curr.quizzTotalMarks || 0,
-                assignmentTotalMarks: curr.assignmentTotalMarks || 0,
-            });
-        }
-        return acc;
-    }, []);
-
-    const rankedLeaderboard = leaderboard
-        .map((st) => ({
-            ...st,
-            totalMarks: (st.quizzTotalMarks || 0) + (st.assignmentTotalMarks || 0),
-        }))
-        .sort((a, b) => b.totalMarks - a.totalMarks)
-        .map((st, _i, arr) => {
-            let rank = 0, prevMarks = null;
-            arr.forEach((s) => {
-                if (prevMarks !== s.totalMarks) rank += 1;
-                prevMarks = s.totalMarks;
-                if (s === st) return;
-            });
-            return { ...st, rank };
-        });
-
-    return student
-        ? { student: rankedLeaderboard.find((st) => st.id.toString() === student.toString()), leaderboard: rankedLeaderboard.slice(0, 25) }
-        : { leaderboard: rankedLeaderboard.slice(0, 25) };
+const corsHeaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
-export default { queryLeaderboard };`,
+export async function OPTIONS() {
+    return NextResponse.json({}, { headers: corsHeaders });
+}
+
+export async function POST(
+    req: Request,
+    { params }: { params: { storeId: string } }
+) {
+    const { items } = await req.json();
+    if (!items || items.length === 0) {
+        return new NextResponse("Product Ids are required", { status: 400 });
+    }
+
+    const products = [];
+    for (const item of items) {
+        const product = await prismadb.product.findUnique({
+            where: { id: item.id },
+            include: {
+                images: true,
+                sizes: { include: { size: true } },
+            },
+        });
+        if (!product) return new NextResponse(\`Product \${item.id} not found\`, { status: 404 });
+        products.push(product);
+    }
+
+    const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
+    for (const item of items) {
+        const product = products.find((p) => p.id === item.id);
+        const size = product?.sizes.find((s) => s.size.id === item.selectedSize);
+
+        line_items.push({
+            price_data: {
+                currency: "usd",
+                product_data: {
+                    name: product!.name,
+                    images: product!.images.map((i) => i.url),
+                    description: \`Size: \${size?.size.name}\`,
+                },
+                unit_amount: product!.price.toNumber() * 100,
+            },
+            quantity: item.quantity,
+        });
+    }
+
+    const order = await prismadb.order.create({
+        data: {
+            storeId: params.storeId,
+            isPaid: false,
+            orderItems: {
+                create: items.map((item: any) => ({
+                    product: { connect: { id: item.id } },
+                    size: { connect: { id: item.selectedSize } },
+                    quantity: item.quantity,
+                })),
+            },
+        },
+    });
+
+    const session = await stripe.checkout.sessions.create({
+        line_items,
+        mode: "payment",
+        billing_address_collection: "required",
+        phone_number_collection: { enabled: true },
+        success_url: \`\${process.env.FRONTEND_STORE_URL}/cart?success=1\`,
+        cancel_url: \`\${process.env.FRONTEND_STORE_URL}/cart?canceled=1\`,
+        metadata: { orderId: order.id },
+    });
+
+    return NextResponse.json({ url: session.url }, { headers: corsHeaders });
+}`,
     },
     {
-      id: "api-slice",
-      filename: "client/redux/api/apiSlice.ts",
-      badge: "Data Layer",
-      title: "RTK Query Base API Slice",
+      id: "zustand-cart-store",
+      filename: "ecommerce-store/hooks/use-cart.ts",
+      badge: "State & Storage",
+      title: "Zustand Multi-Variant Cart Store",
       description:
-        "fetchBaseQuery with Bearer prepareHeaders, a 401/expired-token logout guard, next-redux-wrapper HYDRATE rehydration, and tag types for every domain.",
-      prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/client/redux/api/apiSlice.ts",
-      prHighlight: "client/redux/api/apiSlice.ts",
-      code: `import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { HYDRATE } from "next-redux-wrapper";
-import { authApi } from "../features/auth/authApi";
-import { AppState } from "../store";
+        "Client store managing cart persistence via local storage, matching items on composite key (productId + sizeId), and enforcing inventory stock limits before mutating counts.",
+      prUrl: "https://github.com/b-l-i-n-d/ecommerce-store/blob/master/hooks/use-cart.ts",
+      prHighlight: "hooks/use-cart.ts",
+      code: `import { toast } from "sonner";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
+import { IProduct } from "@/types";
 
-const baseQuery = fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: async (headers, { getState }: { getState: () => AppState }) => {
-        const token = getState().auth?.tokens?.access?.token;
-        if (token) {
-            headers.set("Authorization", \`Bearer \${token}\`);
+interface ICartStore {
+    items: (IProduct & { quantity: number; selectedSize: string })[];
+    addItem: (item: IProduct) => void;
+    removeItem: (id: string, selectedSize: string) => void;
+    increaseItemQuantity: (id: string, selectedSize: string) => void;
+    decreaseItemQuantity: (id: string, selectedSize: string) => void;
+    removeAllItems: () => void;
+    selectedSize: string | undefined;
+    setSelectedSize: (size: string | undefined) => void;
+}
+
+export const useCart = create(
+    persist<ICartStore>(
+        (set, get) => ({
+            items: [],
+            addItem: (item) => {
+                const currentItems = get().items;
+                const isItemExist = currentItems.filter(
+                    (currentItem) =>
+                        currentItem.id === item.id &&
+                        currentItem.selectedSize === get().selectedSize
+                ) ?? [];
+
+                if (get().selectedSize === undefined) {
+                    return toast.error("Please select size");
+                }
+
+                if (isItemExist.length > 0) {
+                    const newItems = currentItems.map((currentItem) => {
+                        if (currentItem.id === isItemExist[0].id && currentItem.selectedSize === get().selectedSize) {
+                            const availableStock = currentItem.sizes.find(
+                                (size) => size.size.id === get().selectedSize
+                            )?.stock ?? 0;
+
+                            if (availableStock > currentItem.quantity) {
+                                toast.success("Item added to cart");
+                                return {
+                                    ...currentItem,
+                                    quantity: currentItem.quantity + 1,
+                                    selectedSize: get().selectedSize ?? "",
+                                };
+                            } else {
+                                toast.error("Item out of stock");
+                                return currentItem;
+                            }
+                        }
+                        return currentItem;
+                    });
+                    return set({ items: newItems });
+                } else {
+                    toast.success("Item added to cart");
+                    return set({
+                        items: [
+                            ...currentItems,
+                            { ...item, quantity: 1, selectedSize: get().selectedSize ?? "" },
+                        ],
+                    });
+                }
+            },
+            removeItem: (id, selectedSize) => {
+                toast.success("Item removed from cart");
+                return set({
+                    items: get().items.filter(
+                        (item) => item.id !== id || item.selectedSize !== selectedSize
+                    ),
+                });
+            },
+            removeAllItems: () => set({ items: [] }),
+            selectedSize: undefined,
+            setSelectedSize: (size) => set({ selectedSize: size }),
+        }),
+        {
+            name: "cart",
+            storage: createJSONStorage(() => localStorage),
         }
-        return headers;
+    )
+);`,
     },
-});
+    {
+      id: "prisma-schema",
+      filename: "ecommerce-admin/prisma/schema.prisma",
+      badge: "Database Topology",
+      title: "Relational Multi-Store Schema",
+      description:
+        "Prisma database contract establishing Store, Category, Billboard, Product, Size, Color, SizeStock, and Order relations optimized with composite indexes.",
+      prUrl: "https://github.com/b-l-i-n-d/ecommerce-admin/blob/master/prisma/schema.prisma",
+      prHighlight: "prisma/schema.prisma",
+      code: `datasource db {
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
+}
 
-export const apiSlice = createApi({
-    reducerPath: "api",
-    baseQuery: async (args, api, extraOptions) => {
-        const getState = api.getState as () => AppState;
-        const refreshToken = getState().auth?.tokens?.refresh?.token;
-        const isTokenExpired = getState().auth?.tokens?.refresh?.expires < Date.now();
-        const result = await baseQuery(args, api, extraOptions);
+generator client {
+    provider = "prisma-client-js"
+}
 
-        if ((result.error?.status === 401 || isTokenExpired) && refreshToken) {
-            api.dispatch(authApi.endpoints.logout.initiate(refreshToken));
-        }
-        return result;
-    },
-    extractRehydrationInfo: (action, { reducerPath }) => {
-        if (action.type === HYDRATE) return action.payload[reducerPath];
-    },
-    tagTypes: [
-        "Assignments", "AssignmentsMarks", "Auth", "Dashboard", "Leaderboard",
-        "Users", "Videos", "Quizzes", "QuizzMarks", "QuizzSets",
-    ],
-    endpoints: (builder) => ({}),
-});`,
+model Store {
+    id         String      @id @default(uuid())
+    name       String
+    userId     String
+    billboards Billboard[] @relation("StoreToBillboard")
+    categories Category[]  @relation("StoreToCategory")
+    sizes      Size[]      @relation("StoreToSize")
+    colors     Color[]     @relation("StoreToColor")
+    products   Product[]   @relation("StoreToProduct")
+    orders     Order[]     @relation("StoreToOrder")
+    createdAt  DateTime    @default(now())
+    updatedAt  DateTime    @updatedAt
+}
+
+model Product {
+    id         String      @id @default(uuid())
+    storeId    String
+    store      Store       @relation("StoreToProduct", fields: [storeId], references: [id])
+    categoryId String
+    category   Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
+    name       String
+    price      Decimal
+    isFeatured Boolean     @default(false)
+    isArchived Boolean     @default(false)
+    sizes      SizeStock[] @relation("ProductToSizeStock")
+    colorId    String
+    color      Color       @relation("ColorToProduct", fields: [colorId], references: [id])
+    images     Image[]     @relation("ProductToImage")
+    orders     OrderItem[] @relation("ProductToOrder")
+    createdAt  DateTime    @default(now())
+    updatedAt  DateTime    @updatedAt
+
+    @@index([storeId])
+    @@index([categoryId])
+    @@index([colorId])
+}
+
+model SizeStock {
+    id        String   @id @default(uuid())
+    productId String
+    product   Product  @relation("ProductToSizeStock", fields: [productId], references: [id], onDelete: Cascade)
+    sizeId    String
+    size      Size     @relation("SizeToSizeStock", fields: [sizeId], references: [id])
+    stock     Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([productId])
+    @@index([sizeId])
+}`,
     },
   ],
 };
@@ -2872,6 +2931,6 @@ function GeneratedAppiontmentPdf({ date, doctor, appointments }) {
 export const caseStudyShowcase: Record<string, ProjectShowcase> = {
   "tutor-lms": tutorShowcase,
   enclave: enclaveShowcase,
-  edtech: edTechShowcase,
+  omnicommerce: omniCommerceShowcase,
   docapp: docAppShowcase,
 };

@@ -70,11 +70,11 @@ const DEFAULT_COLUMNS: ContentsColumn[] = [
         dotsCount: 2,
       },
       {
-        id: "edtech-platform",
-        title: "EdTech Learning Monorepo",
-        subtitle: "Automated Quiz Engine & RTK Query",
+        id: "omnicommerce-platform",
+        title: "OmniCommerce Headless Suite",
+        subtitle: "Decoupled Storefront & Multi-Tenant Admin",
         subtitlePosition: "below",
-        targetId: "edtech",
+        targetId: "omnicommerce",
         dotsCount: 3,
       },
       {
@@ -221,7 +221,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
   };
 
   const handleItemClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-    const caseStudySlugs = ["tutor-lms", "enclave", "edtech", "docapp"];
+    const caseStudySlugs = ["tutor-lms", "enclave", "omnicommerce", "docapp"];
     if (caseStudySlugs.includes(targetId)) {
       e.preventDefault();
       router.push(`/case-study/${targetId}`);
@@ -334,7 +334,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
               <div className="space-y-2">
                 {column.items.map((item: ContentsItem) => {
                   const itemId = item.id || item.targetId;
-                  const isCaseStudy = ["tutor-lms", "enclave", "edtech", "docapp"].includes(
+                  const isCaseStudy = ["tutor-lms", "enclave", "omnicommerce", "docapp"].includes(
                     item.targetId
                   );
                   const href = isCaseStudy ? `/case-study/${item.targetId}` : `#${item.targetId}`;

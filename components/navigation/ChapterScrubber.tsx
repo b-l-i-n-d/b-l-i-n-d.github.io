@@ -20,7 +20,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
   if (!mounted) return null;
 
   const isChapterActive = (chapterId: string) => {
-    const caseStudyIds = ["case-study", "tutor-lms", "enclave", "edtech", "docapp"];
+    const caseStudyIds = ["case-study", "tutor-lms", "enclave", "omnicommerce", "docapp"];
     if (chapterId === "case-study" && caseStudyIds.includes(activeChapter)) {
       return true;
     }

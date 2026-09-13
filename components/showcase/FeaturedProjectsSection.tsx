@@ -32,10 +32,10 @@ const PROJECT_BADGES: Record<string, { label: string; accent: string; sub: strin
     accent: "from-amber-500/20 via-amber-500/5 to-transparent",
     sub: "Local-First Vault & RFC 6238 TOTP Engine",
   },
-  edtech: {
-    label: "Full-Stack LMS · Client + Server Monorepo",
+  omnicommerce: {
+    label: "Headless E-Commerce · Decoupled Pair",
     accent: "from-sky-500/20 via-sky-500/5 to-transparent",
-    sub: "Automated Evaluation & Aggregated Leaderboard",
+    sub: "Multi-Tenant SaaS Control Plane & Stripe Webhook Pipeline",
   },
   docapp: {
     label: "Healthcare Suite · Multi-Role State Machine",

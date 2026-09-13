@@ -42,7 +42,7 @@ export const Navbar = () => {
     if (pathname && pathname.startsWith("/case-study")) {
       return "case-study";
     }
-    const caseStudyIds = ["tutor-lms", "enclave", "edtech", "docapp", "case-study"];
+    const caseStudyIds = ["tutor-lms", "enclave", "omnicommerce", "docapp", "case-study"];
     if (caseStudyIds.includes(activeChapter)) {
       return "case-study";
     }
