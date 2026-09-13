@@ -68,7 +68,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
           <div className="flex items-center gap-2.5">
             <span className="w-2 h-2 rounded-full bg-accent shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
             <span className="text-xs font-mono font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
-              Chapter 07 // Final Dispatch
+              Chapter 05 // Final Dispatch
             </span>
           </div>
           <span className="font-script text-base sm:text-lg text-accent -rotate-2 select-none">

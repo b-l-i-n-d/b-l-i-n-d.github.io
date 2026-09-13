@@ -7,7 +7,7 @@ import { ProjectStage } from "@/types/portfolio";
 import { portfolioData } from "@/config/portfolio-data";
 import { caseStudyShowcase } from "@/config/case-study-data";
 import { GithubIcon } from "../icons";
-import { GitPullRequest, Network, Layers, LayoutTemplate, ExternalLink, Lock } from "lucide-react";
+import { GitPullRequest, Network, Layers, ExternalLink, Lock } from "lucide-react";
 
 // Dynamically load heavy interactive stages on demand
 const ArchitectureGraph = dynamic(
@@ -17,18 +17,6 @@ const ArchitectureGraph = dynamic(
     loading: () => (
       <div className="h-96 rounded-2xl bg-black/2 dark:bg-white/2 border border-black/6 dark:border-white/8 flex items-center justify-center text-xs font-mono text-neutral-400">
         Loading architecture topology...
-      </div>
-    ),
-  }
-);
-
-const HybridGallery = dynamic(
-  () => import("../gallery/HybridGallery").then((m) => m.HybridGallery),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-96 rounded-2xl bg-black/2 dark:bg-white/2 border border-black/6 dark:border-white/8 flex items-center justify-center text-xs font-mono text-neutral-400">
-        Loading production specs...
       </div>
     ),
   }
@@ -58,7 +46,7 @@ const InteractiveFlowVisualizer = dynamic(
   }
 );
 
-type StageType = "architecture" | "code" | "flow" | "gallery";
+type StageType = "architecture" | "code" | "flow";
 
 interface ProjectCaseStudySectionProps {
   project: any;
@@ -151,27 +139,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
     { type: "architecture", label: "Architecture Graph", Icon: Network },
     { type: "code", label: "Production Source", Icon: GitPullRequest },
     { type: "flow", label: "Interactive Flow", Icon: Layers },
-    { type: "gallery", label: "Product Blueprints", Icon: LayoutTemplate },
   ];
-
-  // Curated blueprints matching the project domain so blueprints are never empty
-  const getProjectGallery = () => {
-    if (project.gallery && project.gallery.length > 0) return project.gallery;
-    const projectGalleryMap: Record<string, string[]> = {
-      "tutor-lms": ["tutor-telemetry", "folder-tree-node", "drag-flip-engine", "3d-card-flip"],
-      enclave: [
-        "enclave-vault",
-        "stripe-webhook-idempotency",
-        "kinetic-friction",
-        "drag-flip-engine",
-      ],
-      omnicommerce: ["ecommerce-store", "ecommerce-admin", "stripe-webhook", "zustand-cart"],
-      docapp: ["docapp-clinic", "temporal-calendar", "sust-thesis", "stripe-webhook-idempotency"],
-    };
-    const targetIds = projectGalleryMap[project.id] || [];
-    const matched = portfolioData.hybridGallery.filter((item) => targetIds.includes(item.id));
-    return matched.length > 0 ? matched : portfolioData.hybridGallery.slice(0, 4);
-  };
 
   return (
     <section
@@ -441,18 +409,6 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                   ) : (
                     <DataDrivenStageView stage={project.stages.flow} />
                   )}
-                </motion.div>
-              )}
-
-              {activeStage === "gallery" && (
-                <motion.div
-                  key="gallery"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <HybridGallery items={getProjectGallery()} isEmbedded />
                 </motion.div>
               )}
             </AnimatePresence>

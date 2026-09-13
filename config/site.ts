@@ -37,14 +37,7 @@ export const siteConfig = {
       label: "DocApp",
       href: "#docapp",
     },
-    {
-      label: "Motion Lab",
-      href: "#motion-lab",
-    },
-    {
-      label: "Blueprints",
-      href: "#gallery",
-    },
+
     {
       label: "Dossier",
       href: "#profile",
@@ -83,14 +76,7 @@ export const siteConfig = {
       label: "DocApp",
       href: "#docapp",
     },
-    {
-      label: "Motion Lab",
-      href: "#motion-lab",
-    },
-    {
-      label: "Blueprints",
-      href: "#gallery",
-    },
+
     {
       label: "Dossier",
       href: "#profile",

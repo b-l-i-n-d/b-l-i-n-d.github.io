@@ -5,10 +5,9 @@ import { CinematicHero } from "@/components/hero/CinematicHero";
 import { DoodleMarqueeBanner } from "@/components/decorations/DoodleMarqueeBanner";
 import { ContentsIndexSection } from "@/components/contents/ContentsIndexSection";
 import { FeaturedProjectsSection } from "@/components/showcase/FeaturedProjectsSection";
-import { InteractiveMotionLab } from "@/components/motion-lab/InteractiveMotionLab";
 import { ProfileOutro } from "@/components/profile/ProfileOutro";
 
-// Dynamic imports for remaining client interactive components
+// Dynamic imports for client interactive components
 const BehanceBioSection = dynamic(
   () => import("@/components/bio/BehanceBioSection").then((m) => m.BehanceBioSection),
   { ssr: true }
@@ -16,11 +15,6 @@ const BehanceBioSection = dynamic(
 
 const ExperienceSection = dynamic(
   () => import("@/components/experience/ExperienceSection").then((m) => m.ExperienceSection),
-  { ssr: true }
-);
-
-const HybridGallery = dynamic(
-  () => import("@/components/gallery/HybridGallery").then((m) => m.HybridGallery),
   { ssr: true }
 );
 
@@ -61,22 +55,12 @@ export default function Home() {
         <FeaturedProjectsSection projects={portfolioData.flagshipProjects} />
       </div>
 
-      {/* Chapter 05: Interactive Motion Lab (Micro-Interactions & Physics) */}
-      <div className="content-auto">
-        <InteractiveMotionLab items={portfolioData.interactiveBuilds} />
-      </div>
-
-      {/* Chapter 06: 12-Item Curated Hybrid Gallery & Lightbox */}
-      <div className="content-auto">
-        <HybridGallery items={portfolioData.hybridGallery} />
-      </div>
-
       {/* Ribbon Divider Banner */}
       <div className="content-auto">
         <DoodleMarqueeBanner direction="left" speed={30} />
       </div>
 
-      {/* Chapter 07: Engineer Profile Outro, Credentials & Tactical Dossier */}
+      {/* Chapter 05: Engineer Profile Outro, Credentials & Tactical Dossier */}
       <div className="content-auto">
         <ProfileOutro profile={portfolioData} />
       </div>

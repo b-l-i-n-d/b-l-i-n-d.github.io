@@ -23,8 +23,6 @@ const NAV_ITEMS = [
   { id: "contents", label: "Contents", href: "#contents", chapter: "contents" },
   { id: "experience", label: "Experience", href: "#experience", chapter: "experience" },
   { id: "case-study", label: "Case Study", href: "#case-study", chapter: "case-study" },
-  { id: "motion-lab", label: "Motion Lab", href: "#motion-lab", chapter: "motion-lab" },
-  { id: "gallery", label: "Blueprints", href: "#gallery", chapter: "gallery" },
   { id: "dossier", label: "Dossier", href: "#profile", chapter: "profile" },
 ];
 
