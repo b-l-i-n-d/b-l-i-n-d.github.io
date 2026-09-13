@@ -33,15 +33,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <head>
-        <link
-          rel="preload"
-          as="image"
-          href="/assets/hero-poster.webp"
-          type="image/webp"
-          fetchPriority="high"
-        />
-      </head>
       <body
         suppressHydrationWarning
         className={cn(
@@ -54,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark", enableSystem: true }}>
           <div className="relative flex flex-col min-h-screen bg-stone-50 dark:bg-neutral-950 transition-colors duration-200">
             <Navbar />
-            <main className="w-full flex-grow">{children}</main>
+            <main className="w-full grow">{children}</main>
             <Footer />
           </div>
         </Providers>
