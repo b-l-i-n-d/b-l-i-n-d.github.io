@@ -1,221 +1,207 @@
 "use client";
 
+import { NAV_ITEMS, CASE_STUDY_CHAPTER_IDS } from "@/data/navigation";
 import {
-    Navbar as NextUINavbar,
-    NavbarBrand,
-    NavbarContent,
-    NavbarItem,
-    NavbarMenu,
-    NavbarMenuItem,
-    NavbarMenuToggle,
+  Navbar as NextUINavbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
 } from "@heroui/navbar";
 import { Link } from "@heroui/react";
 import React, { useState } from "react";
 import { GithubIcon, BlindSkullIcon } from "./icons";
 import { ThemeSwitch } from "./theme-switch";
 import { useViewport } from "./viewport/ViewportController";
-import { motion } from "framer-motion";
-
-const NAV_ITEMS = [
-    { id: "showreel", label: "Showreel", href: "#hero", chapter: "hero" },
-    { id: "contents", label: "Contents", href: "#contents", chapter: "contents" },
-    { id: "about", label: "About", href: "#about", chapter: "about" },
-    { id: "experience", label: "Experience", href: "#experience", chapter: "experience" },
-    { id: "case-study", label: "Case Study", href: "#case-study", chapter: "case-study" },
-    { id: "motion-lab", label: "Motion Lab", href: "#motion-lab", chapter: "motion-lab" },
-    { id: "gallery", label: "Blueprints", href: "#gallery", chapter: "gallery" },
-    { id: "dossier", label: "Dossier", href: "#profile", chapter: "profile" },
-];
+import { motion } from "motion/react";
 
 export const Navbar = () => {
-    const { activeChapter, setActiveChapter } = useViewport();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [hoveredNavId, setHoveredNavId] = useState<string | null>(null);
-    const [clickedNavId, setClickedNavId] = useState<string | null>(null);
+  const { activeChapter, setActiveChapter } = useViewport();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hoveredNavId, setHoveredNavId] = useState<string | null>(null);
+  const [clickedNavId, setClickedNavId] = useState<string | null>(null);
 
-    // Map viewport activeChapter to nav item (including sub-chapters like case study projects)
-    const getActiveNavId = () => {
-        if (clickedNavId) return clickedNavId;
-        const caseStudyIds = ["tutor-lms", "enclave", "edtech", "docapp", "case-study"];
-        if (caseStudyIds.includes(activeChapter)) {
-            return "case-study";
-        }
-        const matching = NAV_ITEMS.find((item) => item.chapter === activeChapter);
-        return matching ? matching.id : "showreel";
-    };
+  // Map viewport activeChapter to nav item (including sub-chapters like case study projects)
+  const getActiveNavId = () => {
+    if (clickedNavId) return clickedNavId;
+    if (CASE_STUDY_CHAPTER_IDS.includes(activeChapter)) {
+      return "case-study";
+    }
+    const matching = NAV_ITEMS.find((item) => item.chapter === activeChapter);
+    return matching ? matching.id : "showreel";
+  };
 
-    const activeNavId = getActiveNavId();
+  const handleNavClick = (e: React.MouseEvent<any>, href: string, id: string) => {
+    e.preventDefault();
+    setClickedNavId(id);
 
-    const handleNavClick = (e: React.MouseEvent, href: string, id: string, chapter: string) => {
-        e.preventDefault();
-        setClickedNavId(id);
-        const targetId = href.replace("#", "");
-        const element = document.getElementById(targetId) || document.querySelector(`[data-chapter-id="${targetId}"]`);
-        if (element) {
-            const navbarHeight = 64;
-            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = Math.max(0, elementPosition - navbarHeight);
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth",
-            });
-            setActiveChapter(chapter, 1200);
-        }
-        setIsMenuOpen(false);
-        // Clear manual lock after scroll animation finishes
-        setTimeout(() => setClickedNavId(null), 1200);
-    };
+    // If clicking a sub-chapter or standard hash link, smooth scroll to it
+    const targetId = href.replace("#", "");
+    const el = document.getElementById(targetId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
 
-    return (
+    // Reset clicked state after scrolling completes so scroll spy resumes
+    setTimeout(() => {
+      setClickedNavId(null);
+    }, 1000);
+  };
+
+  const activeId = getActiveNavId();
+
+  return (
+    <header className="sticky top-0 z-50 w-full">
+      {/* 
+        Ultra-refined, fluid glassmorphism navigation container 
+        Strict 2-layer subtle border hierarchy, micro-paddings, and pure backdrop-blur
+      */}
+      <div className="w-full backdrop-blur-xl bg-stone-50/80 dark:bg-[#080808]/80 border-b border-black/6 dark:border-white/8 transition-colors duration-200">
         <NextUINavbar
-            maxWidth="xl"
-            position="sticky"
-            isMenuOpen={isMenuOpen}
-            onMenuOpenChange={setIsMenuOpen}
-            className="fixed top-0 inset-x-0 z-50 bg-stone-50/80 dark:bg-neutral-950/80 backdrop-blur-xl border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200"
-            classNames={{
-                wrapper: "px-4 sm:px-6 lg:px-8 max-w-7xl h-16",
-            }}
+          maxWidth="xl"
+          isMenuOpen={isMenuOpen}
+          onMenuOpenChange={setIsMenuOpen}
+          className="bg-transparent h-14 sm:h-16 px-4 sm:px-6"
         >
-            {/* Left: Brand / Logo with Skull 'X' Eyes and Abir Chromatic Identity */}
-            <NavbarContent as="div" className="basis-auto shrink-0" justify="start">
-                <NavbarBrand className="gap-3 max-w-fit shrink-0">
-                    <Link
-                        color="foreground"
-                        className="flex justify-start items-center gap-3 cursor-pointer group select-none text-neutral-900 dark:text-white shrink-0"
-                        href="/"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            setClickedNavId("showreel");
-                            window.scrollTo({ top: 0, behavior: "smooth" });
-                            setActiveChapter("hero", 1200);
-                        }}
-                    >
-                        <div className="relative flex items-center justify-center shrink-0 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,23,68,0.45)] transition-all duration-300">
-                            <BlindSkullIcon size={28} className="shrink-0" />
-                        </div>
-                        <div className="flex flex-col select-none shrink-0">
-                            <div className="flex items-center gap-1.5 leading-none">
-                                <span className="font-mono text-sm font-bold tracking-wider text-neutral-900 dark:text-white group-hover:text-[#ff1744] transition-colors">
-                                    blind
-                                </span>
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)] animate-pulse shrink-0" />
-                                <span className="text-neutral-300 dark:text-neutral-700 text-xs font-light">/</span>
-                                <span className="chroma-text-navbar font-bold text-sm tracking-tight">
-                                    Abir
-                                </span>
-                            </div>
-                            <span className="font-mono text-xs text-neutral-400 dark:text-neutral-400 tracking-wider uppercase leading-tight mt-0.5 hidden sm:inline">
-                                Fahim Faisal
-                            </span>
-                        </div>
-                    </Link>
-                </NavbarBrand>
-            </NavbarContent>
-
-            {/* Center: Desktop Nav with Spring Glider Pill & Never-Wrap Single Line */}
-            <NavbarContent as="div" className="hidden md:flex flex-1 justify-center" justify="center">
-                <ul
-                    className="flex items-center gap-0.5 xl:gap-1 p-1 bg-white/80 dark:bg-[#161618]/80 backdrop-blur-xl rounded-full border border-black/[0.06] dark:border-white/[0.08] shadow-sm max-w-fit shrink-0"
-                    onMouseLeave={() => setHoveredNavId(null)}
-                >
-                    {NAV_ITEMS.map((item) => {
-                        const isActive = activeNavId === item.id;
-                        const isHovered = hoveredNavId === item.id;
-
-                        return (
-                            <li key={item.id} className="relative shrink-0">
-                                <Link
-                                    href={item.href}
-                                    onClick={(e) => handleNavClick(e, item.href, item.id, item.chapter)}
-                                    onMouseEnter={() => setHoveredNavId(item.id)}
-                                    className={`relative z-10 block px-3 py-1.5 text-xs font-medium tracking-tight whitespace-nowrap transition-colors duration-150 ${
-                                        isActive
-                                            ? "text-neutral-900 dark:text-white font-semibold"
-                                            : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
-                                    }`}
-                                >
-                                    {item.label}
-                                </Link>
-
-                                {/* Active Pill Glider (Spring Physics) */}
-                                {isActive && (
-                                    <motion.div
-                                        layoutId="desktop-navbar-active-glider"
-                                        className="absolute inset-0 bg-neutral-200/80 dark:bg-white/10 rounded-full border border-black/[0.04] dark:border-white/[0.08] shadow-sm"
-                                        transition={{
-                                            type: "spring",
-                                            stiffness: 500,
-                                            damping: 38,
-                                        }}
-                                    />
-                                )}
-
-                                {/* Hover Preview Pill */}
-                                {isHovered && !isActive && (
-                                    <motion.div
-                                        layoutId="desktop-navbar-hover-glider"
-                                        className="absolute inset-0 bg-black/[0.03] dark:bg-white/[0.04] rounded-full -z-0"
-                                        transition={{
-                                            type: "spring",
-                                            stiffness: 450,
-                                            damping: 35,
-                                        }}
-                                    />
-                                )}
-                            </li>
-                        );
-                    })}
-                </ul>
-            </NavbarContent>
-
-            {/* Right: GitHub & Theme Switch */}
-            <NavbarContent as="div" className="basis-auto shrink-0" justify="end">
-                <NavbarItem as="div" className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                    <Link
-                        isExternal
-                        href="https://github.com/b-l-i-n-d"
-                        aria-label="GitHub Repository"
-                        className="p-2 rounded-xl text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors shrink-0"
-                    >
-                        <GithubIcon size={20} className="shrink-0" />
-                    </Link>
-                    <div className="shrink-0 flex items-center">
-                        <ThemeSwitch />
-                    </div>
-                    <NavbarMenuToggle
-                        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                        className="md:hidden p-2 rounded-xl text-neutral-600 dark:text-neutral-400 shrink-0"
-                    />
-                </NavbarItem>
-            </NavbarContent>
-
-            {/* Mobile Dropdown Menu */}
-            <NavbarMenu className="bg-stone-50/95 dark:bg-neutral-950/95 backdrop-blur-2xl pt-6 px-6 border-t border-black/[0.06] dark:border-white/[0.08]">
-                <div className="flex flex-col gap-2">
-                    {NAV_ITEMS.map((item) => {
-                        const isActive = activeNavId === item.id;
-                        return (
-                            <NavbarMenuItem key={item.id}>
-                                <Link
-                                    href={item.href}
-                                    onClick={(e) => handleNavClick(e, item.href, item.id, item.chapter)}
-                                    className={`w-full py-3 px-4 rounded-xl text-sm sm:text-base font-medium flex items-center justify-between transition-all ${
-                                        isActive
-                                            ? "bg-neutral-200 dark:bg-white/10 text-neutral-900 dark:text-white font-semibold"
-                                            : "text-neutral-600 dark:text-neutral-400 hover:bg-black/[0.03] dark:hover:bg-white/[0.05]"
-                                    }`}
-                                >
-                                    <span>{item.label}</span>
-                                    {isActive && (
-                                        <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
-                                    )}
-                                </Link>
-                            </NavbarMenuItem>
-                        );
-                    })}
+          {/* Brand Identity / Left Section */}
+          <NavbarContent justify="start" className="gap-4">
+            <NavbarBrand className="gap-2.5 max-w-fit">
+              <Link
+                href="#hero"
+                onClick={(e) => handleNavClick(e, "#hero", "showreel")}
+                className="flex items-center gap-2.5 group cursor-pointer"
+              >
+                <div className="p-1.5 rounded-lg bg-black/4 dark:bg-white/6 group-hover:bg-[#ff1744]/10 dark:group-hover:bg-[#ff1744]/20 transition-colors">
+                  <BlindSkullIcon className="w-5 h-5 text-neutral-800 dark:text-neutral-200 group-hover:text-[#ff1744] transition-colors" />
                 </div>
-            </NavbarMenu>
+                <div className="flex flex-col">
+                  <span className="font-mono text-xs font-bold tracking-wider uppercase text-neutral-900 dark:text-white">
+                    Fahim Faisal
+                  </span>
+                  <span className="font-mono text-[10px] text-neutral-500 tracking-tight">
+                    Staff Engineer
+                  </span>
+                </div>
+              </Link>
+            </NavbarBrand>
+          </NavbarContent>
+
+          {/* Center Navigation Links (Desktop) */}
+          <NavbarContent justify="center" className="hidden lg:flex gap-1">
+            <div className="flex items-center gap-1 p-1 rounded-full bg-black/2 dark:bg-white/2 border border-black/4 dark:border-white/6 backdrop-blur-md">
+              {NAV_ITEMS.map((item) => {
+                const isActive = activeId === item.id;
+                const isHovered = hoveredNavId === item.id;
+
+                return (
+                  <NavbarItem key={item.id} className="relative">
+                    <Link
+                      href={item.href}
+                      onClick={(e) => handleNavClick(e, item.href, item.id)}
+                      onMouseEnter={() => setHoveredNavId(item.id)}
+                      onMouseLeave={() => setHoveredNavId(null)}
+                      className={`relative px-3.5 py-1.5 text-xs font-mono tracking-tight transition-colors duration-150 z-10 select-none ${
+                        isActive
+                          ? "text-neutral-900 dark:text-white font-semibold"
+                          : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+                      }`}
+                    >
+                      {item.label}
+
+                      {/* Active Indicator Glow Pill */}
+                      {isActive && (
+                        <motion.div
+                          layoutId="navbar-active-pill"
+                          className="absolute inset-0 rounded-full bg-white dark:bg-neutral-800 shadow-sm border border-black/6 dark:border-white/10 -z-10"
+                          transition={{
+                            type: "spring",
+                            stiffness: 450,
+                            damping: 35,
+                          }}
+                        />
+                      )}
+
+                      {/* Hover subtle highlight if not active */}
+                      {!isActive && isHovered && (
+                        <motion.div
+                          layoutId="navbar-hover-pill"
+                          className="absolute inset-0 rounded-full bg-black/4 dark:bg-white/6 -z-10"
+                          transition={{
+                            type: "spring",
+                            stiffness: 450,
+                            damping: 35,
+                          }}
+                        />
+                      )}
+                    </Link>
+                  </NavbarItem>
+                );
+              })}
+            </div>
+          </NavbarContent>
+
+          {/* Right Action Utilities (Theme Switch & Social) */}
+          <NavbarContent justify="end" className="gap-2.5">
+            <NavbarItem className="flex items-center gap-2">
+              <Link
+                isExternal
+                href="https://github.com/b-l-i-n-d"
+                aria-label="GitHub Profile"
+                className="p-2 rounded-xl text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/4 dark:hover:bg-white/6 transition-all"
+              >
+                <GithubIcon className="w-4 h-4" />
+              </Link>
+              <ThemeSwitch />
+            </NavbarItem>
+
+            {/* Mobile Menu Toggle Button */}
+            <NavbarMenuToggle
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              className="lg:hidden text-neutral-700 dark:text-neutral-300"
+            />
+          </NavbarContent>
+
+          {/* Mobile Drawer Menu */}
+          <NavbarMenu className="bg-stone-50/95 dark:bg-[#080808]/95 backdrop-blur-2xl pt-6 px-6 border-t border-black/6 dark:border-white/8 gap-3">
+            <div className="space-y-1">
+              <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-widest px-3">
+                Index Navigation
+              </span>
+              <div className="grid gap-1 pt-2">
+                {NAV_ITEMS.map((item) => {
+                  const isActive = activeId === item.id;
+                  return (
+                    <NavbarMenuItem key={item.id}>
+                      <Link
+                        href={item.href}
+                        onClick={(e) => {
+                          handleNavClick(e, item.href, item.id);
+                          setIsMenuOpen(false);
+                        }}
+                        className={`w-full flex items-center justify-between p-3 rounded-xl font-mono text-sm transition-all ${
+                          isActive
+                            ? "bg-[#ff1744]/10 text-[#ff1744] font-bold border border-[#ff1744]/20"
+                            : "text-neutral-700 dark:text-neutral-300 hover:bg-black/4 dark:hover:bg-white/6"
+                        }`}
+                      >
+                        <span>{item.label}</span>
+                        {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744]" />}
+                      </Link>
+                    </NavbarMenuItem>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="mt-6 pt-6 border-t border-black/6 dark:border-white/8 flex items-center justify-between px-3">
+              <span className="font-mono text-xs text-neutral-500">System Appearance</span>
+              <ThemeSwitch />
+            </div>
+          </NavbarMenu>
         </NextUINavbar>
-    );
+      </div>
+    </header>
+  );
 };

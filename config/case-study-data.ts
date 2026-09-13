@@ -8,231 +8,232 @@ import type { ProjectShowcase } from "@/types/portfolio";
  */
 
 const tutorShowcase: ProjectShowcase = {
-    graph: {
-        navTitle: "Interactive Architecture Map",
-        navSubtitle: "Inspect modular boundaries, cache hierarchies, and transactional pipelines",
-        title: "Tutor LMS Architectural Graph",
-        countLabel: "12 Core Systems",
-        verifyLabel: "Verified PRs & Commits by Fahim Faisal (b-l-i-n-d)",
-        verifyUrl: "https://github.com/b-l-i-n-d",
-        inspectLabel: "Inspect Pull Request",
-        commitsHeading: "Verified Production Commits (authored by Fahim Faisal / b-l-i-n-d):",
-        commitPrefix: "git:",
-        columns: [
-            {
-                title: "01 · Presentation & Builders",
-                nodeIds: ["curriculum", "quiz", "content-bank", "field-injection"],
-                accent: "rose",
-            },
-            {
-                title: "02 · Core Architecture & DX",
-                nodeIds: ["component-registry", "form-query-lib", "motion", "build-pipeline"],
-                accent: "emerald",
-            },
-            {
-                title: "03 · Types, Caching & REST",
-                nodeIds: ["ts-migration", "caching-layer", "bundle", "rest-gateway"],
-                accent: "sky",
-            },
+  graph: {
+    navTitle: "Interactive Architecture Map",
+    navSubtitle: "Inspect modular boundaries, cache hierarchies, and transactional pipelines",
+    title: "Tutor LMS Architectural Graph",
+    countLabel: "12 Core Systems",
+    verifyLabel: "Verified PRs & Commits by Fahim Faisal (b-l-i-n-d)",
+    verifyUrl: "https://github.com/b-l-i-n-d",
+    inspectLabel: "Inspect Pull Request",
+    commitsHeading: "Verified Production Commits (authored by Fahim Faisal / b-l-i-n-d):",
+    commitPrefix: "git:",
+    columns: [
+      {
+        title: "01 · Presentation & Builders",
+        nodeIds: ["curriculum", "quiz", "content-bank", "field-injection"],
+        accent: "rose",
+      },
+      {
+        title: "02 · Core Architecture & DX",
+        nodeIds: ["component-registry", "form-query-lib", "motion", "build-pipeline"],
+        accent: "emerald",
+      },
+      {
+        title: "03 · Types, Caching & REST",
+        nodeIds: ["ts-migration", "caching-layer", "bundle", "rest-gateway"],
+        accent: "sky",
+      },
+    ],
+    nodes: [
+      {
+        id: "curriculum",
+        label: "Course Builder & Curriculum Tree",
+        version: "v3.0",
+        badge: "React · State Machine (v3.0)",
+        commits: [
+          "feat(course-builder): curriculum tree drag-and-drop reordering engine",
+          "fix(course-builder): confirm modal before modifying course author (#2948)",
         ],
-        nodes: [
-            {
-                id: "curriculum",
-                label: "Course Builder & Curriculum Tree",
-                version: "v3.0",
-                badge: "React · State Machine (v3.0)",
-                commits: [
-                    "feat(course-builder): curriculum tree drag-and-drop reordering engine",
-                    "fix(course-builder): confirm modal before modifying course author (#2948)",
-                ],
-                description:
-                    "Implemented the Tutor 3.0 Course Builder. Hierarchical curriculum tree supporting drag-and-drop topics and lessons, dynamic title updates without Cumulative Layout Shift (CLS), and modal safeguards for author re-assignments.",
-                prHighlight: "themeum/tutor #2948 · Author confirmation guard & zero-CLS title layout",
-                prUrl: "https://github.com/themeum/tutor/pull/2948",
-                metrics: "0.00 CLS · Sub-16ms FLIP reorder",
-            },
-            {
-                id: "quiz",
-                label: "Highly Scalable Quiz Builder",
-                version: "v3.0",
-                badge: "High Scalability (v3.0)",
-                commits: [
-                    "feat(quiz-builder): scalable architecture supporting 100+ questions without frame drop",
-                    "fix(quiz): sanitize quiz content for latex and markdown support (#2931)",
-                    "fix(quiz): ensure quiz summary total marks uses get_quiz_total_marks (#2990)",
-                ],
-                description:
-                    "Engineered a highly scalable Quiz Builder capable of handling complex curriculums with dozens of question types, randomized ordering, dynamic grading calculation, LaTeX math sanitization, and pointer-event security safeguards.",
-                prHighlight: "themeum/tutor #2931 / #2990 · Scalable Quiz Builder, LaTeX sanitizer & total-marks correctness",
-                prUrl: "https://github.com/themeum/tutor/pull/2931",
-                metrics: "Sub-millisecond sanitization · Zero UI latency at scale",
-            },
-            {
-                id: "content-bank",
-                label: "Centralized Content Bank",
-                version: "v3.0",
-                badge: "Asset Modularization (v3.0)",
-                commits: [
-                    "feat(content-bank): reusable question & lesson asset repository across courses",
-                    "perf(content-bank): virtualized list browsing for high-volume content libraries",
-                    "feat(content-bank): batch insertion and selective linking to curriculum nodes",
-                ],
-                description:
-                    "Implemented the central Content Bank in Tutor 3.0. Instructors can curate, store, and reuse standardized quizzes, questions, and pedagogical assets across multiple courses with zero duplication.",
-                prHighlight: "themeum/tutor · Centralized content bank & asset reuse architecture",
-                prUrl: "https://github.com/themeum/tutor",
-                metrics: "100% asset reusability · Instant search indexing",
-            },
-            {
-                id: "field-injection",
-                label: "3rd-Party Field Injection Engine",
-                version: "v3.0",
-                badge: "Extensibility Hook (v3.0)",
-                commits: [
-                    "feat(extensibility): dynamic 3rd-party field injection pipeline into builders",
-                    "refactor(hooks): typed registry hooks for external add-ons & plugin extensions",
-                    "fix(forms): isolate external form state to prevent parent tree re-rendering",
-                ],
-                description:
-                    "Architected an extensible field injection engine that allows 3rd-party WordPress plugins and pro add-ons to inject custom form controls, tabs, and settings directly into core builders via typed extension hooks.",
-                prHighlight: "themeum/tutor · Extensible 3rd-party field injection pipeline",
-                prUrl: "https://github.com/themeum/tutor",
-                metrics: "Decoupled add-on ecosystem · Zero core bundle pollution",
-            },
-            {
-                id: "component-registry",
-                label: "Tutor Core Component Registry",
-                version: "v4.0",
-                badge: "Architecture Core (v4.0)",
-                commits: [
-                    "arch(core): introduce centralized component registry for Tutor 4.0",
-                    "refactor(registry): decouple UI components with lifecycle registration hooks",
-                    "perf(registry): lazy component instantiation with unified design tokens",
-                ],
-                description:
-                    "Architected the Tutor Core component registry for Tutor 4.0. Designed a modular, maintainable registry that decouples component implementations, standardizes props/tokens, and facilitates seamless extension across pro add-ons.",
-                prHighlight: "themeum/tutor · Tutor Core component registry & lifecycle orchestration",
-                prUrl: "https://github.com/themeum/tutor",
-                metrics: "Scalable & maintainable · Modular decoupling",
-            },
-            {
-                id: "form-query-lib",
-                label: "In-House Form & Query Library",
-                version: "v4.0",
-                badge: "Custom Reactive Core (v4.0)",
-                commits: [
-                    "feat(core): build lightweight custom form state and mutation library",
-                    "feat(query): implement zero-dependency internal query client with request deduplication",
-                    "perf(forms): atomic field subscriptions eliminating full-tree re-renders",
-                ],
-                description:
-                    "Engineered our own bespoke form and query library for Tutor 4.0, eliminating heavy third-party dependency bloat. Implemented fine-grained atomic field subscriptions, instant form validation, and query state synchronization.",
-                prHighlight: "themeum/tutor · Lightweight internal form state & query management",
-                prUrl: "https://github.com/themeum/tutor",
-                metrics: "Zero external query bloat · Sub-1ms form updates",
-            },
-            {
-                id: "motion",
-                label: "Motion Settings Coordinator",
-                version: "v3.0",
-                badge: "Custom Hook · Hardware Acceleration",
-                commits: [
-                    "fix(motion): resolve tutor motion conflict with course builder (#2938)",
-                    "feat(motion): add custom hook useTutorMotion to coordinate fluid layout transitions",
-                    "refactor: add iframe containment check and reduced-motion fallback",
-                ],
-                description:
-                    "Centralized motion hook coordinating animation execution across Tutor LMS. Dynamically inspects OS prefers-reduced-motion, iframe containment, and hardware capability before triggering hardware-accelerated transitions.",
-                prHighlight: "themeum/tutor #2938 · useTutorMotion & execution coordinator",
-                prUrl: "https://github.com/themeum/tutor/pull/2938",
-                metrics: "Zero layout shift · 100% WCAG 2.1 AAA a11y compliance",
-            },
-            {
-                id: "build-pipeline",
-                label: "18X Faster Build Pipeline",
-                version: "v3.0",
-                badge: "Toolchain Acceleration (v3.0)",
-                commits: [
-                    "build(pipeline): overhaul build tooling with aggressive tree-shaking & esbuild",
-                    "perf(bundler): parallel chunk generation slashing cold build times by 18x",
-                    "ci(workflow): automated asset hashing and sub-minute CI build validation",
-                ],
-                description:
-                    "Completely modernized and restructured the Tutor LMS build toolchain. Optimized code-splitting, module resolution, and packaging pipeline, accelerating compilation speeds by 18x for both local HMR and production CI builds.",
-                prHighlight: "themeum/tutor · Production build system acceleration & pipeline refactor",
-                prUrl: "https://github.com/themeum/tutor",
-                metrics: "18x build acceleration · 68% bundle size reduction",
-            },
-            {
-                id: "ts-migration",
-                label: "TypeScript Migration Architecture",
-                version: "v4.0",
-                badge: "Type Safety Core (v4.0)",
-                commits: [
-                    "arch(ts): establish strict TypeScript architecture and tsconfig configurations",
-                    "refactor(types): define end-to-end data schemas for course, quiz & user models",
-                    "ci(types): automated type-check gate enforcing zero any-type leakage in PRs",
-                ],
-                description:
-                    "Architected the comprehensive TypeScript migration across Tutor LMS 4.0. Transformed legacy codebase into a strictly typed environment with rigorous schema validation, type contracts, and automated compile-time safety.",
-                prHighlight: "themeum/tutor · TypeScript migration & strict type contract enforcement",
-                prUrl: "https://github.com/themeum/tutor",
-                metrics: "100% compile-time safety · Zero runtime type regressions",
-            },
-            {
-                id: "caching-layer",
-                label: "Client-Side Caching & Invalidation",
-                version: "v4.0",
-                badge: "Performance & Caching (v4.0)",
-                commits: [
-                    "arch(cache): client-side LRU query cache with optimistic mutation rollbacks",
-                    "perf(sync): background stale-while-revalidate data sync for course admin panels",
-                    "fix(cache): granular tag-based cache invalidation on bulk quiz/lesson operations",
-                ],
-                description:
-                    "Architected multi-tier client caching for Tutor 4.0. Incorporates intelligent optimistic UI updates with automatic rollback on error, background stale-while-revalidate synchronization, and tag-based selective cache purging.",
-                prHighlight: "themeum/tutor · Client query caching, optimistic UI & memory management",
-                prUrl: "https://github.com/themeum/tutor",
-                metrics: "Instant UI updates · 85% reduction in REST queries",
-            },
-            {
-                id: "bundle",
-                label: "Course Bundle & Pricing Engine",
-                version: "v3.0",
-                badge: "E-Commerce Core (v3.0)",
-                description:
-                    "Course bundling engine permitting multi-tier pricing, role-based discount permissions, and real-time total recalculations without database latency or checkout desync.",
-                metrics: "Optimistic cart sync · Zero pricing calculation roundtrips",
-            },
-            {
-                id: "rest-gateway",
-                label: "REST API Gateway & Security Barrier",
-                version: "v3.0",
-                badge: "Security & Contracts",
-                commits: [
-                    "feat(api): centralized REST gateway with strict nonce validation",
-                    "fix(security): sanitize payloads before database persistence to prevent injection",
-                    "perf(api): batch REST endpoints for bulk curriculum updates",
-                ],
-                description:
-                    "Robust REST lifecycle gateway validating incoming payloads against WordPress schema endpoints, managing cryptographic nonces, and securing transactional operations against cross-site request forgery.",
-                prHighlight: "themeum/tutor · REST schema contracts, nonce verification & sanitizers",
-                prUrl: "https://github.com/themeum/tutor",
-                metrics: "Strict XSS/CSRF mitigation · Zero payload schema violations",
-            },
+        description:
+          "Implemented the Tutor 3.0 Course Builder. Hierarchical curriculum tree supporting drag-and-drop topics and lessons, dynamic title updates without Cumulative Layout Shift (CLS), and modal safeguards for author re-assignments.",
+        prHighlight: "themeum/tutor #2948 · Author confirmation guard & zero-CLS title layout",
+        prUrl: "https://github.com/themeum/tutor/pull/2948",
+        metrics: "0.00 CLS · Sub-16ms FLIP reorder",
+      },
+      {
+        id: "quiz",
+        label: "Highly Scalable Quiz Builder",
+        version: "v3.0",
+        badge: "High Scalability (v3.0)",
+        commits: [
+          "feat(quiz-builder): scalable architecture supporting 100+ questions without frame drop",
+          "fix(quiz): sanitize quiz content for latex and markdown support (#2931)",
+          "fix(quiz): ensure quiz summary total marks uses get_quiz_total_marks (#2990)",
         ],
-    },
-    flow: {
-        steps: [
-            {
-                id: "mount",
-                number: "01",
-                title: "Micro-Front Mount & Registry",
-                description:
-                    "Course Builder boots inside WordPress dashboard. React micro-front mounts to targeted host DOM node with zero conflict with legacy jQuery/TinyMCE scripts.",
-                tech: "React 18 · Dynamic Import · Custom Event Bus",
-                codeFile: "production-pipeline.ts",
-                codeSnippet: `// Isolated micro-frontend bootstrap
+        description:
+          "Engineered a highly scalable Quiz Builder capable of handling complex curriculums with dozens of question types, randomized ordering, dynamic grading calculation, LaTeX math sanitization, and pointer-event security safeguards.",
+        prHighlight:
+          "themeum/tutor #2931 / #2990 · Scalable Quiz Builder, LaTeX sanitizer & total-marks correctness",
+        prUrl: "https://github.com/themeum/tutor/pull/2931",
+        metrics: "Sub-millisecond sanitization · Zero UI latency at scale",
+      },
+      {
+        id: "content-bank",
+        label: "Centralized Content Bank",
+        version: "v3.0",
+        badge: "Asset Modularization (v3.0)",
+        commits: [
+          "feat(content-bank): reusable question & lesson asset repository across courses",
+          "perf(content-bank): virtualized list browsing for high-volume content libraries",
+          "feat(content-bank): batch insertion and selective linking to curriculum nodes",
+        ],
+        description:
+          "Implemented the central Content Bank in Tutor 3.0. Instructors can curate, store, and reuse standardized quizzes, questions, and pedagogical assets across multiple courses with zero duplication.",
+        prHighlight: "themeum/tutor · Centralized content bank & asset reuse architecture",
+        prUrl: "https://github.com/themeum/tutor",
+        metrics: "100% asset reusability · Instant search indexing",
+      },
+      {
+        id: "field-injection",
+        label: "3rd-Party Field Injection Engine",
+        version: "v3.0",
+        badge: "Extensibility Hook (v3.0)",
+        commits: [
+          "feat(extensibility): dynamic 3rd-party field injection pipeline into builders",
+          "refactor(hooks): typed registry hooks for external add-ons & plugin extensions",
+          "fix(forms): isolate external form state to prevent parent tree re-rendering",
+        ],
+        description:
+          "Architected an extensible field injection engine that allows 3rd-party WordPress plugins and pro add-ons to inject custom form controls, tabs, and settings directly into core builders via typed extension hooks.",
+        prHighlight: "themeum/tutor · Extensible 3rd-party field injection pipeline",
+        prUrl: "https://github.com/themeum/tutor",
+        metrics: "Decoupled add-on ecosystem · Zero core bundle pollution",
+      },
+      {
+        id: "component-registry",
+        label: "Tutor Core Component Registry",
+        version: "v4.0",
+        badge: "Architecture Core (v4.0)",
+        commits: [
+          "arch(core): introduce centralized component registry for Tutor 4.0",
+          "refactor(registry): decouple UI components with lifecycle registration hooks",
+          "perf(registry): lazy component instantiation with unified design tokens",
+        ],
+        description:
+          "Architected the Tutor Core component registry for Tutor 4.0. Designed a modular, maintainable registry that decouples component implementations, standardizes props/tokens, and facilitates seamless extension across pro add-ons.",
+        prHighlight: "themeum/tutor · Tutor Core component registry & lifecycle orchestration",
+        prUrl: "https://github.com/themeum/tutor",
+        metrics: "Scalable & maintainable · Modular decoupling",
+      },
+      {
+        id: "form-query-lib",
+        label: "In-House Form & Query Library",
+        version: "v4.0",
+        badge: "Custom Reactive Core (v4.0)",
+        commits: [
+          "feat(core): build lightweight custom form state and mutation library",
+          "feat(query): implement zero-dependency internal query client with request deduplication",
+          "perf(forms): atomic field subscriptions eliminating full-tree re-renders",
+        ],
+        description:
+          "Engineered our own bespoke form and query library for Tutor 4.0, eliminating heavy third-party dependency bloat. Implemented fine-grained atomic field subscriptions, instant form validation, and query state synchronization.",
+        prHighlight: "themeum/tutor · Lightweight internal form state & query management",
+        prUrl: "https://github.com/themeum/tutor",
+        metrics: "Zero external query bloat · Sub-1ms form updates",
+      },
+      {
+        id: "motion",
+        label: "Motion Settings Coordinator",
+        version: "v3.0",
+        badge: "Custom Hook · Hardware Acceleration",
+        commits: [
+          "fix(motion): resolve tutor motion conflict with course builder (#2938)",
+          "feat(motion): add custom hook useTutorMotion to coordinate fluid layout transitions",
+          "refactor: add iframe containment check and reduced-motion fallback",
+        ],
+        description:
+          "Centralized motion hook coordinating animation execution across Tutor LMS. Dynamically inspects OS prefers-reduced-motion, iframe containment, and hardware capability before triggering hardware-accelerated transitions.",
+        prHighlight: "themeum/tutor #2938 · useTutorMotion & execution coordinator",
+        prUrl: "https://github.com/themeum/tutor/pull/2938",
+        metrics: "Zero layout shift · 100% WCAG 2.1 AAA a11y compliance",
+      },
+      {
+        id: "build-pipeline",
+        label: "18X Faster Build Pipeline",
+        version: "v3.0",
+        badge: "Toolchain Acceleration (v3.0)",
+        commits: [
+          "build(pipeline): overhaul build tooling with aggressive tree-shaking & esbuild",
+          "perf(bundler): parallel chunk generation slashing cold build times by 18x",
+          "ci(workflow): automated asset hashing and sub-minute CI build validation",
+        ],
+        description:
+          "Completely modernized and restructured the Tutor LMS build toolchain. Optimized code-splitting, module resolution, and packaging pipeline, accelerating compilation speeds by 18x for both local HMR and production CI builds.",
+        prHighlight: "themeum/tutor · Production build system acceleration & pipeline refactor",
+        prUrl: "https://github.com/themeum/tutor",
+        metrics: "18x build acceleration · 68% bundle size reduction",
+      },
+      {
+        id: "ts-migration",
+        label: "TypeScript Migration Architecture",
+        version: "v4.0",
+        badge: "Type Safety Core (v4.0)",
+        commits: [
+          "arch(ts): establish strict TypeScript architecture and tsconfig configurations",
+          "refactor(types): define end-to-end data schemas for course, quiz & user models",
+          "ci(types): automated type-check gate enforcing zero any-type leakage in PRs",
+        ],
+        description:
+          "Architected the comprehensive TypeScript migration across Tutor LMS 4.0. Transformed legacy codebase into a strictly typed environment with rigorous schema validation, type contracts, and automated compile-time safety.",
+        prHighlight: "themeum/tutor · TypeScript migration & strict type contract enforcement",
+        prUrl: "https://github.com/themeum/tutor",
+        metrics: "100% compile-time safety · Zero runtime type regressions",
+      },
+      {
+        id: "caching-layer",
+        label: "Client-Side Caching & Invalidation",
+        version: "v4.0",
+        badge: "Performance & Caching (v4.0)",
+        commits: [
+          "arch(cache): client-side LRU query cache with optimistic mutation rollbacks",
+          "perf(sync): background stale-while-revalidate data sync for course admin panels",
+          "fix(cache): granular tag-based cache invalidation on bulk quiz/lesson operations",
+        ],
+        description:
+          "Architected multi-tier client caching for Tutor 4.0. Incorporates intelligent optimistic UI updates with automatic rollback on error, background stale-while-revalidate synchronization, and tag-based selective cache purging.",
+        prHighlight: "themeum/tutor · Client query caching, optimistic UI & memory management",
+        prUrl: "https://github.com/themeum/tutor",
+        metrics: "Instant UI updates · 85% reduction in REST queries",
+      },
+      {
+        id: "bundle",
+        label: "Course Bundle & Pricing Engine",
+        version: "v3.0",
+        badge: "E-Commerce Core (v3.0)",
+        description:
+          "Course bundling engine permitting multi-tier pricing, role-based discount permissions, and real-time total recalculations without database latency or checkout desync.",
+        metrics: "Optimistic cart sync · Zero pricing calculation roundtrips",
+      },
+      {
+        id: "rest-gateway",
+        label: "REST API Gateway & Security Barrier",
+        version: "v3.0",
+        badge: "Security & Contracts",
+        commits: [
+          "feat(api): centralized REST gateway with strict nonce validation",
+          "fix(security): sanitize payloads before database persistence to prevent injection",
+          "perf(api): batch REST endpoints for bulk curriculum updates",
+        ],
+        description:
+          "Robust REST lifecycle gateway validating incoming payloads against WordPress schema endpoints, managing cryptographic nonces, and securing transactional operations against cross-site request forgery.",
+        prHighlight: "themeum/tutor · REST schema contracts, nonce verification & sanitizers",
+        prUrl: "https://github.com/themeum/tutor",
+        metrics: "Strict XSS/CSRF mitigation · Zero payload schema violations",
+      },
+    ],
+  },
+  flow: {
+    steps: [
+      {
+        id: "mount",
+        number: "01",
+        title: "Micro-Front Mount & Registry",
+        description:
+          "Course Builder boots inside WordPress dashboard. React micro-front mounts to targeted host DOM node with zero conflict with legacy jQuery/TinyMCE scripts.",
+        tech: "React 18 · Dynamic Import · Custom Event Bus",
+        codeFile: "production-pipeline.ts",
+        codeSnippet: `// Isolated micro-frontend bootstrap
 const mountPoint = document.getElementById("tutor-course-builder-root");
 if (mountPoint && !window.__TUTOR_BUILDER_INITIALIZED__) {
   window.__TUTOR_BUILDER_INITIALIZED__ = true;
@@ -245,26 +246,26 @@ if (mountPoint && !window.__TUTOR_BUILDER_INITIALIZED__) {
     </StrictMode>
   );
 }`,
-                systemMetrics: {
-                    latency: "4.2ms",
-                    ops: "1.2k req/s",
-                    status: "ready",
-                },
-                logs: [
-                    "Mounted React micro-front #tutor-course-builder-root",
-                    "Loaded 14 custom question plugin extensions from Registry",
-                    "IndexedDB local curriculum cache hot (1.8MB state validated)",
-                ],
-            },
-            {
-                id: "drag-flip",
-                number: "02",
-                title: "60 FPS Drag & FLIP Engine",
-                description:
-                    "Instructor drags lessons across multi-topic chapters. Custom RAF FLIP calculation interpolates physical transforms without triggering browser layout thrashing.",
-                tech: "FLIP Animation · requestAnimationFrame · Transform Matrix",
-                codeFile: "production-pipeline.ts",
-                codeSnippet: `// 60 FPS FLIP drag reordering engine
+        systemMetrics: {
+          latency: "4.2ms",
+          ops: "1.2k req/s",
+          status: "ready",
+        },
+        logs: [
+          "Mounted React micro-front #tutor-course-builder-root",
+          "Loaded 14 custom question plugin extensions from Registry",
+          "IndexedDB local curriculum cache hot (1.8MB state validated)",
+        ],
+      },
+      {
+        id: "drag-flip",
+        number: "02",
+        title: "60 FPS Drag & FLIP Engine",
+        description:
+          "Instructor drags lessons across multi-topic chapters. Custom RAF FLIP calculation interpolates physical transforms without triggering browser layout thrashing.",
+        tech: "FLIP Animation · requestAnimationFrame · Transform Matrix",
+        codeFile: "production-pipeline.ts",
+        codeSnippet: `// 60 FPS FLIP drag reordering engine
 function onLessonDragDrop(draggedId: string, targetTopicId: string, newIndex: number) {
   const firstRects = captureNodeRects(topicTree);
   // Atomic Reducer State Reordering
@@ -277,26 +278,26 @@ function onLessonDragDrop(draggedId: string, targetTopicId: string, newIndex: nu
     });
   });
 }`,
-                systemMetrics: {
-                    latency: "0.8ms",
-                    ops: "60 FPS Locked",
-                    status: "healthy",
-                },
-                logs: [
-                    "Lesson #204 picked up from Topic #12 ('PHP Concurrency')",
-                    "Hovering over Topic #14 ('Event Driven Architecture')",
-                    "FLIP invert vector: dx: 0px, dy: -84px, scaleY: 1.0 (Zero CLS)",
-                ],
-            },
-            {
-                id: "optimistic",
-                number: "03",
-                title: "Optimistic State & Undo History",
-                description:
-                    "Local state updates instantly with 0ms perceived latency. Action is pushed to time-travel undo stack while mutation is enqueued for debounced background sync.",
-                tech: "Immer.js · Redux Toolkit · Snapshot Buffer",
-                codeFile: "production-pipeline.ts",
-                codeSnippet: `// Optimistic state change with automatic rollback snapshot
+        systemMetrics: {
+          latency: "0.8ms",
+          ops: "60 FPS Locked",
+          status: "healthy",
+        },
+        logs: [
+          "Lesson #204 picked up from Topic #12 ('PHP Concurrency')",
+          "Hovering over Topic #14 ('Event Driven Architecture')",
+          "FLIP invert vector: dx: 0px, dy: -84px, scaleY: 1.0 (Zero CLS)",
+        ],
+      },
+      {
+        id: "optimistic",
+        number: "03",
+        title: "Optimistic State & Undo History",
+        description:
+          "Local state updates instantly with 0ms perceived latency. Action is pushed to time-travel undo stack while mutation is enqueued for debounced background sync.",
+        tech: "Immer.js · Redux Toolkit · Snapshot Buffer",
+        codeFile: "production-pipeline.ts",
+        codeSnippet: `// Optimistic state change with automatic rollback snapshot
 function executeOptimisticMutation(state: CourseState, action: CurriculumAction) {
   const rollbackSnapshot = cloneDeep(state.curriculum);
   historyStack.push({ type: action.type, snapshot: rollbackSnapshot });
@@ -308,26 +309,26 @@ function executeOptimisticMutation(state: CourseState, action: CurriculumAction)
     Sonner.error("State mutation failed; rolled back to previous checkpoint");
   }
 }`,
-                systemMetrics: {
-                    latency: "0.2ms",
-                    ops: "3.4k ops/s",
-                    status: "healthy",
-                },
-                logs: [
-                    "Optimistic state applied: Topic #14 now contains 6 lessons",
-                    "History checkpoint created (Undo Stack: 8 actions deep)",
-                    "SyncQueue: payload staged, waiting 400ms debounce interval",
-                ],
-            },
-            {
-                id: "rest-sync",
-                number: "04",
-                title: "Debounced REST Batch Pipeline",
-                description:
-                    "Network payload is batched and compressed to prevent API spam. Authenticated via WordPress nonce with SHA-256 idempotency header.",
-                tech: "WordPress REST API · Fetch KeepAlive · Idempotency Key",
-                codeFile: "production-pipeline.ts",
-                codeSnippet: `// Debounced batch synchronization to WordPress core
+        systemMetrics: {
+          latency: "0.2ms",
+          ops: "3.4k ops/s",
+          status: "healthy",
+        },
+        logs: [
+          "Optimistic state applied: Topic #14 now contains 6 lessons",
+          "History checkpoint created (Undo Stack: 8 actions deep)",
+          "SyncQueue: payload staged, waiting 400ms debounce interval",
+        ],
+      },
+      {
+        id: "rest-sync",
+        number: "04",
+        title: "Debounced REST Batch Pipeline",
+        description:
+          "Network payload is batched and compressed to prevent API spam. Authenticated via WordPress nonce with SHA-256 idempotency header.",
+        tech: "WordPress REST API · Fetch KeepAlive · Idempotency Key",
+        codeFile: "production-pipeline.ts",
+        codeSnippet: `// Debounced batch synchronization to WordPress core
 const debouncedSync = debounce(async (batchPayload: SyncPayload) => {
   const response = await fetch('/wp-json/tutor/v1/course-builder/batch-sync', {
     method: 'POST',
@@ -341,26 +342,26 @@ const debouncedSync = debounce(async (batchPayload: SyncPayload) => {
   if (!response.ok) throw new Error("Batch sync rejected by WP REST API");
   return response.json();
 }, 400);`,
-                systemMetrics: {
-                    latency: "18.4ms",
-                    ops: "54 req/s",
-                    status: "processing",
-                },
-                logs: [
-                    "Debounce resolved: sending payload of 3 mutated topics",
-                    "POST /wp-json/tutor/v1/course-builder/batch-sync (HTTP 200 OK)",
-                    "Idempotency verified: 8f2c9e... (Duplicate request rejected)",
-                ],
-            },
-            {
-                id: "sql-commit",
-                number: "05",
-                title: "Atomic PHP/SQL DB Transaction",
-                description:
-                    "Tutor LMS backend initiates SQL transaction, verifies user capabilities, updates nested topics/lessons order indexes, and flushes persistent object caches.",
-                tech: "PHP 8.2 · $wpdb Transaction · Redis Object Cache",
-                codeFile: "production-pipeline.ts",
-                codeSnippet: `// PHP backend atomic write with cache invalidation
+        systemMetrics: {
+          latency: "18.4ms",
+          ops: "54 req/s",
+          status: "processing",
+        },
+        logs: [
+          "Debounce resolved: sending payload of 3 mutated topics",
+          "POST /wp-json/tutor/v1/course-builder/batch-sync (HTTP 200 OK)",
+          "Idempotency verified: 8f2c9e... (Duplicate request rejected)",
+        ],
+      },
+      {
+        id: "sql-commit",
+        number: "05",
+        title: "Atomic PHP/SQL DB Transaction",
+        description:
+          "Tutor LMS backend initiates SQL transaction, verifies user capabilities, updates nested topics/lessons order indexes, and flushes persistent object caches.",
+        tech: "PHP 8.2 · $wpdb Transaction · Redis Object Cache",
+        codeFile: "production-pipeline.ts",
+        codeSnippet: `// PHP backend atomic write with cache invalidation
 function tutor_atomic_reorder_curriculum(WP_REST_Request $request) {
     global $wpdb;
     $wpdb->query('START TRANSACTION');
@@ -377,19 +378,19 @@ function tutor_atomic_reorder_curriculum(WP_REST_Request $request) {
         return new WP_Error('tutor_db_sync_failed', $e->getMessage(), ['status' => 500]);
     }
 }`,
-                systemMetrics: {
-                    latency: "12.8ms",
-                    ops: "980 tx/s",
-                    status: "healthy",
-                },
-                logs: [
-                    "SQL START TRANSACTION across 34 post rows",
-                    "Updated menu_order indexes for 6 lessons in Topic #14",
-                    "Redis wp_cache_delete executed; SQL COMMIT ACK received",
-                ],
-            },
+        systemMetrics: {
+          latency: "12.8ms",
+          ops: "980 tx/s",
+          status: "healthy",
+        },
+        logs: [
+          "SQL START TRANSACTION across 34 post rows",
+          "Updated menu_order indexes for 6 lessons in Topic #14",
+          "Redis wp_cache_delete executed; SQL COMMIT ACK received",
         ],
-        archMermaid: `flowchart TD
+      },
+    ],
+    archMermaid: `flowchart TD
     classDef client fill:#1e1e24,stroke:#ff1744,stroke-width:1.5px,color:#fff;
     classDef engine fill:#131d1b,stroke:#10b981,stroke-width:1.5px,color:#fff;
     classDef gateway fill:#131a26,stroke:#0ea5e9,stroke-width:1.5px,color:#fff;
@@ -429,7 +430,7 @@ function tutor_atomic_reorder_curriculum(WP_REST_Request $request) {
     Sanitizer --> PHP
     PHP --> DB
     PHP --> Hooks`,
-        seqMermaid: `sequenceDiagram
+    seqMermaid: `sequenceDiagram
     autonumber
     actor Instructor as Course Creator / Admin
     participant Builder as Tutor Builder React UI
@@ -469,18 +470,18 @@ function tutor_atomic_reorder_curriculum(WP_REST_Request $request) {
         Reactive->>Cache: Restore Memory Snapshot & Buffer into IndexedDB
         Cache-->>Builder: Revert DOM State with Emil-Polish Alert
     end`,
-    },
-codeModules: [
-        {
-            id: "component-registry",
-            filename: "assets/core/ts/ComponentRegistry.ts",
-            badge: "Core · Registry",
-            title: "Component Registry (Lazy, Typed, Alpine-Bridged)",
-            description:
-                "The v4 core runtime singleton. Typed Maps for eager components and services, plus a lazy-loader map and an in-flight promiser map that de-duplicates concurrent loads. registerAll() ingests bulk meta, loadComponent() awaits and caches async loaders, initWithAlpine() mounts every component as Alpine.data('tutorX'), and exposeToWindow() publishes services and globals onto window.TutorCore for 3rd-party add-ons.",
-            prUrl: "https://github.com/themeum/tutor/blob/dev/assets/core/ts/ComponentRegistry.ts",
-            prHighlight: "themeum/tutor · dev — core runtime (no PR boundary)",
-            code: `import { type Alpine } from 'alpinejs';
+  },
+  codeModules: [
+    {
+      id: "component-registry",
+      filename: "assets/core/ts/ComponentRegistry.ts",
+      badge: "Core · Registry",
+      title: "Component Registry (Lazy, Typed, Alpine-Bridged)",
+      description:
+        "The v4 core runtime singleton. Typed Maps for eager components and services, plus a lazy-loader map and an in-flight promiser map that de-duplicates concurrent loads. registerAll() ingests bulk meta, loadComponent() awaits and caches async loaders, initWithAlpine() mounts every component as Alpine.data('tutorX'), and exposeToWindow() publishes services and globals onto window.TutorCore for 3rd-party add-ons.",
+      prUrl: "https://github.com/themeum/tutor/blob/dev/assets/core/ts/ComponentRegistry.ts",
+      prHighlight: "themeum/tutor · dev — core runtime (no PR boundary)",
+      code: `import { type Alpine } from 'alpinejs';
 
 import { type AlpineComponentMeta, type LazyComponentLoader, type ServiceMeta, type TutorCore } from '@Core/ts/types';
 import { makeFirstCharacterUpperCase } from '@Core/ts/utils/string';
@@ -628,17 +629,17 @@ class Registry {
 }
 
 export const TutorComponentRegistry = new Registry();`,
-        },
-        {
-            id: "form-query-lib",
-            filename: "assets/core/ts/services/Form.ts",
-            badge: "Core · Form & Query",
-            title: "Core Form Service (Event-Driven Instance Registry)",
-            description:
-                "The v4 core form control surface. Alpine form components self-register into a Map keyed by form id via FORM_REGISTER / FORM_UNREGISTER custom events, then any code — add-on, console, other Alpine components — drives them programmatically: getValues/setValue/reset/trigger/clearErrors/setError/setFocus/getFormState/watch. It ships as window.TutorCore.form alongside its sibling QueryService (window.TutorCore.query) — a TanStack Query-equivalent rebuilt on Alpine.reactive with timestamped caching, stale-time hydration and pattern invalidation.",
-            prUrl: "https://github.com/themeum/tutor/blob/dev/assets/core/ts/services/Form.ts",
-            prHighlight: "themeum/tutor · dev — core runtime (no PR boundary)",
-            code: `import { type FormControlMethods, type FormState } from '@Core/ts/components/form';
+    },
+    {
+      id: "form-query-lib",
+      filename: "assets/core/ts/services/Form.ts",
+      badge: "Core · Form & Query",
+      title: "Core Form Service (Event-Driven Instance Registry)",
+      description:
+        "The v4 core form control surface. Alpine form components self-register into a Map keyed by form id via FORM_REGISTER / FORM_UNREGISTER custom events, then any code — add-on, console, other Alpine components — drives them programmatically: getValues/setValue/reset/trigger/clearErrors/setError/setFocus/getFormState/watch. It ships as window.TutorCore.form alongside its sibling QueryService (window.TutorCore.query) — a TanStack Query-equivalent rebuilt on Alpine.reactive with timestamped caching, stale-time hydration and pattern invalidation.",
+      prUrl: "https://github.com/themeum/tutor/blob/dev/assets/core/ts/services/Form.ts",
+      prHighlight: "themeum/tutor · dev — core runtime (no PR boundary)",
+      code: `import { type FormControlMethods, type FormState } from '@Core/ts/components/form';
 import { TUTOR_CUSTOM_EVENTS } from '@Core/ts/constant';
 import { type ServiceMeta } from '@Core/ts/types';
 
@@ -827,17 +828,18 @@ export const formServiceMeta: ServiceMeta = {
   name: 'form',
   instance: new FormService(),
 };`,
-        },
-        {
-            id: "course-builder-slot",
-            filename: "assets/src/js/v3/entries/course-builder/contexts/CourseBuilderSlotContext.tsx",
-            badge: "Core · Field Injection",
-            title: "Course Builder Slot Registry (3rd-Party Injection Engine)",
-            description:
-                "The extensibility hook of the v4 course builder. A typed slot tree (Basic / Curriculum — Lesson, Quiz, Assignment — / Additional) with default injection points; updateSection() merges registrations through immer and sorts by priority; the provider then exposes registerField/registerContent behind dotted SectionPaths as a window.Tutor.CourseBuilder public API so add-ons inject fields and block content into the builder without forking it.",
-            prUrl: "https://github.com/themeum/tutor/blob/dev/assets/src/js/v3/entries/course-builder/contexts/CourseBuilderSlotContext.tsx",
-            prHighlight: "themeum/tutor · dev — core runtime (no PR boundary)",
-            code: `import React, { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+    },
+    {
+      id: "course-builder-slot",
+      filename: "assets/src/js/v3/entries/course-builder/contexts/CourseBuilderSlotContext.tsx",
+      badge: "Core · Field Injection",
+      title: "Course Builder Slot Registry (3rd-Party Injection Engine)",
+      description:
+        "The extensibility hook of the v4 course builder. A typed slot tree (Basic / Curriculum — Lesson, Quiz, Assignment — / Additional) with default injection points; updateSection() merges registrations through immer and sorts by priority; the provider then exposes registerField/registerContent behind dotted SectionPaths as a window.Tutor.CourseBuilder public API so add-ons inject fields and block content into the builder without forking it.",
+      prUrl:
+        "https://github.com/themeum/tutor/blob/dev/assets/src/js/v3/entries/course-builder/contexts/CourseBuilderSlotContext.tsx",
+      prHighlight: "themeum/tutor · dev — core runtime (no PR boundary)",
+      code: `import React, { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { produce } from 'immer';
 
 import {
@@ -1027,196 +1029,197 @@ export const useCourseBuilderSlot = () => {
 
   return context;
 };`,
-        },
-    ],
+    },
+  ],
 };
 
 const enclaveShowcase: ProjectShowcase = {
-    graph: {
-        navTitle: "Interactive Architecture Map",
-        navSubtitle: "Inspect the offline-first crypto vault: native crypto core, device-backed key storage, and drive sync",
-        title: "Enclave Vault Architecture Graph",
-        countLabel: "9 Core Systems",
-        verifyLabel: "Source modules verified in b-l-i-n-d/enclave (private)",
-        verifyUrl: "https://github.com/b-l-i-n-d/enclave",
-        inspectLabel: "Inspect Source",
-        commitsHeading: "Key Source Modules (b-l-i-n-d/enclave):",
-        commitPrefix: "src:",
-        columns: [
-            {
-                title: "01 · Crypto Core",
-                nodeIds: ["aes-gcm", "argon2id", "totp"],
-                accent: "rose",
-            },
-            {
-                title: "02 · Vault & Access",
-                nodeIds: ["key-store", "biometric", "sqlite"],
-                accent: "emerald",
-            },
-            {
-                title: "03 · Sync & Watchtower",
-                nodeIds: ["drive-sync", "hibp", "recovery-phrase"],
-                accent: "sky",
-            },
+  graph: {
+    navTitle: "Interactive Architecture Map",
+    navSubtitle:
+      "Inspect the offline-first crypto vault: native crypto core, device-backed key storage, and drive sync",
+    title: "Enclave Vault Architecture Graph",
+    countLabel: "9 Core Systems",
+    verifyLabel: "Source modules verified in b-l-i-n-d/enclave (private)",
+    verifyUrl: "https://github.com/b-l-i-n-d/enclave",
+    inspectLabel: "Inspect Source",
+    commitsHeading: "Key Source Modules (b-l-i-n-d/enclave):",
+    commitPrefix: "src:",
+    columns: [
+      {
+        title: "01 · Crypto Core",
+        nodeIds: ["aes-gcm", "argon2id", "totp"],
+        accent: "rose",
+      },
+      {
+        title: "02 · Vault & Access",
+        nodeIds: ["key-store", "biometric", "sqlite"],
+        accent: "emerald",
+      },
+      {
+        title: "03 · Sync & Watchtower",
+        nodeIds: ["drive-sync", "hibp", "recovery-phrase"],
+        accent: "sky",
+      },
+    ],
+    nodes: [
+      {
+        id: "aes-gcm",
+        label: "AES-256-GCM Authenticated Cipher",
+        version: "Core",
+        badge: "Crypto · encryption.ts",
+        commits: [
+          "encryptJson — appends auth tag to base64 ciphertext blob",
+          "decryptJson — asserts auth tag before JSON decode",
+          "decryptBytes — raw byte path for the Drive vault blob",
         ],
-        nodes: [
-            {
-                id: "aes-gcm",
-                label: "AES-256-GCM Authenticated Cipher",
-                version: "Core",
-                badge: "Crypto · encryption.ts",
-                commits: [
-                    "encryptJson — appends auth tag to base64 ciphertext blob",
-                    "decryptJson — asserts auth tag before JSON decode",
-                    "decryptBytes — raw byte path for the Drive vault blob",
-                ],
-                description:
-                    "Authenticated symmetric encryption over the vault store. Every record is encrypted with a random 96-bit IV; a 128-bit GCM auth tag is appended to the ciphertext so tampered data fails decryption.",
-                prHighlight: "lib/crypto/encryption.ts",
-                prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/encryption.ts",
-                metrics: "96-bit IV · 128-bit tag",
-            },
-            {
-                id: "argon2id",
-                label: "Argon2id Key Derivation",
-                version: "KDF",
-                badge: "Key · key-derivation.ts",
-                commits: [
-                    "deriveVaultKey — 65536 KiB memory, 3 passes, parallelism 1",
-                    "deriveRecoveryKey — BIP39 mnemonic to recovery key",
-                    "generateSalt — 32-byte cryptographically random salt",
-                ],
-                description:
-                    "Native Argon2id via react-native-quick-crypto derives a 256-bit vault key from the master password plus a random 32-byte salt (64MB memory, 3 passes, single lane).",
-                prHighlight: "lib/crypto/key-derivation.ts",
-                prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/key-derivation.ts",
-                metrics: "64MB · 3 passes · 1 lane",
-            },
-            {
-                id: "totp",
-                label: "RFC 6238 TOTP Engine",
-                version: "Auth",
-                badge: "2FA · totp.ts",
-                commits: [
-                    "base32Decode — RFC 4648 alphabet with padding strip",
-                    "generateTotp — code + remainingSeconds live window",
-                    "parseOtpauthUri — otpauth:// import for authenticator apps",
-                ],
-                description:
-                    "Time-based one-time passwords for vault 2FA: RFC 4648 base32 decoding, HMAC-SHA1/256/512 dynamic truncation, 6/8 digits over 30/60-second windows with a live countdown.",
-                prHighlight: "lib/crypto/totp.ts",
-                prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/totp.ts",
-                metrics: "SHA-256 · 6–8 digits · 30/60s",
-            },
-            {
-                id: "key-store",
-                label: "SecureStore Vault Key",
-                version: "Key Storage",
-                badge: "Enclave · vault-key-store.ts",
-                commits: [
-                    "storeVaultKeyForBiometric — requireAuthentication: true",
-                    "retrieveVaultKeyWithBiometric — gated read prompt",
-                    "enclave.wrapped_vault_key — hardware-wrapped key entry",
-                ],
-                description:
-                    "The derived vault key is NEVER stored in plaintext — expo-secure-store wraps it in a device hardware key gated by requireAuthentication biometric auth, enabling fast unlock without re-running Argon2id.",
-                prHighlight: "lib/auth/vault-key-store.ts",
-                prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/auth/vault-key-store.ts",
-                metrics: "Device-encrypted · Biometric-gated",
-            },
-            {
-                id: "biometric",
-                label: "Biometric Unlock Gate",
-                version: "Local Auth",
-                badge: "FaceID · Touch ID",
-                commits: [
-                    "getBiometricCapability — hardware, enrolled & type probe",
-                    "BiometricType — face / fingerprint / iris mapping",
-                    "OS-aware labels — Face ID, Touch ID, Fingerprint",
-                ],
-                description:
-                    "expo-local-authentication capability probe and gate. The app only loads the vault key after a successful biometric challenge; unsupported or unenrolled devices fall back to a PIN.",
-                prHighlight: "lib/auth/biometric.ts",
-                prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/auth/biometric.ts",
-                metrics: "Face ID · Touch ID · Fallback PIN",
-            },
-            {
-                id: "sqlite",
-                label: "SQLite Vault Repository",
-                version: "Local-First",
-                badge: "Data · sqlite-repository.ts",
-                commits: [
-                    "PRAGMA journal_mode = WAL — concurrent reads",
-                    "vault_items — encrypted_data + iv columns",
-                    "On-demand auto-initialization with singleton db",
-                ],
-                description:
-                    "expo-sqlite async repository with WAL mode, foreign keys enabled, and tables for vault_meta, vault_items, and tags. Only encrypted blobs are persisted — plaintext never touches disk.",
-                prHighlight: "lib/vault/sqlite-repository.ts",
-                prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/vault/sqlite-repository.ts",
-                metrics: "WAL · Foreign keys · Ciphertext-only",
-            },
-            {
-                id: "drive-sync",
-                label: "Google Drive 3-Way Sync",
-                version: "Sync",
-                badge: "Cloud · drive provider",
-                commits: [
-                    "mergeVaultItems — local / remote / conflict triage",
-                    "updated_at resolution rule for local vs remote wins",
-                    "conflict set surfaced for equal-timestamp divergences",
-                ],
-                description:
-                    "Item-level, timestamp-based 3-way merge against a Google Drive snapshot: local-only items are pushed, remote-only items are applied, and both-sided diffs resolve by the newer updated_at (soft-delete tombstones honored).",
-                prHighlight: "lib/sync/merger.ts",
-                prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/sync/merger.ts",
-                metrics: "updated_at merge · Tombstones kept",
-            },
-            {
-                id: "hibp",
-                label: "Watchtower HIBP Audit",
-                version: "Security",
-                badge: "Breach · hibp.ts",
-                commits: [
-                    "checkPasswordBreached — prefix query + Add-Padding header",
-                    "checkVaultBreaches — rate-limited batch audit",
-                    "sha1Hex — uppercase hex digest via quick-crypto",
-                ],
-                description:
-                    "k-anonymity breach check that only sends the first 5 hex characters of a SHA-1 hash off-device; the returned breach suffix list is matched locally against the rest of the hash.",
-                prHighlight: "lib/security/hibp.ts",
-                prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/security/hibp.ts",
-                metrics: "k-anonymity · SHA-1 prefix",
-            },
-            {
-                id: "recovery-phrase",
-                label: "BIP39 Recovery Phrase",
-                version: "Recovery",
-                badge: "Mnemonic · @scure/bip39",
-                commits: [
-                    "@scure/bip39 entropy → mnemonic words",
-                    "mnemonicToSeedSync — BIP39 seed derivation",
-                    "validateMnemonic — typo-guard on restore",
-                ],
-                description:
-                    "24-word BIP39 mnemonic generation and validation so the vault survives a lost device; the mnemonic re-derives a distinct recovery key, never the vault key itself.",
-                prHighlight: "lib/generator/passphrase.ts + @scure/bip39",
-                prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/generator/passphrase.ts",
-                metrics: "BIP39 · 24 words",
-            },
+        description:
+          "Authenticated symmetric encryption over the vault store. Every record is encrypted with a random 96-bit IV; a 128-bit GCM auth tag is appended to the ciphertext so tampered data fails decryption.",
+        prHighlight: "lib/crypto/encryption.ts",
+        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/encryption.ts",
+        metrics: "96-bit IV · 128-bit tag",
+      },
+      {
+        id: "argon2id",
+        label: "Argon2id Key Derivation",
+        version: "KDF",
+        badge: "Key · key-derivation.ts",
+        commits: [
+          "deriveVaultKey — 65536 KiB memory, 3 passes, parallelism 1",
+          "deriveRecoveryKey — BIP39 mnemonic to recovery key",
+          "generateSalt — 32-byte cryptographically random salt",
         ],
-    },
-    flow: {
-        steps: [
-            {
-                id: "unlock",
-                number: "01",
-                title: "Biometric Unlock Gate",
-                description:
-                    "App start probes hardware capability and challenges Face ID / Touch ID. The device store is only readable after a successful challenge — the app holds no vault key in memory beforehand.",
-                tech: "expo-local-authentication · biometric.ts",
-                codeFile: "biometric.ts",
-                codeSnippet: `import * as LocalAuthentication from 'expo-local-authentication';
+        description:
+          "Native Argon2id via react-native-quick-crypto derives a 256-bit vault key from the master password plus a random 32-byte salt (64MB memory, 3 passes, single lane).",
+        prHighlight: "lib/crypto/key-derivation.ts",
+        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/key-derivation.ts",
+        metrics: "64MB · 3 passes · 1 lane",
+      },
+      {
+        id: "totp",
+        label: "RFC 6238 TOTP Engine",
+        version: "Auth",
+        badge: "2FA · totp.ts",
+        commits: [
+          "base32Decode — RFC 4648 alphabet with padding strip",
+          "generateTotp — code + remainingSeconds live window",
+          "parseOtpauthUri — otpauth:// import for authenticator apps",
+        ],
+        description:
+          "Time-based one-time passwords for vault 2FA: RFC 4648 base32 decoding, HMAC-SHA1/256/512 dynamic truncation, 6/8 digits over 30/60-second windows with a live countdown.",
+        prHighlight: "lib/crypto/totp.ts",
+        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/totp.ts",
+        metrics: "SHA-256 · 6–8 digits · 30/60s",
+      },
+      {
+        id: "key-store",
+        label: "SecureStore Vault Key",
+        version: "Key Storage",
+        badge: "Enclave · vault-key-store.ts",
+        commits: [
+          "storeVaultKeyForBiometric — requireAuthentication: true",
+          "retrieveVaultKeyWithBiometric — gated read prompt",
+          "enclave.wrapped_vault_key — hardware-wrapped key entry",
+        ],
+        description:
+          "The derived vault key is NEVER stored in plaintext — expo-secure-store wraps it in a device hardware key gated by requireAuthentication biometric auth, enabling fast unlock without re-running Argon2id.",
+        prHighlight: "lib/auth/vault-key-store.ts",
+        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/auth/vault-key-store.ts",
+        metrics: "Device-encrypted · Biometric-gated",
+      },
+      {
+        id: "biometric",
+        label: "Biometric Unlock Gate",
+        version: "Local Auth",
+        badge: "FaceID · Touch ID",
+        commits: [
+          "getBiometricCapability — hardware, enrolled & type probe",
+          "BiometricType — face / fingerprint / iris mapping",
+          "OS-aware labels — Face ID, Touch ID, Fingerprint",
+        ],
+        description:
+          "expo-local-authentication capability probe and gate. The app only loads the vault key after a successful biometric challenge; unsupported or unenrolled devices fall back to a PIN.",
+        prHighlight: "lib/auth/biometric.ts",
+        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/auth/biometric.ts",
+        metrics: "Face ID · Touch ID · Fallback PIN",
+      },
+      {
+        id: "sqlite",
+        label: "SQLite Vault Repository",
+        version: "Local-First",
+        badge: "Data · sqlite-repository.ts",
+        commits: [
+          "PRAGMA journal_mode = WAL — concurrent reads",
+          "vault_items — encrypted_data + iv columns",
+          "On-demand auto-initialization with singleton db",
+        ],
+        description:
+          "expo-sqlite async repository with WAL mode, foreign keys enabled, and tables for vault_meta, vault_items, and tags. Only encrypted blobs are persisted — plaintext never touches disk.",
+        prHighlight: "lib/vault/sqlite-repository.ts",
+        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/vault/sqlite-repository.ts",
+        metrics: "WAL · Foreign keys · Ciphertext-only",
+      },
+      {
+        id: "drive-sync",
+        label: "Google Drive 3-Way Sync",
+        version: "Sync",
+        badge: "Cloud · drive provider",
+        commits: [
+          "mergeVaultItems — local / remote / conflict triage",
+          "updated_at resolution rule for local vs remote wins",
+          "conflict set surfaced for equal-timestamp divergences",
+        ],
+        description:
+          "Item-level, timestamp-based 3-way merge against a Google Drive snapshot: local-only items are pushed, remote-only items are applied, and both-sided diffs resolve by the newer updated_at (soft-delete tombstones honored).",
+        prHighlight: "lib/sync/merger.ts",
+        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/sync/merger.ts",
+        metrics: "updated_at merge · Tombstones kept",
+      },
+      {
+        id: "hibp",
+        label: "Watchtower HIBP Audit",
+        version: "Security",
+        badge: "Breach · hibp.ts",
+        commits: [
+          "checkPasswordBreached — prefix query + Add-Padding header",
+          "checkVaultBreaches — rate-limited batch audit",
+          "sha1Hex — uppercase hex digest via quick-crypto",
+        ],
+        description:
+          "k-anonymity breach check that only sends the first 5 hex characters of a SHA-1 hash off-device; the returned breach suffix list is matched locally against the rest of the hash.",
+        prHighlight: "lib/security/hibp.ts",
+        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/security/hibp.ts",
+        metrics: "k-anonymity · SHA-1 prefix",
+      },
+      {
+        id: "recovery-phrase",
+        label: "BIP39 Recovery Phrase",
+        version: "Recovery",
+        badge: "Mnemonic · @scure/bip39",
+        commits: [
+          "@scure/bip39 entropy → mnemonic words",
+          "mnemonicToSeedSync — BIP39 seed derivation",
+          "validateMnemonic — typo-guard on restore",
+        ],
+        description:
+          "24-word BIP39 mnemonic generation and validation so the vault survives a lost device; the mnemonic re-derives a distinct recovery key, never the vault key itself.",
+        prHighlight: "lib/generator/passphrase.ts + @scure/bip39",
+        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/generator/passphrase.ts",
+        metrics: "BIP39 · 24 words",
+      },
+    ],
+  },
+  flow: {
+    steps: [
+      {
+        id: "unlock",
+        number: "01",
+        title: "Biometric Unlock Gate",
+        description:
+          "App start probes hardware capability and challenges Face ID / Touch ID. The device store is only readable after a successful challenge — the app holds no vault key in memory beforehand.",
+        tech: "expo-local-authentication · biometric.ts",
+        codeFile: "biometric.ts",
+        codeSnippet: `import * as LocalAuthentication from 'expo-local-authentication';
 
 export async function getBiometricCapability(): Promise<BiometricCapability> {
   const available = await LocalAuthentication.hasHardwareAsync();
@@ -1236,26 +1239,26 @@ export async function getBiometricCapability(): Promise<BiometricCapability> {
 
   return { available, enrolled, types: biometricTypes, label };
 }`,
-                systemMetrics: {
-                    latency: "28ms",
-                    ops: "Local challenge",
-                    status: "ready",
-                },
-                logs: [
-                    "hasHardwareAsync → true (device supports biometrics)",
-                    "isEnrolledAsync → true (Face ID enrolled)",
-                    "Biometric challenge passed — vault key store unlocked",
-                ],
-            },
-            {
-                id: "key-load",
-                number: "02",
-                title: "SecureStore Key Load",
-                description:
-                    "retrieveVaultKeyWithBiometric reads the hardware-wrapped vault key with requireAuthentication: true — the OS biometric dialog is prompted at read time and any dismissal throws.",
-                tech: "expo-secure-store · vault-key-store.ts",
-                codeFile: "vault-key-store.ts",
-                codeSnippet: `import * as SecureStore from 'expo-secure-store';
+        systemMetrics: {
+          latency: "28ms",
+          ops: "Local challenge",
+          status: "ready",
+        },
+        logs: [
+          "hasHardwareAsync → true (device supports biometrics)",
+          "isEnrolledAsync → true (Face ID enrolled)",
+          "Biometric challenge passed — vault key store unlocked",
+        ],
+      },
+      {
+        id: "key-load",
+        number: "02",
+        title: "SecureStore Key Load",
+        description:
+          "retrieveVaultKeyWithBiometric reads the hardware-wrapped vault key with requireAuthentication: true — the OS biometric dialog is prompted at read time and any dismissal throws.",
+        tech: "expo-secure-store · vault-key-store.ts",
+        codeFile: "vault-key-store.ts",
+        codeSnippet: `import * as SecureStore from 'expo-secure-store';
 
 export async function retrieveVaultKeyWithBiometric(): Promise<string> {
   const key = await SecureStore.getItemAsync(KEYS.wrappedVaultKey, {
@@ -1265,26 +1268,26 @@ export async function retrieveVaultKeyWithBiometric(): Promise<string> {
   if (!key) throw new Error('No biometric vault key stored');
   return key;
 }`,
-                systemMetrics: {
-                    latency: "52ms",
-                    ops: "1 decryption key",
-                    status: "healthy",
-                },
-                logs: [
-                    "SecureStore.getItem 'enclave.wrapped_vault_key'",
-                    "requireAuthentication gate satisfied by OS keychain",
-                    "Vault key loaded — never persisted in plaintext",
-                ],
-            },
-            {
-                id: "decrypt",
-                number: "03",
-                title: "AES-GCM Authenticated Decrypt",
-                description:
-                    "Each vault item is decrypted with AES-256-GCM: the 128-bit auth tag is split from the ciphertext and asserted before JSON decode, so any tampered record throws instead of rendering garbage.",
-                tech: "react-native-quick-crypto · encryption.ts",
-                codeFile: "encryption.ts",
-                codeSnippet: `export async function decryptJson<T>(vaultKeyBase64: string, blob: EncryptedBlob): Promise<T> {
+        systemMetrics: {
+          latency: "52ms",
+          ops: "1 decryption key",
+          status: "healthy",
+        },
+        logs: [
+          "SecureStore.getItem 'enclave.wrapped_vault_key'",
+          "requireAuthentication gate satisfied by OS keychain",
+          "Vault key loaded — never persisted in plaintext",
+        ],
+      },
+      {
+        id: "decrypt",
+        number: "03",
+        title: "AES-GCM Authenticated Decrypt",
+        description:
+          "Each vault item is decrypted with AES-256-GCM: the 128-bit auth tag is split from the ciphertext and asserted before JSON decode, so any tampered record throws instead of rendering garbage.",
+        tech: "react-native-quick-crypto · encryption.ts",
+        codeFile: "encryption.ts",
+        codeSnippet: `export async function decryptJson<T>(vaultKeyBase64: string, blob: EncryptedBlob): Promise<T> {
   const keyBytes = Buffer.from(vaultKeyBase64, 'base64');
   const combined = Buffer.from(blob.ciphertext, 'base64');
 
@@ -1297,26 +1300,26 @@ export async function retrieveVaultKeyWithBiometric(): Promise<string> {
   const decrypted = Buffer.concat([decipher.update(ciphertext), decipher.final()]);
   return JSON.parse(decrypted.toString('utf8')) as T;
 }`,
-                systemMetrics: {
-                    latency: "3.1ms",
-                    ops: "~2.4k items/s",
-                    status: "healthy",
-                },
-                logs: [
-                    "subarray split at len-16 (auth tag boundary)",
-                    "setAuthTag verified — record integrity OK",
-                    "JSON.parse → VaultItemRow",
-                ],
-            },
-            {
-                id: "totp",
-                number: "04",
-                title: "TOTP Generation Window",
-                description:
-                    "OTP secrets stored in the vault feed generateTotp: base32 decode → HMAC dynamic truncation → zero-padded code with live remainingSeconds countdown.",
-                tech: "RFC 6238 · totp.ts",
-                codeFile: "totp.ts",
-                codeSnippet: `export function generateTotp(config: TotpConfig): TotpResult {
+        systemMetrics: {
+          latency: "3.1ms",
+          ops: "~2.4k items/s",
+          status: "healthy",
+        },
+        logs: [
+          "subarray split at len-16 (auth tag boundary)",
+          "setAuthTag verified — record integrity OK",
+          "JSON.parse → VaultItemRow",
+        ],
+      },
+      {
+        id: "totp",
+        number: "04",
+        title: "TOTP Generation Window",
+        description:
+          "OTP secrets stored in the vault feed generateTotp: base32 decode → HMAC dynamic truncation → zero-padded code with live remainingSeconds countdown.",
+        tech: "RFC 6238 · totp.ts",
+        codeFile: "totp.ts",
+        codeSnippet: `export function generateTotp(config: TotpConfig): TotpResult {
   const { secret, digits = 6, period = 30 } = config;
   const secretBytes = base32Decode(secret);
   const now = Math.floor(Date.now() / 1000);
@@ -1329,26 +1332,26 @@ export async function retrieveVaultKeyWithBiometric(): Promise<string> {
     periodSeconds: period,
   };
 }`,
-                systemMetrics: {
-                    latency: "0.4ms",
-                    ops: "30s window",
-                    status: "processing",
-                },
-                logs: [
-                    "counter = floor(epoch / 30)",
-                    "dynamic truncation offset = digest[len-1] & 0x0f",
-                    "code 6-digit · 24s remaining in window",
-                ],
-            },
-            {
-                id: "sync",
-                number: "05",
-                title: "Google Drive 3-Way Merge",
-                description:
-                    "On sync, local SQLite rows are reconciled against the Drive snapshot with item-level timestamp rules — tombstones from soft-deletes win whenever newer; equal-timestamp divergences surface as conflicts.",
-                tech: "Drive provider · merger.ts",
-                codeFile: "merger.ts",
-                codeSnippet: `if (local && remote) {
+        systemMetrics: {
+          latency: "0.4ms",
+          ops: "30s window",
+          status: "processing",
+        },
+        logs: [
+          "counter = floor(epoch / 30)",
+          "dynamic truncation offset = digest[len-1] & 0x0f",
+          "code 6-digit · 24s remaining in window",
+        ],
+      },
+      {
+        id: "sync",
+        number: "05",
+        title: "Google Drive 3-Way Merge",
+        description:
+          "On sync, local SQLite rows are reconciled against the Drive snapshot with item-level timestamp rules — tombstones from soft-deletes win whenever newer; equal-timestamp divergences surface as conflicts.",
+        tech: "Drive provider · merger.ts",
+        codeFile: "merger.ts",
+        codeSnippet: `if (local && remote) {
   const localTime = new Date(local.updatedAt).getTime();
   const remoteTime = new Date(remote.updatedAt).getTime();
 
@@ -1360,19 +1363,19 @@ export async function retrieveVaultKeyWithBiometric(): Promise<string> {
     conflicts.push({ id, local, remote });          // equal timestamp, diverged
   }
 }`,
-                systemMetrics: {
-                    latency: "412ms",
-                    ops: "N items merged",
-                    status: "ready",
-                },
-                logs: [
-                    "72 local rows · 70 remote rows → 68 common ids",
-                    "2 remote-only records applied to local store",
-                    "1 equal-timestamp divergence → conflict set (prefer remote)",
-                ],
-            },
+        systemMetrics: {
+          latency: "412ms",
+          ops: "N items merged",
+          status: "ready",
+        },
+        logs: [
+          "72 local rows · 70 remote rows → 68 common ids",
+          "2 remote-only records applied to local store",
+          "1 equal-timestamp divergence → conflict set (prefer remote)",
         ],
-        archMermaid: `flowchart TD
+      },
+    ],
+    archMermaid: `flowchart TD
     classDef client fill:#1e1e24,stroke:#ff1744,stroke-width:1.5px,color:#fff;
     classDef crypto fill:#131d1b,stroke:#10b981,stroke-width:1.5px,color:#fff;
     classDef sync fill:#131a26,stroke:#0ea5e9,stroke-width:1.5px,color:#fff;
@@ -1407,7 +1410,7 @@ export async function retrieveVaultKeyWithBiometric(): Promise<string> {
     Merge --> Drive
     BIP39 --> UI
     HIBP -.-> UI`,
-        seqMermaid: `sequenceDiagram
+    seqMermaid: `sequenceDiagram
     autonumber
     actor Owner as Vault Owner
     participant UI as Enclave Expo App
@@ -1433,17 +1436,18 @@ export async function retrieveVaultKeyWithBiometric(): Promise<string> {
     else Local was newer
         Drive-->>UI: push local rows, keep tombstones
     end`,
-    },
-    codeModules: [
-        {
-            id: "encryption",
-            filename: "lib/crypto/encryption.ts",
-            badge: "AES-256-GCM",
-            title: "Authenticated Vault Encryption",
-            description: "AES-256-GCM via react-native-quick-crypto: random 96-bit IV, 128-bit auth tag appended to the ciphertext, base64 wire-format blobs. verify-then-decode keeps tampered records from ever rendering.",
-            prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/encryption.ts",
-            prHighlight: "lib/crypto/encryption.ts",
-            code: `import { Buffer } from 'buffer';
+  },
+  codeModules: [
+    {
+      id: "encryption",
+      filename: "lib/crypto/encryption.ts",
+      badge: "AES-256-GCM",
+      title: "Authenticated Vault Encryption",
+      description:
+        "AES-256-GCM via react-native-quick-crypto: random 96-bit IV, 128-bit auth tag appended to the ciphertext, base64 wire-format blobs. verify-then-decode keeps tampered records from ever rendering.",
+      prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/encryption.ts",
+      prHighlight: "lib/crypto/encryption.ts",
+      code: `import { Buffer } from 'buffer';
 import QuickCrypto from 'react-native-quick-crypto';
 
 const IV_LENGTH = 12; // 96-bit IV for AES-GCM
@@ -1480,16 +1484,17 @@ export async function decryptJson<T>(vaultKeyBase64: string, blob: EncryptedBlob
   const decrypted = Buffer.concat([decipher.update(ciphertext), decipher.final()]);
   return JSON.parse(decrypted.toString('utf8')) as T;
 }`,
-        },
-        {
-            id: "kdf",
-            filename: "lib/crypto/key-derivation.ts",
-            badge: "Argon2id",
-            title: "Native Key Derivation",
-            description: "256-bit vault key from master password + 32-byte salt using native Argon2id with 64MB memory, 3 passes, and a single lane; recovery phrase re-derives a separate key.",
-            prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/key-derivation.ts",
-            prHighlight: "lib/crypto/key-derivation.ts",
-            code: `import { Buffer } from 'buffer';
+    },
+    {
+      id: "kdf",
+      filename: "lib/crypto/key-derivation.ts",
+      badge: "Argon2id",
+      title: "Native Key Derivation",
+      description:
+        "256-bit vault key from master password + 32-byte salt using native Argon2id with 64MB memory, 3 passes, and a single lane; recovery phrase re-derives a separate key.",
+      prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/key-derivation.ts",
+      prHighlight: "lib/crypto/key-derivation.ts",
+      code: `import { Buffer } from 'buffer';
 import QuickCrypto from 'react-native-quick-crypto';
 
 export const SALT_LENGTH = 32; // bytes
@@ -1520,16 +1525,17 @@ export async function deriveVaultKey(masterPassword: string, saltBase64: string)
     );
   });
 }`,
-        },
-        {
-            id: "hibp",
-            filename: "lib/security/hibp.ts",
-            badge: "k-Anonymity",
-            title: "Watchtower Breach Audit",
-            description: "Have-I-Been-Pwned check that only ships the first 5 hex chars of a SHA-1 hash off-device — the breach suffix list is matched locally, and batch audits are rate-limited politely.",
-            prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/security/hibp.ts",
-            prHighlight: "lib/security/hibp.ts",
-            code: `import { sha1Hex } from '@/lib/crypto';
+    },
+    {
+      id: "hibp",
+      filename: "lib/security/hibp.ts",
+      badge: "k-Anonymity",
+      title: "Watchtower Breach Audit",
+      description:
+        "Have-I-Been-Pwned check that only ships the first 5 hex chars of a SHA-1 hash off-device — the breach suffix list is matched locally, and batch audits are rate-limited politely.",
+      prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/security/hibp.ts",
+      prHighlight: "lib/security/hibp.ts",
+      code: `import { sha1Hex } from '@/lib/crypto';
 
 export async function checkPasswordBreached(password: string): Promise<HibpResult> {
   const hash = sha1Hex(password);
@@ -1551,195 +1557,197 @@ export async function checkPasswordBreached(password: string): Promise<HibpResul
   }
   return { pwned: false, count: 0 };
 }`,
-        },
-    ],
+    },
+  ],
 };
 
 const edTechShowcase: ProjectShowcase = {
-    graph: {
-        navTitle: "Interactive Architecture Map",
-        navSubtitle: "Inspect the Next.js client, the service-layer Express API, and the hardening/ops stack",
-        title: "EdTech LMS Platform Architecture Graph",
-        countLabel: "9 Core Systems",
-        verifyLabel: "Source modules verified in b-l-i-n-d/edTech",
-        verifyUrl: "https://github.com/b-l-i-n-d/edTech",
-        inspectLabel: "Inspect Source",
-        commitsHeading: "Key Source Modules (b-l-i-n-d/edTech):",
-        commitPrefix: "src:",
-        columns: [
-            {
-                title: "01 · Client & State",
-                nodeIds: ["next-client", "rtk", "react-player"],
-                accent: "rose",
-            },
-            {
-                title: "02 · Service-Layer API",
-                nodeIds: ["express-api", "mongoose-models", "auth-jwt"],
-                accent: "emerald",
-            },
-            {
-                title: "03 · Security & Ops",
-                nodeIds: ["swagger", "hardening", "ops"],
-                accent: "sky",
-            },
+  graph: {
+    navTitle: "Interactive Architecture Map",
+    navSubtitle:
+      "Inspect the Next.js client, the service-layer Express API, and the hardening/ops stack",
+    title: "EdTech LMS Platform Architecture Graph",
+    countLabel: "9 Core Systems",
+    verifyLabel: "Source modules verified in b-l-i-n-d/edTech",
+    verifyUrl: "https://github.com/b-l-i-n-d/edTech",
+    inspectLabel: "Inspect Source",
+    commitsHeading: "Key Source Modules (b-l-i-n-d/edTech):",
+    commitPrefix: "src:",
+    columns: [
+      {
+        title: "01 · Client & State",
+        nodeIds: ["next-client", "rtk", "react-player"],
+        accent: "rose",
+      },
+      {
+        title: "02 · Service-Layer API",
+        nodeIds: ["express-api", "mongoose-models", "auth-jwt"],
+        accent: "emerald",
+      },
+      {
+        title: "03 · Security & Ops",
+        nodeIds: ["swagger", "hardening", "ops"],
+        accent: "sky",
+      },
+    ],
+    nodes: [
+      {
+        id: "next-client",
+        label: "Next.js 13 Client",
+        version: "Next.js 13",
+        badge: "Pages Router · TypeScript · AntD",
+        commits: [
+          "client/pages — course, quiz & admin routes with generation helpers",
+          "client/components — AppLayout shell + shared UI kit",
+          "client/redux — typed state injected via next-redux-wrapper",
         ],
-        nodes: [
-            {
-                id: "next-client",
-                label: "Next.js 13 Client",
-                version: "Next.js 13",
-                badge: "Pages Router · TypeScript · AntD",
-                commits: [
-                    "client/pages — course, quiz & admin routes with generation helpers",
-                    "client/components — AppLayout shell + shared UI kit",
-                    "client/redux — typed state injected via next-redux-wrapper",
-                ],
-                description:
-                    "Next.js 13 front-end with the AppLayout shell, lesson/player pages wired to RTK Query hooks, Ant Design componentry, and role-split dashboards for students, admins, and instructors.",
-                prHighlight: "client/pages · client/components",
-                prUrl: "https://github.com/b-l-i-n-d/edTech/tree/master/client",
-                metrics: "Pages router · TypeScript · AntD",
-            },
-            {
-                id: "rtk",
-                label: "RTK Slices & RTK Query",
-                version: "Redux Toolkit",
-                badge: "Slices · injectEndpoints",
-                commits: [
-                    "client/redux/api/apiSlice.ts — fetchBaseQuery with Bearer prepareHeaders",
-                    "HYDRATE extractRehydrationInfo for server-render rebase",
-                    "redux-persist token persistence across refreshes",
-                ],
-                description:
-                    "Domain slices (auth, videos, quizzes, assignments, marks) built on RTK Query's injectEndpoints; prepared Authorization header, tag-based invalidation, and a 401-driven logout from the base query.",
-                prHighlight: "client/redux — apiSlice.ts baseQuery",
-                prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/client/redux/api/apiSlice.ts",
-                metrics: "Tag-based invalidation · Neon sync",
-            },
-            {
-                id: "react-player",
-                label: "Lesson Video Modules",
-                version: "Media",
-                badge: "react-player · Lesson Player",
-                commits: [
-                    "client/video — player module with progress state",
-                    "videosApi — auto-selected current video from the lesson list",
-                    "quizzMark tied to the video being watched",
-                ],
-                description:
-                    "Lesson player layer built on react-player; the video list query auto-selects the current lesson and feeds quiz/assignment gates per video.",
-                prHighlight: "client + server video services",
-                prUrl: "https://github.com/b-l-i-n-d/edTech",
-                metrics: "Adaptive playback · Progress gating",
-            },
-            {
-                id: "express-api",
-                label: "Express Service-Layer API",
-                version: "Express",
-                badge: "Models → Services → Controllers → Routes",
-                commits: [
-                    "server/src/services — quizzMark, leaderboard, assignment, dashboard",
-                    "server/src/controllers — thin HTTP adapters over services",
-                    "server/src/routes/v1 — Joi-validated route modules",
-                ],
-                description:
-                    "Layered Express API (ES modules). Services own business rules, controllers adapt to HTTP, and route middlewares validate with Joi — a classic deep-module data flow.",
-                prHighlight: "server/src — service-layer architecture",
-                prUrl: "https://github.com/b-l-i-n-d/edTech/tree/master/server/src",
-                metrics: "ESM · One-way dependency flow",
-            },
-            {
-                id: "mongoose-models",
-                label: "Mongoose Domain Models",
-                version: "Mongoose",
-                badge: "user · video · quizz · assignment · marks",
-                commits: [
-                    "server/src/models/video.model.js — video/section trees",
-                    "server/src/models/quizz.model.js — option isCorrect flags",
-                    "leaderboard aggregates across marks models",
-                ],
-                description:
-                    "Domain models for users, videos, quizzes, assignments, and aggregate marks with Mongoose pagination on list endpoints and lean() reads in hot paths.",
-                prHighlight: "server/src/models",
-                prUrl: "https://github.com/b-l-i-n-d/edTech/tree/master/server/src/models",
-                metrics: "10+ schemas · Lean reads",
-            },
-            {
-                id: "auth-jwt",
-                label: "JWT + Passport Cookie Auth",
-                version: "Passport · JWT",
-                badge: "auth.service · passport.js",
-                commits: [
-                    "server/src/services/auth.service.js — local strategy, token pair",
-                    "server/src/services/token.service.js — signed access/refresh",
-                    "passport-jwt strategy guarding REST routes",
-                ],
-                description:
-                    "Cookie-borne JWT sessions with a passport local strategy for login, signed access/refresh token lifecycle, and role-aware route protection.",
-                prHighlight: "server/src/services/auth.service.js",
-                prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/services/auth.service.js",
-                metrics: "Role-gated routes · Token pair",
-            },
-            {
-                id: "swagger",
-                label: "Swagger OpenAPI Docs",
-                version: "OpenAPI",
-                badge: "swagger-jsdoc · swagger-ui-express",
-                commits: [
-                    "server/src/utils/swagger.js — live REST documentation",
-                    "Schemas documented across every service-layer endpoint",
-                ],
-                description:
-                    "Generated OpenAPI documentation served live with swagger-ui-express, keeping every REST contract inspectable from the browser.",
-                prHighlight: "server/src/utils/swagger.js",
-                prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/utils/swagger.js",
-                metrics: "100% endpoint coverage",
-            },
-            {
-                id: "hardening",
-                label: "REST Hardening",
-                version: "Security",
-                badge: "helmet · xss-clean · rate-limit",
-                commits: [
-                    "server/src/app.js — helmet CSP + header defaults",
-                    "xss-clean + mongo-sanitize payload cleaning",
-                    "express-rate-limit against brute-force login",
-                ],
-                description:
-                    "REST hardening stack: security headers via helmet, request sanitization (xss-clean, mongo-sanitize), rate limiting, and a locked-down CORS policy.",
-                prHighlight: "server/src/app.js",
-                prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/app.js",
-                metrics: "XSS / CSRF / NoSQLi mitigation",
-            },
-            {
-                id: "ops",
-                label: "Docker · PM2 · Jest",
-                version: "Deploy",
-                badge: "compose · ecosystem · supertest",
-                commits: [
-                    "docker-compose.yml — api + client + db orchestration",
-                    "ecosystem.config.js — PM2 cluster mode",
-                    "Jest + supertest integration suite over the API",
-                ],
-                description:
-                    "Containerized orchestration with a PM2 cluster mode ecosystem file and a Jest/supertest integration suite guarding the API contracts.",
-                prHighlight: "docker-compose.yml · ecosystem.config.js",
-                prUrl: "https://github.com/b-l-i-n-d/edTech",
-                metrics: "Cluster mode · CI-gated",
-            },
+        description:
+          "Next.js 13 front-end with the AppLayout shell, lesson/player pages wired to RTK Query hooks, Ant Design componentry, and role-split dashboards for students, admins, and instructors.",
+        prHighlight: "client/pages · client/components",
+        prUrl: "https://github.com/b-l-i-n-d/edTech/tree/master/client",
+        metrics: "Pages router · TypeScript · AntD",
+      },
+      {
+        id: "rtk",
+        label: "RTK Slices & RTK Query",
+        version: "Redux Toolkit",
+        badge: "Slices · injectEndpoints",
+        commits: [
+          "client/redux/api/apiSlice.ts — fetchBaseQuery with Bearer prepareHeaders",
+          "HYDRATE extractRehydrationInfo for server-render rebase",
+          "redux-persist token persistence across refreshes",
         ],
-    },
-    flow: {
-        steps: [
-            {
-                id: "auth",
-                number: "01",
-                title: "Auth & Token Pipeline",
-                description:
-                    "Login dispatches an auth mutation; prepareHeaders attaches the Bearer access token to every subsequent query, and a 401 or expired refresh token triggers an explicit logout.",
-                tech: "RTK Query · redux-persist",
-                codeFile: "client/redux/api/apiSlice.ts",
-                codeSnippet: `const baseQuery = fetchBaseQuery({
+        description:
+          "Domain slices (auth, videos, quizzes, assignments, marks) built on RTK Query's injectEndpoints; prepared Authorization header, tag-based invalidation, and a 401-driven logout from the base query.",
+        prHighlight: "client/redux — apiSlice.ts baseQuery",
+        prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/client/redux/api/apiSlice.ts",
+        metrics: "Tag-based invalidation · Neon sync",
+      },
+      {
+        id: "react-player",
+        label: "Lesson Video Modules",
+        version: "Media",
+        badge: "react-player · Lesson Player",
+        commits: [
+          "client/video — player module with progress state",
+          "videosApi — auto-selected current video from the lesson list",
+          "quizzMark tied to the video being watched",
+        ],
+        description:
+          "Lesson player layer built on react-player; the video list query auto-selects the current lesson and feeds quiz/assignment gates per video.",
+        prHighlight: "client + server video services",
+        prUrl: "https://github.com/b-l-i-n-d/edTech",
+        metrics: "Adaptive playback · Progress gating",
+      },
+      {
+        id: "express-api",
+        label: "Express Service-Layer API",
+        version: "Express",
+        badge: "Models → Services → Controllers → Routes",
+        commits: [
+          "server/src/services — quizzMark, leaderboard, assignment, dashboard",
+          "server/src/controllers — thin HTTP adapters over services",
+          "server/src/routes/v1 — Joi-validated route modules",
+        ],
+        description:
+          "Layered Express API (ES modules). Services own business rules, controllers adapt to HTTP, and route middlewares validate with Joi — a classic deep-module data flow.",
+        prHighlight: "server/src — service-layer architecture",
+        prUrl: "https://github.com/b-l-i-n-d/edTech/tree/master/server/src",
+        metrics: "ESM · One-way dependency flow",
+      },
+      {
+        id: "mongoose-models",
+        label: "Mongoose Domain Models",
+        version: "Mongoose",
+        badge: "user · video · quizz · assignment · marks",
+        commits: [
+          "server/src/models/video.model.js — video/section trees",
+          "server/src/models/quizz.model.js — option isCorrect flags",
+          "leaderboard aggregates across marks models",
+        ],
+        description:
+          "Domain models for users, videos, quizzes, assignments, and aggregate marks with Mongoose pagination on list endpoints and lean() reads in hot paths.",
+        prHighlight: "server/src/models",
+        prUrl: "https://github.com/b-l-i-n-d/edTech/tree/master/server/src/models",
+        metrics: "10+ schemas · Lean reads",
+      },
+      {
+        id: "auth-jwt",
+        label: "JWT + Passport Cookie Auth",
+        version: "Passport · JWT",
+        badge: "auth.service · passport.js",
+        commits: [
+          "server/src/services/auth.service.js — local strategy, token pair",
+          "server/src/services/token.service.js — signed access/refresh",
+          "passport-jwt strategy guarding REST routes",
+        ],
+        description:
+          "Cookie-borne JWT sessions with a passport local strategy for login, signed access/refresh token lifecycle, and role-aware route protection.",
+        prHighlight: "server/src/services/auth.service.js",
+        prUrl:
+          "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/services/auth.service.js",
+        metrics: "Role-gated routes · Token pair",
+      },
+      {
+        id: "swagger",
+        label: "Swagger OpenAPI Docs",
+        version: "OpenAPI",
+        badge: "swagger-jsdoc · swagger-ui-express",
+        commits: [
+          "server/src/utils/swagger.js — live REST documentation",
+          "Schemas documented across every service-layer endpoint",
+        ],
+        description:
+          "Generated OpenAPI documentation served live with swagger-ui-express, keeping every REST contract inspectable from the browser.",
+        prHighlight: "server/src/utils/swagger.js",
+        prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/utils/swagger.js",
+        metrics: "100% endpoint coverage",
+      },
+      {
+        id: "hardening",
+        label: "REST Hardening",
+        version: "Security",
+        badge: "helmet · xss-clean · rate-limit",
+        commits: [
+          "server/src/app.js — helmet CSP + header defaults",
+          "xss-clean + mongo-sanitize payload cleaning",
+          "express-rate-limit against brute-force login",
+        ],
+        description:
+          "REST hardening stack: security headers via helmet, request sanitization (xss-clean, mongo-sanitize), rate limiting, and a locked-down CORS policy.",
+        prHighlight: "server/src/app.js",
+        prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/app.js",
+        metrics: "XSS / CSRF / NoSQLi mitigation",
+      },
+      {
+        id: "ops",
+        label: "Docker · PM2 · Jest",
+        version: "Deploy",
+        badge: "compose · ecosystem · supertest",
+        commits: [
+          "docker-compose.yml — api + client + db orchestration",
+          "ecosystem.config.js — PM2 cluster mode",
+          "Jest + supertest integration suite over the API",
+        ],
+        description:
+          "Containerized orchestration with a PM2 cluster mode ecosystem file and a Jest/supertest integration suite guarding the API contracts.",
+        prHighlight: "docker-compose.yml · ecosystem.config.js",
+        prUrl: "https://github.com/b-l-i-n-d/edTech",
+        metrics: "Cluster mode · CI-gated",
+      },
+    ],
+  },
+  flow: {
+    steps: [
+      {
+        id: "auth",
+        number: "01",
+        title: "Auth & Token Pipeline",
+        description:
+          "Login dispatches an auth mutation; prepareHeaders attaches the Bearer access token to every subsequent query, and a 401 or expired refresh token triggers an explicit logout.",
+        tech: "RTK Query · redux-persist",
+        codeFile: "client/redux/api/apiSlice.ts",
+        codeSnippet: `const baseQuery = fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
     prepareHeaders: async (headers, { getState }: { getState: () => AppState }) => {
         const token = getState().auth?.tokens?.access?.token;
@@ -1749,26 +1757,26 @@ const edTechShowcase: ProjectShowcase = {
         return headers;
     },
 });`,
-                systemMetrics: {
-                    latency: "9.6ms",
-                    ops: "160 req/s",
-                    status: "healthy",
-                },
-                logs: [
-                    "v1/auth/login mutation dispatched from authApi",
-                    "Tokens persisted — redux-persist rehydrates store",
-                    "prepareHeaders attached Bearer access token",
-                ],
-            },
-            {
-                id: "videos",
-                number: "02",
-                title: "Course Video Queue",
-                description:
-                    "The videosApi list query fetches the lesson queue, provides Videos tags for cache invalidation, and auto-selects the current video id so the player always mirrors the route.",
-                tech: "RTK Query · injectEndpoints",
-                codeFile: "client/redux/features/videos/videosApi.ts",
-                codeSnippet: `export const videosApi = apiSlice.injectEndpoints({
+        systemMetrics: {
+          latency: "9.6ms",
+          ops: "160 req/s",
+          status: "healthy",
+        },
+        logs: [
+          "v1/auth/login mutation dispatched from authApi",
+          "Tokens persisted — redux-persist rehydrates store",
+          "prepareHeaders attached Bearer access token",
+        ],
+      },
+      {
+        id: "videos",
+        number: "02",
+        title: "Course Video Queue",
+        description:
+          "The videosApi list query fetches the lesson queue, provides Videos tags for cache invalidation, and auto-selects the current video id so the player always mirrors the route.",
+        tech: "RTK Query · injectEndpoints",
+        codeFile: "client/redux/features/videos/videosApi.ts",
+        codeSnippet: `export const videosApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getVideos: builder.query<IVideos, IVideosQueryParams>({
             query: (params) => ({
@@ -1786,26 +1794,26 @@ const edTechShowcase: ProjectShowcase = {
         }),
     }),
 });`,
-                systemMetrics: {
-                    latency: "34ms",
-                    ops: "90 req/s",
-                    status: "ready",
-                },
-                logs: [
-                    "GET v1/videos?page=1&limit=20 → lesson queue",
-                    "videoSelected dispatched (current id from query)",
-                    "Videos LIST tag refreshed — cache hot",
-                ],
-            },
-            {
-                id: "quiz",
-                number: "03",
-                title: "Graded Quiz Submission",
-                description:
-                    "createQuizzMark rejects duplicate video+student submissions with a 400, loads the video's quizzes, and compares selected answers against the stored isCorrect option keys with JSON.stringify equality.",
-                tech: "Mongoose · ApiError",
-                codeFile: "server/src/services/quizzMark.service.js",
-                codeSnippet: `const createQuizzMark = async (quizzMarkBody) => {
+        systemMetrics: {
+          latency: "34ms",
+          ops: "90 req/s",
+          status: "ready",
+        },
+        logs: [
+          "GET v1/videos?page=1&limit=20 → lesson queue",
+          "videoSelected dispatched (current id from query)",
+          "Videos LIST tag refreshed — cache hot",
+        ],
+      },
+      {
+        id: "quiz",
+        number: "03",
+        title: "Graded Quiz Submission",
+        description:
+          "createQuizzMark rejects duplicate video+student submissions with a 400, loads the video's quizzes, and compares selected answers against the stored isCorrect option keys with JSON.stringify equality.",
+        tech: "Mongoose · ApiError",
+        codeFile: "server/src/services/quizzMark.service.js",
+        codeSnippet: `const createQuizzMark = async (quizzMarkBody) => {
     const quizzMark = await queryQuizzMarks(
         { video: quizzMarkBody.video, student: quizzMarkBody.student },
         {}
@@ -1838,26 +1846,26 @@ const edTechShowcase: ProjectShowcase = {
         correctAnswers,
     });
 };`,
-                systemMetrics: {
-                    latency: "21ms",
-                    ops: "5-mark scoring",
-                    status: "processing",
-                },
-                logs: [
-                    "Duplicate guard hit → HTTP 400 (mark already exists)",
-                    "Quizz.find({ video }) → 8 questions loaded",
-                    "totalMarks = 40 · marks = 5 × correct (35) · persisted",
-                ],
-            },
-            {
-                id: "assignment",
-                number: "04",
-                title: "Assignment Submission",
-                description:
-                    "createAssignmentMark refuses unknown assignments or students, rejects a second submission for the same assignment with a 400, and blocks submissions past the assignment due date.",
-                tech: "Mongoose · ApiError",
-                codeFile: "server/src/services/assignmentMark.service.js",
-                codeSnippet: `const createAssignmentMark = async (assignmentMarkBody) => {
+        systemMetrics: {
+          latency: "21ms",
+          ops: "5-mark scoring",
+          status: "processing",
+        },
+        logs: [
+          "Duplicate guard hit → HTTP 400 (mark already exists)",
+          "Quizz.find({ video }) → 8 questions loaded",
+          "totalMarks = 40 · marks = 5 × correct (35) · persisted",
+        ],
+      },
+      {
+        id: "assignment",
+        number: "04",
+        title: "Assignment Submission",
+        description:
+          "createAssignmentMark refuses unknown assignments or students, rejects a second submission for the same assignment with a 400, and blocks submissions past the assignment due date.",
+        tech: "Mongoose · ApiError",
+        codeFile: "server/src/services/assignmentMark.service.js",
+        codeSnippet: `const createAssignmentMark = async (assignmentMarkBody) => {
     const assignment = await assignmentService.getAssignmentById(assignmentMarkBody.assignment);
     if (!assignment) {
         throw new ApiError(httpStatus.NOT_FOUND, 'Assignment not found');
@@ -1875,26 +1883,26 @@ const edTechShowcase: ProjectShowcase = {
         marks: 0,
     });
 };`,
-                systemMetrics: {
-                    latency: "18ms",
-                    ops: "pending → graded",
-                    status: "healthy",
-                },
-                logs: [
-                    "Assignment + student existence verified",
-                    "Due-date gate passed — submission accepted",
-                    "AssignmentMark created with status: pending, marks: 0",
-                ],
-            },
-            {
-                id: "leaderboard",
-                number: "05",
-                title: "Leaderboard Aggregation",
-                description:
-                    "Quiz and assignment marks are aggregated with $group/$lookup, merged per student, ranked by descending total with shared ranks, and the top 25 returned.",
-                tech: "Mongoose Aggregate",
-                codeFile: "server/src/services/leaderboard.services.js",
-                codeSnippet: `const quizzMarkLeaderboard = await QuizzMark.aggregate([
+        systemMetrics: {
+          latency: "18ms",
+          ops: "pending → graded",
+          status: "healthy",
+        },
+        logs: [
+          "Assignment + student existence verified",
+          "Due-date gate passed — submission accepted",
+          "AssignmentMark created with status: pending, marks: 0",
+        ],
+      },
+      {
+        id: "leaderboard",
+        number: "05",
+        title: "Leaderboard Aggregation",
+        description:
+          "Quiz and assignment marks are aggregated with $group/$lookup, merged per student, ranked by descending total with shared ranks, and the top 25 returned.",
+        tech: "Mongoose Aggregate",
+        codeFile: "server/src/services/leaderboard.services.js",
+        codeSnippet: `const quizzMarkLeaderboard = await QuizzMark.aggregate([
     { $group: { _id: '$student', totalMarks: { $sum: '$marks' } } },
     {
         $lookup: {
@@ -1916,19 +1924,19 @@ const ranked = leaderboard.map((st) => {
 return student
     ? { student: ranked.find((st) => st.id === student), leaderboard: ranked.slice(0, 25) }
     : { leaderboard: ranked.slice(0, 25) };`,
-                systemMetrics: {
-                    latency: "64ms",
-                    ops: "Top 25 ranks",
-                    status: "ready",
-                },
-                logs: [
-                    "QuizzMark $group + $lookup → per-student totals",
-                    "AssignmentMark aggregate merged into the matrix",
-                    "Ranked 25 rows — shared ranks respected",
-                ],
-            },
+        systemMetrics: {
+          latency: "64ms",
+          ops: "Top 25 ranks",
+          status: "ready",
+        },
+        logs: [
+          "QuizzMark $group + $lookup → per-student totals",
+          "AssignmentMark aggregate merged into the matrix",
+          "Ranked 25 rows — shared ranks respected",
         ],
-        archMermaid: `flowchart TD
+      },
+    ],
+    archMermaid: `flowchart TD
     classDef client fill:#1e1e24,stroke:#ff1744,stroke-width:1.5px,color:#fff;
     classDef engine fill:#131d1b,stroke:#10b981,stroke-width:1.5px,color:#fff;
     classDef backend fill:#131a26,stroke:#0ea5e9,stroke-width:1.5px,color:#fff;
@@ -1963,7 +1971,7 @@ return student
     Controllers --> Services
     Services --> Mongo
     Routes --> Docs`,
-        seqMermaid: `sequenceDiagram
+    seqMermaid: `sequenceDiagram
     autonumber
     actor Student as Enrolled Student
     participant UI as Next.js Client
@@ -1993,17 +2001,19 @@ return student
     else Valid submission
         API-->>UI: HTTP 201 { totalMarks, marks }
     end`,
-    },
-    codeModules: [
-        {
-            id: "quizz-mark",
-            filename: "server/src/services/quizzMark.service.js",
-            badge: "Grading Engine",
-            title: "Graded Quiz Marking Service",
-            description: "Five-marks-per-question scoring: builds the correct-answer key from isCorrect option flags, compares with JSON.stringify equality, and rejects duplicate video+student submissions with a 400.",
-            prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/services/quizzMark.service.js",
-            prHighlight: "server/src/services/quizzMark.service.js",
-            code: `import httpStatus from 'http-status';
+  },
+  codeModules: [
+    {
+      id: "quizz-mark",
+      filename: "server/src/services/quizzMark.service.js",
+      badge: "Grading Engine",
+      title: "Graded Quiz Marking Service",
+      description:
+        "Five-marks-per-question scoring: builds the correct-answer key from isCorrect option flags, compares with JSON.stringify equality, and rejects duplicate video+student submissions with a 400.",
+      prUrl:
+        "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/services/quizzMark.service.js",
+      prHighlight: "server/src/services/quizzMark.service.js",
+      code: `import httpStatus from 'http-status';
 import { Quizz, QuizzMark } from '../models/index.js';
 import ApiError from '../utils/ApiError.js';
 import userService from './user.service.js';
@@ -2066,16 +2076,18 @@ const createQuizzMark = async (quizzMarkBody) => {
 };
 
 export default { queryQuizzMarks, createQuizzMark };`,
-        },
-        {
-            id: "leaderboard",
-            filename: "server/src/services/leaderboard.services.js",
-            badge: "Aggregation",
-            title: "Leaderboard Rank Aggregation",
-            description: "Two $group/$lookup aggregates (quiz + assignment marks) merged per student, ranked by descending total with shared ranks honored, and the top 25 exposed.",
-            prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/services/leaderboard.services.js",
-            prHighlight: "server/src/services/leaderboard.services.js",
-            code: `import { AssignmentMark, QuizzMark } from '../models/index.js';
+    },
+    {
+      id: "leaderboard",
+      filename: "server/src/services/leaderboard.services.js",
+      badge: "Aggregation",
+      title: "Leaderboard Rank Aggregation",
+      description:
+        "Two $group/$lookup aggregates (quiz + assignment marks) merged per student, ranked by descending total with shared ranks honored, and the top 25 exposed.",
+      prUrl:
+        "https://github.com/b-l-i-n-d/edTech/blob/master/server/src/services/leaderboard.services.js",
+      prHighlight: "server/src/services/leaderboard.services.js",
+      code: `import { AssignmentMark, QuizzMark } from '../models/index.js';
 
 const queryLeaderboard = async (student) => {
     const quizzMarkLeaderboard = await QuizzMark.aggregate([
@@ -2136,16 +2148,17 @@ const queryLeaderboard = async (student) => {
 };
 
 export default { queryLeaderboard };`,
-        },
-        {
-            id: "api-slice",
-            filename: "client/redux/api/apiSlice.ts",
-            badge: "Data Layer",
-            title: "RTK Query Base API Slice",
-            description: "fetchBaseQuery with Bearer prepareHeaders, a 401/expired-token logout guard, next-redux-wrapper HYDRATE rehydration, and tag types for every domain.",
-            prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/client/redux/api/apiSlice.ts",
-            prHighlight: "client/redux/api/apiSlice.ts",
-            code: `import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+    },
+    {
+      id: "api-slice",
+      filename: "client/redux/api/apiSlice.ts",
+      badge: "Data Layer",
+      title: "RTK Query Base API Slice",
+      description:
+        "fetchBaseQuery with Bearer prepareHeaders, a 401/expired-token logout guard, next-redux-wrapper HYDRATE rehydration, and tag types for every domain.",
+      prUrl: "https://github.com/b-l-i-n-d/edTech/blob/master/client/redux/api/apiSlice.ts",
+      prHighlight: "client/redux/api/apiSlice.ts",
+      code: `import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { HYDRATE } from "next-redux-wrapper";
 import { authApi } from "../features/auth/authApi";
 import { AppState } from "../store";
@@ -2183,196 +2196,201 @@ export const apiSlice = createApi({
     ],
     endpoints: (builder) => ({}),
 });`,
-        },
-    ],
+    },
+  ],
 };
 
 const docAppShowcase: ProjectShowcase = {
-    graph: {
-        navTitle: "Interactive Architecture Map",
-        navSubtitle: "Inspect the cookie-JWT auth layer, the component-based booking domain, and the render/ops stack",
-        title: "DocApp Booking Platform Architecture Graph",
-        countLabel: "9 Core Systems",
-        verifyLabel: "Source modules verified in b-l-i-n-d/docapp",
-        verifyUrl: "https://github.com/b-l-i-n-d/docapp",
-        inspectLabel: "Inspect Source",
-        commitsHeading: "Key Source Modules (b-l-i-n-d/docapp):",
-        commitPrefix: "src:",
-        columns: [
-            {
-                title: "01 · Auth & Portal",
-                nodeIds: ["cookie-jwt", "rbac", "email-notify"],
-                accent: "rose",
-            },
-            {
-                title: "02 · Booking Domain",
-                nodeIds: ["components-api", "doctor-search", "appointment-ledger"],
-                accent: "emerald",
-            },
-            {
-                title: "03 · Render & Ops",
-                nodeIds: ["react-pdf", "cloudinary", "analytics"],
-                accent: "sky",
-            },
+  graph: {
+    navTitle: "Interactive Architecture Map",
+    navSubtitle:
+      "Inspect the cookie-JWT auth layer, the component-based booking domain, and the render/ops stack",
+    title: "DocApp Booking Platform Architecture Graph",
+    countLabel: "9 Core Systems",
+    verifyLabel: "Source modules verified in b-l-i-n-d/docapp",
+    verifyUrl: "https://github.com/b-l-i-n-d/docapp",
+    inspectLabel: "Inspect Source",
+    commitsHeading: "Key Source Modules (b-l-i-n-d/docapp):",
+    commitPrefix: "src:",
+    columns: [
+      {
+        title: "01 · Auth & Portal",
+        nodeIds: ["cookie-jwt", "rbac", "email-notify"],
+        accent: "rose",
+      },
+      {
+        title: "02 · Booking Domain",
+        nodeIds: ["components-api", "doctor-search", "appointment-ledger"],
+        accent: "emerald",
+      },
+      {
+        title: "03 · Render & Ops",
+        nodeIds: ["react-pdf", "cloudinary", "analytics"],
+        accent: "sky",
+      },
+    ],
+    nodes: [
+      {
+        id: "cookie-jwt",
+        label: "Rotating Cookie JWT",
+        version: "Auth",
+        badge: "verifyAccessToken.js",
+        commits: [
+          "verifyAccessToken.js — access token in httpOnly cookie",
+          "res.cookie overwrite — renewed JWT in place on expiry",
+          "Invalid-secret path clears cookie and 406s",
         ],
-        nodes: [
-            {
-                id: "cookie-jwt",
-                label: "Rotating Cookie JWT",
-                version: "Auth",
-                badge: "verifyAccessToken.js",
-                commits: [
-                    "verifyAccessToken.js — access token in httpOnly cookie",
-                    "res.cookie overwrite — renewed JWT in place on expiry",
-                    "Invalid-secret path clears cookie and 406s",
-                ],
-                description:
-                    "Access token rides in a cookie; when it expires mid-session the middleware re-signs fresh user data into a new JWT and overwrites the cookie. A bad secret clears the cookie and returns 406.",
-                prHighlight: "server/middlewares/auth/verifyAccessToken.js",
-                prUrl: "https://github.com/b-l-i-n-d/docapp/blob/master/server/middlewares/auth/verifyAccessToken.js",
-                metrics: "HttpOnly · Rotates in place",
-            },
-            {
-                id: "rbac",
-                label: "Multi-Role Portal Guards",
-                version: "RBAC",
-                badge: "AdminOnly · UserOnly · isDoctor",
-                commits: [
-                    "isAdmin.js — role gate on res.locals.data._id",
-                    "dashboards split by role in the client",
-                    "menu guards conditionally render portals",
-                ],
-                description:
-                    "Role-checked middleware chains guard the admin dashboard, doctor dashboards, and patient portal. isAdmin 403s any non-admin role after looking the user up by id.",
-                prHighlight: "server/middlewares/auth/isAdmin.js",
-                prUrl: "https://github.com/b-l-i-n-d/docapp/blob/master/server/middlewares/auth/isAdmin.js",
-                metrics: "Admin · Doctor · Patient",
-            },
-            {
-                id: "email-notify",
-                label: "NodeMailer + Handlebars",
-                version: "Mail",
-                badge: "reset · welcome · notifications",
-                commits: [
-                    "requestChangePassword — reset mail with verification",
-                    "handlebars layouts for doctor/password emails",
-                    "notifications digest on appointment events",
-                ],
-                description:
-                    "Templated outbound email via NodeMailer with Handlebars layouts: password-reset flows, portal notifications, and doctor-facing alerts.",
-                prHighlight: "server/utils/helpers/email",
-                prUrl: "https://github.com/b-l-i-n-d/docapp",
-                metrics: "NodeMailer · Handlebars",
-            },
-            {
-                id: "components-api",
-                label: "Component-Based Express API",
-                version: "Express",
-                badge: "users · doctors · appointments",
-                commits: [
-                    "server/components/<domain> — model + controller + routes",
-                    "server/bootstrap.js — mounts routes per component",
-                    "index.js barrel exports per component",
-                ],
-                description:
-                    "Each domain is its own component exposing a model, controller, and routes — departments, districts, workplaces, doctors, and appointments — wired centrally at boot. A classic deep-module layout.",
-                prHighlight: "server/components",
-                prUrl: "https://github.com/b-l-i-n-d/docapp/tree/master/server/components",
-                metrics: "Modular · 6 domains",
-            },
-                {
-                id: "doctor-search",
-                label: "Doctor Search & Profiles",
-                version: "Query",
-                badge: "departments · districts · workplaces",
-                commits: [
-                    "doctors controller — department / district / workplace filters",
-                    "Doctor grid cards + details modal",
-                    "Cloudinary image upload on enrollment",
-                ],
-                description:
-                    "Patient portal filters doctors by department, district, and workplace with a card grid and details modal; doctor records carry Cloudinary-backed photos and chamber info.",
-                prHighlight: "server/components/doctors/doctors.controller.js",
-                prUrl: "https://github.com/b-l-i-n-d/docapp/blob/master/server/components/doctors/doctors.controller.js",
-                metrics: "Triple filter · Card grid",
-            },
-            {
-                id: "appointment-ledger",
-                label: "Appointment Ledger Controller",
-                version: "Booking",
-                badge: "appointments.controller.js",
-                commits: [
-                    "createAppointment — ObjectId + doctor existence validation",
-                    "Appointment.create with patient demographics",
-                    "me + doctorId + date filtered feeds, recent-5",
-                ],
-                description:
-                    "createAppointment rejects invalid ObjectIds and unknown doctors, then persists the patient's booking with date, name, age, gender, type, and phone. Doctor feeds expose recent-5 and date-filtered queues.",
-                prHighlight: "server/components/appointments/appointments.controller.js",
-                prUrl: "https://github.com/b-l-i-n-d/docapp/blob/master/server/components/appointments/appointments.controller.js",
-                metrics: "Validated · Scoped feeds",
-            },
-            {
-                id: "react-pdf",
-                label: "React-PDF Dossier Export",
-                version: "Render",
-                badge: "@react-pdf/renderer",
-                commits: [
-                    "generateAppointmentsPdf.jsx — Document + Page layout",
-                    "PdfReport reusable sections",
-                    "Font theme — Times-Roman body, Courier meta",
-                ],
-                description:
-                    "Client-side generator builds an A4 medical telephone record from appointment records — header/footer chrome, sectioned layouts, and one-click PDF download.",
-                prHighlight: "client/src/services/generateAppointmentsPdf.jsx",
-                prUrl: "https://github.com/b-l-i-n-d/docapp/blob/master/client/src/services/generateAppointmentsPdf.jsx",
-                metrics: "A4 · Client-rendered",
-            },
-            {
-                id: "cloudinary",
-                label: "Cloudinary Asset Pipeline",
-                version: "Media",
-                badge: "imageUpload · imageDelete",
-                commits: [
-                    "cloudinary config in server/configs",
-                    "imageUpload — avatar upload contracts",
-                    "imageDelete — signed remote teardown",
-                ],
-                description:
-                    "Doctor photos and profile assets upload to Cloudinary with signed destruction so removed profiles clean up after themselves.",
-                prHighlight: "server/utils/helpers · cloudinary",
-                prUrl: "https://github.com/b-l-i-n-d/docapp",
-                metrics: "Signed uploads",
-            },
-            {
-                id: "analytics",
-                label: "Chart.js Admin Dashboards",
-                version: "Telemetry",
-                badge: "admin charts · RTK Query",
-                commits: [
-                    "admin chart endpoints + RTK hooks",
-                    "Chart.js line/bar summaries",
-                    "notifications digest feed",
-                ],
-                description:
-                    "Admin dashboard aggregates bookings, doctors, and users over time, rendered with Chart.js via RTK Query, plus a notifications digest to keep staff topped-up.",
-                prHighlight: "client/src — dashboard + charts",
-                prUrl: "https://github.com/b-l-i-n-d/docapp",
-                metrics: "Live charts · Digest feed",
-            },
+        description:
+          "Access token rides in a cookie; when it expires mid-session the middleware re-signs fresh user data into a new JWT and overwrites the cookie. A bad secret clears the cookie and returns 406.",
+        prHighlight: "server/middlewares/auth/verifyAccessToken.js",
+        prUrl:
+          "https://github.com/b-l-i-n-d/docapp/blob/master/server/middlewares/auth/verifyAccessToken.js",
+        metrics: "HttpOnly · Rotates in place",
+      },
+      {
+        id: "rbac",
+        label: "Multi-Role Portal Guards",
+        version: "RBAC",
+        badge: "AdminOnly · UserOnly · isDoctor",
+        commits: [
+          "isAdmin.js — role gate on res.locals.data._id",
+          "dashboards split by role in the client",
+          "menu guards conditionally render portals",
         ],
-    },
-    flow: {
-        steps: [
-            {
-                id: "login",
-                number: "01",
-                title: "Login & Cookie JWT Rotation",
-                description:
-                    "VerifyAccessToken middleware reads the cookie-borne access token. On expiry it re-signs fresh user data into a new JWT and overwrites the cookie in place; an invalid secret clears the cookie and 406s.",
-                tech: "jsonwebtoken · httpOnly cookies",
-                codeFile: "server/middlewares/auth/verifyAccessToken.js",
-                codeSnippet: `const verifyAccessToken = async (req, res, next) => {
+        description:
+          "Role-checked middleware chains guard the admin dashboard, doctor dashboards, and patient portal. isAdmin 403s any non-admin role after looking the user up by id.",
+        prHighlight: "server/middlewares/auth/isAdmin.js",
+        prUrl: "https://github.com/b-l-i-n-d/docapp/blob/master/server/middlewares/auth/isAdmin.js",
+        metrics: "Admin · Doctor · Patient",
+      },
+      {
+        id: "email-notify",
+        label: "NodeMailer + Handlebars",
+        version: "Mail",
+        badge: "reset · welcome · notifications",
+        commits: [
+          "requestChangePassword — reset mail with verification",
+          "handlebars layouts for doctor/password emails",
+          "notifications digest on appointment events",
+        ],
+        description:
+          "Templated outbound email via NodeMailer with Handlebars layouts: password-reset flows, portal notifications, and doctor-facing alerts.",
+        prHighlight: "server/utils/helpers/email",
+        prUrl: "https://github.com/b-l-i-n-d/docapp",
+        metrics: "NodeMailer · Handlebars",
+      },
+      {
+        id: "components-api",
+        label: "Component-Based Express API",
+        version: "Express",
+        badge: "users · doctors · appointments",
+        commits: [
+          "server/components/<domain> — model + controller + routes",
+          "server/bootstrap.js — mounts routes per component",
+          "index.js barrel exports per component",
+        ],
+        description:
+          "Each domain is its own component exposing a model, controller, and routes — departments, districts, workplaces, doctors, and appointments — wired centrally at boot. A classic deep-module layout.",
+        prHighlight: "server/components",
+        prUrl: "https://github.com/b-l-i-n-d/docapp/tree/master/server/components",
+        metrics: "Modular · 6 domains",
+      },
+      {
+        id: "doctor-search",
+        label: "Doctor Search & Profiles",
+        version: "Query",
+        badge: "departments · districts · workplaces",
+        commits: [
+          "doctors controller — department / district / workplace filters",
+          "Doctor grid cards + details modal",
+          "Cloudinary image upload on enrollment",
+        ],
+        description:
+          "Patient portal filters doctors by department, district, and workplace with a card grid and details modal; doctor records carry Cloudinary-backed photos and chamber info.",
+        prHighlight: "server/components/doctors/doctors.controller.js",
+        prUrl:
+          "https://github.com/b-l-i-n-d/docapp/blob/master/server/components/doctors/doctors.controller.js",
+        metrics: "Triple filter · Card grid",
+      },
+      {
+        id: "appointment-ledger",
+        label: "Appointment Ledger Controller",
+        version: "Booking",
+        badge: "appointments.controller.js",
+        commits: [
+          "createAppointment — ObjectId + doctor existence validation",
+          "Appointment.create with patient demographics",
+          "me + doctorId + date filtered feeds, recent-5",
+        ],
+        description:
+          "createAppointment rejects invalid ObjectIds and unknown doctors, then persists the patient's booking with date, name, age, gender, type, and phone. Doctor feeds expose recent-5 and date-filtered queues.",
+        prHighlight: "server/components/appointments/appointments.controller.js",
+        prUrl:
+          "https://github.com/b-l-i-n-d/docapp/blob/master/server/components/appointments/appointments.controller.js",
+        metrics: "Validated · Scoped feeds",
+      },
+      {
+        id: "react-pdf",
+        label: "React-PDF Dossier Export",
+        version: "Render",
+        badge: "@react-pdf/renderer",
+        commits: [
+          "generateAppointmentsPdf.jsx — Document + Page layout",
+          "PdfReport reusable sections",
+          "Font theme — Times-Roman body, Courier meta",
+        ],
+        description:
+          "Client-side generator builds an A4 medical telephone record from appointment records — header/footer chrome, sectioned layouts, and one-click PDF download.",
+        prHighlight: "client/src/services/generateAppointmentsPdf.jsx",
+        prUrl:
+          "https://github.com/b-l-i-n-d/docapp/blob/master/client/src/services/generateAppointmentsPdf.jsx",
+        metrics: "A4 · Client-rendered",
+      },
+      {
+        id: "cloudinary",
+        label: "Cloudinary Asset Pipeline",
+        version: "Media",
+        badge: "imageUpload · imageDelete",
+        commits: [
+          "cloudinary config in server/configs",
+          "imageUpload — avatar upload contracts",
+          "imageDelete — signed remote teardown",
+        ],
+        description:
+          "Doctor photos and profile assets upload to Cloudinary with signed destruction so removed profiles clean up after themselves.",
+        prHighlight: "server/utils/helpers · cloudinary",
+        prUrl: "https://github.com/b-l-i-n-d/docapp",
+        metrics: "Signed uploads",
+      },
+      {
+        id: "analytics",
+        label: "Chart.js Admin Dashboards",
+        version: "Telemetry",
+        badge: "admin charts · RTK Query",
+        commits: [
+          "admin chart endpoints + RTK hooks",
+          "Chart.js line/bar summaries",
+          "notifications digest feed",
+        ],
+        description:
+          "Admin dashboard aggregates bookings, doctors, and users over time, rendered with Chart.js via RTK Query, plus a notifications digest to keep staff topped-up.",
+        prHighlight: "client/src — dashboard + charts",
+        prUrl: "https://github.com/b-l-i-n-d/docapp",
+        metrics: "Live charts · Digest feed",
+      },
+    ],
+  },
+  flow: {
+    steps: [
+      {
+        id: "login",
+        number: "01",
+        title: "Login & Cookie JWT Rotation",
+        description:
+          "VerifyAccessToken middleware reads the cookie-borne access token. On expiry it re-signs fresh user data into a new JWT and overwrites the cookie in place; an invalid secret clears the cookie and 406s.",
+        tech: "jsonwebtoken · httpOnly cookies",
+        codeFile: "server/middlewares/auth/verifyAccessToken.js",
+        codeSnippet: `const verifyAccessToken = async (req, res, next) => {
     const accessToken = req.cookies[cookiesConfig.access.name];
     const verifyToken = await helpers.verifyJWT(accessToken, jwtConfig.ACCESS_SECRET);
 
@@ -2399,26 +2417,26 @@ const docAppShowcase: ProjectShowcase = {
 
     return next();
 };`,
-                systemMetrics: {
-                    latency: "14ms",
-                    ops: "In-place rotation",
-                    status: "ready",
-                },
-                logs: [
-                    "Login route issued access + refresh cookies",
-                    "verifyAccessToken — token valid, passing through",
-                    "Expired mid-session → re-signed JWT overwrites cookie",
-                ],
-            },
-            {
-                id: "doctor",
-                number: "02",
-                title: "Doctor Enrollment & Search",
-                description:
-                    "Doctors sign up with department, district and workplace filters; their Cloudinary image is uploaded as a signed asset and the profile lands in the searchable grid.",
-                tech: "Cloudinary · doctors model",
-                codeFile: "server/components/doctors/doctors.controller.js",
-                codeSnippet: `const createDoctor = async (req, res) => {
+        systemMetrics: {
+          latency: "14ms",
+          ops: "In-place rotation",
+          status: "ready",
+        },
+        logs: [
+          "Login route issued access + refresh cookies",
+          "verifyAccessToken — token valid, passing through",
+          "Expired mid-session → re-signed JWT overwrites cookie",
+        ],
+      },
+      {
+        id: "doctor",
+        number: "02",
+        title: "Doctor Enrollment & Search",
+        description:
+          "Doctors sign up with department, district and workplace filters; their Cloudinary image is uploaded as a signed asset and the profile lands in the searchable grid.",
+        tech: "Cloudinary · doctors model",
+        codeFile: "server/components/doctors/doctors.controller.js",
+        codeSnippet: `const createDoctor = async (req, res) => {
     const { user } = req;
     const { title, name, dateOfBirth, image, gender, doctorType,
             nationalId, bmdcRegNo, department, specialized, workplace, chamber } = req.body;
@@ -2445,26 +2463,26 @@ const docAppShowcase: ProjectShowcase = {
         // notify + expose in the filtered search grid
     }
 };`,
-                systemMetrics: {
-                    latency: "86ms",
-                    ops: "Signed upload",
-                    status: "healthy",
-                },
-                logs: [
-                    "imageUpload → secure_url persisted in profile",
-                    "Doctor.create committed to doctors collection",
-                    "Grid now matches department / district / workplace",
-                ],
-            },
-            {
-                id: "appointment",
-                number: "03",
-                title: "Book Appointment",
-                description:
-                    "createAppointment validates the doctor ObjectId, confirms the doctor exists, then creates the booking with date, name, age, gender, type, and phone for the signed-in patient.",
-                tech: "Mongoose · res.locals.data._id",
-                codeFile: "server/components/appointments/appointments.controller.js",
-                codeSnippet: `const createAppointment = async (req, res) => {
+        systemMetrics: {
+          latency: "86ms",
+          ops: "Signed upload",
+          status: "healthy",
+        },
+        logs: [
+          "imageUpload → secure_url persisted in profile",
+          "Doctor.create committed to doctors collection",
+          "Grid now matches department / district / workplace",
+        ],
+      },
+      {
+        id: "appointment",
+        number: "03",
+        title: "Book Appointment",
+        description:
+          "createAppointment validates the doctor ObjectId, confirms the doctor exists, then creates the booking with date, name, age, gender, type, and phone for the signed-in patient.",
+        tech: "Mongoose · res.locals.data._id",
+        codeFile: "server/components/appointments/appointments.controller.js",
+        codeSnippet: `const createAppointment = async (req, res) => {
     const { doctorId, name, age, gender, date, type, phone } = req.body;
     const userId = res.locals.data._id;
 
@@ -2483,26 +2501,26 @@ const docAppShowcase: ProjectShowcase = {
 
     return res.status(200).json(appointment);
 };`,
-                systemMetrics: {
-                    latency: "22ms",
-                    ops: "1 booking",
-                    status: "processing",
-                },
-                logs: [
-                    "ObjectId.isValid(doctorId) → true",
-                    "doctorsModel.findById → 200-slot doctor found",
-                    "Appointment.create committed — ledger updated",
-                ],
-            },
-            {
-                id: "queues",
-                number: "04",
-                title: "Doctor Queues & Date Filters",
-                description:
-                    "getAppointments serves the patient's own feed ('me'), a doctor's recent-5 queue, or date-filtered lists by doctor — all with populated doctor names and pagination.",
-                tech: "Mongoose populate · paginate",
-                codeFile: "server/components/appointments/appointments.controller.js",
-                codeSnippet: `if (lastSegment !== 'me') {
+        systemMetrics: {
+          latency: "22ms",
+          ops: "1 booking",
+          status: "processing",
+        },
+        logs: [
+          "ObjectId.isValid(doctorId) → true",
+          "doctorsModel.findById → 200-slot doctor found",
+          "Appointment.create committed — ledger updated",
+        ],
+      },
+      {
+        id: "queues",
+        number: "04",
+        title: "Doctor Queues & Date Filters",
+        description:
+          "getAppointments serves the patient's own feed ('me'), a doctor's recent-5 queue, or date-filtered lists by doctor — all with populated doctor names and pagination.",
+        tech: "Mongoose populate · paginate",
+        codeFile: "server/components/appointments/appointments.controller.js",
+        codeSnippet: `if (lastSegment !== 'me') {
     if (recent === 'true' && doctorId) {
         return res.status(200).json(
             await Appointment.find({ doctorId })
@@ -2521,26 +2539,26 @@ const docAppShowcase: ProjectShowcase = {
         .sort({ date: -1 })
         .lean();
 }`,
-                systemMetrics: {
-                    latency: "31ms",
-                    ops: "Recent-5 / dated",
-                    status: "ready",
-                },
-                logs: [
-                    "GET appointments/me → patient's ledger",
-                    "Doctor queue recent-5 → 5 rows populated",
-                    "date + doctorId filter applied on request",
-                ],
-            },
-            {
-                id: "pdf",
-                number: "05",
-                title: "Export PDF Dossier",
-                description:
-                    "generateAppointmentsPdf renders a sectioned A4 medical report from the appointment records — fixed header/footer chrome and Courier/Times-Roman typography — then triggers the download.",
-                tech: "@react-pdf/renderer · dayjs",
-                codeFile: "client/src/services/generateAppointmentsPdf.jsx",
-                codeSnippet: `const styles = StyleSheet.create({
+        systemMetrics: {
+          latency: "31ms",
+          ops: "Recent-5 / dated",
+          status: "ready",
+        },
+        logs: [
+          "GET appointments/me → patient's ledger",
+          "Doctor queue recent-5 → 5 rows populated",
+          "date + doctorId filter applied on request",
+        ],
+      },
+      {
+        id: "pdf",
+        number: "05",
+        title: "Export PDF Dossier",
+        description:
+          "generateAppointmentsPdf renders a sectioned A4 medical report from the appointment records — fixed header/footer chrome and Courier/Times-Roman typography — then triggers the download.",
+        tech: "@react-pdf/renderer · dayjs",
+        codeFile: "client/src/services/generateAppointmentsPdf.jsx",
+        codeSnippet: `const styles = StyleSheet.create({
     header: {
         position: 'absolute',
         height: 50,
@@ -2574,19 +2592,19 @@ function GeneratedAppiontmentPdf({ date, doctor, appointments }) {
         </Document>
     );
 }`,
-                systemMetrics: {
-                    latency: "210ms",
-                    ops: "A4 download",
-                    status: "healthy",
-                },
-                logs: [
-                    "Appointment.dossier assembled from ledger rows",
-                    "PDF Document rendered client-side",
-                    "Download initiated — A4 medical summary",
-                ],
-            },
+        systemMetrics: {
+          latency: "210ms",
+          ops: "A4 download",
+          status: "healthy",
+        },
+        logs: [
+          "Appointment.dossier assembled from ledger rows",
+          "PDF Document rendered client-side",
+          "Download initiated — A4 medical summary",
         ],
-        archMermaid: `flowchart TD
+      },
+    ],
+    archMermaid: `flowchart TD
     classDef client fill:#1e1e24,stroke:#ff1744,stroke-width:1.5px,color:#fff;
     classDef engine fill:#131d1b,stroke:#10b981,stroke-width:1.5px,color:#fff;
     classDef backend fill:#131a26,stroke:#0ea5e9,stroke-width:1.5px,color:#fff;
@@ -2627,7 +2645,7 @@ function GeneratedAppiontmentPdf({ date, doctor, appointments }) {
     Doctors --> Cloudinary
     Users --> Mail
     Appointments --> Mail`,
-        seqMermaid: `sequenceDiagram
+    seqMermaid: `sequenceDiagram
     autonumber
     actor Patient as Registered Patient
     participant UI as React Client
@@ -2658,17 +2676,19 @@ function GeneratedAppiontmentPdf({ date, doctor, appointments }) {
     Patient->>UI: Export dossier
     UI->>PDF: generateAppointmentsPdf(ledger)
     PDF-->>Patient: downloadable medical summary`,
-    },
-    codeModules: [
-        {
-            id: "appointments",
-            filename: "server/components/appointments/appointments.controller.js",
-            badge: "Booking Ledger",
-            title: "Appointment Ledger Controller",
-            description: "Validated booking creation (ObjectId + doctor existence) plus scoped feeds: the patient's own ledger, a doctor's recent-5 queue, and date-filtered lists with populated doctor names.",
-            prUrl: "https://github.com/b-l-i-n-d/docapp/blob/master/server/components/appointments/appointments.controller.js",
-            prHighlight: "server/components/appointments/appointments.controller.js",
-            code: `import mongoose from 'mongoose';
+  },
+  codeModules: [
+    {
+      id: "appointments",
+      filename: "server/components/appointments/appointments.controller.js",
+      badge: "Booking Ledger",
+      title: "Appointment Ledger Controller",
+      description:
+        "Validated booking creation (ObjectId + doctor existence) plus scoped feeds: the patient's own ledger, a doctor's recent-5 queue, and date-filtered lists with populated doctor names.",
+      prUrl:
+        "https://github.com/b-l-i-n-d/docapp/blob/master/server/components/appointments/appointments.controller.js",
+      prHighlight: "server/components/appointments/appointments.controller.js",
+      code: `import mongoose from 'mongoose';
 import { helpers } from '../../utils/index.js';
 import { doctorsModel } from '../doctors/index.js';
 import Appointment from './appointments.model.js';
@@ -2731,16 +2751,18 @@ const getAppointments = async (req, res) => {
 };
 
 export default { createAppointment, getAppointments };`,
-        },
-        {
-            id: "verify-token",
-            filename: "server/middlewares/auth/verifyAccessToken.js",
-            badge: "JWT Rotation",
-            title: "Rotating Access-Token Middleware",
-            description: "Reads the cookie-borne JWT; on expiry re-signs user data into a fresh token and overwrites the cookie, and clears the cookie with a 406 when the secret is invalid.",
-            prUrl: "https://github.com/b-l-i-n-d/docapp/blob/master/server/middlewares/auth/verifyAccessToken.js",
-            prHighlight: "server/middlewares/auth/verifyAccessToken.js",
-            code: `import jwt from 'jsonwebtoken';
+    },
+    {
+      id: "verify-token",
+      filename: "server/middlewares/auth/verifyAccessToken.js",
+      badge: "JWT Rotation",
+      title: "Rotating Access-Token Middleware",
+      description:
+        "Reads the cookie-borne JWT; on expiry re-signs user data into a fresh token and overwrites the cookie, and clears the cookie with a 406 when the secret is invalid.",
+      prUrl:
+        "https://github.com/b-l-i-n-d/docapp/blob/master/server/middlewares/auth/verifyAccessToken.js",
+      prHighlight: "server/middlewares/auth/verifyAccessToken.js",
+      code: `import jwt from 'jsonwebtoken';
 import { userModel } from '../../components/users/index.js';
 import { cookiesConfig, jwtConfig } from '../../configs/index.js';
 import { helpers } from '../../utils/index.js';
@@ -2783,16 +2805,18 @@ const verifyAccessToken = async (req, res, next) => {
 };
 
 export default verifyAccessToken;`,
-        },
-        {
-            id: "pdf",
-            filename: "client/src/services/generateAppointmentsPdf.jsx",
-            badge: "React-PDF",
-            title: "Appointment Dossier Generator",
-            description: "A4 medical report built with @react-pdf/renderer — fixed header chrome, Courier meta rows, Times-Roman body copy, and sectioned content driven by the appointment records.",
-            prUrl: "https://github.com/b-l-i-n-d/docapp/blob/master/client/src/services/generateAppointmentsPdf.jsx",
-            prHighlight: "client/src/services/generateAppointmentsPdf.jsx",
-            code: `import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
+    },
+    {
+      id: "pdf",
+      filename: "client/src/services/generateAppointmentsPdf.jsx",
+      badge: "React-PDF",
+      title: "Appointment Dossier Generator",
+      description:
+        "A4 medical report built with @react-pdf/renderer — fixed header chrome, Courier meta rows, Times-Roman body copy, and sectioned content driven by the appointment records.",
+      prUrl:
+        "https://github.com/b-l-i-n-d/docapp/blob/master/client/src/services/generateAppointmentsPdf.jsx",
+      prHighlight: "client/src/services/generateAppointmentsPdf.jsx",
+      code: `import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import dayjs from 'dayjs';
 import { PdfReport } from '../components';
 
@@ -2841,13 +2865,13 @@ function GeneratedAppiontmentPdf({ date, doctor, appointments }) {
         </Document>
     );
 }`,
-        },
-    ],
+    },
+  ],
 };
 
 export const caseStudyShowcase: Record<string, ProjectShowcase> = {
-    "tutor-lms": tutorShowcase,
-    enclave: enclaveShowcase,
-    edtech: edTechShowcase,
-    docapp: docAppShowcase,
+  "tutor-lms": tutorShowcase,
+  enclave: enclaveShowcase,
+  edtech: edTechShowcase,
+  docapp: docAppShowcase,
 };
