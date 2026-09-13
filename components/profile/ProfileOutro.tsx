@@ -238,7 +238,10 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
           <div className="lg:col-span-5 space-y-10">
             {/* Artistic Sketch Portrait & Compact Identity */}
             <div className="flex items-center gap-5 pb-8 border-b border-black/6 dark:border-white/8">
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-neutral-100 dark:bg-neutral-800 border border-black/8 dark:border-white/10 shrink-0 group">
+              <div
+                className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-neutral-100 dark:bg-neutral-800 border border-black/8 dark:border-white/10 shrink-0 group"
+                style={{ position: "relative" }}
+              >
                 <Image
                   src="/assets/profile-avatar.png"
                   alt={profile.name}

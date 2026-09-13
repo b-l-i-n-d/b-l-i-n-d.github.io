@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { cn as clsx } from "@/lib/utils";
+import { cn as clsx } from "cn";
 
 interface NameEntry {
   name: string;

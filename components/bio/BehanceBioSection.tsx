@@ -44,7 +44,10 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
           {/* Left Column (Cols 1-4): Portrait & Status Card */}
           <div className="lg:col-span-4 space-y-6">
             {/* Portrait Frame with Subtle Grain and Accent */}
-            <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-neutral-100 dark:bg-neutral-800 border border-black/8 dark:border-white/[0.1] group shadow-sm">
+            <div
+              className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-neutral-100 dark:bg-neutral-800 border border-black/8 dark:border-white/10 group shadow-sm"
+              style={{ position: "relative" }}
+            >
               <Image
                 src={profile.avatar || "/assets/profile-avatar.png"}
                 alt={profile.name}

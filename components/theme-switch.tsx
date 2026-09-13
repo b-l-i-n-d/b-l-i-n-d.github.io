@@ -1,6 +1,6 @@
 "use client";
 
-import { cn as clsx } from "@/lib/utils";
+import { cn as clsx } from "cn";
 import { useTheme } from "next-themes";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";

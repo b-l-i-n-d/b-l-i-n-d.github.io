@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="w-full flex flex-col items-center justify-center py-12 px-4 gap-6 bg-stone-100/70 dark:bg-[#0c0c0e]/80 backdrop-blur-xl border-t border-black/6 dark:border-white/8 transition-colors">
+    <footer className="w-full flex flex-col items-center justify-center py-12 px-4 gap-6 bg-stone-100/70 dark:bg-neutral-950/80 backdrop-blur-xl border-t border-black/6 dark:border-white/8 transition-colors">
       {/* Quick Navigation Jump Links */}
       <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm font-mono">
         {FOOTER_NAV.map((item) => (

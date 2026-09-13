@@ -209,7 +209,10 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
           </div>
 
           {/* Frame Player */}
-          <div className="relative aspect-video rounded-2xl overflow-hidden border border-stone-200/90 dark:border-white/12 bg-stone-100 dark:bg-neutral-900 shadow-craft-card group">
+          <div
+            className="relative aspect-video rounded-2xl overflow-hidden border border-stone-200/90 dark:border-white/12 bg-stone-100 dark:bg-neutral-900 shadow-craft-card group"
+            style={{ position: "relative" }}
+          >
             {/* Instantaneous LCP Hero Poster via Direct Static Asset */}
             <Image
               src={profile.heroReel.posterUrl || "/assets/hero-poster.webp"}

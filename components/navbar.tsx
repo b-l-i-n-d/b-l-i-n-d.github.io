@@ -58,7 +58,7 @@ export const Navbar = () => {
         Ultra-refined, fluid glassmorphism navigation container 
         Strict 2-layer subtle border hierarchy, micro-paddings, and pure backdrop-blur
       */}
-      <div className="w-full backdrop-blur-xl bg-stone-50/80 dark:bg-[#080808]/80 border-b border-black/6 dark:border-white/8 transition-colors duration-200">
+      <div className="w-full backdrop-blur-xl bg-stone-50/80 dark:bg-neutral-950/80 border-b border-black/6 dark:border-white/8 transition-colors duration-200">
         <NextUINavbar
           maxWidth="xl"
           isMenuOpen={isMenuOpen}
@@ -164,7 +164,7 @@ export const Navbar = () => {
           </NavbarContent>
 
           {/* Mobile Drawer Menu */}
-          <NavbarMenu className="bg-stone-50/95 dark:bg-[#080808]/95 backdrop-blur-2xl pt-6 px-6 border-t border-black/6 dark:border-white/8 gap-3">
+          <NavbarMenu className="bg-stone-50/95 dark:bg-neutral-950/95 backdrop-blur-2xl pt-6 px-6 border-t border-black/6 dark:border-white/8 gap-3">
             <div className="space-y-1">
               <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-widest px-3">
                 Index Navigation

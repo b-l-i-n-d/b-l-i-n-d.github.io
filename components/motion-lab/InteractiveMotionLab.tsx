@@ -1,7 +1,7 @@
 import React from "react";
 import { MotionExperiment } from "@/types/portfolio";
 import { Check, Lock, ExternalLink } from "lucide-react";
-import { cn as clsx } from "@/lib/utils";
+import { cn as clsx } from "cn";
 
 interface InteractiveMotionLabProps {
   experiments?: MotionExperiment[];
