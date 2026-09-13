@@ -138,7 +138,7 @@ export const portfolioData: EngineerProfile = {
     { id: "contents", number: "01", title: "Contents", label: "Index" },
     { id: "about", number: "02", title: "Biography", label: "Bio & Technical Breadth" },
     { id: "experience", number: "03", title: "Track Record", label: "Career & Education" },
-    { id: "case-study", number: "04", title: "Flagship", label: "Tutor LMS Case Study" },
+    { id: "case-study", number: "04", title: "Flagship", label: "Flagship Case Studies" },
     {
       id: "motion-lab",
       number: "05",

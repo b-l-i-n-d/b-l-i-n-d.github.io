@@ -1,16 +1,18 @@
-import React from "react";
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "motion/react";
 import { EngineerProfile } from "@/types/portfolio";
 import { GithubIcon, LinkedinIcon, EmailIcon, XIcon } from "../icons";
 import {
   ExternalLink,
   MapPin,
   Gamepad2,
-  Crosshair,
-  Zap,
   GraduationCap,
   ArrowUpRight,
-  Target,
+  Copy,
+  Check,
 } from "lucide-react";
 
 interface ProfileOutroProps {
@@ -18,343 +20,267 @@ interface ProfileOutroProps {
 }
 
 export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
+  const [copied, setCopied] = useState(false);
+  const [pulseKey, setPulseKey] = useState(0);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleCopyEmail = () => {
+    try {
+      navigator.clipboard.writeText(profile.contact.email || "fahim.faisal.abir@gmail.com");
+    } catch {
+      // Fallback if clipboard API is restricted
+    }
+
+    // Always clear existing timer on repetitive clicks to prevent desync
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    setCopied(true);
+    setPulseKey((k) => k + 1);
+
+    // Reset after 2.2s of inactivity
+    timeoutRef.current = setTimeout(() => {
+      setCopied(false);
+    }, 2200);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section
       id="profile"
       data-chapter-id="profile"
-      className="relative py-24 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#070707] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 transition-colors duration-200"
+      className="relative py-20 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#080808] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 transition-colors duration-200 overflow-hidden"
     >
       <div id="contact" className="absolute -top-20 left-0 pointer-events-none" />
 
-      {/* Subtle atmospheric radial gradient */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[350px] bg-accent/2 dark:bg-accent/3 rounded-full blur-3xl pointer-events-none" />
+      {/* Subtle atmospheric glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent/4 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative z-10 max-w-6xl mx-auto space-y-16">
-        {/* 1. Header Identity & Dossier Bar (Priority 1: Who, Where & Status) */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/6 dark:border-white/8 pb-6">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-accent shadow-[0_0_8px_rgba(255,23,68,0.6)] shrink-0" />
-            <span className="text-xs sm:text-sm font-mono font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
-              Engineering Dossier &amp; Profile
+      <div className="relative z-10 max-w-5xl mx-auto space-y-12">
+        {/* Top Chapter Dispatch */}
+        <div className="flex items-center justify-between border-b border-black/8 dark:border-white/8 pb-4">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full bg-accent shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
+            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
+              Chapter 07 // Final Dispatch
             </span>
           </div>
-
-          {/* Quick Metadata Pill Strip */}
-          <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-600 dark:text-neutral-400">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/3 dark:bg-white/4 border border-black/[0.05] dark:border-white/6">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-              <span className="text-neutral-700 dark:text-neutral-300 font-medium">
-                Available for Senior Roles
-              </span>
-            </span>
-            <span className="hidden md:inline text-neutral-300 dark:text-neutral-700">&bull;</span>
-            <span className="hidden md:inline">Dhaka, Bangladesh</span>
-            <span className="hidden md:inline text-neutral-300 dark:text-neutral-700">&bull;</span>
-            <span className="hidden md:inline">b-l-i-n-d &bull; Fahim Faisal (Abir)</span>
-          </div>
+          <span className="font-script text-base sm:text-lg text-accent -rotate-2 select-none">
+            let&apos;s build together &bull; 2026
+          </span>
         </div>
 
-        {/* 2. Main Narrative & Credentials Grid (Clean, Non-Boxy Editorial Layout) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column (7 Cols): Story, Personal Gaming Vibe, & Direct Contact */}
-          <div className="lg:col-span-7 space-y-12">
-            {/* Section 2A: Professional Summary (Priority Order: Core Engineering Achievements) */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                <h3 className="text-xs font-mono font-semibold uppercase tracking-widest text-accent">
-                  Executive Summary
-                </h3>
-              </div>
+        {/* Main Content Grid: Ultra-Lean, Zero Text Bloat */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* Left Column (7 Cols): Big Punchy Headline & Direct Actions */}
+          <div className="lg:col-span-7 space-y-8">
+            <div className="space-y-3">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-mono font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Available for Senior Roles &bull; Worldwide
+              </span>
 
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-                Engineering high-scale UI systems, tactile state machines, and resilient
-                architectures.
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-[1.1]">
+                Let&apos;s engineer something{" "}
+                <span className="font-script text-accent font-normal italic tracking-normal text-4xl sm:text-5xl lg:text-6xl block sm:inline">
+                  exceptional.
+                </span>
               </h2>
 
-              <div className="space-y-4 text-neutral-600 dark:text-neutral-300 text-sm sm:text-base leading-relaxed pt-2">
-                {profile.bioParagraphs?.map((paragraph, idx) => <p key={idx}>{paragraph}</p>) || (
-                  <p>
-                    Software Engineer specializing in frontend architecture, distributed systems
-                    integration, and fluid motion design systems. Experienced in shipping features
-                    to over 120,000 production sites worldwide.
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {/* Section 2B: Off-Duty & Video Games (Personal Touch with Artistic Vibe) */}
-            <div className="pt-8 border-t border-black/6 dark:border-white/8 space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <Gamepad2 className="w-4 h-4 text-accent" />
-                  <h3 className="text-xs font-mono font-semibold uppercase tracking-widest text-neutral-900 dark:text-neutral-100">
-                    Off-Duty // Tactical Gaming &amp; High-Tick Reflexes
-                  </h3>
-                </div>
-                <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-400 uppercase tracking-wider">
-                  Sub-140ms Reaction
-                </span>
-              </div>
-
-              <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                When not architecting software, I spend significant time in competitive video games.
-                Currently active in{" "}
-                <strong className="text-neutral-900 dark:text-white font-semibold">
-                  Call of Duty: Warzone
-                </strong>{" "}
-                (playing as designated Squad Sniper) and precision pursuit titles like{" "}
-                <strong className="text-neutral-900 dark:text-white font-semibold">Chase</strong>.
+              <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-xl">
+                Specialized in fluid design systems, zero-latency state models, and scalable
+                frontend architectures.
               </p>
-
-              {/* Clean Artistic Showcase of Games (No Heavy Box Grids) */}
-              <div className="space-y-4 pt-1">
-                {/* COD Warzone Row - Squad Sniper */}
-                <div className="group flex items-start gap-4 p-3 -mx-3 rounded-xl hover:bg-black/2 dark:hover:bg-white/2 transition-colors duration-150">
-                  <div className="w-9 h-9 rounded-lg bg-black/4 dark:bg-white/6 flex items-center justify-center shrink-0 text-accent mt-0.5">
-                    <Crosshair className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
-                  </div>
-                  <div className="space-y-1 flex-1">
-                    <div className="flex items-baseline justify-between gap-2 flex-wrap">
-                      <div className="flex items-center gap-2">
-                        <h4 className="text-sm font-bold text-neutral-900 dark:text-neutral-100">
-                          Call of Duty: Warzone
-                        </h4>
-                        <span className="text-xs text-neutral-400 font-mono">
-                          &bull; Squad Sniper
-                        </span>
-                      </div>
-                      <span className="text-[11px] font-mono text-accent font-medium inline-flex items-center gap-1">
-                        <Target className="w-3 h-3 shrink-0" />
-                        Overwatch &bull; Long-Range
-                      </span>
-                    </div>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                      Designated squad sniper across Verdansk &amp; Urzikstan drops: first-shot
-                      accuracy, long-range overwatch, bullet velocity prediction, high-tick squad
-                      comms, and clutch endgame rotations under pressure.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Chase Row */}
-                <div className="group flex items-start gap-4 p-3 -mx-3 rounded-xl hover:bg-black/2 dark:hover:bg-white/2 transition-colors duration-150">
-                  <div className="w-9 h-9 rounded-lg bg-black/4 dark:bg-white/6 flex items-center justify-center shrink-0 text-accent mt-0.5">
-                    <Zap className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                  <div className="space-y-1 flex-1">
-                    <div className="flex items-baseline justify-between gap-2">
-                      <h4 className="text-sm font-bold text-neutral-900 dark:text-neutral-100">
-                        Chase
-                      </h4>
-                      <span className="text-[11px] font-mono text-neutral-400 dark:text-neutral-400">
-                        Kinetic Flow &bull; Pursuit
-                      </span>
-                    </div>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                      High-speed vehicle pursuit, dynamic trajectory anticipation, and kinetic drift
-                      physics at zero latency.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Philosophy Pull-Quote */}
-              <blockquote className="border-l-2 border-accent/40 pl-4 py-1 text-xs sm:text-sm italic text-neutral-500 dark:text-neutral-400">
-                &ldquo;Reading 150-player chaotic lobbies as a sniper and executing high-speed
-                pursuits demands the exact same muscle memory as building zero-latency UI:
-                split-second state transitions, frame-perfect anticipation, and zero tolerance for
-                dropped frames.&rdquo;
-              </blockquote>
             </div>
 
-            {/* Section 2C: Direct Action / Contact (Tactile Emil Kowalski Buttons, No Copy Button) */}
-            <div className="pt-8 border-t border-black/6 dark:border-white/8 space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400">
-                  Direct Channels
-                </span>
-                <span className="text-[11px] font-mono text-neutral-400">RESPONSE: &lt;24H</span>
-              </div>
-
+            {/* Tactile Quick Contact Hub */}
+            <div className="space-y-3 pt-2">
               <div className="flex flex-wrap items-center gap-3">
-                {/* Send Email Button */}
+                {/* Primary Action Button */}
                 <a
                   href={`mailto:${profile.contact.email}`}
-                  className="px-5 py-2.5 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 text-xs sm:text-sm font-semibold flex items-center gap-2 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-colors shadow-sm active:scale-[0.97]"
-                  style={{
-                    transition:
-                      "transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 200ms ease",
-                  }}
+                  className="px-6 py-3 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 text-sm font-semibold flex items-center gap-2 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-all shadow-sm active:scale-[0.98]"
                 >
-                  <EmailIcon className="w-4 h-4 shrink-0" />
+                  <EmailIcon className="w-4 h-4" />
                   <span>Send Email</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 opacity-60 shrink-0" />
+                  <ArrowUpRight className="w-4 h-4 opacity-70" />
                 </a>
 
-                {/* LinkedIn Button (https://www.linkedin.com/in/b-l-i-n-d/) */}
+                {/* Tactile Non-Shrinking Copy Email Button with Spam-Proof Spring Transitions */}
+                <motion.button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 28 }}
+                  className={`group relative px-4 py-3 rounded-full text-xs sm:text-sm font-mono text-neutral-700 dark:text-neutral-300 flex items-center gap-2.5 transition-colors duration-200 border cursor-pointer select-none ${
+                    copied
+                      ? "bg-emerald-500/[0.08] dark:bg-emerald-500/15 border-emerald-500/30 text-emerald-700 dark:text-emerald-300"
+                      : "bg-black/4 dark:bg-white/5 hover:bg-black/7 dark:hover:bg-white/9 border-black/8 dark:border-white/10"
+                  }`}
+                  title="Click to copy email address"
+                >
+                  {/* Morphing Icon: Interruptible continuous spring transitions (no mode='wait' stutter) */}
+                  <div className="relative w-4 h-4 shrink-0">
+                    <motion.div
+                      animate={{
+                        scale: copied ? 0 : 1,
+                        opacity: copied ? 0 : 0.6,
+                        rotate: copied ? -45 : 0,
+                      }}
+                      transition={{ type: "spring", stiffness: 500, damping: 28 }}
+                      className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                    >
+                      <Copy className="w-3.5 h-3.5" />
+                    </motion.div>
+
+                    <motion.div
+                      key={`check-${pulseKey}`}
+                      initial={pulseKey > 1 ? { scale: 1.25 } : false}
+                      animate={{
+                        scale: copied ? 1 : 0,
+                        opacity: copied ? 1 : 0,
+                        rotate: copied ? 0 : 45,
+                      }}
+                      transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                      className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                    >
+                      <Check className="w-4 h-4 text-emerald-500 stroke-[2.5]" />
+                    </motion.div>
+                  </div>
+
+                  {/* Fixed Email Text - Permanently preserved so button NEVER shrinks */}
+                  <span className="tracking-tight">
+                    {profile.contact.email || "fahim.faisal.abir@gmail.com"}
+                  </span>
+
+                  {/* Animated Spring Status Tag (Persistent key to prevent flickering on repetitive clicks) */}
+                  <AnimatePresence>
+                    {copied && (
+                      <motion.span
+                        key="copied-pill"
+                        initial={{ opacity: 0, scale: 0.85, width: 0, x: -4 }}
+                        animate={{ opacity: 1, scale: 1, width: "auto", x: 0 }}
+                        exit={{ opacity: 0, scale: 0.85, width: 0, x: -4 }}
+                        transition={{ type: "spring", stiffness: 480, damping: 26 }}
+                        className="overflow-hidden inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-sans font-semibold bg-emerald-500/20 dark:bg-emerald-500/30 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 whitespace-nowrap"
+                      >
+                        Copied!
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
+              </div>
+
+              {/* Social Channels Strip */}
+              <div className="flex items-center gap-4 text-xs font-mono text-neutral-500 dark:text-neutral-400 pt-2">
                 <a
-                  href={profile.contact.linkedin || "https://www.linkedin.com/in/b-l-i-n-d/"}
+                  href={profile.contact.linkedin || "https://linkedin.com/in/fahim-faisal-abir"}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-4 py-2.5 rounded-xl bg-black/3 dark:bg-white/4 hover:bg-black/6 dark:hover:bg-white/8 border border-black/6 dark:border-white/8 text-xs sm:text-sm font-medium text-neutral-800 dark:text-neutral-200 transition-colors flex items-center gap-2 active:scale-[0.97]"
-                  style={{ transition: "transform 160ms cubic-bezier(0.23, 1, 0.32, 1)" }}
+                  className="hover:text-accent transition-colors flex items-center gap-1"
                 >
-                  <LinkedinIcon className="w-3.5 h-3.5 text-accent shrink-0" />
-                  <span>Connect on LinkedIn</span>
-                  <ExternalLink className="w-3 h-3 opacity-40 shrink-0" />
+                  <span>LinkedIn</span>
+                  <ExternalLink className="w-3 h-3 opacity-50" />
                 </a>
-
-                {/* GitHub Button */}
+                <span>&bull;</span>
                 <a
                   href={profile.contact.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-4 py-2.5 rounded-xl bg-black/3 dark:bg-white/4 hover:bg-black/6 dark:hover:bg-white/8 border border-black/6 dark:border-white/8 text-xs sm:text-sm font-medium text-neutral-800 dark:text-neutral-200 transition-colors flex items-center gap-2 active:scale-[0.97]"
-                  style={{ transition: "transform 160ms cubic-bezier(0.23, 1, 0.32, 1)" }}
+                  className="hover:text-accent transition-colors flex items-center gap-1"
                 >
-                  <GithubIcon className="w-3.5 h-3.5 shrink-0" />
-                  <span>GitHub Profile</span>
-                  <ExternalLink className="w-3 h-3 opacity-40 shrink-0" />
+                  <span>GitHub</span>
+                  <ExternalLink className="w-3 h-3 opacity-50" />
                 </a>
-
-                {/* X Button */}
+                <span>&bull;</span>
                 <a
-                  href={profile.socialLinks?.twitter || "https://x.com/fahimfaisalffa"}
+                  href={profile.socialLinks?.twitter || "https://x.com/fahim_faisal_ab"}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-4 py-2.5 rounded-xl bg-black/3 dark:bg-white/4 hover:bg-black/6 dark:hover:bg-white/8 border border-black/6 dark:border-white/8 text-xs sm:text-sm font-medium text-neutral-800 dark:text-neutral-200 transition-colors flex items-center gap-2 active:scale-[0.97]"
-                  style={{ transition: "transform 160ms cubic-bezier(0.23, 1, 0.32, 1)" }}
+                  className="hover:text-accent transition-colors flex items-center gap-1"
                 >
-                  <XIcon className="w-3.5 h-3.5 shrink-0" />
-                  <span>Follow on X</span>
-                  <ExternalLink className="w-3 h-3 opacity-40 shrink-0" />
+                  <span>X (Twitter)</span>
+                  <ExternalLink className="w-3 h-3 opacity-50" />
                 </a>
               </div>
+            </div>
+
+            {/* Playful Off-Duty Reflexes Micro-Strip (1 Scannable Line, Zero Text Bloat) */}
+            <div className="pt-4 border-t border-black/6 dark:border-white/8 flex items-center gap-3 text-xs text-neutral-500 dark:text-neutral-400">
+              <div className="w-7 h-7 rounded-lg bg-black/4 dark:bg-white/6 flex items-center justify-center shrink-0 text-accent">
+                <Gamepad2 className="w-3.5 h-3.5" />
+              </div>
+              <p className="leading-snug">
+                <strong className="text-neutral-800 dark:text-neutral-200">Off-Duty:</strong> Squad
+                Sniper in Warzone &bull; Kinetic drift in Chase &bull; Sub-140ms reflex junkie.
+              </p>
             </div>
           </div>
 
-          {/* Right Column (5 Cols): Identity Portrait, Academic Pedigree & Technical Taxonomy */}
-          <div className="lg:col-span-5 space-y-10">
-            {/* Artistic Sketch Portrait & Compact Identity */}
-            <div className="flex items-center gap-5 pb-8 border-b border-black/6 dark:border-white/8">
-              <div
-                className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-neutral-100 dark:bg-neutral-800 border border-black/8 dark:border-white/10 shrink-0 group"
-                style={{ position: "relative" }}
-              >
-                <Image
-                  src="/assets/profile-avatar.png"
-                  alt={profile.name}
-                  fill
-                  sizes="96px"
-                  className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                <span className="absolute bottom-1 right-1 px-1 rounded bg-black/60 text-[9px] font-mono text-white/90">
-                  @blind
-                </span>
-              </div>
-
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono font-semibold text-accent">
-                    Software Engineer
+          {/* Right Column (5 Cols): Clean Visual Dossier */}
+          <div className="lg:col-span-5 flex flex-col items-start sm:items-center lg:items-end">
+            <div className="w-full max-w-sm space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-neutral-200 dark:bg-neutral-800 border border-black/10 dark:border-white/10 shrink-0 group">
+                  <Image
+                    src={profile.avatar || "/assets/profile-avatar.png"}
+                    alt="Fahim Faisal (Abir)"
+                    fill
+                    sizes="80px"
+                    className="object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                  />
+                  <span className="absolute bottom-1 right-1 px-1 rounded bg-black/80 text-[9px] font-mono text-white/90">
+                    @blind
                   </span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-100 flex items-baseline gap-2">
-                  <span>{profile.name}</span>
-                  <span className="text-xs text-neutral-400 font-normal font-mono">(Abir)</span>
-                </h3>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400 font-mono">
-                  Core SWE &bull; Ollyo / Tutor LMS
-                </p>
-              </div>
-            </div>
-
-            {/* Credentials & Location Rows (Clean Metadata, No Heavy Nested Boxes) */}
-            <div className="space-y-4">
-              <span className="text-xs font-mono font-semibold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 block">
-                Credentials &amp; Location
-              </span>
-
-              {/* Formal Education */}
-              <div className="flex items-start gap-3 text-xs sm:text-sm">
-                <GraduationCap className="w-4 h-4 text-accent shrink-0 mt-0.5" />
-                <div className="space-y-0.5 flex-1">
-                  <div className="flex items-baseline justify-between gap-2">
-                    <h4 className="font-semibold text-neutral-900 dark:text-neutral-100">
-                      {profile.education.degree}
-                    </h4>
-                    <span className="text-[11px] font-mono text-neutral-400 shrink-0">
-                      {profile.education.period}
-                    </span>
-                  </div>
-                  <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                    {profile.education.institute}
+                <div className="space-y-0.5">
+                  <span className="font-script text-accent text-base -rotate-2 block select-none">
+                    designer &bull; coder &bull; sniper
+                  </span>
+                  <h3 className="text-xl font-bold text-neutral-900 dark:text-white">
+                    Fahim Faisal{" "}
+                    <span className="text-sm font-normal text-neutral-400">(Abir)</span>
+                  </h3>
+                  <p className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
+                    Software Engineer &bull; Ollyo
                   </p>
-                  <a
-                    href={profile.education.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-xs text-accent hover:underline inline-flex items-center gap-1 font-mono pt-0.5"
-                  >
-                    <span>Verified Curriculum (SUST SWE)</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
                 </div>
               </div>
 
-              {/* Location */}
-              <div className="flex items-center justify-between text-xs sm:text-sm pt-2 border-t border-black/4 dark:border-white/6">
-                <div className="flex items-center gap-2.5 text-neutral-700 dark:text-neutral-300">
-                  <MapPin className="w-4 h-4 text-accent shrink-0" />
-                  <span>{profile.location}</span>
+              {/* Quick Spec Matrix (Compact & Typographic) */}
+              <div className="space-y-2.5 pt-3 border-t border-black/6 dark:border-white/8 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="text-neutral-500 dark:text-neutral-400 font-mono">Pedigree</span>
+                  <span className="font-semibold text-neutral-800 dark:text-neutral-200">
+                    SUST SWE (2018–2023)
+                  </span>
                 </div>
-                <a
-                  href={
-                    profile.contact.locationMap || "https://maps.google.com/?q=Dhaka,Bangladesh"
-                  }
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-xs text-neutral-400 hover:text-accent transition-colors inline-flex items-center gap-1 font-mono"
-                >
-                  <span>View Map</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
-
-            {/* Technical Taxonomy & Competencies (Clean Typographic Hierarchy, No Boxy Cards) */}
-            <div className="space-y-6 pt-4 border-t border-black/6 dark:border-white/8">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400">
-                  Technical Taxonomy
-                </span>
-                <span className="text-[10px] font-mono text-neutral-400">4 CORE PILLARS</span>
-              </div>
-
-              <div className="space-y-5">
-                {profile.skillCategories?.map((category, idx) => (
-                  <div key={idx} className="space-y-2">
-                    <div className="flex items-center justify-between text-xs">
-                      <h4 className="font-semibold text-neutral-900 dark:text-neutral-200">
-                        {category.name}
-                      </h4>
-                      <span className="text-[10px] font-mono text-neutral-400">0{idx + 1}</span>
-                    </div>
-
-                    <div className="flex flex-wrap gap-1.5">
-                      {category.skills.map((skill, sIdx) => (
-                        <span
-                          key={sIdx}
-                          className="px-2 py-0.5 rounded-md text-[11px] sm:text-xs font-mono bg-black/3 dark:bg-white/4 text-neutral-700 dark:text-neutral-300 border border-black/4 dark:border-white/6 hover:border-accent/30 transition-colors"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                <div className="flex items-center justify-between">
+                  <span className="text-neutral-500 dark:text-neutral-400 font-mono">
+                    Core Focus
+                  </span>
+                  <span className="font-semibold text-neutral-800 dark:text-neutral-200">
+                    Fluid UI &bull; State Models
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-neutral-500 dark:text-neutral-400 font-mono">Scale</span>
+                  <span className="font-semibold text-accent">120K+ Production Academies</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-neutral-500 dark:text-neutral-400 font-mono">Location</span>
+                  <span className="font-semibold text-neutral-800 dark:text-neutral-200">
+                    Dhaka, BD (UTC+6)
+                  </span>
+                </div>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import { useRouter } from "next/navigation";
 import { ContentsColumn, ContentsItem } from "@/types/portfolio";
 
 interface ContentsIndexProps {
@@ -176,6 +177,7 @@ const contentsAnchorCss = `
 `;
 
 export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className = "" }) => {
+  const router = useRouter();
   const columns = DEFAULT_COLUMNS;
   const gridRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
@@ -219,12 +221,18 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
   };
 
   const handleItemClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const caseStudySlugs = ["tutor-lms", "enclave", "edtech", "docapp"];
+    if (caseStudySlugs.includes(targetId)) {
+      router.push(`/case-study/${targetId}`);
+      return;
+    }
+
     const element =
       document.getElementById(targetId) ||
       document.querySelector(`[data-chapter-id="${targetId}"]`) ||
       document.querySelector(`[data-project-id="${targetId}"]`);
     if (element) {
-      e.preventDefault();
       element.scrollIntoView({ behavior: "smooth", block: "start" });
       if (typeof window !== "undefined" && window.history?.pushState) {
         window.history.pushState(null, "", `#${targetId}`);
@@ -232,7 +240,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
     }
   };
 
-  const renderDots = (count: number) => {
+  const renderDots = (count: number = 1) => {
     const dotBase =
       "block w-1.5 h-1.5 rounded-full transition-all duration-200 bg-neutral-300 dark:bg-neutral-700 group-hover:bg-accent dark:group-hover:bg-accent group-hover:shadow-[0_0_8px_rgba(255,23,68,0.8)] dark:group-hover:shadow-[0_0_12px_rgba(255,23,68,0.95)] group-hover:scale-125";
 
@@ -255,7 +263,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
 
     if (count === 3) {
       return (
-        <div className="pt-2 grid grid-cols-2 gap-1 w-3.5 shrink-0">
+        <div className="pt-2 flex flex-col gap-1 shrink-0">
           <span className={dotBase} />
           <span className={dotBase} />
           <span className={dotBase} />
@@ -264,7 +272,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
     }
 
     return (
-      <div className="pt-2 grid grid-cols-2 gap-1 w-3.5 shrink-0">
+      <div className="pt-2 flex flex-col gap-1 shrink-0">
         <span className={dotBase} />
         <span className={dotBase} />
         <span className={dotBase} />
@@ -277,91 +285,64 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
     <section
       id="contents"
       data-chapter-id="contents"
-      className={`relative py-24 px-6 sm:px-10 lg:px-16 bg-stone-50 dark:bg-[#0c0c0c] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 overflow-hidden transition-colors duration-200 ${className}`}
+      className={`py-20 sm:py-28 relative ${className}`}
     >
       <style dangerouslySetInnerHTML={{ __html: contentsAnchorCss }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto space-y-16">
-        {/* Header (Clean, quiet, informative) */}
-        <div className="space-y-3 border-b border-black/6 dark:border-white/8 pb-8">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-accent" />
-            <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">
-              Index Directory
-            </span>
-          </div>
-          <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4">
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
-              Contents & Navigation
-            </h2>
-            <p className="text-sm text-neutral-500 dark:text-neutral-400 max-w-md">
-              Direct jump table across flagship enterprise platforms, engineered mobile systems, and
-              architectural blueprints.
-            </p>
-          </div>
-        </div>
-
-        {/* 3-Column Contents Grid with a single grid-wide sliding Hover Indicator */}
-        <div
-          ref={gridRef}
-          onPointerLeave={clearIndicator}
-          className="contents-grid relative grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14"
-        >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="contents-grid relative" ref={gridRef} onPointerLeave={clearIndicator}>
           <div ref={indicatorRef} className="cc-indicator" aria-hidden="true" />
 
-          {columns.map((column) => (
-            <div key={column.id} className="space-y-6 min-w-0">
-              {/* Column Header: Handwritten Number + Clean Title */}
-              <div className="flex items-baseline gap-2.5 pb-2 border-b border-black/6 dark:border-white/8">
-                <span className="font-script text-3xl sm:text-4xl text-accent select-none font-bold">
-                  {column.numberScript}
-                </span>
-                <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">
-                  {column.title}
-                </h3>
-              </div>
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+            {columns.map((col) => (
+              <div key={col.id} className="space-y-6">
+                <div className="border-b border-black/[0.08] dark:border-white/[0.08] pb-4">
+                  <span className="font-script text-2xl sm:text-3xl text-accent block">
+                    {col.numberScript}
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-white mt-1">
+                    {col.title}
+                  </h3>
+                </div>
 
-              {/* Column Content Items, each an anchor target for the shared indicator */}
-              <div className="space-y-2">
-                {column.items.map((item: ContentsItem) => {
-                  const itemId = item.id || item.targetId;
-                  return (
-                    <a
-                      key={itemId}
-                      href={`#${item.targetId}`}
-                      onClick={(e) => handleItemClick(e, item.targetId)}
-                      onPointerEnter={handlePointerEnter}
-                      className="group relative block p-3 rounded-xl active:scale-[0.98] transition-transform duration-150"
-                    >
-                      <div className="flex items-start gap-3">
-                        {/* Dots cluster matching Behance token pattern */}
-                        {renderDots(item.dotsCount || 1)}
+                <div className="space-y-2">
+                  {col.items.map((item) => {
+                    const isCaseStudy = ["tutor-lms", "enclave", "edtech", "docapp"].includes(
+                      item.targetId
+                    );
+                    const href = isCaseStudy ? `/case-study/${item.targetId}` : `#${item.targetId}`;
 
-                        {/* Content text */}
+                    return (
+                      <a
+                        key={item.id}
+                        href={href}
+                        onClick={(e) => handleItemClick(e, item.targetId)}
+                        onPointerEnter={handlePointerEnter}
+                        className="group relative flex items-start gap-3 p-3 rounded-xl transition-colors select-none"
+                      >
+                        {renderDots(item.dotsCount)}
                         <div className="flex-1 min-w-0">
                           {item.subtitlePosition === "above" && (
-                            <span className="block text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-0.5 group-hover:text-accent transition-colors">
+                            <span className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 block truncate">
                               {item.subtitle}
                             </span>
                           )}
-
-                          <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-accent transition-colors leading-snug">
+                          <h4 className="text-sm sm:text-base font-semibold text-neutral-800 dark:text-neutral-200 group-hover:text-accent dark:group-hover:text-accent transition-colors truncate">
                             {item.title}
                           </h4>
-
                           {item.subtitlePosition === "below" && (
-                            <span className="block text-xs font-medium text-neutral-500 dark:text-neutral-400 mt-0.5 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
+                            <span className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 block truncate mt-0.5">
                               {item.subtitle}
                             </span>
                           )}
                         </div>
-                      </div>
-                    </a>
-                  );
-                })}
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

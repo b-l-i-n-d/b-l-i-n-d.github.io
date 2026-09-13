@@ -1,60 +1,88 @@
-## Problem Statement
+# Technical Specification: Modular Case Study Routing & Editorial Showcase
 
-As a Software Engineer (Fahim Faisal), my current portfolio site (`b-l-i-n-d.github.io` / `b-l-i-n-d.vercel.app`) uses a standard developer template with basic cards and external Firebase dependencies that fail when unconfigured. It lacks visual distinction, cinematic narrative pacing, and deep technical storytelling. Conversely, modern high-impact portfolios (exemplified by the Behance Animation Portfolio 2024 reference) captivate viewers through immersive media showreels, multi-tiered project production breakdowns, visual asset galleries, and fluid chapter navigation. However, replicating heavy motion portfolios often causes catastrophic frame rate drops, compositor memory exhaustion (>1GB VRAM), and stuttering on low-end laptops and budget mobile devices.
+## 1. Objectives & Scope
 
-## Solution
+### 1.1 Core Goals
 
-Transform the portfolio into a cinematic, high-performance web experience inspired by the Behance Animation Portfolio reference, tailored specifically to Fahim Faisal’s software engineering credentials and verified project catalog. The solution implements a "Universal 60 FPS Constraint-First Architecture" that enforces zero reflows during scroll, uses GPU-composited CSS properties, throttles hardware video decoders via viewport intersection, and structures projects into an engaging 4-stage engineering breakdown (Architecture Schema → Interaction Flow Loop → Code Deep-Dive → Live Product) alongside a 12-item curated hybrid gallery with fullscreen zoom and inspection.
+1. **Dedicated Case Study Routing**: Extract the 4 monolithic case study deep-dives (`tutor-lms`, `enclave`, `edtech`, `docapp`) into standalone dynamic routes at `/case-study/[slug]`.
+2. **Artistic Homepage Showcase (`FeaturedProjectsSection`)**: Replace the inline 8,000px case study block on `/` with cinematic, editorial feature spread cards designed in the Behance / design-engineering aesthetic.
+3. **Editorial Pacing & Text Pruning**: Eliminate text redundancy between Chapter 02 (Bio) and Chapter 10 (Dossier), and refine Chapter 01 (Contents Index) into a clean, inviting chapter directory.
+4. **Preserved Brand Accents**: Maintain doodle marquee ribbons, draggable physics clouds, and high-contrast dark/light mode elegance.
 
-## User Stories
+---
 
-1. As a tech recruiter, I want to immediately watch an autoplaying, muted cinematic product reel in the hero section, so that I can understand the engineer’s caliber within the first 3 seconds of visiting the site.
-2. As a visitor on a low-end mobile phone, I want the portfolio to scroll smoothly at locked 60 FPS without stutter or browser tab crashes, so that I have a seamless reading experience.
-3. As a technical hiring manager, I want each featured project to present a 4-stage technical breakdown (System Architecture, UX Flow, Core Implementation Code, and Live Demo), so that I can evaluate both high-level system design and low-level code craftsmanship.
-4. As a visitor, I want an interactive scrubber / sticky chapter dock, so that I can instantly see my current section and jump directly between projects without tedious manual scrolling.
-5. As an engineering lead, I want to inspect system architecture diagrams and UI builds in an interactive 12-item gallery with fullscreen zoom and pan, so that I can verify architectural depth and component polish.
-6. As a viewer, I want to easily toggle audio or expand the hero product reel into a full-bleed modal, so that I can experience the work with high audiovisual fidelity when desired.
-7. As a prospective client, I want quick access to Fahim Faisal’s verified credentials (Shahjalal University of Science and Technology graduation, GitHub, LinkedIn, email, and CV download), so that I can initiate contact without friction.
-8. As a developer browsing on limited mobile data, I want all media loops to use lightweight hardware-accelerated video containers instead of 30MB animated GIFs, so that page load times and data consumption remain negligible.
-9. As a user with accessibility needs or reduced motion preferences, I want the site to respect `prefers-reduced-motion` settings by disabling ambient parallax and autoplaying media, so that I can navigate comfortably without sensory discomfort.
-10. As a visitor browsing projects, I want off-screen video decoders to automatically freeze and unmount, so that my device battery is not rapidly drained while viewing static sections.
-11. As a reviewer checking code samples, I want clear, syntax-highlighted code snippets with copy-to-clipboard functionality, so that I can review algorithmic logic effortlessly.
-12. As a recruiter seeking specific project competencies, I want projects tagged with accurate tech stack badges (Next.js, TypeScript, Clerk, Prisma, Zustand, Tailwind CSS, MongoDB, Express), so that I can verify stack alignment instantly.
+## 2. Route Architecture & Navigation
 
-## Implementation Decisions
+### 2.1 Route Map
 
-### Architectural Decisions
-- Universal 60 FPS Constraint-First Motion Pipeline: All layout animations and scroll transitions are strictly restricted to GPU-composited CSS properties (`transform: translate3d(...)`, `opacity`, and `scale`). Zero animating of box-model properties (`width`, `height`, `margin`, `padding`, `top`, `left`) to prevent layout thrashing and browser repaints.
-- Viewport Virtualization & Single Active Video Decoder: Implement an intersection observer manager ensuring only media elements actively in the viewport are decoding. All off-screen looping videos are paused immediately when exiting viewport thresholds, capping hardware memory footprint below 150MB.
-- Hybrid Data Architecture: Replace remote, fragile database fetch calls with a typed, declarative portfolio configuration containing all verified project descriptions, architecture diagrams, code excerpts, video sources, and social links.
+- **`/` (Landing Page)**:
+  - High-level narrative arc: Hook (Hero) $\to$ Index $\to$ Identity (Bio) $\to$ Track Record (Ollyo) $\to$ Featured Work (Cinematic Cards) $\to$ Motion Lab $\to$ Blueprints $\to$ Dossier/Contact.
+- **`/case-study/[slug]` (Deep Dive Pages)**:
+  - Dynamic segment for each project (`tutor-lms`, `enclave`, `edtech`, `docapp`).
+  - `generateStaticParams()` pre-renders all 4 slugs at build time.
+  - Handles unknown slugs with Next.js `notFound()`.
 
-### Module Structure
-- Hero Showcase Module: Full-bleed auto-looping cinematic product banner with sound unmute toggle, status chip indicator, and fullscreen cinema expander.
-- Chapter Scrubber Navigation Module: Floating vertical dock tracking scroll position with micro-indicators and smooth scroll snapping between chapters.
-- 4-Stage Project Breakdown Module: Tabbed/scrubbable component displaying 4 synchronized views per project:
-  1. *Architecture*: Scalable SVG / vector diagram of database schema, services, and data flows.
-  2. *Interaction Flow*: Hardware-accelerated 60 FPS looping WebM/MP4 recording of primary user journeys.
-  3. *Technical Implementation*: Syntax-highlighted code block highlighting critical algorithms, custom hooks, or database queries.
-  4. *Live Production*: Interactive frame / launch portal with direct links to production URLs and source repositories.
-- 12-Item Curated Hybrid Gallery Module: Responsive 3x4 / 2x6 grid featuring 6 architecture blueprints and 6 UI/UX builds, equipped with a zero-dependency gesture-friendly Lightbox modal supporting escape key dismissal and zoom.
-- Technical Profile & Experience Module: Clean timeline presenting SUST education, tech stack proficiencies categorized by discipline (Frontend, Backend, Tools & DevOps), and direct resume download.
-- Contact & Footer Outro Module: High-contrast call-to-action block with verified contact links (`fahim.faisal.abir@gmail.com`, LinkedIn, GitHub).
+### 2.2 Navigation Contracts
 
-### API & Data Contracts
-- Self-contained type schema for project stages, media assets, and tech taxonomy ensuring full TypeScript compile-time safety and ease of updating.
+- **Breadcrumb Header (`CaseStudyNavBar`)**:
+  - Persistent or floating top bar with:
+    - `← Overview` link returning to `/#case-study` (or previous scroll position).
+    - Active Project pill (e.g. `01 / 04 · Tutor LMS`).
+    - Direct stage anchors (`#architecture`, `#flow`, `#code`, `#live`).
+    - Theme switcher toggle.
+- **Pagination Footer (`CaseStudyFooterNav`)**:
+  - Dual-card footer: "Previous Project" and "Next Project" links with title, thumbnail teaser, and arrow transition.
 
-## Testing Decisions
+---
 
-- Seam: Highest-level behavioral seam testing the rendered DOM tree and viewport controller via end-to-end and component integration tests.
-- What makes a good test: Tests must observe external user behavior—verifying that active chapters highlight as the user scrolls, video elements pause when off-screen, breakdown stage tabs correctly swap content, and modal overlays trap focus and close on Escape. Tests must NOT assert on internal component state or private helper functions.
-- Performance Verification: Automated lighthouse / bundle-size checks ensuring no synchronous layout thrashing, main-thread blocking time < 100ms, and zero unoptimized image/GIF payloads.
+## 3. Component Architecture
 
-## Out of Scope
+### 3.1 Homepage: `FeaturedProjectsSection` (`components/showcase/FeaturedProjectsSection.tsx`)
 
-- CMS admin dashboard or backend database writes (portfolio is fully static and zero-maintenance).
-- External third-party user authentication or dynamic comment sections.
-- Unverified external profile content or third-party identities (`fahimfaisal.net` or Behance creator attribution).
+- Replaces the 4 stacked `<ProjectCaseStudySection />` instances on `/`.
+- **Design Engineering Details**:
+  - **Card Layout**: Split editorial stage spread.
+    - _Left column / Media Stage_: Filmstrip-styled video loop container or interactive mock with subtle hover tilt (`perspective: 1000px`), status badge (`Active Deployments: 120K+`), and framerate counter (`60 FPS`).
+    - _Right column / Editorial Content_:
+      - Chapter counter (`04.1 // ENTERPRISE EDTECH`).
+      - Title with serif/sans contrast and subtle gradient.
+      - One-sentence mission hook.
+      - Key Technical Metrics Grid (4 compact telemetry pills: e.g. `0.000 CLS`, `120K+ Academies`, `Sub-16ms FLIP`, `Strict Registry`).
+      - Tech Stack Badges.
+      - Magnetic CTA: `Explore Full Case Study (Architecture, Flow & Code) →` linking to `/case-study/[slug]`.
 
-## Further Notes
+### 3.2 Dynamic Route: `app/case-study/[slug]/page.tsx`
 
-All copy and project representations strictly adhere to Fahim Faisal’s genuine portfolio items (E-Commerce Admin, Docapp, EdTech, CMS Theme, Quizzical, Notes App) and academic background from Shahjalal University of Science and Technology.
+- Server Component wrapping client interactive stages:
+  - Generates static metadata (Title: `Tutor LMS Case Study — Fahim Faisal`, OpenGraph, Description).
+  - Passes project and showcase data into a full-width container.
+  - Reuses tested components: `<ArchitectureGraph />`, `<InteractiveFlowVisualizer />`, `<ComplexCodeStudio />`, `<HybridGallery />`.
+
+---
+
+## 4. Performance & Motion Constraints
+
+- **Strict 60 FPS Target**: No layout thrashing. All card hover animations, button micro-interactions, and modal triggers must animate exclusively via `transform` and `opacity`.
+- **Reduced Motion Compliance**: Query `useReducedMotion()` from `motion/react` to instantly substitute zero-duration transitions for users with motion sensitivities.
+- **Asset Throttling**: Looping videos use `IntersectionObserver` via `ViewportController` to ensure only the active in-view card plays video, preserving device battery and VRAM.
+
+---
+
+## 5. Copy & Text Refinement Plan
+
+1. **Chapter 01 (Contents Directory)**:
+   - Keep the 3-column editorial structure, but convert dense bullet points into clean, scannable chapter cards with preview tags and smooth jump links.
+2. **Chapter 02 (Bio) vs. Chapter 10 (Dossier)**:
+   - _Bio (Ch 02)_: Focus on engineering identity, graduation from SUST SWE, and craft philosophy (tactile UI + distributed systems).
+   - _Dossier (Ch 10)_: Remove duplicated biography paragraphs; transform into a crisp **Technical Capabilities Matrix**, verified SUST degree credential badge, and high-impact contact channels.
+3. **Warzone Section**:
+   - Condense tactical sniper paragraph into a sleek "Off-Duty / High-Tick Reflexes" micro-card that emphasizes focus and fast decision-making without overstating parallels to coding.
+
+---
+
+## 6. Verification & Definition of Done
+
+1. `pnpm build` completes with zero TypeScript or lint errors; static pages generated for all 4 case study slugs.
+2. Navigating from `/` to `/case-study/tutor-lms` and clicking `← Back` works seamlessly without reload flashes.
+3. Page height of `/` reduced by >50%, resulting in fluid scroll pacing and zero compositor memory warnings.
+4. All interactive stages (Mermaid graphs, FLIP reorder simulator, code copy) fully functional within `/case-study/[slug]`.

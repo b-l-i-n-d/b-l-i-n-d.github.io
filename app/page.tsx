@@ -2,9 +2,9 @@ import dynamic from "next/dynamic";
 import { portfolioData } from "@/config/portfolio-data";
 import { ChapterScrubber } from "@/components/navigation/ChapterScrubber";
 import { CinematicHero } from "@/components/hero/CinematicHero";
-
 import { DoodleMarqueeBanner } from "@/components/decorations/DoodleMarqueeBanner";
 import { ContentsIndexSection } from "@/components/contents/ContentsIndexSection";
+import { FeaturedProjectsSection } from "@/components/showcase/FeaturedProjectsSection";
 import { InteractiveMotionLab } from "@/components/motion-lab/InteractiveMotionLab";
 import { ProfileOutro } from "@/components/profile/ProfileOutro";
 
@@ -16,12 +16,6 @@ const BehanceBioSection = dynamic(
 
 const ExperienceSection = dynamic(
   () => import("@/components/experience/ExperienceSection").then((m) => m.ExperienceSection),
-  { ssr: true }
-);
-
-const ProjectCaseStudySection = dynamic(
-  () =>
-    import("@/components/showcase/ProjectCaseStudySection").then((m) => m.ProjectCaseStudySection),
   { ssr: true }
 );
 
@@ -60,26 +54,27 @@ export default function Home() {
         <ExperienceSection profile={portfolioData} />
       </div>
 
-      {/* Chapters 04 - 07: 4-Stage Project Case Studies (Tutor LMS, Enclave, EdTech, DocApp) */}
-      <div id="case-study">
-        {portfolioData.flagshipProjects.map((project) => (
-          <div key={project.id} className="content-auto">
-            <ProjectCaseStudySection project={project} />
-          </div>
-        ))}
+      {/* Chapter 04: Featured Flagship Case Studies */}
+      <div className="content-auto">
+        <FeaturedProjectsSection projects={portfolioData.flagshipProjects} />
       </div>
 
-      {/* Chapter 08: Interactive Motion Lab (Micro-Interactions & Physics) */}
+      {/* Chapter 05: Interactive Motion Lab (Micro-Interactions & Physics) */}
       <div className="content-auto">
         <InteractiveMotionLab items={portfolioData.interactiveBuilds} />
       </div>
 
-      {/* Chapter 09: 12-Item Curated Hybrid Gallery & Lightbox */}
+      {/* Chapter 06: 12-Item Curated Hybrid Gallery & Lightbox */}
       <div className="content-auto">
         <HybridGallery items={portfolioData.hybridGallery} />
       </div>
 
-      {/* Chapter 10: Verified Academic Credentials & Contact Outro */}
+      {/* Ribbon Divider Banner */}
+      <div className="content-auto">
+        <DoodleMarqueeBanner direction="left" speed={30} />
+      </div>
+
+      {/* Chapter 07: Engineer Profile Outro, Credentials & Tactical Dossier */}
       <div className="content-auto">
         <ProfileOutro profile={portfolioData} />
       </div>

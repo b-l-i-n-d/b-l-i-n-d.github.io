@@ -11,6 +11,7 @@ import {
   Link,
 } from "@heroui/react";
 import React, { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { GithubIcon, BlindSkullIcon } from "./icons";
 import { ThemeSwitch } from "./theme-switch";
 import { useViewport } from "./viewport/ViewportController";
@@ -28,14 +29,19 @@ const NAV_ITEMS = [
 ];
 
 export const Navbar = () => {
+  const pathname = usePathname();
+  const router = useRouter();
   const { activeChapter, setActiveChapter } = useViewport();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredNavId, setHoveredNavId] = useState<string | null>(null);
   const [clickedNavId, setClickedNavId] = useState<string | null>(null);
 
-  // Map viewport activeChapter to nav item (including sub-chapters like case study projects)
+  // Map viewport activeChapter or route pathname to nav item
   const getActiveNavId = () => {
     if (clickedNavId) return clickedNavId;
+    if (pathname && pathname.startsWith("/case-study")) {
+      return "case-study";
+    }
     const caseStudyIds = ["tutor-lms", "enclave", "edtech", "docapp", "case-study"];
     if (caseStudyIds.includes(activeChapter)) {
       return "case-study";
@@ -49,6 +55,14 @@ export const Navbar = () => {
   const handleNavClick = (e: React.MouseEvent<any>, href: string, id: string, chapter: string) => {
     e.preventDefault();
     setClickedNavId(id);
+
+    if (pathname !== "/") {
+      setIsMenuOpen(false);
+      router.push(`/${href}`);
+      setTimeout(() => setClickedNavId(null), 800);
+      return;
+    }
+
     const targetId = href.replace("#", "");
     const element =
       document.getElementById(targetId) ||
@@ -64,8 +78,19 @@ export const Navbar = () => {
       setActiveChapter(chapter, 1200);
     }
     setIsMenuOpen(false);
-    // Clear manual lock after scroll animation finishes
     setTimeout(() => setClickedNavId(null), 1200);
+  };
+
+  const handleBrandClick = (e: React.MouseEvent<any>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      setClickedNavId("showreel");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setActiveChapter("hero", 1200);
+    } else {
+      setIsMenuOpen(false);
+      router.push("/");
+    }
   };
 
   return (
@@ -86,12 +111,7 @@ export const Navbar = () => {
             color="foreground"
             className="flex justify-start items-center gap-3 cursor-pointer group select-none text-neutral-900 dark:text-white shrink-0"
             href="/"
-            onClick={(e: React.MouseEvent<any>) => {
-              e.preventDefault();
-              setClickedNavId("showreel");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              setActiveChapter("hero", 1200);
-            }}
+            onClick={handleBrandClick}
           >
             <div className="relative flex items-center justify-center shrink-0 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,23,68,0.45)] transition-all duration-300">
               <BlindSkullIcon size={28} className="shrink-0" />
