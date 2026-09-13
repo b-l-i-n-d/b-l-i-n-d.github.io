@@ -67,7 +67,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
               >
                 {/* Tooltip label on hover */}
                 <span className="absolute right-7 px-2.5 py-1 text-xs font-mono text-neutral-800 dark:text-neutral-200 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/6 dark:border-white/10 rounded shadow-craft-card whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-200 z-50 -translate-x-1 group-hover:translate-x-0">
-                  <span className="text-[#ff1744] font-bold mr-1.5">{chapter.number}</span>
+                  <span className="text-accent font-bold mr-1.5">{chapter.number}</span>
                   {chapter.title}
                 </span>
 
@@ -78,7 +78,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                       layoutId="active-chapter-pill"
                       layout
                       initial={false}
-                      className="w-2 h-6 rounded-full bg-[#ff1744] shadow-[0_0_12px_rgba(255,23,68,0.8)]"
+                      className="w-2 h-6 rounded-full bg-accent shadow-[0_0_12px_rgba(255,23,68,0.8)]"
                       transition={{
                         type: "spring",
                         stiffness: 420,
@@ -101,7 +101,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
 
       {/* Mobile Bottom Scrubber Pill (Touch-friendly & Responsive) */}
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 md:hidden flex items-center gap-2 bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl px-4 py-2 rounded-full border border-black/6 dark:border-white/10 shadow-craft-elevated pointer-events-auto">
-        <span className="text-xs font-mono font-bold text-[#ff1744] shrink-0">
+        <span className="text-xs font-mono font-bold text-accent shrink-0">
           {chapters[currentChapterIndex]?.number || "00"}
         </span>
         <span className="text-xs font-mono text-neutral-800 dark:text-neutral-200 max-w-[150px] truncate font-medium">
@@ -121,7 +121,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                   layout
                   className={`rounded-full transition-colors ${
                     isActive
-                      ? "w-3.5 h-2 bg-[#ff1744] shadow-[0_0_6px_rgba(255,23,68,0.7)]"
+                      ? "w-3.5 h-2 bg-accent shadow-[0_0_6px_rgba(255,23,68,0.7)]"
                       : "w-2 h-2 bg-neutral-300 dark:bg-neutral-700"
                   }`}
                   transition={{

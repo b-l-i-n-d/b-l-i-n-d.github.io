@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { fontMono, fontSans, fontScript } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
-import { cn as clsx } from "cn";
+import { cn } from "cn";
 import { Metadata, Viewport } from "next";
 import { Providers } from "./providers";
 
@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body
         suppressHydrationWarning
-        className={clsx(
+        className={cn(
           "min-h-screen bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans antialiased selection:bg-rose-600 selection:text-white overflow-x-hidden transition-colors duration-200",
           fontSans.variable,
           fontMono.variable,

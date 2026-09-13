@@ -94,7 +94,7 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
                 >
                   <FileCode
                     className={`w-3.5 h-3.5 shrink-0 ${
-                      isSelected ? "text-[#ff1744]" : "text-neutral-400"
+                      isSelected ? "text-accent" : "text-neutral-400"
                     }`}
                   />
                   <span className="shrink-0">{basenameOf(mod.filename)}</span>
@@ -105,7 +105,7 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
         </div>
 
         <div className="flex items-center gap-2 pr-2 shrink-0">
-          <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#ff1744]/10 text-rose-700 dark:text-rose-400 font-semibold shrink-0 min-w-28 text-center">
+          <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-accent/10 text-rose-700 dark:text-rose-400 font-semibold shrink-0 min-w-28 text-center">
             {activeModule.badge}
           </span>
           {activeModule.prUrl && (
@@ -113,9 +113,9 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
               href={activeModule.prUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:text-[#ff1744] flex items-center gap-1.5 transition-colors shrink-0"
+              className="text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:text-accent flex items-center gap-1.5 transition-colors shrink-0"
             >
-              <GitPullRequest className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
+              <GitPullRequest className="w-3.5 h-3.5 text-accent shrink-0" />
               <span className="hidden sm:inline">Verified Repo / PR</span>
               <ExternalLink className="w-3 h-3 shrink-0" />
             </a>
@@ -154,7 +154,7 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
             <span className="w-3 h-3 rounded-full bg-[#ffbd2e] shrink-0" />
             <span className="w-3 h-3 rounded-full bg-[#27c93f] shrink-0" />
             <span className="text-xs text-[#8b949e] ml-2 font-mono flex items-center gap-1.5 shrink-0">
-              <Cpu className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
+              <Cpu className="w-3.5 h-3.5 text-accent shrink-0" />
               <span className="truncate" title={activeModule.filename}>
                 {activeModule.filename}
               </span>

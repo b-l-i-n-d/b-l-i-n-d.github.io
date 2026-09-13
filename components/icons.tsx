@@ -3,7 +3,7 @@
 import { IconSvgProps } from "@/types";
 import { motion, type Variants } from "motion/react";
 import * as React from "react";
-import { cn as clsx } from "cn";
+import { cn } from "cn";
 
 /**
  * Motion variants for BlindSkullIcon
@@ -125,7 +125,7 @@ export const BlindSkullIcon: React.FC<IconSvgProps> = ({ size = 28, width, heigh
       viewBox="0 0 24 24"
       width={finalSize}
       fill="none"
-      className={clsx("overflow-visible select-none shrink-0", className)}
+      className={cn("overflow-visible select-none shrink-0", className)}
       initial="rest"
       animate="rest"
       whileHover="hover"
@@ -275,7 +275,7 @@ export const DownloadIcon: React.FC<IconSvgProps> = ({
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
@@ -300,7 +300,7 @@ export const MouseIcon: React.FC<IconSvgProps> = ({
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <rect x="5" y="2" width="14" height="20" rx="7" />
@@ -324,7 +324,7 @@ export const SendIcon: React.FC<IconSvgProps> = ({
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <path d="m22 2-7 20-4-9-9-4Z" />
@@ -344,7 +344,7 @@ export const DiscordIcon: React.FC<IconSvgProps> = ({
       height={size || height}
       viewBox="0 0 24 24"
       width={size || width}
-      className={clsx("shrink-0", className)}
+      className={cn("shrink-0", className)}
       {...props}
     >
       <path
@@ -372,7 +372,7 @@ export const EmailIcon: React.FC<IconSvgProps> = ({
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={clsx("shrink-0", className)}
+      className={cn("shrink-0", className)}
       {...props}
     >
       <circle cx="12" cy="12" r="4" />
@@ -398,7 +398,7 @@ export const LinkedinIcon: React.FC<IconSvgProps> = ({
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={clsx("shrink-0", className)}
+      className={cn("shrink-0", className)}
       {...props}
     >
       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -425,7 +425,7 @@ export const FacebookIcon: React.FC<IconSvgProps> = ({
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={clsx("shrink-0", className)}
+      className={cn("shrink-0", className)}
       {...props}
     >
       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
@@ -446,7 +446,7 @@ export const TwitterIcon: React.FC<IconSvgProps> = ({
       viewBox="0 0 24 24"
       width={size || width}
       fill="currentColor"
-      className={clsx("shrink-0", className)}
+      className={cn("shrink-0", className)}
       {...props}
     >
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -473,7 +473,7 @@ export const GithubIcon: React.FC<IconSvgProps> = ({
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={clsx("shrink-0", className)}
+      className={cn("shrink-0", className)}
       {...props}
     >
       <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -492,7 +492,7 @@ export const ArrowRight = ({ size = 24, width, height, className, ...props }: Ic
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <path d="M5 12h14" />
@@ -510,7 +510,7 @@ export const LockIcon = ({ size = 24, width, height, className, ...props }: Icon
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
@@ -526,7 +526,7 @@ export const MoonFilledIcon = ({ size = 24, width, height, className, ...props }
     role="presentation"
     viewBox="0 0 24 24"
     width={size || width}
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <path
@@ -544,7 +544,7 @@ export const SunFilledIcon = ({ size = 24, width, height, className, ...props }:
     role="presentation"
     viewBox="0 0 24 24"
     width={size || width}
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <g fill="currentColor">
@@ -568,7 +568,7 @@ export const HeartFilledIcon = ({
     role="presentation"
     viewBox="0 0 24 24"
     width={size || width}
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <path
@@ -590,7 +590,7 @@ export const SearchIcon = ({ size = 24, width, height, className, ...props }: Ic
     role="presentation"
     viewBox="0 0 24 24"
     width="1em"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <path
@@ -620,7 +620,7 @@ export const ClientIcon = ({ size = 24, width, height, className, ...props }: Ic
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <rect width="20" height="14" x="2" y="3" rx="2" />
@@ -639,7 +639,7 @@ export const BackendIcon = ({ size = 24, width, height, className, ...props }: I
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
@@ -659,7 +659,7 @@ export const MapPinIcon = ({ size = 24, width, height, className, ...props }: Ic
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
@@ -677,7 +677,7 @@ export const SocialIcon = ({ size = 24, width, height, className, ...props }: Ic
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <circle cx="12" cy="12" r="10" />
@@ -697,7 +697,7 @@ export const ToolsIcon = ({ size = 24, width, height, className, ...props }: Ico
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
@@ -714,7 +714,7 @@ export const WorkIcon = ({ size = 24, width, height, className, ...props }: Icon
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
@@ -732,7 +732,7 @@ export const SchoolIcon = ({ size = 24, width, height, className, ...props }: Ic
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
@@ -756,7 +756,7 @@ export const ExternalLinkIcon = ({
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={clsx("shrink-0", className)}
+    className={cn("shrink-0", className)}
     {...props}
   >
     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -773,7 +773,7 @@ export const NextUILogo: React.FC<IconSvgProps> = ({ className, width, height = 
       viewBox="0 0 161 32"
       width={width}
       xmlns="http://www.w3.org/2000/svg"
-      className={clsx("shrink-0", className)}
+      className={cn("shrink-0", className)}
       {...props}
     >
       <path

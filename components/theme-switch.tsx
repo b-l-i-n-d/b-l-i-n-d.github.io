@@ -1,6 +1,6 @@
 "use client";
 
-import { cn as clsx } from "cn";
+import { cn } from "cn";
 import { useTheme } from "next-themes";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
@@ -104,7 +104,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className, classNames }) => 
   if (!mounted) {
     return (
       <div
-        className={clsx(
+        className={cn(
           "p-1.5 rounded-xl flex items-center justify-center text-neutral-600 dark:text-neutral-400 opacity-80",
           className,
           classNames?.base
@@ -123,7 +123,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className, classNames }) => 
       ref={buttonRef}
       type="button"
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className={clsx(
+      className={cn(
         "relative w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-accent select-none cursor-pointer",
         className,
         classNames?.base

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { cn as clsx } from "cn";
+import { cn } from "cn";
 
 interface NameEntry {
   name: string;
@@ -68,7 +68,7 @@ export const AbirChromaHeading: React.FC<AbirChromaHeadingProps> = ({
 
   return (
     <div
-      className={clsx(
+      className={cn(
         "relative flex flex-col items-center justify-center text-center select-none w-full max-w-4xl mx-auto space-y-4 px-2",
         className
       )}

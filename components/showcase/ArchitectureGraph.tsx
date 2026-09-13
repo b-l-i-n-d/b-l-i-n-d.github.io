@@ -37,7 +37,7 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
       {/* Legend & Verification Banner */}
       <div className="flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm">
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)] shrink-0" />
+          <span className="w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_8px_rgba(255,23,68,0.8)] shrink-0" />
           <span className="font-bold text-neutral-900 dark:text-white">{data.title}</span>
           <span className="px-2 py-0.5 rounded-md text-xs font-mono bg-black/4 dark:bg-white/6 text-neutral-600 dark:text-neutral-400 shrink-0">
             {data.countLabel}
@@ -47,7 +47,7 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
           href={data.verifyUrl}
           target="_blank"
           rel="noreferrer"
-          className="text-neutral-600 dark:text-neutral-400 hover:text-[#ff1744] transition-colors inline-flex items-center gap-1.5"
+          className="text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors inline-flex items-center gap-1.5"
         >
           <span>{data.verifyLabel}</span>
           <ExternalLink className="w-3.5 h-3.5 shrink-0" />
@@ -82,7 +82,7 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
                         onClick={() => setSelectedNodeId(node.id)}
                         className={`w-full text-left p-3.5 rounded-xl border transition-all ${
                           isSelected
-                            ? "bg-white dark:bg-neutral-900 border-[#ff1744] shadow-[0_0_15px_rgba(255,23,68,0.15)] scale-[1.01]"
+                            ? "bg-white dark:bg-neutral-900 border-accent shadow-[0_0_15px_rgba(255,23,68,0.15)] scale-[1.01]"
                             : "bg-white/80 dark:bg-neutral-900/60 border-black/6 dark:border-white/8 hover:border-black/15 dark:hover:border-white/20"
                         }`}
                       >
@@ -93,7 +93,7 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
                             {node.badge}
                           </span>
                           {isSelected && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] shadow-[0_0_6px_rgba(255,23,68,0.8)] shrink-0" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_6px_rgba(255,23,68,0.8)] shrink-0" />
                           )}
                         </div>
                         <div className="font-bold text-sm sm:text-base text-neutral-900 dark:text-neutral-100 mt-2">
@@ -122,7 +122,7 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-black/6 dark:border-white/8 pb-4">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono text-[#ff1744] font-semibold uppercase tracking-wider">
+                <span className="text-xs font-mono text-accent font-semibold uppercase tracking-wider">
                   Deep-Dive Node Inspection
                 </span>
                 <span className="px-2 py-0.5 rounded text-xs font-mono bg-black/4 dark:bg-white/6 font-semibold text-neutral-700 dark:text-neutral-300 shrink-0">
@@ -144,11 +144,11 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
                 aria-disabled={!selectedNode.prUrl}
                 className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-mono border border-black/6 dark:border-white/8 transition-colors inline-flex items-center gap-1.5 shrink-0 ${
                   selectedNode.prUrl
-                    ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:text-[#ff1744]"
+                    ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:text-accent"
                     : "bg-neutral-50 dark:bg-neutral-900 text-neutral-400 dark:text-neutral-500 cursor-default"
                 }`}
               >
-                <GitPullRequest className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
+                <GitPullRequest className="w-3.5 h-3.5 text-accent shrink-0" />
                 <span>{selectedNode.prUrl ? data.inspectLabel : "No PR Reference"}</span>
                 {selectedNode.prUrl && <ExternalLink className="w-3.5 h-3.5 shrink-0" />}
               </a>
@@ -166,7 +166,7 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
                 href={selectedNode.prUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="text-[#ff1744] hover:underline font-semibold flex items-center gap-1"
+                className="text-accent hover:underline font-semibold flex items-center gap-1"
               >
                 <span>{selectedNode.prHighlight}</span>
                 <ExternalLink className="w-3.5 h-3.5 shrink-0" />
@@ -189,7 +189,7 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
                     key={idx}
                     className="p-2.5 rounded-lg bg-stone-50/70 dark:bg-neutral-950 border border-black/4 dark:border-white/6 font-mono text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 flex items-center gap-2"
                   >
-                    <span className="text-[#ff1744] font-bold shrink-0">{data.commitPrefix}</span>
+                    <span className="text-accent font-bold shrink-0">{data.commitPrefix}</span>
                     <span className="truncate">{commit}</span>
                   </div>
                 ))

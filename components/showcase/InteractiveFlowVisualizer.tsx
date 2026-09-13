@@ -243,7 +243,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             onClick={() => setActiveTab("simulator")}
             className={`px-3 py-1.5 rounded-lg font-medium transition-all flex items-center gap-1.5 ${
               activeTab === "simulator"
-                ? "bg-[#ff1744] text-white font-semibold shadow-[0_0_12px_rgba(255,23,68,0.4)]"
+                ? "bg-accent text-white font-semibold shadow-[0_0_12px_rgba(255,23,68,0.4)]"
                 : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
             }`}
           >
@@ -254,7 +254,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             onClick={() => setActiveTab("architecture")}
             className={`px-3 py-1.5 rounded-lg font-medium transition-all flex items-center gap-1.5 ${
               activeTab === "architecture"
-                ? "bg-[#ff1744] text-white font-semibold shadow-[0_0_12px_rgba(255,23,68,0.4)]"
+                ? "bg-accent text-white font-semibold shadow-[0_0_12px_rgba(255,23,68,0.4)]"
                 : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
             }`}
           >
@@ -265,7 +265,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             onClick={() => setActiveTab("sequence")}
             className={`px-3 py-1.5 rounded-lg font-medium transition-all flex items-center gap-1.5 ${
               activeTab === "sequence"
-                ? "bg-[#ff1744] text-white font-semibold shadow-[0_0_12px_rgba(255,23,68,0.4)]"
+                ? "bg-accent text-white font-semibold shadow-[0_0_12px_rgba(255,23,68,0.4)]"
                 : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
             }`}
           >
@@ -276,7 +276,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             onClick={() => setActiveTab("code")}
             className={`px-3 py-1.5 rounded-lg font-medium transition-all flex items-center gap-1.5 ${
               activeTab === "code"
-                ? "bg-[#ff1744] text-white font-semibold shadow-[0_0_12px_rgba(255,23,68,0.4)]"
+                ? "bg-accent text-white font-semibold shadow-[0_0_12px_rgba(255,23,68,0.4)]"
                 : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
             }`}
           >
@@ -294,7 +294,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                 className={`px-3 py-1.5 rounded-lg font-mono text-xs flex items-center gap-1.5 transition-all ${
                   isPlaying
                     ? "bg-amber-500/10 text-amber-500 border border-amber-500/30"
-                    : "bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 hover:text-[#ff1744]"
+                    : "bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 hover:text-accent"
                 }`}
               >
                 {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
@@ -305,7 +305,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                   setIsPlaying(false);
                   setCurrentStepIndex(0);
                 }}
-                className="p-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-[#ff1744] transition-colors"
+                className="p-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-accent transition-colors"
                 title="Reset Simulation"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
@@ -324,7 +324,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
               </button>
               <button
                 onClick={cycleZoomPreset}
-                className="text-xs font-mono px-2 py-1 rounded-md text-neutral-600 dark:text-neutral-400 hover:text-[#ff1744] hover:bg-neutral-200/50 dark:hover:bg-neutral-800/80 transition-colors shrink-0"
+                className="text-xs font-mono px-2 py-1 rounded-md text-neutral-600 dark:text-neutral-400 hover:text-accent hover:bg-neutral-200/50 dark:hover:bg-neutral-800/80 transition-colors shrink-0"
                 title="Click to cycle zoom presets (100% → 200% → 350% → 500% → 700%)"
               >
                 {Math.round(zoom * 100)}%
@@ -338,7 +338,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
               </button>
               <button
                 onClick={handleResetCanvas}
-                className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-[#ff1744] hover:border-[#ff1744]/40 transition-colors flex items-center gap-1 font-mono text-xs"
+                className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-accent hover:border-accent/40 transition-colors flex items-center gap-1 font-mono text-xs"
                 title="Reset Canvas View"
               >
                 <RotateCcw className="w-3 h-3 shrink-0" />
@@ -349,7 +349,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
 
           <button
             onClick={() => copyCode(currentDiagram)}
-            className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 hover:border-[#ff1744] transition-colors flex items-center gap-1.5 font-mono text-xs sm:text-sm shrink-0"
+            className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 hover:border-accent transition-colors flex items-center gap-1.5 font-mono text-xs sm:text-sm shrink-0"
           >
             {copied ? (
               <>
@@ -383,7 +383,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                   }}
                   className={`relative p-3.5 rounded-xl text-left border transition-all ${
                     isCurrent
-                      ? "bg-white dark:bg-neutral-900 border-[#ff1744] shadow-[0_0_16px_rgba(255,23,68,0.2)] scale-[1.02]"
+                      ? "bg-white dark:bg-neutral-900 border-accent shadow-[0_0_16px_rgba(255,23,68,0.2)] scale-[1.02]"
                       : isPassed
                         ? "bg-stone-100/80 dark:bg-neutral-900/50 border-emerald-500/30 text-neutral-700 dark:text-neutral-300"
                         : "bg-white/60 dark:bg-neutral-900/30 border-black/6 dark:border-white/6 opacity-75 hover:opacity-100"
@@ -393,7 +393,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                     <span
                       className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                         isCurrent
-                          ? "bg-[#ff1744] text-white shadow-[0_0_8px_rgba(255,23,68,0.8)]"
+                          ? "bg-accent text-white shadow-[0_0_8px_rgba(255,23,68,0.8)]"
                           : isPassed
                             ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
                             : "bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
@@ -403,8 +403,8 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                     </span>
                     {isCurrent && (
                       <span className="flex h-2 w-2 relative">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff1744] opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ff1744]"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
                       </span>
                     )}
                   </div>
@@ -436,7 +436,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                 <div className="p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-black/6 dark:border-white/8 shadow-sm space-y-4">
                   <div className="flex items-center justify-between border-b border-black/4 dark:border-white/6 pb-3">
                     <div>
-                      <span className="text-xs font-mono text-[#ff1744] font-semibold">
+                      <span className="text-xs font-mono text-accent font-semibold">
                         STAGE {currentStep.number} OF {String(steps.length).padStart(2, "0")}
                       </span>
                       <h4 className="text-lg font-bold text-neutral-900 dark:text-white">
@@ -487,7 +487,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                 <div className="p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-black/6 dark:border-white/8 shadow-sm space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-xs font-semibold text-neutral-900 dark:text-white">
-                      <Zap className="w-3.5 h-3.5 text-[#ff1744]" />
+                      <Zap className="w-3.5 h-3.5 text-accent" />
                       <span>Telemetry Specs</span>
                     </div>
                     <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
@@ -526,7 +526,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                 {/* Live Trace Logs Console */}
                 <div className="p-5 rounded-2xl bg-[#0c0c10] border border-white/8 shadow-sm space-y-3 font-mono">
                   <div className="flex items-center gap-2 text-xs font-medium text-neutral-400">
-                    <Terminal className="w-3.5 h-3.5 text-[#ff1744]" />
+                    <Terminal className="w-3.5 h-3.5 text-accent" />
                     <span>Pipeline Audit Stream</span>
                   </div>
                   <div className="space-y-2 text-[11px] text-neutral-400">
@@ -568,7 +568,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
           {/* Floating Canvas Mode Header Badge */}
           <div className="absolute top-3 left-3 z-20 pointer-events-none flex items-center gap-2">
             <span className="px-3 py-1.5 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/8 dark:border-white/10 text-[11px] font-medium text-neutral-600 dark:text-neutral-300 flex items-center gap-1.5 shadow-sm">
-              <Move className="w-3.5 h-3.5 text-[#ff1744]" />
+              <Move className="w-3.5 h-3.5 text-accent" />
               <span>
                 Open Canvas • Click &amp; drag anywhere to pan • Scroll to zoom (25% – 800%)
               </span>
@@ -579,7 +579,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
           <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/8 dark:border-white/10 p-1.5 rounded-xl shadow-sm">
             <button
               onClick={handleResetCanvas}
-              className="p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-[#ff1744] transition-colors"
+              className="p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors"
               title="Reset pan and zoom (100%)"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -593,7 +593,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             </button>
             <button
               onClick={cycleZoomPreset}
-              className="text-[11px] font-mono px-2 py-0.5 rounded text-neutral-600 dark:text-neutral-300 hover:text-[#ff1744] hover:bg-neutral-200/50 dark:hover:bg-neutral-800/80 transition-colors"
+              className="text-[11px] font-mono px-2 py-0.5 rounded text-neutral-600 dark:text-neutral-300 hover:text-accent hover:bg-neutral-200/50 dark:hover:bg-neutral-800/80 transition-colors"
               title="Click to cycle zoom presets (100% → 200% → 350% → 500% → 700%)"
             >
               {Math.round(zoom * 100)}%
@@ -614,7 +614,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                   onClick={() => setZoom(level)}
                   className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition-colors ${
                     Math.abs(zoom - level) < 0.1
-                      ? "bg-[#ff1744] text-white font-bold"
+                      ? "bg-accent text-white font-bold"
                       : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
                   }`}
                 >
@@ -655,7 +655,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             </div>
           ) : (
             <div className="flex items-center gap-2 text-neutral-400 font-mono text-xs z-10">
-              <span className="w-3 h-3 rounded-full border-2 border-[#ff1744] border-t-transparent animate-spin" />
+              <span className="w-3 h-3 rounded-full border-2 border-accent border-t-transparent animate-spin" />
               <span>Compiling Mermaid Vector SVG...</span>
             </div>
           )}
@@ -667,7 +667,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
         <div className="rounded-2xl bg-[#0e0e12] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-elevated">
           <div className="flex items-center justify-between px-5 py-3 bg-[#14141a] border-b border-white/6">
             <div className="flex items-center gap-2">
-              <Code className="w-4 h-4 text-[#ff1744]" />
+              <Code className="w-4 h-4 text-accent" />
               <span className="text-xs font-mono font-medium text-neutral-300">
                 Mermaid-Specification.mmd
               </span>

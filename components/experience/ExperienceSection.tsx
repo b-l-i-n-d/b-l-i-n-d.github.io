@@ -48,8 +48,8 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         {/* Section Header */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
-            <span className="text-xs font-mono uppercase tracking-widest text-[#ff1744] font-bold">
+            <span className="w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
+            <span className="text-xs font-mono uppercase tracking-widest text-accent font-bold">
               Chapter 05 &middot; Track Record
             </span>
           </div>
@@ -74,7 +74,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                 className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
                   isActive
                     ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 shadow-sm"
-                    : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/[0.03] dark:hover:bg-white/[0.03]"
+                    : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/3 dark:hover:bg-white/[0.03]"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -100,7 +100,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                   key={index}
                   className={`relative rounded-2xl bg-white dark:bg-neutral-900/60 border ${
                     isOllyo
-                      ? "border-[#ff1744]/40 dark:border-[#ff1744]/30 shadow-craft-card"
+                      ? "border-accent/40 dark:border-accent/30 shadow-craft-card"
                       : "border-black/8 dark:border-white/10"
                   } p-6 sm:p-8 space-y-6 transition-all duration-200 hover:border-black/15 dark:hover:border-white/[0.2]`}
                 >
@@ -124,7 +124,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                             href={exp.website || "#"}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xl font-bold text-[#ff1744] hover:text-rose-500 transition-colors inline-flex items-center gap-1.5"
+                            className="text-xl font-bold text-accent hover:text-rose-500 transition-colors inline-flex items-center gap-1.5"
                           >
                             <span>{exp.company}</span>
                             <ExternalLink className="w-3.5 h-3.5 shrink-0" />
@@ -158,7 +158,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                         {exp.products.map((product) => (
                           <div
                             key={product.name}
-                            className="p-5 sm:p-6 rounded-xl bg-stone-50/70 dark:bg-white/2 border border-black/4 dark:border-white/6 space-y-2.5 hover:border-[#ff1744]/40 transition-all duration-200 shadow-sm hover:shadow-craft-card"
+                            className="p-5 sm:p-6 rounded-xl bg-stone-50/70 dark:bg-white/2 border border-black/4 dark:border-white/6 space-y-2.5 hover:border-accent/40 transition-all duration-200 shadow-sm hover:shadow-craft-card"
                           >
                             <div className="flex items-center justify-between">
                               <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-neutral-100">
@@ -168,7 +168,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                                 href={product.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs font-mono text-[#ff1744] hover:text-rose-500 font-semibold inline-flex items-center gap-1"
+                                className="text-xs font-mono text-accent hover:text-rose-500 font-semibold inline-flex items-center gap-1"
                               >
                                 <span>Live Product</span>
                                 <ExternalLink className="w-3 h-3" />
@@ -193,7 +193,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                             key={aIdx}
                             className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#ff1744] mt-2 shrink-0" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
                             <span>{item}</span>
                           </li>
                         ))}
@@ -230,8 +230,8 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-black/6 dark:border-white/8 pb-6">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#ff1744]" />
-                    <span className="text-xs font-mono uppercase tracking-wider text-[#ff1744] font-semibold">
+                    <span className="w-2 h-2 rounded-full bg-accent" />
+                    <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold">
                       Undergraduate Degree
                     </span>
                   </div>

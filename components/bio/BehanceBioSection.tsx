@@ -29,7 +29,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
         {/* Section Header */}
         <div className="flex items-center justify-between border-b border-black/6 dark:border-white/8 pb-6">
           <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
             <span className="text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-300">
               Biography &amp; Profile
             </span>
@@ -61,7 +61,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
 
               {/* Floating Name Overlay with Abir Chroma Accent */}
               <div className="absolute bottom-5 left-5 right-5 text-left">
-                <span className="text-xs sm:text-sm text-[#ff1744] font-semibold block">
+                <span className="text-xs sm:text-sm text-accent font-semibold block">
                   Software Engineer
                 </span>
                 <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-baseline gap-2">
@@ -111,17 +111,17 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
             <div className="space-y-5 border-t border-black/6 dark:border-white/8 pt-6">
               <div className="flex items-center justify-between gap-2 flex-wrap">
                 <h4 className="text-base font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
+                  <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
                   <span>Experiences &amp; Ascension :</span>
                 </h4>
 
                 {/* Handcrafted Animated "- - -" Dotted Curved Line */}
                 <div className="flex items-center gap-1.5 shrink-0">
-                  <span className="font-script text-base sm:text-lg text-[#ff1744] -rotate-2 select-none tracking-tight">
+                  <span className="font-script text-base sm:text-lg text-accent -rotate-2 select-none tracking-tight">
                     2x promotion in 2 years
                   </span>
                   <svg
-                    className="w-10 h-7 text-[#ff1744] overflow-visible -translate-y-1 shrink-0"
+                    className="w-10 h-7 text-accent overflow-visible -translate-y-1 shrink-0"
                     viewBox="0 0 40 28"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -168,12 +168,12 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                 >
                   <span
                     data-timeline-dot
-                    className="absolute left-[3px] top-1.5 w-3.5 h-3.5 rounded-full bg-[#ff1744] ring-4 ring-rose-500/20 shadow-[0_0_8px_rgba(255,23,68,0.5)] group-hover:scale-125 transition-transform"
+                    className="absolute left-[3px] top-1.5 w-3.5 h-3.5 rounded-full bg-accent ring-4 ring-rose-500/20 shadow-[0_0_8px_rgba(255,23,68,0.5)] group-hover:scale-125 transition-transform"
                   />
                   <div className="space-y-0.5">
                     <div className="flex items-baseline gap-2 flex-wrap">
-                      <span className="font-mono text-xs font-bold text-[#ff1744]">2026</span>
-                      <span className="text-sm font-bold text-neutral-900 dark:text-white group-hover:text-[#ff1744] transition-colors">
+                      <span className="font-mono text-xs font-bold text-accent">2026</span>
+                      <span className="text-sm font-bold text-neutral-900 dark:text-white group-hover:text-accent transition-colors">
                         Software Engineer
                       </span>
                       <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold">
@@ -199,7 +199,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                 >
                   <span
                     data-timeline-dot
-                    className="absolute left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-[#ff1744] group-hover:scale-150 transition-all shadow-xs"
+                    className="absolute left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-accent group-hover:scale-150 transition-all shadow-xs"
                   />
                   <div className="space-y-0.5">
                     <div className="flex items-baseline gap-2 flex-wrap">
@@ -207,7 +207,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                       <span className="text-sm font-semibold text-neutral-800 dark:text-neutral-200 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
                         Associate Software Engineer
                       </span>
-                      <span className="text-[11px] font-script text-[#ff1744]">promoted</span>
+                      <span className="text-[11px] font-script text-accent">promoted</span>
                     </div>
                     <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                       Continuous lesson player, dynamic quiz engines &amp; locked 60 FPS compositor
@@ -225,7 +225,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                 >
                   <span
                     data-timeline-dot
-                    className="absolute left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-[#ff1744] group-hover:scale-150 transition-all shadow-xs"
+                    className="absolute left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-accent group-hover:scale-150 transition-all shadow-xs"
                   />
                   <div className="space-y-0.5">
                     <div className="flex items-baseline gap-2 flex-wrap">
@@ -251,14 +251,14 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                 >
                   <span
                     data-timeline-dot
-                    className="absolute left-[5px] top-3 w-2.5 h-2.5 rounded-full bg-neutral-400 dark:bg-neutral-500 group-hover:bg-[#ff1744] group-hover:scale-150 transition-all shadow-xs"
+                    className="absolute left-[5px] top-3 w-2.5 h-2.5 rounded-full bg-neutral-400 dark:bg-neutral-500 group-hover:bg-accent group-hover:scale-150 transition-all shadow-xs"
                   />
                   <div className="space-y-0.5">
                     <div className="flex items-baseline gap-2 flex-wrap">
                       <span className="font-mono text-xs font-medium text-neutral-400">
                         2018 &ndash; 2023
                       </span>
-                      <span className="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-[#ff1744] transition-colors">
+                      <span className="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-accent transition-colors">
                         B.Sc. in Software Engineering
                       </span>
                       <span className="text-[10px] font-mono text-neutral-400">Graduated</span>

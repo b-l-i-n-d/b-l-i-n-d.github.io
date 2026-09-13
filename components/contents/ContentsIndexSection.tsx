@@ -234,7 +234,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
 
   const renderDots = (count: number) => {
     const dotBase =
-      "block w-1.5 h-1.5 rounded-full transition-all duration-200 bg-neutral-300 dark:bg-neutral-700 group-hover:bg-[#ff1744] dark:group-hover:bg-[#ff1744] group-hover:shadow-[0_0_8px_rgba(255,23,68,0.8)] dark:group-hover:shadow-[0_0_12px_rgba(255,23,68,0.95)] group-hover:scale-125";
+      "block w-1.5 h-1.5 rounded-full transition-all duration-200 bg-neutral-300 dark:bg-neutral-700 group-hover:bg-accent dark:group-hover:bg-accent group-hover:shadow-[0_0_8px_rgba(255,23,68,0.8)] dark:group-hover:shadow-[0_0_12px_rgba(255,23,68,0.95)] group-hover:scale-125";
 
     if (count === 1) {
       return (
@@ -285,7 +285,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
         {/* Header (Clean, quiet, informative) */}
         <div className="space-y-3 border-b border-black/6 dark:border-white/8 pb-8">
           <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[#ff1744]" />
+            <span className="w-2 h-2 rounded-full bg-accent" />
             <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">
               Index Directory
             </span>
@@ -313,7 +313,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
             <div key={column.id} className="space-y-6 min-w-0">
               {/* Column Header: Handwritten Number + Clean Title */}
               <div className="flex items-baseline gap-2.5 pb-2 border-b border-black/6 dark:border-white/8">
-                <span className="font-script text-3xl sm:text-4xl text-[#ff1744] select-none font-bold">
+                <span className="font-script text-3xl sm:text-4xl text-accent select-none font-bold">
                   {column.numberScript}
                 </span>
                 <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">
@@ -340,12 +340,12 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
                         {/* Content text */}
                         <div className="flex-1 min-w-0">
                           {item.subtitlePosition === "above" && (
-                            <span className="block text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-0.5 group-hover:text-[#ff1744] transition-colors">
+                            <span className="block text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-0.5 group-hover:text-accent transition-colors">
                               {item.subtitle}
                             </span>
                           )}
 
-                          <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-[#ff1744] transition-colors leading-snug">
+                          <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-accent transition-colors leading-snug">
                             {item.title}
                           </h4>
 

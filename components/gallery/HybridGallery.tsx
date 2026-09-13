@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { ShowcaseItem } from "@/types/portfolio";
 import { GithubIcon } from "../icons";
 import { X, Lock, ChevronLeft, ChevronRight } from "lucide-react";
-import { cn as clsx } from "cn";
+import { cn } from "cn";
 
 interface HybridGalleryProps {
   items: ShowcaseItem[];
@@ -149,7 +149,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/6 dark:border-white/8 pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#ff1744] shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
             <span className="text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-300">
               Interactive Product Blueprints
             </span>
@@ -176,15 +176,15 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                 else itemRefs.current.delete(item.id);
               }}
               onClick={() => handleOpenItem(item)}
-              className={clsx(
+              className={cn(
                 "p-5 rounded-xl bg-white dark:bg-neutral-900/50 border border-black/6 dark:border-white/8 hover:border-black/15 dark:hover:border-white/20 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-craft-card hover:shadow-craft-card-hover active:scale-[0.98]",
                 isCurrentlyInspected &&
-                  "ring-2 ring-[#ff1744]/50 dark:ring-[#ff1744]/60 opacity-60 scale-[0.98]"
+                  "ring-2 ring-accent/50 dark:ring-accent/60 opacity-60 scale-[0.98]"
               )}
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs sm:text-sm font-mono text-neutral-600 dark:text-neutral-400 group-hover:text-[#ff1744] transition-colors font-bold">
+                  <span className="text-xs sm:text-sm font-mono text-neutral-600 dark:text-neutral-400 group-hover:text-accent transition-colors font-bold">
                     #{item.number}
                   </span>
                   <div className="flex items-center gap-1.5 flex-wrap">
@@ -199,7 +199,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                   </div>
                 </div>
 
-                <h3 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-[#ff1744] transition-colors">
+                <h3 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-accent transition-colors">
                   {item.title}
                 </h3>
 
@@ -218,7 +218,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                     e.stopPropagation();
                     handleOpenItem(item);
                   }}
-                  className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-stone-100 hover:bg-stone-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors font-semibold group-hover:bg-[#ff1744] group-hover:text-white active:scale-95 shadow-xs shrink-0"
+                  className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-stone-100 hover:bg-stone-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors font-semibold group-hover:bg-accent group-hover:text-white active:scale-95 shadow-xs shrink-0"
                   aria-label={`Inspect ${item.title} specifications`}
                 >
                   <span>Inspect</span>
@@ -317,7 +317,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                             aria-label={`Jump to ${item.title}`}
                             className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                               isSelected
-                                ? "w-6 bg-[#ff1744]"
+                                ? "w-6 bg-accent"
                                 : "w-2 bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-600"
                             }`}
                           />
@@ -368,13 +368,13 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                       {/* Modal Header */}
                       <div className="space-y-2 border-b border-black/6 dark:border-white/8 pb-4">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-xs sm:text-sm font-mono text-[#ff1744] font-bold">
+                          <span className="text-xs sm:text-sm font-mono text-accent font-bold">
                             #{selectedItem.number}
                           </span>
                           <span className="px-2 py-0.5 text-xs font-mono rounded bg-stone-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/4 dark:border-white/6 shrink-0">
                             {selectedItem.category}
                           </span>
-                          <span className="px-2 py-0.5 text-xs font-mono rounded bg-[#ff1744]/10 text-[#ff1744] font-semibold shrink-0">
+                          <span className="px-2 py-0.5 text-xs font-mono rounded bg-accent/10 text-accent font-semibold shrink-0">
                             {selectedItem.badge}
                           </span>
                           {selectedItem.isPrivate && (
@@ -407,7 +407,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                               key={idx}
                               className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"
                             >
-                              <span className="text-[#ff1744] font-bold shrink-0 mt-0.5">•</span>
+                              <span className="text-accent font-bold shrink-0 mt-0.5">•</span>
                               <span>{detail}</span>
                             </div>
                           ))}
@@ -464,7 +464,7 @@ export const HybridGallery: React.FC<HybridGalleryProps> = ({ items, isEmbedded 
                               href={selectedItem.demoUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="px-4 py-2 rounded-lg bg-[#ff1744] hover:bg-rose-500 text-white font-bold text-xs sm:text-sm font-mono transition-all shadow-[0_0_10px_rgba(255,23,68,0.4)] flex items-center gap-1.5 cursor-pointer active:scale-95 shrink-0"
+                              className="px-4 py-2 rounded-lg bg-accent hover:bg-rose-500 text-white font-bold text-xs sm:text-sm font-mono transition-all shadow-[0_0_10px_rgba(255,23,68,0.4)] flex items-center gap-1.5 cursor-pointer active:scale-95 shrink-0"
                             >
                               <span>Live Demo ↗</span>
                             </a>

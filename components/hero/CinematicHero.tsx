@@ -121,13 +121,13 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
       <div className="relative z-10 max-w-5xl w-full mx-auto flex flex-col items-center text-center space-y-8">
         {/* Meta Indicator Pills (Apple whisper hairlines, quiet ambient fills) */}
         <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-medium">
-          <span className="px-3.5 py-1.5 bg-black/[0.03] dark:bg-white/4 text-neutral-800 dark:text-neutral-200 border border-black/6 dark:border-white/8 rounded-full shrink-0">
+          <span className="px-3.5 py-1.5 bg-black/3 dark:bg-white/4 text-neutral-800 dark:text-neutral-200 border border-black/6 dark:border-white/8 rounded-full shrink-0">
             Software Engineer at Ollyo
           </span>
-          <span className="px-3.5 py-1.5 bg-black/[0.03] dark:bg-white/4 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 rounded-full shrink-0">
+          <span className="px-3.5 py-1.5 bg-black/3 dark:bg-white/4 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 rounded-full shrink-0">
             SUST Software Engineering Graduate
           </span>
-          <span className="px-3.5 py-1.5 bg-black/[0.03] dark:bg-white/4 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 rounded-full shrink-0">
+          <span className="px-3.5 py-1.5 bg-black/3 dark:bg-white/4 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 rounded-full shrink-0">
             Themeum &bull; Tutor LMS Core
           </span>
         </div>
@@ -152,7 +152,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
           <a
             href="#contact"
             onClick={(e) => handleScrollTo(e, "contact")}
-            className="px-6 py-3 rounded-full bg-black/[0.03] dark:bg-white/4 hover:bg-black/6 dark:hover:bg-white/8 border border-black/8 dark:border-white/12 text-sm font-medium text-neutral-800 dark:text-neutral-200 transition-colors"
+            className="px-6 py-3 rounded-full bg-black/3 dark:bg-white/4 hover:bg-black/6 dark:hover:bg-white/8 border border-black/8 dark:border-white/12 text-sm font-medium text-neutral-800 dark:text-neutral-200 transition-colors"
           >
             Get in Touch
           </a>

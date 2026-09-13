@@ -74,7 +74,7 @@ const MOBILE_OLLYO_TRAJECTORY = [
     description:
       "Frontend architecture, dynamic state orchestration & high-concurrency client engines across 120,000+ academies globally.",
     isCurrent: true,
-    yearColor: "text-[#ff1744]",
+    yearColor: "text-accent",
     curvePath: "M 12 0 C -2 32, 2 68, 12 100",
   },
   {
@@ -117,17 +117,17 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
       {/* Section Header: Matches Original Desktop Design with Mobile Responsiveness */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <TrendingUp className="w-4 h-4 text-[#ff1744] shrink-0" />
+          <TrendingUp className="w-4 h-4 text-accent shrink-0" />
           <h4 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white tracking-tight flex items-center gap-2">
             <span>Career Trajectory at Ollyo :</span>
-            <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#ff1744]/10 text-[#ff1744] font-semibold">
+            <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-accent/10 text-accent font-semibold">
               2x in 2 Years
             </span>
           </h4>
         </div>
 
         <span className="hidden sm:flex text-xs font-mono text-neutral-500 dark:text-neutral-400 items-center gap-1.5 opacity-90 select-none">
-          <Move className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
+          <Move className="w-3.5 h-3.5 text-accent shrink-0" />
           <span className="hidden xs:inline">drag milestones to test physics</span>
           <span className="xs:hidden">drag physics</span>
         </span>
@@ -144,9 +144,9 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
               <div className="relative w-6 shrink-0 flex items-center justify-center pt-0.5">
                 {item.isCurrent ? (
                   <div className="relative z-10 flex items-center justify-center w-6 h-6">
-                    <span className="absolute inset-0 rounded-full bg-[#ff1744]/20 animate-pulse" />
-                    <span className="absolute inset-1 rounded-full bg-[#ff1744]/25" />
-                    <span className="relative w-2.5 h-2.5 rounded-full bg-[#ff1744] shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
+                    <span className="absolute inset-0 rounded-full bg-accent/20 animate-pulse" />
+                    <span className="absolute inset-1 rounded-full bg-accent/25" />
+                    <span className="relative w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
                   </div>
                 ) : (
                   <div className="relative z-10 flex items-center justify-center w-6 h-6">
@@ -226,7 +226,7 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                     </span>
                   )}
                   {item.tagType === "script" && (
-                    <span className="font-script text-base text-[#ff1744] font-semibold -rotate-2 select-none">
+                    <span className="font-script text-base text-accent font-semibold -rotate-2 select-none">
                       {item.tagText}
                     </span>
                   )}
@@ -396,7 +396,7 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                         item.isCurrent
                           ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shadow-[0_0_8px_rgba(16,185,129,0.3)]"
                           : isHovered
-                            ? "bg-[#ff1744]/15 text-[#ff1744] border border-[#ff1744]/30"
+                            ? "bg-accent/15 text-accent border border-accent/30"
                             : "bg-black/[0.05] dark:bg-white/8 text-neutral-600 dark:text-neutral-400 border border-black/4 dark:border-white/6"
                       }`}
                     >
@@ -421,11 +421,11 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                       className={`relative z-10 font-script tracking-wide transition-all duration-200 text-xl sm:text-2xl md:text-3xl font-bold leading-tight select-none ${
                         item.isCurrent
                           ? isHovered || isDragged
-                            ? "text-[#ff1744] [text-shadow:0_0_12px_rgba(255,23,68,0.9),0_0_24px_rgba(255,23,68,0.5)]"
-                            : "text-[#ff1744] [text-shadow:0_0_8px_rgba(255,23,68,0.45)]"
+                            ? "text-accent [text-shadow:0_0_12px_rgba(255,23,68,0.9),0_0_24px_rgba(255,23,68,0.5)]"
+                            : "text-accent [text-shadow:0_0_8px_rgba(255,23,68,0.45)]"
                           : isHovered || isDragged
-                            ? "text-[#ff1744] [text-shadow:0_0_12px_rgba(255,23,68,0.9),0_0_24px_rgba(255,23,68,0.5)]"
-                            : "text-neutral-800 dark:text-neutral-100 group-hover/milestone:text-[#ff1744] group-hover/milestone:[text-shadow:0_0_12px_rgba(255,23,68,0.9),0_0_24px_rgba(255,23,68,0.5)]"
+                            ? "text-accent [text-shadow:0_0_12px_rgba(255,23,68,0.9),0_0_24px_rgba(255,23,68,0.5)]"
+                            : "text-neutral-800 dark:text-neutral-100 group-hover/milestone:text-accent group-hover/milestone:[text-shadow:0_0_12px_rgba(255,23,68,0.9),0_0_24px_rgba(255,23,68,0.5)]"
                       }`}
                     >
                       {item.role}
@@ -477,7 +477,7 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                 className="w-full px-3.5 py-2 rounded-xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border border-black/8 dark:border-white/10 shadow-sm flex items-center justify-between gap-3"
               >
                 <div className="flex items-center gap-2 truncate">
-                  <Zap className="w-3.5 h-3.5 text-[#ff1744] shrink-0" />
+                  <Zap className="w-3.5 h-3.5 text-accent shrink-0" />
                   <span className="text-xs font-mono font-bold text-neutral-900 dark:text-white">
                     [{activeMilestone.year}]
                   </span>
@@ -485,7 +485,7 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                     {activeMilestone.highlight}
                   </span>
                 </div>
-                <span className="text-[11px] font-mono text-[#ff1744] font-semibold shrink-0 hidden sm:inline">
+                <span className="text-[11px] font-mono text-accent font-semibold shrink-0 hidden sm:inline">
                   {activeMilestone.status}
                 </span>
               </motion.div>
@@ -498,7 +498,7 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
                 className="w-full px-3.5 py-2 rounded-xl bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm border border-black/4 dark:border-white/6 text-[11px] font-mono text-neutral-500 dark:text-neutral-400 flex items-center justify-between"
               >
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-3 h-3 text-[#ff1744]" />
+                  <Sparkles className="w-3 h-3 text-accent" />
                   <span>Hover or drag any milestone to inspect technical telemetry</span>
                 </div>
                 <span className="font-semibold text-neutral-700 dark:text-neutral-300 hidden sm:inline">
