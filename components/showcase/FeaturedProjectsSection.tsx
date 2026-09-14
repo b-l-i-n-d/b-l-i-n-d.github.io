@@ -61,12 +61,12 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
         <div className="space-y-4 mb-16 sm:mb-20">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-mono text-xs uppercase tracking-widest font-semibold">
             <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-            <span>CHAPTER 04 // FLAGSHIP WORKS</span>
+            <span>FLAGSHIP WORKS</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
                 Featured Case Studies
               </h2>
               <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mt-3 leading-relaxed">
@@ -91,7 +91,7 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
               sub: project.role,
             };
             const isHovered = hoveredCard === project.id;
-            const chapterIndex = `04.${index + 1}`;
+            const chapterIndex = String(index + 1).padStart(2, "0");
 
             return (
               <motion.article

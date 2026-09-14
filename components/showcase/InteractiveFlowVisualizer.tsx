@@ -318,7 +318,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                   // @ts-ignore - CSS Anchor Positioning
                   anchorName: `--flow-tab-${tab.id}`,
                 }}
-                className={`relative z-10 px-3 py-1.5 rounded-lg font-medium transition-colors flex items-center gap-1.5 select-none shrink-0 ${
+                className={`relative z-10 px-3 py-1.5 rounded-lg font-medium transition-all duration-150 active:scale-[0.96] flex items-center gap-1.5 select-none shrink-0 ${
                   isSelected
                     ? "text-white font-semibold"
                     : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
@@ -363,7 +363,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className={`px-3 py-1.5 rounded-lg font-mono text-xs flex items-center gap-1.5 transition-all ${
+                className={`px-3 py-1.5 rounded-lg font-mono text-xs flex items-center gap-1.5 transition-all active:scale-[0.96] duration-150 ${
                   isPlaying
                     ? "bg-amber-500/10 text-amber-500 border border-amber-500/30"
                     : "bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 hover:text-accent"
@@ -377,7 +377,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                   setIsPlaying(false);
                   setCurrentStepIndex(0);
                 }}
-                className="p-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-accent transition-colors"
+                className="p-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-accent transition-all active:scale-[0.92] duration-150"
                 title="Reset Simulation"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
@@ -452,7 +452,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                       setIsPlaying(false);
                       setCurrentStepIndex(idx);
                     }}
-                    className={`group relative p-3.5 rounded-xl text-left border flex flex-col justify-between min-h-[96px] transition-all duration-200 ${
+                    className={`group relative p-3.5 rounded-xl text-left border flex flex-col justify-between min-h-[96px] transition-all duration-150 active:scale-[0.97] ease-out ${
                       isCurrent
                         ? "bg-white dark:bg-neutral-900 border-accent/80 shadow-[0_0_12px_rgba(255,23,68,0.1)] ring-1 ring-accent/30 text-neutral-900 dark:text-white"
                         : isPassed
@@ -504,9 +504,9 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             <div className="relative min-h-[360px]">
               <motion.div
                 key={currentStep.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.18 }}
+                initial={{ opacity: 0, scale: 0.985 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start"
               >
                 {/* Left Col (8): Narrative, Architecture Diagram, Code Execution */}

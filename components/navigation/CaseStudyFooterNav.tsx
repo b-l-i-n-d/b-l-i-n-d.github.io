@@ -24,7 +24,7 @@ export const CaseStudyFooterNav: React.FC<CaseStudyFooterNavProps> = ({
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
-              Chapter Navigation
+              Case Study Navigation
             </span>
           </div>
           <ViewTransitionLink
@@ -48,7 +48,7 @@ export const CaseStudyFooterNav: React.FC<CaseStudyFooterNavProps> = ({
             </div>
             <div>
               <span className="text-xs font-mono text-accent font-bold">
-                Chapter {prevProject.chapterNumber}
+                {prevProject.category}
               </span>
               <h4 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white mt-1 group-hover:text-accent transition-colors">
                 {prevProject.title}
@@ -70,7 +70,7 @@ export const CaseStudyFooterNav: React.FC<CaseStudyFooterNavProps> = ({
             </div>
             <div>
               <span className="text-xs font-mono text-accent font-bold">
-                Chapter {nextProject.chapterNumber}
+                {nextProject.category}
               </span>
               <h4 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white mt-1 group-hover:text-accent transition-colors">
                 {nextProject.title}

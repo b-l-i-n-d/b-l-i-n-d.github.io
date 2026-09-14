@@ -227,7 +227,7 @@ export const Navbar = () => {
         <div className="flex flex-col gap-2 max-w-sm mx-auto w-full">
           <div className="pb-3 mb-2 border-b border-black/[0.06] dark:border-white/[0.08]">
             <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 dark:text-neutral-400">
-              Directory Chapters
+              Directory Index
             </span>
           </div>
 

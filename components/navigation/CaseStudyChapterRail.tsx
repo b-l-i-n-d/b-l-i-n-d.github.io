@@ -82,11 +82,14 @@ export const CaseStudyChapterRail: React.FC = () => {
             <button
               key={chapter.id}
               onClick={() => scrollToChapter(chapter.id)}
-              className="group relative flex items-center justify-center w-6 h-6 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-              aria-label={`Jump to chapter ${chapter.number}: ${chapter.title}`}
+              className="group relative flex items-center justify-center w-6 h-6 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.92] transition-transform duration-150"
+              aria-label={`Jump to ${chapter.title}`}
             >
-              {/* Tooltip label on hover */}
-              <span className="absolute right-8 px-2.5 py-1 text-xs font-mono text-neutral-800 dark:text-neutral-200 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border border-black/6 dark:border-white/10 rounded-lg shadow-craft-card whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-200 z-50 -translate-x-1 group-hover:translate-x-0">
+              {/* Tooltip label on hover - Emil craft: origin-aware, scale(0.95)->scale(1), custom ease-out */}
+              <span
+                style={{ transformOrigin: "right center" }}
+                className="absolute right-8 px-2.5 py-1 text-xs font-mono text-neutral-800 dark:text-neutral-200 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border border-black/8 dark:border-white/10 rounded-lg shadow-craft-card whitespace-nowrap opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 transition-[transform,opacity] duration-150 ease-out z-50 -translate-x-1 group-hover:translate-x-0"
+              >
                 <span className="text-accent font-bold mr-1.5">{chapter.number}</span>
                 <span className="font-semibold">{chapter.title}</span>
                 <span className="text-neutral-400 dark:text-neutral-500 ml-1.5 text-[10px]">
@@ -101,16 +104,16 @@ export const CaseStudyChapterRail: React.FC = () => {
                     layoutId="active-case-study-chapter-pill"
                     layout
                     initial={false}
-                    className="w-2 h-6 rounded-full bg-accent shadow-[0_0_12px_rgba(255,23,68,0.8)]"
+                    className="w-2 h-6 rounded-full bg-accent shadow-[0_0_14px_rgba(255,23,68,0.85)]"
                     transition={{
                       type: "spring",
-                      stiffness: 420,
-                      damping: 28,
-                      mass: 0.8,
+                      stiffness: 450,
+                      damping: 30,
+                      mass: 0.6,
                     }}
                   />
                 ) : (
-                  <div className="w-1.5 h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-700 group-hover:bg-neutral-500 dark:group-hover:bg-neutral-400 group-hover:scale-125 transition-all" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-700 group-hover:bg-accent/80 dark:group-hover:bg-accent/80 group-hover:scale-125 transition-all duration-150" />
                 )}
               </div>
             </button>

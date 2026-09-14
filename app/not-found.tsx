@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowLeft, Compass, Layers, ShieldCheck, Cpu } from "lucide-react";
+import { ArrowLeft, Compass, Layers, ShieldCheck, ShoppingCart } from "lucide-react";
 import { BlindSkullIcon } from "@/components/icons";
 import { DoodleMarqueeBanner } from "@/components/decorations/DoodleMarqueeBanner";
 
@@ -77,16 +77,16 @@ export default function NotFound() {
               </Link>
 
               <Link
-                href="/case-study/edtech"
+                href="/case-study/omnicommerce"
                 className="p-3 rounded-xl bg-white dark:bg-neutral-900/60 border border-black/5 dark:border-white/5 hover:border-accent/40 text-xs flex items-center justify-between group transition-colors"
               >
                 <div className="flex items-center gap-2">
-                  <Cpu className="w-3.5 h-3.5 text-sky-500" />
+                  <ShoppingCart className="w-3.5 h-3.5 text-sky-500" />
                   <span className="font-semibold text-neutral-800 dark:text-neutral-200 group-hover:text-accent">
-                    EdTech Monorepo
+                    OmniCommerce
                   </span>
                 </div>
-                <span className="font-mono text-[10px] text-neutral-400">RTK Query</span>
+                <span className="font-mono text-[10px] text-neutral-400">Next.js & Stripe</span>
               </Link>
 
               <Link

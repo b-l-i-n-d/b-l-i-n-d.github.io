@@ -111,7 +111,7 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
               href={activeModule.prUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:text-accent flex items-center gap-1.5 transition-colors shrink-0"
+              className="text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:text-accent flex items-center gap-1.5 transition-all duration-150 active:scale-[0.96] shrink-0"
             >
               <GitPullRequest className="w-3.5 h-3.5 text-accent shrink-0" />
               <span className="hidden sm:inline">Verified Repo / PR</span>

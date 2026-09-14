@@ -1,45 +1,45 @@
-import React from "react";
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import { portfolioData } from "@/config/portfolio-data";
 import { ProjectCaseStudySection } from "@/components/showcase/ProjectCaseStudySection";
 import { CaseStudyBreadcrumbBar } from "@/components/navigation/CaseStudyBreadcrumbBar";
 import { CaseStudyFooterNav } from "@/components/navigation/CaseStudyFooterNav";
 
-interface PageProps {
+interface CaseStudyPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return portfolioData.flagshipProjects.map((project) => ({
+  const projects = portfolioData.flagshipProjects || [];
+  return projects.map((project) => ({
     slug: project.id,
   }));
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const project = portfolioData.flagshipProjects.find((p) => p.id === slug);
+export async function generateMetadata(props: CaseStudyPageProps): Promise<Metadata> {
+  const { slug } = await props.params;
+  const project = portfolioData.flagshipProjects?.find((p) => p.id === slug);
 
   if (!project) {
     return {
-      title: "Case Study Not Found",
+      title: "Project Not Found",
     };
   }
 
   return {
-    title: `${project.title} — Technical Architecture Case Study`,
-    description: `${project.tagline}. High-scale systems architecture, 60 FPS motion design, and production code deep-dive by Fahim Faisal (@blind).`,
+    title: `${project.title} - Technical Architecture Case Study`,
+    description: project.summary || project.tagline,
     openGraph: {
-      title: `${project.title} | Fahim Faisal Software Engineer`,
-      description: project.tagline,
+      title: `${project.title} - Technical Architecture Case Study`,
+      description: project.tagline || project.summary,
       type: "article",
     },
   };
 }
 
-export default async function CaseStudyPage({ params }: PageProps) {
-  const { slug } = await params;
-  const projects = portfolioData.flagshipProjects;
+export default async function CaseStudyPage(props: CaseStudyPageProps) {
+  const { slug } = await props.params;
+  const projects = portfolioData.flagshipProjects || [];
   const currentIndex = projects.findIndex((p) => p.id === slug);
 
   if (currentIndex === -1) {
@@ -51,7 +51,11 @@ export default async function CaseStudyPage({ params }: PageProps) {
   const nextProject = projects[(currentIndex + 1) % projects.length];
 
   return (
-    <div className="min-h-screen pt-16 bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors duration-200">
+    <div className="relative min-h-screen pt-28 bg-stone-50 dark:bg-[#070709] text-neutral-900 dark:text-neutral-100 transition-colors duration-200 selection:bg-accent/20 selection:text-accent overflow-x-hidden">
+      {/* Emil Craft Atmosphere: Ambient Vignette & Architectural Ledger Grid */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-[radial-gradient(ellipse_70%_50%_at_50%_-10%,rgba(255,23,68,0.06),transparent_70%)] dark:bg-[radial-gradient(ellipse_70%_50%_at_50%_-10%,rgba(255,23,68,0.12),transparent_70%)] pointer-events-none -z-10" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.025)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none -z-10" />
+
       {/* Contextual Case Study Breadcrumb Bar */}
       <CaseStudyBreadcrumbBar
         currentProject={currentProject}
@@ -61,9 +65,9 @@ export default async function CaseStudyPage({ params }: PageProps) {
       />
 
       {/* Main Case Study Interactive Deep-Dive Container */}
-      <main>
+      <div className="w-full">
         <ProjectCaseStudySection project={currentProject} />
-      </main>
+      </div>
 
       {/* Next & Previous Project Traversal Footer */}
       <CaseStudyFooterNav prevProject={prevProject} nextProject={nextProject} />

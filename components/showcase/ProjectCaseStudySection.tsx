@@ -198,7 +198,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
           <div className="flex flex-wrap items-center gap-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-mono text-xs uppercase tracking-widest font-semibold">
               <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-              <span>CHAPTER 04 // FLAGSHIP ENGINEERING DEEP-DIVE</span>
+              <span>FLAGSHIP ENGINEERING DEEP-DIVE</span>
             </div>
             <span className="text-xs font-mono text-neutral-400 dark:text-neutral-600 hidden sm:inline">
               /
@@ -221,7 +221,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
           {/* Title & Tagline with Production Actions */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-2">
             <div className="space-y-3">
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-neutral-900 dark:text-white tracking-tight leading-[1.08]">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight leading-[1.12]">
                 {project.title}
               </h1>
               <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl leading-relaxed">
@@ -366,7 +366,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                 className="group p-4 rounded-xl text-left bg-white dark:bg-neutral-900/50 border border-black/6 dark:border-white/8 hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-all"
               >
                 <div className="flex items-center justify-between text-xs font-mono mb-1.5">
-                  <span className="text-accent font-bold">01 // TOPOLOGY</span>
+                  <span className="text-accent font-bold">TOPOLOGY</span>
                   <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all" />
                 </div>
                 <div className="font-bold text-sm text-neutral-900 dark:text-white">
@@ -382,7 +382,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                 className="group p-4 rounded-xl text-left bg-white dark:bg-neutral-900/50 border border-black/6 dark:border-white/8 hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-all"
               >
                 <div className="flex items-center justify-between text-xs font-mono mb-1.5">
-                  <span className="text-accent font-bold">02 // FLOW ENGINE</span>
+                  <span className="text-accent font-bold">FLOW ENGINE</span>
                   <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all" />
                 </div>
                 <div className="font-bold text-sm text-neutral-900 dark:text-white">
@@ -400,7 +400,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                 className="group p-4 rounded-xl text-left bg-white dark:bg-neutral-900/50 border border-black/6 dark:border-white/8 hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-all"
               >
                 <div className="flex items-center justify-between text-xs font-mono mb-1.5">
-                  <span className="text-accent font-bold">03 // SOURCE STUDIO</span>
+                  <span className="text-accent font-bold">SOURCE STUDIO</span>
                   <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all" />
                 </div>
                 <div className="font-bold text-sm text-neutral-900 dark:text-white">
@@ -426,7 +426,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-mono text-xs uppercase tracking-wider font-bold">
                 <Network className="w-3.5 h-3.5" />
-                <span>Chapter 01 // Architecture Topology</span>
+                <span>Architecture Topology</span>
               </div>
               {showcase && (
                 <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
@@ -485,7 +485,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-mono text-xs uppercase tracking-wider font-bold">
                 <Layers className="w-3.5 h-3.5" />
-                <span>Chapter 02 // Execution Flow & State Machine</span>
+                <span>Execution Flow & State Machine</span>
               </div>
               {showcase && (
                 <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
@@ -530,7 +530,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-mono text-xs uppercase tracking-wider font-bold">
                 <GitPullRequest className="w-3.5 h-3.5" />
-                <span>Chapter 03 // Production Source Code Studio</span>
+                <span>Production Source Code Studio</span>
               </div>
               {showcase && (
                 <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">

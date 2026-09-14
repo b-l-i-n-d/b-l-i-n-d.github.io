@@ -50,7 +50,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
             <span className="text-xs font-mono uppercase tracking-widest text-accent font-bold">
-              Chapter 03 &middot; Track Record
+              Engineering Track Record
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-900 dark:text-white">
