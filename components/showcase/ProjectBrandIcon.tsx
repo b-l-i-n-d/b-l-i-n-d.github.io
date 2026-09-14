@@ -13,7 +13,7 @@ export const ProjectBrandIcon: React.FC<ProjectBrandIconProps> = ({
 }) => {
   switch (slug) {
     case "tutor-lms":
-      // Authentic Tutor LMS academic crest/shield vector mark from Themeum repository
+      // Authentic Tutor LMS academic crest/shield vector mark with original brand color (#163BD7)
       return (
         <svg
           viewBox="0 0 40 54"
@@ -28,25 +28,25 @@ export const ProjectBrandIcon: React.FC<ProjectBrandIconProps> = ({
             fillRule="evenodd"
             clipRule="evenodd"
             d="M5.506 20.91C6.544 18.706 8.698 17.152 11.178 17.152C14.671 17.152 17.504 20.158 17.504 23.867V24.9V35.918C17.504 37.248 18.582 38.327 19.914 38.327C21.245 38.327 22.324 37.248 22.324 35.918V24.9V23.867C22.324 20.158 25.157 17.152 28.65 17.152C31.101 17.152 33.151 18.455 34.201 20.618C35.337 22.82 35.976 25.316 35.976 27.964C35.976 36.827 28.791 44.012 19.927 44.012C11.064 44.012 3.879 36.827 3.879 27.964C3.879 25.433 4.464 23.04 5.506 20.91ZM15.608 5.217H24.62V8.7C23.137 8.35 21.59 8.163 20.001 8.163C18.491 8.163 17.021 8.331 15.608 8.648V5.217ZM39.943 29.702C39.98 29.194 40 28.68 40 28.162C40 20.693 35.904 14.181 29.838 10.746V5.216H36.323V0H3.879V5.216H10.39V10.619C4.198 14.018 0 20.6 0 28.162C0 32.17 1.18 35.902 3.208 39.031H3.207C12.139 54.286 40 52.973 40 52.973V28.162C40 28.68 39.98 29.194 39.943 29.702Z"
-            fill="currentColor"
+            fill="#163BD7"
           />
           <path
             fillRule="evenodd"
             clipRule="evenodd"
             d="M10.692 33.752C9.271 33.752 8.118 32.6 8.118 31.18V25.364C8.118 23.943 9.271 22.792 10.692 22.792C12.112 22.792 13.265 23.943 13.265 25.364V31.18C13.265 32.6 12.112 33.752 10.692 33.752Z"
-            fill="currentColor"
+            fill="#163BD7"
           />
           <path
             fillRule="evenodd"
             clipRule="evenodd"
             d="M29.163 33.752C27.744 33.752 26.591 32.6 26.591 31.18V25.364C26.591 23.943 27.744 22.792 29.163 22.792C30.584 22.792 31.736 23.943 31.736 25.364V31.18C31.736 32.6 30.584 33.752 29.163 33.752Z"
-            fill="currentColor"
+            fill="#163BD7"
           />
         </svg>
       );
 
     case "docapp":
-      // Authentic DocApp stethoscope & cardiac telemetry mark from DocApp repository
+      // Authentic DocApp stethoscope & cardiac telemetry mark with original brand color (#570DF8)
       return (
         <svg
           viewBox="18 0 115 132"
@@ -61,13 +61,13 @@ export const ProjectBrandIcon: React.FC<ProjectBrandIconProps> = ({
             fillRule="evenodd"
             clipRule="evenodd"
             d="M 123.805 10.215 C 118.754 5.387 111.977 2.695 104.996 2.719 C 97.789 2.746 91.016 5.574 85.914 10.684 L 76.191 20.426 L 66.711 10.926 C 56.148 0.344 38.953 0.012 28.289 10.492 C 17.516 21.074 17.453 38.469 28.098 49.129 L 79.59 100.727 C 85.465 106.613 85.738 116.203 79.977 122.203 C 74.082 128.344 64.293 128.414 58.309 122.414 L 45.551 109.637 C 45.016 109.098 44.961 108.242 45.422 107.633 C 47.305 105.152 48.348 102 48.113 98.602 C 47.656 91.887 42.18 86.492 35.477 86.141 C 27.711 85.738 21.273 92 21.375 99.719 C 21.473 106.863 27.285 112.762 34.414 112.941 C 36.715 113 38.887 112.473 40.801 111.504 C 41.379 111.207 42.086 111.332 42.543 111.793 L 55.719 125 C 59.391 128.676 64.211 130.512 69.031 130.512 C 73.852 130.512 78.676 128.672 82.344 125 C 89.68 117.645 89.68 105.676 82.344 98.324 L 30.676 46.547 C 21.52 37.371 21.52 22.441 30.676 13.27 C 39.832 4.094 54.734 4.094 63.887 13.27 L 74.855 24.258 C 75.223 24.625 75.707 24.801 76.191 24.789 C 76.676 24.801 77.16 24.625 77.527 24.258 L 88.277 13.488 C 92.734 9.02 98.754 6.391 105.055 6.375 C 111.348 6.363 117.262 8.813 121.711 13.27 C 126.152 17.723 128.594 23.645 128.586 29.945 C 128.578 36.262 125.949 42.297 121.492 46.77 L 118.016 50.25 C 117.73 50.535 117.344 50.695 116.938 50.695 L 106.582 50.695 C 106.008 50.695 105.477 50.371 105.223 49.855 L 100.219 39.832 C 99.66 38.707 98.063 38.707 97.504 39.832 L 88.906 57.047 C 88.348 58.168 86.75 58.168 86.191 57.047 L 83.254 51.16 C 82.695 50.035 81.098 50.035 80.535 51.16 L 77.602 57.043 C 77.043 58.168 75.445 58.168 74.883 57.043 L 66.293 39.824 C 65.734 38.703 64.137 38.703 63.578 39.824 L 58.574 49.852 C 58.316 50.363 57.789 50.691 57.215 50.691 L 48.051 50.691 C 47.051 50.691 46.18 51.461 46.152 52.461 C 46.121 53.496 46.945 54.344 47.973 54.344 L 59.469 54.344 C 60.047 54.344 60.574 54.02 60.828 53.504 L 63.578 47.996 C 64.137 46.871 65.734 46.871 66.293 47.996 L 74.883 65.211 C 75.445 66.336 77.043 66.336 77.602 65.211 L 80.535 59.328 C 81.098 58.207 82.695 58.207 83.254 59.328 L 86.191 65.215 C 86.75 66.34 88.348 66.34 88.906 65.215 L 97.496 48 C 98.059 46.879 99.656 46.875 100.215 48 L 102.965 53.508 C 103.223 54.023 103.75 54.348 104.324 54.348 L 118.316 54.348 C 118.438 54.348 118.547 54.336 118.652 54.316 C 118.781 54.293 118.887 54.262 118.988 54.223 C 119.113 54.172 119.211 54.117 119.301 54.063 C 119.426 53.98 119.52 53.906 119.602 53.824 L 124.023 49.395 C 129.242 44.164 132.293 37.078 132.234 29.68 C 132.172 22.277 129.18 15.344 123.805 10.215 Z M 25.023 99.535 C 25.023 94.152 29.395 89.777 34.762 89.777 C 40.129 89.777 44.496 94.156 44.496 99.535 C 44.496 104.914 40.129 109.293 34.762 109.293 C 29.395 109.293 25.023 104.914 25.023 99.535 Z"
-            fill="currentColor"
+            fill="#570DF8"
           />
         </svg>
       );
 
     case "enclave":
-      // Zero-Knowledge Cryptographic Vault / Biometric Enclave crest
+      // Zero-Knowledge Cryptographic Vault / Biometric Enclave crest with authentic brand amber/gold (#F59E0B)
       return (
         <svg
           viewBox="0 0 24 24"
@@ -80,16 +80,16 @@ export const ProjectBrandIcon: React.FC<ProjectBrandIconProps> = ({
         >
           <path
             d="M12 2L4 5.5V11.5C4 16.5 7.4 21.1 12 22.3C16.6 21.1 20 16.5 20 11.5V5.5L12 2Z"
-            stroke="currentColor"
+            stroke="#F59E0B"
             strokeWidth="1.75"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          <path d="M12 8.5V12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          <circle cx="12" cy="15.5" r="1.25" fill="currentColor" />
+          <path d="M12 8.5V12.5" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+          <circle cx="12" cy="15.5" r="1.25" fill="#F59E0B" />
           <path
             d="M8.5 11C8.5 9.067 10.067 7.5 12 7.5C13.933 7.5 15.5 9.067 15.5 11"
-            stroke="currentColor"
+            stroke="#F59E0B"
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeDasharray="1.5 2.5"
@@ -98,7 +98,7 @@ export const ProjectBrandIcon: React.FC<ProjectBrandIconProps> = ({
       );
 
     case "omnicommerce":
-      // Headless Decoupled Dual-Mesh Commerce mark
+      // Headless Decoupled Dual-Mesh Commerce mark with authentic brand sky/cyan (#0284C7)
       return (
         <svg
           viewBox="0 0 24 24"
@@ -109,40 +109,32 @@ export const ProjectBrandIcon: React.FC<ProjectBrandIconProps> = ({
           height={size}
           aria-label="OmniCommerce Mesh Icon"
         >
-          <rect
-            x="3"
-            y="4"
-            width="7.5"
-            height="7.5"
-            rx="2"
-            stroke="currentColor"
-            strokeWidth="1.75"
-          />
+          <rect x="3" y="4" width="7.5" height="7.5" rx="2" stroke="#0284C7" strokeWidth="1.75" />
           <rect
             x="13.5"
             y="12.5"
             width="7.5"
             height="7.5"
             rx="2"
-            stroke="currentColor"
+            stroke="#0284C7"
             strokeWidth="1.75"
           />
           <path
             d="M10.5 7.75H15.5C16.605 7.75 17.5 8.645 17.5 9.75V12.5"
-            stroke="currentColor"
+            stroke="#0284C7"
             strokeWidth="1.75"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           <path
             d="M13.5 16.25H8.5C7.395 16.25 6.5 15.355 6.5 14.25V11.5"
-            stroke="currentColor"
+            stroke="#0284C7"
             strokeWidth="1.75"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          <circle cx="6.75" cy="7.75" r="1" fill="currentColor" />
-          <circle cx="17.25" cy="16.25" r="1" fill="currentColor" />
+          <circle cx="6.75" cy="7.75" r="1" fill="#0284C7" />
+          <circle cx="17.25" cy="16.25" r="1" fill="#0284C7" />
         </svg>
       );
 
