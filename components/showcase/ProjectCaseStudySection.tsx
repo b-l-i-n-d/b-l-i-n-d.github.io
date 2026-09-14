@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { ProjectStage, ProjectCaseStudy } from "@/types/portfolio";
 import { caseStudyShowcase } from "@/config/case-study-data";
 import { GithubIcon } from "../icons";
+import { ProjectBrandIcon } from "./ProjectBrandIcon";
 import {
   GitPullRequest,
   Network,
@@ -221,9 +222,14 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
           {/* Title & Tagline with Production Actions */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-2">
             <div className="space-y-3">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight leading-[1.12]">
-                {project.title}
-              </h1>
+              <div className="flex items-center gap-4 sm:gap-5">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-neutral-100 dark:bg-neutral-800/90 border border-black/[0.08] dark:border-white/[0.1] shadow-craft-subtle dark:shadow-md flex items-center justify-center p-3 text-neutral-900 dark:text-white shrink-0 group-hover:border-accent/40 transition-colors">
+                  <ProjectBrandIcon slug={project.id} className="w-full h-full text-accent" />
+                </div>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight leading-[1.12]">
+                  {project.title}
+                </h1>
+              </div>
               <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl leading-relaxed">
                 {project.tagline}
               </p>

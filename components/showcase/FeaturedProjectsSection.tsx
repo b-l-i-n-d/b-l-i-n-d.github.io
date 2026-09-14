@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { ProjectCaseStudy } from "@/types/portfolio";
 import { GithubIcon } from "../icons";
+import { ProjectBrandIcon } from "./ProjectBrandIcon";
 
 interface FeaturedProjectsSectionProps {
   projects: ProjectCaseStudy[];
@@ -108,7 +109,10 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                 <div className="relative p-6 sm:p-10 lg:p-12">
                   {/* Top Bar: Chapter Number, Badge, and External Links */}
                   <div className="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-black/[0.06] dark:border-white/[0.06]">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-9 h-9 rounded-xl bg-neutral-100 dark:bg-neutral-800/80 border border-black/[0.08] dark:border-white/[0.1] shadow-craft-subtle flex items-center justify-center p-2 text-accent shrink-0 group-hover:border-accent/40 group-hover:scale-105 transition-all">
+                        <ProjectBrandIcon slug={project.id} className="w-full h-full text-accent" />
+                      </div>
                       <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-accent px-2.5 py-1 rounded-lg bg-accent/10 border border-accent/20">
                         {chapterIndex}
                       </span>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ProjectBrandIcon } from "@/components/showcase/ProjectBrandIcon";
 import { ProjectCaseStudy } from "@/types/portfolio";
 import { ViewTransitionLink } from "./ViewTransitionLink";
 import { motion } from "framer-motion";
@@ -54,8 +55,13 @@ export function CaseStudyBreadcrumbBar({
           <span>/</span>
           <span>{String(totalProjects).padStart(2, "0")}</span>
           <span className="text-neutral-300 dark:text-neutral-700">•</span>
-          <span className="font-sans font-bold text-neutral-900 dark:text-white truncate max-w-[140px] sm:max-w-xs">
-            {currentProject.title}
+          <span className="flex items-center gap-1.5 font-sans font-bold text-neutral-900 dark:text-white truncate max-w-[140px] sm:max-w-xs">
+            <ProjectBrandIcon
+              slug={currentProject.id}
+              className="w-3.5 h-3.5 text-accent shrink-0"
+              size={14}
+            />
+            <span className="truncate">{currentProject.title}</span>
           </span>
         </div>
 
