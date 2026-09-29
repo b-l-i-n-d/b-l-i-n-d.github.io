@@ -20,17 +20,17 @@ const tutorShowcase: ProjectShowcase = {
     commitPrefix: "git:",
     columns: [
       {
-        title: "01 · Presentation & Builders",
+        title: "Presentation & Builders",
         nodeIds: ["curriculum", "quiz", "content-bank", "field-injection"],
         accent: "rose",
       },
       {
-        title: "02 · Core Architecture & DX",
+        title: "Core Architecture & DX",
         nodeIds: ["component-registry", "form-query-lib", "motion", "build-pipeline"],
         accent: "emerald",
       },
       {
-        title: "03 · Types, Caching & REST",
+        title: "Types, Caching & REST",
         nodeIds: ["ts-migration", "caching-layer", "bundle", "rest-gateway"],
         accent: "sky",
       },
@@ -1040,24 +1040,23 @@ const enclaveShowcase: ProjectShowcase = {
       "Inspect the offline-first crypto vault: native crypto core, device-backed key storage, and drive sync",
     title: "Enclave Vault Architecture Graph",
     countLabel: "9 Core Systems",
-    verifyLabel: "Source modules verified in b-l-i-n-d/enclave (private)",
-    verifyUrl: "https://github.com/b-l-i-n-d/enclave",
+    verifyLabel: "Proprietary Architecture · Private Source",
     inspectLabel: "Inspect Source",
-    commitsHeading: "Key Source Modules (b-l-i-n-d/enclave):",
+    commitsHeading: "Key Architecture Modules:",
     commitPrefix: "src:",
     columns: [
       {
-        title: "01 · Crypto Core",
+        title: "Crypto Core",
         nodeIds: ["aes-gcm", "argon2id", "totp"],
         accent: "rose",
       },
       {
-        title: "02 · Vault & Access",
+        title: "Vault & Access",
         nodeIds: ["key-store", "biometric", "sqlite"],
         accent: "emerald",
       },
       {
-        title: "03 · Sync & Watchtower",
+        title: "Sync & Watchtower",
         nodeIds: ["drive-sync", "hibp", "recovery-phrase"],
         accent: "sky",
       },
@@ -1076,7 +1075,6 @@ const enclaveShowcase: ProjectShowcase = {
         description:
           "Authenticated symmetric encryption over the vault store. Every record is encrypted with a random 96-bit IV; a 128-bit GCM auth tag is appended to the ciphertext so tampered data fails decryption.",
         prHighlight: "lib/crypto/encryption.ts",
-        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/encryption.ts",
         metrics: "96-bit IV · 128-bit tag",
       },
       {
@@ -1092,7 +1090,6 @@ const enclaveShowcase: ProjectShowcase = {
         description:
           "Native Argon2id via react-native-quick-crypto derives a 256-bit vault key from the master password plus a random 32-byte salt (64MB memory, 3 passes, single lane).",
         prHighlight: "lib/crypto/key-derivation.ts",
-        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/key-derivation.ts",
         metrics: "64MB · 3 passes · 1 lane",
       },
       {
@@ -1108,7 +1105,6 @@ const enclaveShowcase: ProjectShowcase = {
         description:
           "Time-based one-time passwords for vault 2FA: RFC 4648 base32 decoding, HMAC-SHA1/256/512 dynamic truncation, 6/8 digits over 30/60-second windows with a live countdown.",
         prHighlight: "lib/crypto/totp.ts",
-        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/totp.ts",
         metrics: "SHA-256 · 6–8 digits · 30/60s",
       },
       {
@@ -1124,7 +1120,6 @@ const enclaveShowcase: ProjectShowcase = {
         description:
           "The derived vault key is NEVER stored in plaintext — expo-secure-store wraps it in a device hardware key gated by requireAuthentication biometric auth, enabling fast unlock without re-running Argon2id.",
         prHighlight: "lib/auth/vault-key-store.ts",
-        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/auth/vault-key-store.ts",
         metrics: "Device-encrypted · Biometric-gated",
       },
       {
@@ -1140,7 +1135,6 @@ const enclaveShowcase: ProjectShowcase = {
         description:
           "expo-local-authentication capability probe and gate. The app only loads the vault key after a successful biometric challenge; unsupported or unenrolled devices fall back to a PIN.",
         prHighlight: "lib/auth/biometric.ts",
-        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/auth/biometric.ts",
         metrics: "Face ID · Touch ID · Fallback PIN",
       },
       {
@@ -1156,7 +1150,6 @@ const enclaveShowcase: ProjectShowcase = {
         description:
           "expo-sqlite async repository with WAL mode, foreign keys enabled, and tables for vault_meta, vault_items, and tags. Only encrypted blobs are persisted — plaintext never touches disk.",
         prHighlight: "lib/vault/sqlite-repository.ts",
-        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/vault/sqlite-repository.ts",
         metrics: "WAL · Foreign keys · Ciphertext-only",
       },
       {
@@ -1172,7 +1165,6 @@ const enclaveShowcase: ProjectShowcase = {
         description:
           "Item-level, timestamp-based 3-way merge against a Google Drive snapshot: local-only items are pushed, remote-only items are applied, and both-sided diffs resolve by the newer updated_at (soft-delete tombstones honored).",
         prHighlight: "lib/sync/merger.ts",
-        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/sync/merger.ts",
         metrics: "updated_at merge · Tombstones kept",
       },
       {
@@ -1188,7 +1180,6 @@ const enclaveShowcase: ProjectShowcase = {
         description:
           "k-anonymity breach check that only sends the first 5 hex characters of a SHA-1 hash off-device; the returned breach suffix list is matched locally against the rest of the hash.",
         prHighlight: "lib/security/hibp.ts",
-        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/security/hibp.ts",
         metrics: "k-anonymity · SHA-1 prefix",
       },
       {
@@ -1204,7 +1195,6 @@ const enclaveShowcase: ProjectShowcase = {
         description:
           "24-word BIP39 mnemonic generation and validation so the vault survives a lost device; the mnemonic re-derives a distinct recovery key, never the vault key itself.",
         prHighlight: "lib/generator/passphrase.ts + @scure/bip39",
-        prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/generator/passphrase.ts",
         metrics: "BIP39 · 24 words",
       },
     ],
@@ -1445,7 +1435,6 @@ export async function retrieveVaultKeyWithBiometric(): Promise<string> {
       title: "Authenticated Vault Encryption",
       description:
         "AES-256-GCM via react-native-quick-crypto: random 96-bit IV, 128-bit auth tag appended to the ciphertext, base64 wire-format blobs. verify-then-decode keeps tampered records from ever rendering.",
-      prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/encryption.ts",
       prHighlight: "lib/crypto/encryption.ts",
       code: `import { Buffer } from 'buffer';
 import QuickCrypto from 'react-native-quick-crypto';
@@ -1492,7 +1481,6 @@ export async function decryptJson<T>(vaultKeyBase64: string, blob: EncryptedBlob
       title: "Native Key Derivation",
       description:
         "256-bit vault key from master password + 32-byte salt using native Argon2id with 64MB memory, 3 passes, and a single lane; recovery phrase re-derives a separate key.",
-      prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/crypto/key-derivation.ts",
       prHighlight: "lib/crypto/key-derivation.ts",
       code: `import { Buffer } from 'buffer';
 import QuickCrypto from 'react-native-quick-crypto';
@@ -1533,7 +1521,6 @@ export async function deriveVaultKey(masterPassword: string, saltBase64: string)
       title: "Watchtower Breach Audit",
       description:
         "Have-I-Been-Pwned check that only ships the first 5 hex chars of a SHA-1 hash off-device — the breach suffix list is matched locally, and batch audits are rate-limited politely.",
-      prUrl: "https://github.com/b-l-i-n-d/enclave/blob/master/lib/security/hibp.ts",
       prHighlight: "lib/security/hibp.ts",
       code: `import { sha1Hex } from '@/lib/crypto';
 
@@ -1575,17 +1562,17 @@ const omniCommerceShowcase: ProjectShowcase = {
     commitPrefix: "src:",
     columns: [
       {
-        title: "01 · Headless Storefront",
+        title: "Headless Storefront",
         nodeIds: ["storefront-client", "zustand-cart", "gallery-slider"],
         accent: "rose",
       },
       {
-        title: "02 · Multi-Tenant Control Plane",
+        title: "Multi-Tenant Control Plane",
         nodeIds: ["admin-dashboard", "prisma-models", "clerk-auth"],
         accent: "emerald",
       },
       {
-        title: "03 · Payments & Fulfillment",
+        title: "Payments & Fulfillment",
         nodeIds: ["stripe-checkout", "webhook-listener", "inventory-engine"],
         accent: "sky",
       },
@@ -2273,17 +2260,17 @@ const docAppShowcase: ProjectShowcase = {
     commitPrefix: "src:",
     columns: [
       {
-        title: "01 · Auth & Portal",
+        title: "Auth & Portal",
         nodeIds: ["cookie-jwt", "rbac", "email-notify"],
         accent: "rose",
       },
       {
-        title: "02 · Booking Domain",
+        title: "Booking Domain",
         nodeIds: ["components-api", "doctor-search", "appointment-ledger"],
         accent: "emerald",
       },
       {
-        title: "03 · Render & Ops",
+        title: "Render & Ops",
         nodeIds: ["react-pdf", "cloudinary", "analytics"],
         accent: "sky",
       },

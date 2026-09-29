@@ -3,17 +3,7 @@
 import React, { useState } from "react";
 import { ViewTransitionLink } from "@/components/navigation/ViewTransitionLink";
 import { motion } from "motion/react";
-import {
-  ArrowRight,
-  ExternalLink,
-  Lock,
-  Cpu,
-  Sparkles,
-  Layers,
-  ShieldCheck,
-  FileCode,
-  CheckCircle2,
-} from "lucide-react";
+import { ArrowRight, ExternalLink, Lock, Sparkles } from "lucide-react";
 import { ProjectCaseStudy } from "@/types/portfolio";
 import { GithubIcon } from "../icons";
 import { ProjectBrandIcon } from "./ProjectBrandIcon";
@@ -76,15 +66,14 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
               </p>
             </div>
 
-            <div className="flex items-center gap-3 font-mono text-xs text-neutral-500 dark:text-neutral-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="flex items-center gap-2 font-mono text-xs text-neutral-500 dark:text-neutral-400">
               <span>4 Flagship Deployments Verified</span>
             </div>
           </div>
         </div>
 
-        {/* Editorial Feature Spread Cards */}
-        <div className="space-y-12 sm:space-y-16">
+        {/* Architectural Monograph Feature Spreads */}
+        <div className="space-y-0 divide-y divide-black/[0.08] dark:divide-white/[0.08]">
           {projects.map((project, index) => {
             const badgeMeta = PROJECT_BADGES[project.id] || {
               label: project.category,
@@ -99,181 +88,232 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                 key={project.id}
                 onMouseEnter={() => setHoveredCard(project.id)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className="group relative rounded-3xl bg-white dark:bg-neutral-900/70 border border-black/[0.08] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 shadow-craft-elevated dark:shadow-2xl overflow-hidden transition-all duration-300"
+                className="group relative py-16 sm:py-24 first:pt-0 last:pb-8 transition-colors duration-300"
               >
-                {/* Subtle Card Ambient Glow */}
+                {/* Subtle Ambient Radial Highlight */}
                 <div
-                  className={`absolute top-0 inset-x-0 h-40 bg-gradient-to-b ${badgeMeta.accent} opacity-40 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none`}
+                  className={`absolute top-1/4 -right-1/4 w-[600px] h-[350px] bg-gradient-to-br ${badgeMeta.accent} blur-[120px] opacity-25 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none -z-10`}
                 />
 
-                <div className="relative p-6 sm:p-10 lg:p-12">
-                  {/* Top Bar: Chapter Number, Badge, and External Links */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-black/[0.06] dark:border-white/[0.06]">
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-9 h-9 rounded-xl bg-neutral-100 dark:bg-neutral-800/80 border border-black/[0.08] dark:border-white/[0.1] shadow-craft-subtle flex items-center justify-center p-2 shrink-0 group-hover:scale-105 transition-all">
-                        <ProjectBrandIcon slug={project.id} className="w-full h-full" />
-                      </div>
-                      <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-accent px-2.5 py-1 rounded-lg bg-accent/10 border border-accent/20">
+                {/* Top Monograph Ledger Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-black/[0.06] dark:border-white/[0.06]">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-10 h-10 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/[0.06] dark:border-white/[0.08] flex items-center justify-center p-2.5 shrink-0 group-hover:scale-105 transition-transform duration-200">
+                      <ProjectBrandIcon slug={project.id} className="w-full h-full" />
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <span className="font-mono text-xs font-bold text-accent tracking-wider px-2 py-0.5 rounded-md bg-accent/10">
                         {chapterIndex}
                       </span>
-                      <span className="text-xs sm:text-sm font-mono font-medium text-neutral-500 dark:text-neutral-400">
+                      <span className="text-xs sm:text-sm font-medium text-neutral-600 dark:text-neutral-400">
                         {badgeMeta.label}
                       </span>
                     </div>
+                  </div>
 
-                    <div className="flex items-center gap-2">
-                      {project.isPrivate ? (
-                        <div className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-xs font-semibold flex items-center gap-1.5 shadow-sm">
-                          <Lock className="w-3.5 h-3.5 text-amber-500" />
-                          <span>Private Repository</span>
-                        </div>
-                      ) : (
-                        project.githubUrl && (
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="px-3 py-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white text-xs font-medium flex items-center gap-1.5 transition-colors"
-                          >
-                            <GithubIcon size={14} />
-                            <span className="hidden sm:inline">Source</span>
-                          </a>
-                        )
-                      )}
+                  {/* Minimalist Ghost Actions */}
+                  <div className="flex items-center gap-3 font-mono text-xs">
+                    {project.isPrivate ? (
+                      <span className="text-amber-600 dark:text-amber-400 flex items-center gap-1.5 text-xs font-medium">
+                        <Lock className="w-3.5 h-3.5 text-amber-500" />
+                        <span>Private Repository</span>
+                      </span>
+                    ) : (
+                      project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white flex items-center gap-1.5 transition-colors"
+                        >
+                          <GithubIcon size={14} />
+                          <span className="hidden sm:inline">Source</span>
+                        </a>
+                      )
+                    )}
 
-                      {project.liveUrl && !project.isPrivate && (
+                    {project.liveUrl && !project.isPrivate && (
+                      <>
+                        <span className="text-neutral-300 dark:text-neutral-700">/</span>
                         <a
                           href={project.liveUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="px-3 py-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white text-xs font-medium flex items-center gap-1.5 transition-colors"
+                          className="text-neutral-500 dark:text-neutral-400 hover:text-accent flex items-center gap-1 transition-colors"
                         >
-                          <span>Live</span>
+                          <span>Live Deployment</span>
                           <ExternalLink className="w-3 h-3 text-neutral-400" />
                         </a>
-                      )}
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Main Two-Column Editorial Spread */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 pt-8 items-start">
+                  {/* Left Column: Story, Title, Summary & CTA */}
+                  <div className="lg:col-span-7 space-y-6">
+                    <div className="space-y-2.5">
+                      <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 dark:text-neutral-500 font-semibold">
+                        {badgeMeta.sub}
+                      </span>
+                      <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight group-hover:text-accent transition-colors duration-200">
+                        {project.title}
+                      </h3>
+                      <p className="text-base sm:text-lg font-medium text-neutral-700 dark:text-neutral-300 leading-snug">
+                        {project.tagline}
+                      </p>
+                    </div>
+
+                    <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
+                      {project.summary ||
+                        project.stages.architecture.description.slice(0, 240) + "..."}
+                    </p>
+
+                    {/* Technology Stack Tags */}
+                    <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-xs">
+                      {project.stack.map((tech, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2.5 py-1 rounded-md bg-black/[0.03] dark:bg-white/[0.05] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Prominent Architectural Monograph Exploration CTA */}
+                    <div className="pt-4">
+                      <ViewTransitionLink
+                        href={`/case-study/${project.id}`}
+                        className="group/btn inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-semibold text-sm sm:text-base shadow-craft-card hover:shadow-craft-elevated active:scale-[0.97] transition-all duration-200"
+                      >
+                        <span>Explore Technical Case Study</span>
+                        <motion.div
+                          animate={{ x: isHovered ? 4 : 0 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                          className="flex items-center"
+                        >
+                          <ArrowRight className="w-4 h-4 text-accent transition-colors" />
+                        </motion.div>
+                      </ViewTransitionLink>
                     </div>
                   </div>
 
-                  {/* Main Two-Column Editorial Spread */}
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pt-8 items-start">
-                    {/* Left Column: Story, Title, Summary & CTA */}
-                    <div className="lg:col-span-7 space-y-6">
-                      <div className="space-y-2">
-                        <span className="text-xs font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-                          {badgeMeta.sub}
+                  {/* Right Column: Architectural Blueprint Schematic */}
+                  <div className="lg:col-span-5">
+                    {/* Artistic Architectural Schematic Canvas */}
+                    <div className="relative rounded-2xl bg-stone-100/50 dark:bg-neutral-900/30 p-5 sm:p-6 border border-black/[0.04] dark:border-white/[0.05] overflow-hidden group/schematic">
+                      {/* Graph-Paper Blueprint Grid Texture */}
+                      <div
+                        className="absolute inset-0 pointer-events-none opacity-40 dark:opacity-20 transition-opacity group-hover/schematic:opacity-60"
+                        style={{
+                          backgroundImage: `radial-gradient(circle, currentColor 0.75px, transparent 0.75px)`,
+                          backgroundSize: "16px 16px",
+                        }}
+                      />
+
+                      {/* Blueprint Header */}
+                      <div className="relative z-10 flex items-center justify-between pb-3.5 border-b border-black/[0.04] dark:border-white/[0.06] text-xs font-mono">
+                        <span className="text-neutral-600 dark:text-neutral-400 font-semibold tracking-wider text-[11px] uppercase">
+                          System Blueprint
                         </span>
-                        <h3 className="text-2xl sm:text-4xl font-extrabold text-neutral-900 dark:text-white tracking-tight group-hover:text-accent transition-colors duration-200">
-                          {project.title}
-                        </h3>
-                        <p className="text-sm sm:text-base font-medium text-neutral-700 dark:text-neutral-300 leading-snug">
-                          {project.tagline}
-                        </p>
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-600 dark:text-neutral-400 font-semibold px-2 py-0.5 rounded-md bg-black/4 dark:bg-white/6">
+                          3 Verified Stages
+                        </span>
                       </div>
 
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                        {project.summary ||
-                          project.stages.architecture.description.slice(0, 240) + "..."}
-                      </p>
-
-                      {/* Tech Badges */}
-                      <div className="flex flex-wrap gap-2 pt-1">
-                        {project.stack.slice(0, 6).map((tech, idx) => (
-                          <span
-                            key={idx}
-                            className="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-neutral-800/80 text-neutral-700 dark:text-neutral-300 border border-black/5 dark:border-white/5 text-xs font-mono"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                        {project.stack.length > 6 && (
-                          <span className="px-2.5 py-1 rounded-md bg-transparent text-neutral-400 text-xs font-mono">
-                            +{project.stack.length - 6} more
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Prominent Case Study Exploration CTA */}
-                      <div className="pt-4">
+                      {/* 3 Flowing Stages with Serpentine Path */}
+                      <div className="relative z-10 pt-4 space-y-2">
+                        {/* Stage 1: Topology */}
                         <ViewTransitionLink
-                          href={`/case-study/${project.id}`}
-                          className="group/btn inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-semibold text-sm sm:text-base shadow-craft-card hover:shadow-craft-elevated active:scale-[0.98] transition-all duration-200"
+                          href={`/case-study/${project.id}#chapter-topology`}
+                          className="group/stage flex items-center justify-between p-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-neutral-800/60 transition-all"
                         >
-                          <span>Explore Case Study (Architecture & Code)</span>
-                          <motion.div
-                            animate={{ x: isHovered ? 4 : 0 }}
-                            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                            className="flex items-center"
-                          >
-                            <ArrowRight className="w-4 h-4 text-accent transition-colors" />
-                          </motion.div>
+                          <div className="flex items-center gap-3 min-w-0">
+                            <span className="w-7 h-7 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] text-neutral-700 dark:text-neutral-300 border border-black/5 dark:border-white/5 flex items-center justify-center text-xs font-mono font-bold shrink-0">
+                              01
+                            </span>
+                            <div className="min-w-0">
+                              <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold">
+                                Modular Topology
+                              </div>
+                              <div className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white truncate group-hover/stage:text-accent transition-colors">
+                                {project.stages.architecture.title}
+                              </div>
+                            </div>
+                          </div>
+                          <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/stage:text-accent group-hover/stage:translate-x-1 transition-all shrink-0 ml-2" />
+                        </ViewTransitionLink>
+
+                        {/* Stage 2: Flow Engine */}
+                        <ViewTransitionLink
+                          href={`/case-study/${project.id}#chapter-flow`}
+                          className="group/stage flex items-center justify-between p-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-neutral-800/60 transition-all"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <span className="w-7 h-7 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] text-neutral-700 dark:text-neutral-300 border border-black/5 dark:border-white/5 flex items-center justify-center text-xs font-mono font-bold shrink-0">
+                              02
+                            </span>
+                            <div className="min-w-0">
+                              <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold">
+                                Execution Flow Engine
+                              </div>
+                              <div className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white truncate group-hover/stage:text-accent transition-colors">
+                                {project.stages.flow.title}
+                              </div>
+                            </div>
+                          </div>
+                          <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/stage:text-accent group-hover/stage:translate-x-1 transition-all shrink-0 ml-2" />
+                        </ViewTransitionLink>
+
+                        {/* Stage 3: Source Studio */}
+                        <ViewTransitionLink
+                          href={`/case-study/${project.id}#chapter-source`}
+                          className="group/stage flex items-center justify-between p-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-neutral-800/60 transition-all"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <span className="w-7 h-7 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] text-neutral-700 dark:text-neutral-300 border border-black/5 dark:border-white/5 flex items-center justify-center text-xs font-mono font-bold shrink-0">
+                              03
+                            </span>
+                            <div className="min-w-0">
+                              <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold">
+                                Verified Source Studio
+                              </div>
+                              <div className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white truncate group-hover/stage:text-accent transition-colors">
+                                {project.stages.code.title}
+                              </div>
+                            </div>
+                          </div>
+                          <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/stage:text-accent group-hover/stage:translate-x-1 transition-all shrink-0 ml-2" />
                         </ViewTransitionLink>
                       </div>
                     </div>
+                  </div>
+                </div>
 
-                    {/* Right Column: Telemetry Specs & Architecture Teaser */}
-                    <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-6">
-                      {/* Telemetry Metrics 2x2 Grid */}
-                      <div className="grid grid-cols-2 gap-3">
-                        {project.stats.map((stat, idx) => (
+                {/* 2nd Row: Full-Width Architectural Telemetry Strip */}
+                <div className="mt-10 pt-6 border-t border-black/[0.05] dark:border-white/[0.06]">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+                    {project.stats.map((stat, idx) => {
+                      const isLong = stat.value.length > 14;
+                      return (
+                        <div key={idx} className="space-y-1.5">
+                          <div className="text-[11px] font-mono tracking-wider uppercase text-neutral-400 dark:text-neutral-500 font-medium truncate">
+                            {stat.label}
+                          </div>
                           <div
-                            key={idx}
-                            className="p-4 rounded-2xl bg-stone-50/80 dark:bg-neutral-800/40 border border-black/[0.04] dark:border-white/[0.06] flex flex-col justify-center"
+                            className={`${
+                              isLong
+                                ? "text-base sm:text-lg font-bold"
+                                : "text-xl sm:text-2xl font-black"
+                            } text-neutral-900 dark:text-white tracking-tight font-sans leading-snug`}
                           >
-                            <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                              {stat.label}
-                            </span>
-                            <span className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white mt-1">
-                              {stat.value}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Interactive Deep-Dive Preview Window */}
-                      <div className="rounded-2xl bg-stone-100/80 dark:bg-neutral-950/80 border border-black/[0.06] dark:border-white/[0.08] p-5 space-y-3">
-                        <div className="flex items-center justify-between text-xs font-mono text-neutral-500 dark:text-neutral-400 pb-2 border-b border-black/[0.04] dark:border-white/[0.06]">
-                          <div className="flex items-center gap-2">
-                            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-                            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                            <span className="ml-1 text-[11px]">production-specs.ts</span>
-                          </div>
-                          <span className="text-accent font-semibold">4 Synchronized Stages</span>
-                        </div>
-
-                        <div className="space-y-2 text-xs text-neutral-600 dark:text-neutral-300">
-                          <div className="flex items-center gap-2">
-                            <Layers className="w-3.5 h-3.5 text-accent shrink-0" />
-                            <span className="truncate">
-                              <strong>01 Architecture:</strong> {project.stages.architecture.title}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Cpu className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                            <span className="truncate">
-                              <strong>02 State Flow:</strong> {project.stages.flow.title}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <FileCode className="w-3.5 h-3.5 text-sky-500 shrink-0" />
-                            <span className="truncate">
-                              <strong>03 Code Studio:</strong> {project.stages.code.title}
-                            </span>
+                            {stat.value}
                           </div>
                         </div>
-
-                        <div className="pt-2">
-                          <ViewTransitionLink
-                            href={`/case-study/${project.id}`}
-                            className="w-full py-2 px-3 rounded-xl bg-white dark:bg-neutral-900 border border-black/[0.06] dark:border-white/[0.08] text-neutral-700 dark:text-neutral-300 hover:text-accent dark:hover:text-accent text-xs font-mono flex items-center justify-center gap-2 transition-colors"
-                          >
-                            <span>Open Full Interactive Studio</span>
-                            <ArrowRight className="w-3 h-3" />
-                          </ViewTransitionLink>
-                        </div>
-                      </div>
-                    </div>
+                      );
+                    })}
                   </div>
                 </div>
               </motion.article>

@@ -137,7 +137,6 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
         )}
         {activeModule.prHighlight && (
           <div className="text-xs font-mono text-neutral-600 dark:text-neutral-400 pt-1 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
             <span>Source: {activeModule.prHighlight}</span>
           </div>
         )}

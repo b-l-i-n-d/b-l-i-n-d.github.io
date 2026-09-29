@@ -47,12 +47,9 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
       <div className="max-w-5xl mx-auto space-y-12">
         {/* Section Header */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
-            <span className="text-xs font-mono uppercase tracking-widest text-accent font-bold">
-              Engineering Track Record
-            </span>
-          </div>
+          <span className="text-xs font-mono uppercase tracking-widest text-accent font-bold">
+            Engineering Track Record
+          </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-900 dark:text-white">
             Engineering Experience
           </h2>
@@ -105,8 +102,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                   } p-6 sm:p-8 space-y-6 transition-all duration-200 hover:border-black/15 dark:hover:border-white/[0.2]`}
                 >
                   {isOllyo && (
-                    <div className="absolute -top-3 left-6 sm:left-8 px-3 py-0.5 rounded-full bg-rose-700 dark:bg-rose-600 text-white text-[11px] font-mono font-bold uppercase tracking-wider shadow-sm flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                    <div className="absolute -top-3 left-6 sm:left-8 px-3 py-0.5 rounded-full bg-rose-700 dark:bg-rose-600 text-white text-[11px] font-mono font-bold uppercase tracking-wider shadow-sm flex items-center">
                       <span>Current Employer</span>
                     </div>
                   )}
@@ -193,7 +189,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                             key={aIdx}
                             className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-600 mt-2 shrink-0" />
                             <span>{item}</span>
                           </li>
                         ))}
@@ -229,12 +225,9 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-neutral-900/60 border border-black/8 dark:border-white/10 space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-black/6 dark:border-white/8 pb-6">
                 <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-accent" />
-                    <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold">
-                      Undergraduate Degree
-                    </span>
-                  </div>
+                  <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold block">
+                    Undergraduate Degree
+                  </span>
                   <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white">
                     {education.degree || "Bachelor of Science in Software Engineering"}
                   </h3>

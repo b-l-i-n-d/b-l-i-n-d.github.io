@@ -308,12 +308,9 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
       <div className="relative z-10 max-w-6xl mx-auto space-y-16">
         {/* Header (Clean, quiet, informative) */}
         <div className="space-y-3 border-b border-black/6 dark:border-white/8 pb-8">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-accent" />
-            <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">
-              Index Directory
-            </span>
-          </div>
+          <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 block">
+            Index Directory
+          </span>
           <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4">
             <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
               Contents & Navigation

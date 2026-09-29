@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface ProjectBrandIconProps {
   slug: string;
@@ -67,34 +68,16 @@ export const ProjectBrandIcon: React.FC<ProjectBrandIconProps> = ({
       );
 
     case "enclave":
-      // Zero-Knowledge Cryptographic Vault / Biometric Enclave crest with authentic brand amber/gold (#F59E0B)
+      // Authentic Enclave Zero-Knowledge Vault monochrome icon mark
       return (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className={className}
+        <Image
+          src="/assets/projects/enclave.png"
+          alt="Enclave Vault Icon"
+          className={`${className} object-contain invert dark:invert-0 transition-opacity`}
           width={size}
           height={size}
-          aria-label="Enclave Vault Icon"
-        >
-          <path
-            d="M12 2L4 5.5V11.5C4 16.5 7.4 21.1 12 22.3C16.6 21.1 20 16.5 20 11.5V5.5L12 2Z"
-            stroke="#F59E0B"
-            strokeWidth="1.75"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path d="M12 8.5V12.5" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
-          <circle cx="12" cy="15.5" r="1.25" fill="#F59E0B" />
-          <path
-            d="M8.5 11C8.5 9.067 10.067 7.5 12 7.5C13.933 7.5 15.5 9.067 15.5 11"
-            stroke="#F59E0B"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeDasharray="1.5 2.5"
-          />
-        </svg>
+          priority
+        />
       );
 
     case "omnicommerce":

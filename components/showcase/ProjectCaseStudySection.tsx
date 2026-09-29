@@ -322,57 +322,59 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
           </div>
 
           {/* Architecture Technology Stack Badges */}
-          <div className="flex flex-wrap gap-2 pt-1">
+          <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-xs">
             {project.stack.map((item: string, idx: number) => (
               <span
                 key={idx}
-                className="px-3 py-1.5 rounded-lg bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 text-xs sm:text-sm font-mono shadow-sm shrink-0"
+                className="px-2.5 py-1 rounded-md bg-black/[0.03] dark:bg-white/[0.04] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
               >
                 {item}
               </span>
             ))}
           </div>
 
-          {/* Architectural Telemetry Specification Strip */}
-          <div className="rounded-2xl bg-stone-100/60 dark:bg-neutral-900/40 border border-black/[0.06] dark:border-white/[0.08] backdrop-blur-md p-1.5 shadow-craft-sm">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-black/[0.06] dark:divide-white/[0.08]">
-              {project.stats.map((stat: any, idx: number) => (
-                <div
-                  key={idx}
-                  className="px-4 sm:px-5 py-3.5 flex flex-col justify-center min-h-[68px] hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors first:rounded-l-xl last:rounded-r-xl"
-                >
-                  <div className="flex items-center gap-1.5 text-[10px] font-mono tracking-widest uppercase text-neutral-400 dark:text-neutral-500 font-semibold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent/70 shrink-0" />
-                    <span className="truncate">{stat.label}</span>
+          {/* Architectural Telemetry Specification Spread (De-boxed) */}
+          <div className="py-6 sm:py-8 border-y border-black/[0.06] dark:border-white/[0.08]">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+              {project.stats.map((stat: any, idx: number) => {
+                const isLong = stat.value.length > 14;
+                return (
+                  <div key={idx} className="space-y-1.5">
+                    <div className="text-[11px] font-mono tracking-wider uppercase text-neutral-400 dark:text-neutral-500 font-medium truncate">
+                      {stat.label}
+                    </div>
+                    <div
+                      className={`${
+                        isLong
+                          ? "text-base sm:text-lg font-bold"
+                          : "text-xl sm:text-2xl lg:text-3xl font-black"
+                      } text-neutral-900 dark:text-neutral-100 tracking-tight font-sans leading-snug`}
+                    >
+                      {stat.value}
+                    </div>
                   </div>
-                  <div className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-neutral-100 mt-1 font-sans leading-snug tracking-tight">
-                    {stat.value}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
           {/* Editorial Chapter Directory Index Strip */}
-          <nav
-            aria-label="Case study chapters directory"
-            className="pt-6 border-t border-black/8 dark:border-white/10"
-          >
-            <div className="flex items-center justify-between mb-3">
+          <nav aria-label="Case study chapters directory" className="pt-2">
+            <div className="flex items-center justify-between mb-4">
               <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
-                Editorial Blueprint Index
+                Chapter Directory
               </span>
               <span className="text-xs font-mono text-neutral-400 dark:text-neutral-500">
                 Continuous Reading Flow
               </span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <button
                 onClick={() => scrollToChapter("chapter-topology")}
-                className="group p-4 rounded-xl text-left bg-white dark:bg-neutral-900/50 border border-black/6 dark:border-white/8 hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-all"
+                className="group p-4 rounded-xl text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] border-b-2 border-transparent hover:border-accent/40 transition-all"
               >
                 <div className="flex items-center justify-between text-xs font-mono mb-1.5">
-                  <span className="text-accent font-bold">TOPOLOGY</span>
+                  <span className="text-accent font-bold tracking-wider">01 Topology</span>
                   <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all" />
                 </div>
                 <div className="font-bold text-sm text-neutral-900 dark:text-white">
@@ -385,10 +387,10 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
 
               <button
                 onClick={() => scrollToChapter("chapter-flow")}
-                className="group p-4 rounded-xl text-left bg-white dark:bg-neutral-900/50 border border-black/6 dark:border-white/8 hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-all"
+                className="group p-4 rounded-xl text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] border-b-2 border-transparent hover:border-accent/40 transition-all"
               >
                 <div className="flex items-center justify-between text-xs font-mono mb-1.5">
-                  <span className="text-accent font-bold">FLOW ENGINE</span>
+                  <span className="text-accent font-bold tracking-wider">02 Flow Engine</span>
                   <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all" />
                 </div>
                 <div className="font-bold text-sm text-neutral-900 dark:text-white">
@@ -403,10 +405,10 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
 
               <button
                 onClick={() => scrollToChapter("chapter-source")}
-                className="group p-4 rounded-xl text-left bg-white dark:bg-neutral-900/50 border border-black/6 dark:border-white/8 hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-all"
+                className="group p-4 rounded-xl text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] border-b-2 border-transparent hover:border-accent/40 transition-all"
               >
                 <div className="flex items-center justify-between text-xs font-mono mb-1.5">
-                  <span className="text-accent font-bold">SOURCE STUDIO</span>
+                  <span className="text-accent font-bold tracking-wider">03 Source Studio</span>
                   <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all" />
                 </div>
                 <div className="font-bold text-sm text-neutral-900 dark:text-white">
@@ -434,11 +436,6 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                 <Network className="w-3.5 h-3.5" />
                 <span>Architecture Topology</span>
               </div>
-              {showcase && (
-                <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
-                  {showcase.graph.countLabel}
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -455,7 +452,7 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
                 </p>
               </div>
 
-              {showcase?.graph.verifyUrl && (
+              {showcase?.graph.verifyUrl && !project.isPrivate && (
                 <a
                   href={showcase.graph.verifyUrl}
                   target="_blank"

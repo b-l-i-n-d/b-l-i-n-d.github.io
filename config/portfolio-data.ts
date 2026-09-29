@@ -274,7 +274,7 @@ export function useTutorMotion(preset: "snappy" | "gentle" | "modal" = "snappy")
     {
       id: "enclave",
       chapterNumber: "05",
-      title: "Enclave 🛡️",
+      title: "Enclave",
       tagline:
         "Self-Hosted, Local-First, Zero-Knowledge Credential & Vault Manager for iOS & Android",
       category: "Mobile Cryptography & Local-First Systems",
@@ -298,8 +298,6 @@ export function useTutorMotion(preset: "snappy" | "gentle" | "modal" = "snappy")
         { label: "2FA Generator", value: "RFC 6238 TOTP" },
         { label: "Sync Protocol", value: "3-Way Merge" },
       ],
-      liveUrl: "https://github.com/b-l-i-n-d/enclave",
-      githubUrl: "https://github.com/b-l-i-n-d/enclave",
       isPrivate: true,
       stages: {
         architecture: {

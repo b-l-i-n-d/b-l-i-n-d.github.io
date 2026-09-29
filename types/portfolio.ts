@@ -136,7 +136,7 @@ export interface ShowcaseGraph {
   title: string;
   countLabel: string;
   verifyLabel: string;
-  verifyUrl: string;
+  verifyUrl?: string;
   inspectLabel: string;
   commitsHeading: string;
   commitPrefix: string;
