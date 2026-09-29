@@ -28,12 +28,9 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
       <div className="relative z-10 max-w-6xl mx-auto space-y-16">
         {/* Section Header */}
         <div className="flex items-center justify-between border-b border-black/6 dark:border-white/8 pb-6">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
-            <span className="text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-              Biography &amp; Profile
-            </span>
-          </div>
+          <span className="text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+            Biography &amp; Profile
+          </span>
           <span className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 hidden sm:inline font-mono">
             Dhaka, Bangladesh &middot; 2024 to Present
           </span>
@@ -110,9 +107,8 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
             {/* Experiences & Career Ascension */}
             <div className="space-y-5 border-t border-black/6 dark:border-white/8 pt-6">
               <div className="flex items-center justify-between gap-2 flex-wrap">
-                <h4 className="text-base font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
-                  <span>Experiences &amp; Ascension :</span>
+                <h4 className="text-base font-bold text-neutral-900 dark:text-white">
+                  Experiences &amp; Ascension
                 </h4>
 
                 {/* Handcrafted Animated "- - -" Dotted Curved Line */}

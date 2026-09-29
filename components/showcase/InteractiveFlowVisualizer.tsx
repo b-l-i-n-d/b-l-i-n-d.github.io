@@ -601,7 +601,6 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                         <Zap className="w-3.5 h-3.5 text-accent" />
                         <span>Telemetry Specs</span>
                       </div>
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">

@@ -65,14 +65,11 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
       <div className="relative z-10 max-w-5xl mx-auto space-y-12">
         {/* Top Chapter Dispatch */}
         <div className="flex items-center justify-between border-b border-black/8 dark:border-white/8 pb-4">
-          <div className="flex items-center gap-2.5">
-            <span className="w-2 h-2 rounded-full bg-accent shadow-[0_0_8px_rgba(255,23,68,0.8)]" />
-            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
-              Final Dispatch
-            </span>
-          </div>
+          <span className="text-xs font-mono font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
+            Final Dispatch
+          </span>
           <span className="font-script text-base sm:text-lg text-accent -rotate-2 select-none">
-            let&apos;s build together &bull; 2026
+            let&apos;s build together &middot; 2026
           </span>
         </div>
 
@@ -83,7 +80,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
             <div className="space-y-3">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-mono font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Available for Senior Roles &bull; Worldwide
+                Available for Senior Roles &middot; Worldwide
               </span>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-[1.1]">
@@ -205,7 +202,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                   <span>LinkedIn</span>
                   <ExternalLink className="w-3 h-3 opacity-50" />
                 </a>
-                <span>&bull;</span>
+                <span className="text-neutral-300 dark:text-neutral-700">/</span>
                 <a
                   href={profile.contact.github}
                   target="_blank"
@@ -215,7 +212,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                   <span>GitHub</span>
                   <ExternalLink className="w-3 h-3 opacity-50" />
                 </a>
-                <span>&bull;</span>
+                <span className="text-neutral-300 dark:text-neutral-700">/</span>
                 <a
                   href={profile.socialLinks?.twitter || "https://x.com/fahim_faisal_ab"}
                   target="_blank"
@@ -235,7 +232,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
               </div>
               <p className="leading-snug">
                 <strong className="text-neutral-800 dark:text-neutral-200">Off-Duty:</strong> Squad
-                Sniper in Warzone &bull; Kinetic drift in Chase &bull; Sub-140ms reflex junkie.
+                Sniper in Warzone &middot; Kinetic drift in Chase &middot; Sub-140ms reflex junkie.
               </p>
             </div>
           </div>
@@ -258,14 +255,14 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                 </div>
                 <div className="space-y-0.5">
                   <span className="font-script text-accent text-base -rotate-2 block select-none">
-                    designer &bull; coder &bull; sniper
+                    designer &middot; coder &middot; sniper
                   </span>
                   <h3 className="text-xl font-bold text-neutral-900 dark:text-white">
                     Fahim Faisal{" "}
                     <span className="text-sm font-normal text-neutral-400">(Abir)</span>
                   </h3>
                   <p className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
-                    Software Engineer &bull; Ollyo
+                    Software Engineer &middot; Ollyo
                   </p>
                 </div>
               </div>
@@ -283,7 +280,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                     Core Focus
                   </span>
                   <span className="font-semibold text-neutral-800 dark:text-neutral-200">
-                    Fluid UI &bull; State Models
+                    Fluid UI &amp; State Models
                   </span>
                 </div>
                 <div className="flex items-center justify-between">

@@ -21,12 +21,9 @@ export const CaseStudyFooterNav: React.FC<CaseStudyFooterNavProps> = ({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
-              Case Study Navigation
-            </span>
-          </div>
+          <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
+            Case Study Navigation
+          </span>
           <ViewTransitionLink
             href="/#case-study"
             className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors"
