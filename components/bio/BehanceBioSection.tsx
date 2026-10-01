@@ -23,9 +23,9 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
     <section
       id="about"
       data-chapter-id="about"
-      className="relative py-24 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#0c0c0c] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 transition-colors duration-200"
+      className="relative py-12 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#0c0c0c] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 transition-colors duration-200"
     >
-      <div className="relative z-10 max-w-6xl mx-auto space-y-16">
+      <div className="relative z-10 max-w-6xl mx-auto space-y-8 sm:space-y-16">
         {/* Section Header */}
         <div className="flex items-center justify-between border-b border-black/6 dark:border-white/8 pb-6">
           <span className="text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-300">
@@ -37,7 +37,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
         </div>
 
         {/* 2-Column Balanced Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left Column (Cols 1-4): Portrait & Status Card */}
           <div className="lg:col-span-4 space-y-6">
             {/* Portrait Frame with Subtle Grain and Accent */}

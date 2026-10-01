@@ -55,14 +55,14 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
     <section
       id="profile"
       data-chapter-id="profile"
-      className="relative py-20 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#080808] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 transition-colors duration-200 overflow-hidden"
+      className="relative py-12 sm:py-20 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#080808] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 transition-colors duration-200 overflow-hidden"
     >
       <div id="contact" className="absolute -top-20 left-0 pointer-events-none" />
 
       {/* Subtle atmospheric glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent/4 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative z-10 max-w-5xl mx-auto space-y-12">
+      <div className="relative z-10 max-w-5xl mx-auto space-y-8 sm:space-y-12">
         {/* Top Chapter Dispatch */}
         <div className="flex items-center justify-between border-b border-black/8 dark:border-white/8 pb-4">
           <span className="text-xs font-mono font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
@@ -74,7 +74,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
         </div>
 
         {/* Main Content Grid: Ultra-Lean, Zero Text Bloat */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           {/* Left Column (7 Cols): Big Punchy Headline & Direct Actions */}
           <div className="lg:col-span-7 space-y-8">
             <div className="space-y-3">

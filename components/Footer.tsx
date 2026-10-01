@@ -1,25 +1,31 @@
 "use client";
 
+import React from "react";
+import { usePathname } from "next/navigation";
+import { useTransitionRouter } from "@/components/navigation/ViewTransitionWatcher";
 import { FOOTER_NAV } from "@/data/navigation";
-
 import { siteConfig } from "@/config/site";
 import { Link, Tooltip } from "@heroui/react";
-import React from "react";
 import { EmailIcon, GithubIcon, LinkedinIcon, TwitterIcon } from "./icons";
 
 export const Footer: React.FC = () => {
+  const router = useTransitionRouter();
+  const pathname = usePathname();
+
   const handleScroll = (e: React.MouseEvent, targetId: string) => {
     e.preventDefault();
     const targetEl = document.getElementById(targetId);
     if (targetEl) {
       targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      router.push(`/#${targetId}`);
     }
   };
 
   return (
-    <footer className="w-full flex flex-col items-center justify-center py-12 px-4 gap-6 bg-stone-100/70 dark:bg-neutral-950/80 backdrop-blur-xl border-t border-black/6 dark:border-white/8 transition-colors">
+    <footer className="w-full flex flex-col items-center justify-center pt-8 sm:pt-12 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] md:pb-12 px-4 gap-5 sm:gap-6 bg-stone-100/70 dark:bg-neutral-950/80 backdrop-blur-xl border-t border-black/6 dark:border-white/8 transition-colors">
       {/* Quick Navigation Jump Links */}
-      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm font-mono">
+      <div className="flex flex-wrap items-center justify-center gap-x-5 sm:gap-x-6 gap-y-2 text-xs sm:text-sm font-mono">
         {FOOTER_NAV.map((item) => (
           <a
             key={item.label}
@@ -33,7 +39,7 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Social & Contact Presence */}
-      <div className="flex items-center justify-center gap-5">
+      <div className="flex items-center justify-center gap-4 sm:gap-5">
         <Tooltip content="GitHub Profile" placement="top">
           <Link
             isExternal
@@ -77,17 +83,15 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Attribution & Legal */}
-      <div className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 flex flex-wrap items-center justify-center gap-2 text-center font-normal">
+      <div className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 flex flex-wrap items-center justify-center gap-2 text-center font-normal px-2">
         <span>Handcrafted by Fahim Faisal</span>
         <span className="text-neutral-300 dark:text-neutral-700 shrink-0">•</span>
         <span>Software Engineer at Ollyo</span>
         <span className="text-neutral-300 dark:text-neutral-700 shrink-0">•</span>
         <span className="text-neutral-600 dark:text-neutral-400 font-mono">
-          B.Sc. in SWE from SUST
+          Next.js App Router & Tailwind CSS
         </span>
       </div>
     </footer>
   );
 };
-
-export default Footer;

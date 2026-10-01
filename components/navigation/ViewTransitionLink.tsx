@@ -3,11 +3,12 @@
 import React from "react";
 import Link, { LinkProps } from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { registerRouteTransition } from "./ViewTransitionWatcher";
+import { startRouteTransition, TransitionDirection } from "./ViewTransitionWatcher";
 
 export interface ViewTransitionLinkProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps>, LinkProps {
   children?: React.ReactNode;
+  transitionDirection?: TransitionDirection;
 }
 
 /**
@@ -16,7 +17,7 @@ export interface ViewTransitionLinkProps
  * layout-shift-free transitions synchronized with Next.js App Router.
  */
 export const ViewTransitionLink = React.forwardRef<HTMLAnchorElement, ViewTransitionLinkProps>(
-  ({ href, onClick, children, ...props }, ref) => {
+  ({ href, onClick, children, transitionDirection = "default", ...props }, ref) => {
     const router = useRouter();
     const pathname = usePathname();
 
@@ -37,38 +38,24 @@ export const ViewTransitionLink = React.forwardRef<HTMLAnchorElement, ViewTransi
         return;
       }
 
-      if (
-        typeof document !== "undefined" &&
-        "startViewTransition" in document &&
-        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ) {
-        e.preventDefault();
-        document.documentElement.classList.add("route-transitioning");
-
-        const transition = document.startViewTransition(() => {
-          return new Promise<void>((resolve) => {
-            registerRouteTransition(() => {
-              resolve();
-            });
-
-            // Fallback timeout in case navigation finishes instantly or via bfcache
-            setTimeout(() => {
-              window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
-              resolve();
-            }, 650);
-
-            router.push(targetHref, { scroll: false });
-          });
-        });
-
-        transition.finished.finally(() => {
-          document.documentElement.classList.remove("route-transitioning");
-        });
-      }
+      e.preventDefault();
+      startRouteTransition(
+        () => {
+          router.push(targetHref, { scroll: false });
+        },
+        targetHref,
+        transitionDirection
+      );
     };
 
     return (
-      <Link ref={ref} href={href} onClick={handleClick} {...props}>
+      <Link
+        ref={ref}
+        href={href}
+        onClick={handleClick}
+        data-transition-direction={transitionDirection}
+        {...props}
+      >
         {children}
       </Link>
     );

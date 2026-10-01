@@ -42,9 +42,9 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     <section
       id="experience"
       data-chapter-id="experience"
-      className="relative pt-16 pb-12 sm:pt-20 sm:pb-16 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#0c0c0c] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 transition-colors duration-200"
+      className="relative pt-12 pb-10 sm:pt-20 sm:pb-16 px-4 sm:px-6 lg:px-12 bg-stone-50 dark:bg-[#0c0c0c] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 transition-colors duration-200"
     >
-      <div className="max-w-5xl mx-auto space-y-12">
+      <div className="max-w-5xl mx-auto space-y-8 sm:space-y-12">
         {/* Section Header */}
         <div className="space-y-4">
           <span className="text-xs font-mono uppercase tracking-widest text-accent font-bold">
@@ -60,7 +60,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-2 border-b border-black/6 dark:border-white/8 pb-4">
+        <div className="flex items-center gap-2 border-b border-black/6 dark:border-white/8 pb-3 sm:pb-4 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex-nowrap">
           {tabs.map((tab) => {
             const Icon = tab.Icon;
             const isActive = activeTab === tab.id;
@@ -68,14 +68,14 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
+                className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 sm:gap-2 shrink-0 whitespace-nowrap ${
                   isActive
                     ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 shadow-sm"
                     : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/3 dark:hover:bg-white/[0.03]"
                 }`}
               >
-                <Icon className="w-4 h-4 shrink-0" />
-                <span>{tab.label}</span>
+                <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                <span className="whitespace-nowrap">{tab.label}</span>
               </button>
             );
           })}

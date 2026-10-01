@@ -100,7 +100,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
       </aside>
 
       {/* Mobile Bottom Scrubber Pill (Touch-friendly & Responsive) */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 md:hidden flex items-center gap-2 bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl px-4 py-2 rounded-full border border-black/6 dark:border-white/10 shadow-craft-elevated pointer-events-auto">
+      <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] left-1/2 -translate-x-1/2 z-40 md:hidden flex items-center gap-2 bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl px-4 py-2 rounded-full border border-black/6 dark:border-white/10 shadow-craft-elevated pointer-events-auto">
         <span className="text-xs font-mono font-bold text-accent shrink-0">
           {chapters[currentChapterIndex]?.number || "00"}
         </span>

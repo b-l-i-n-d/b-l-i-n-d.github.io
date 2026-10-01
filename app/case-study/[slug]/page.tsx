@@ -1,12 +1,15 @@
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { portfolioData } from "@/config/portfolio-data";
 import { ProjectCaseStudySection } from "@/components/showcase/ProjectCaseStudySection";
 import { CaseStudyBreadcrumbBar } from "@/components/navigation/CaseStudyBreadcrumbBar";
+import { CaseStudyChapterRail } from "@/components/navigation/CaseStudyChapterRail";
 import { CaseStudyFooterNav } from "@/components/navigation/CaseStudyFooterNav";
 
 interface CaseStudyPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{
+    slug: string;
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -22,16 +25,16 @@ export async function generateMetadata(props: CaseStudyPageProps): Promise<Metad
 
   if (!project) {
     return {
-      title: "Project Not Found",
+      title: "Case Study Not Found",
     };
   }
 
   return {
-    title: `${project.title} - Technical Architecture Case Study`,
-    description: project.summary || project.tagline,
+    title: `${project.title} — Architectural Case Study | Syakir`,
+    description: project.tagline || "",
     openGraph: {
-      title: `${project.title} - Technical Architecture Case Study`,
-      description: project.tagline || project.summary,
+      title: `${project.title} — Flagship Engineering Case Study`,
+      description: project.tagline || "",
       type: "article",
     },
   };
@@ -51,7 +54,7 @@ export default async function CaseStudyPage(props: CaseStudyPageProps) {
   const nextProject = projects[(currentIndex + 1) % projects.length];
 
   return (
-    <div className="relative min-h-screen pt-28 bg-stone-50 dark:bg-[#070709] text-neutral-900 dark:text-neutral-100 transition-colors duration-200 selection:bg-accent/20 selection:text-accent overflow-x-hidden">
+    <div className="relative min-h-screen pt-[108px] sm:pt-28 bg-stone-50 dark:bg-[#070709] text-neutral-900 dark:text-neutral-100 transition-colors duration-200 selection:bg-accent/20 selection:text-accent overflow-x-hidden">
       {/* Emil Craft Atmosphere: Ambient Vignette & Architectural Ledger Grid */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-[radial-gradient(ellipse_70%_50%_at_50%_-10%,rgba(255,23,68,0.06),transparent_70%)] dark:bg-[radial-gradient(ellipse_70%_50%_at_50%_-10%,rgba(255,23,68,0.12),transparent_70%)] pointer-events-none -z-10" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.025)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none -z-10" />
@@ -64,8 +67,11 @@ export default async function CaseStudyPage(props: CaseStudyPageProps) {
         nextProject={nextProject}
       />
 
+      {/* Floating Case Study Chapter Scrubber Rail (Desktop rail + Mobile bottom scrubber) */}
+      <CaseStudyChapterRail />
+
       {/* Main Case Study Interactive Deep-Dive Container */}
-      <div className="w-full">
+      <div className="w-full min-w-0 pb-10 sm:pb-0">
         <ProjectCaseStudySection project={currentProject} />
       </div>
 

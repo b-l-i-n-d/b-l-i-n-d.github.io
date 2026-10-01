@@ -2,20 +2,14 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { flushSync } from "react-dom";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { useTheme } from "next-themes";
 import {
-  Activity,
-  Layers,
   Play,
   Pause,
   RotateCcw,
   Zap,
-  Server,
-  Database,
-  Shield,
   Terminal,
-  ChevronRight,
   ZoomIn,
   ZoomOut,
   Move,
@@ -23,13 +17,13 @@ import {
   Network,
   GitCommit,
   Check,
-  Copy,
 } from "lucide-react";
 
-import { Highlight, themes } from "prism-react-renderer";
+import { Highlight } from "prism-react-renderer";
 import type { Language } from "prism-react-renderer";
 import type { ShowcaseFlow, ShowcaseFlowStep } from "@/types/portfolio";
 import { SmoothCopyButton } from "./SmoothCopyButton";
+import { cssPrismTheme } from "./prism-theme";
 
 const langFromFilename = (filename?: string): Language => {
   if (!filename) return "typescript";
@@ -123,7 +117,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
     startPanX: 0,
     startPanY: 0,
   });
-  const currentStep = steps[currentStepIndex];
+  const currentStep: ShowcaseFlowStep = steps[currentStepIndex] || steps[0];
   const stepLanguage = langFromFilename(currentStep?.codeFile);
 
   const handleResetCanvas = () => {
@@ -295,12 +289,12 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6 min-w-0">
       {/* Navigation & Mode Switcher Bar */}
-      <div className="flex items-center justify-between gap-3 p-2.5 rounded-2xl bg-stone-100/70 dark:bg-neutral-900/60 border border-black/6 dark:border-white/8 min-h-[56px]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-2 sm:p-2.5 rounded-2xl bg-stone-100/70 dark:bg-neutral-900/60 border border-black/6 dark:border-white/8 min-h-[56px] min-w-0">
         {/* Tabs with Anchor Positioning & Spring Glider Pill */}
         <div
-          className="relative flex items-center gap-1 p-1 rounded-xl bg-white dark:bg-neutral-950 border border-black/4 dark:border-white/6 text-xs overflow-x-auto scrollbar-none"
+          className="relative flex items-center gap-1 p-1 rounded-xl bg-white dark:bg-neutral-950 border border-black/4 dark:border-white/6 text-xs overflow-x-auto scrollbar-none w-full sm:w-auto min-w-0"
           style={{ position: "relative" }}
         >
           {flowTabs.map((tab) => {
@@ -318,7 +312,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                   // @ts-ignore - CSS Anchor Positioning
                   anchorName: `--flow-tab-${tab.id}`,
                 }}
-                className={`relative z-10 px-3 py-1.5 rounded-lg font-medium transition-all duration-150 active:scale-[0.96] flex items-center gap-1.5 select-none shrink-0 ${
+                className={`relative z-10 px-2.5 sm:px-3 py-1.5 rounded-lg font-medium transition-all duration-150 active:scale-[0.96] flex items-center gap-1.5 select-none shrink-0 text-xs ${
                   isSelected
                     ? "text-white font-semibold"
                     : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
@@ -358,12 +352,12 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
         </div>
 
         {/* Right Controls: Play/Pause in Simulator OR Zoom HUD in Canvas */}
-        <div className="flex items-center gap-2 h-9 shrink-0">
+        <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0 w-full sm:w-auto px-0.5 sm:px-0">
           {activeTab === "simulator" && (
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className={`px-3 py-1.5 rounded-lg font-mono text-xs flex items-center gap-1.5 transition-all active:scale-[0.96] duration-150 ${
+                className={`px-2.5 sm:px-3 py-1.5 rounded-lg font-mono text-xs flex items-center gap-1.5 transition-all active:scale-[0.96] duration-150 ${
                   isPlaying
                     ? "bg-amber-500/10 text-amber-500 border border-amber-500/30"
                     : "bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 hover:text-accent"
@@ -410,11 +404,11 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
               </button>
               <button
                 onClick={handleResetCanvas}
-                className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-accent hover:border-accent/40 transition-colors flex items-center gap-1 font-mono text-xs"
+                className="px-2 sm:px-2.5 py-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-accent hover:border-accent/40 transition-colors flex items-center gap-1 font-mono text-xs"
                 title="Reset Canvas View"
               >
                 <RotateCcw className="w-3 h-3 shrink-0" />
-                <span className="hidden sm:inline">Reset View</span>
+                <span className="hidden sm:inline">Reset</span>
               </button>
             </div>
           )}
@@ -424,14 +418,14 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             idleLabel="Copy Mermaid"
             copiedLabel="Copied"
             size="sm"
-            className="px-2.5 py-1.5 bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 hover:text-neutral-900 dark:hover:text-white hover:bg-stone-50 dark:hover:bg-neutral-700/60 hover:border-black/20 dark:hover:border-white/20 font-mono text-xs sm:text-sm shrink-0 shadow-sm"
+            className="p-1.5 sm:px-2.5 sm:py-1.5 bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 hover:text-neutral-900 dark:hover:text-white hover:bg-stone-50 dark:hover:bg-neutral-700/60 hover:border-black/20 dark:hover:border-white/20 font-mono text-xs shrink-0 shadow-sm"
           />
         </div>
       </div>
 
       {/* Dynamic Tab Content Area with View Transitions */}
       <div
-        className="flow-stage-content-viewport"
+        className="flow-stage-content-viewport min-w-0"
         style={{
           // @ts-ignore - CSS View Transitions
           viewTransitionName: "interactive-flow-tab-content",
@@ -439,9 +433,9 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
       >
         {/* TAB 1: INTERACTIVE FLOW SIMULATOR */}
         {activeTab === "simulator" && (
-          <div className="space-y-6">
-            {/* Horizontal Pipeline Steps Track */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          <div className="space-y-4 sm:space-y-6 min-w-0">
+            {/* Horizontal Pipeline Steps Track: smooth touch scroll track on mobile, clean grid on desktop */}
+            <div className="flex overflow-x-auto gap-2.5 pb-2 -mx-1 px-1 snap-x snap-mandatory scrollbar-none sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:overflow-visible sm:pb-0 sm:mx-0 sm:px-0">
               {steps.map((step, idx) => {
                 const isCurrent = idx === currentStepIndex;
                 const isPassed = idx < currentStepIndex;
@@ -452,7 +446,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                       setIsPlaying(false);
                       setCurrentStepIndex(idx);
                     }}
-                    className={`group relative p-3.5 rounded-xl text-left border flex flex-col justify-between min-h-[96px] transition-all duration-150 active:scale-[0.97] ease-out ${
+                    className={`group relative p-3 sm:p-3.5 rounded-xl text-left border flex flex-col justify-between min-h-[88px] sm:min-h-[96px] min-w-[150px] max-w-[180px] shrink-0 snap-start sm:min-w-0 sm:max-w-none transition-all duration-150 active:scale-[0.97] ease-out ${
                       isCurrent
                         ? "bg-white dark:bg-neutral-900 border-accent/80 shadow-[0_0_12px_rgba(255,23,68,0.1)] ring-1 ring-accent/30 text-neutral-900 dark:text-white"
                         : isPassed
@@ -501,27 +495,27 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             </div>
 
             {/* Step Deep Dive Workbench */}
-            <div className="relative min-h-[360px]">
+            <div className="relative min-h-[360px] min-w-0">
               <motion.div
                 key={currentStep.id}
                 initial={{ opacity: 0, scale: 0.985 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start min-w-0"
               >
                 {/* Left Col (8): Narrative, Architecture Diagram, Code Execution */}
-                <div className="lg:col-span-8 space-y-5">
-                  <div className="p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-black/6 dark:border-white/8 shadow-sm space-y-4">
+                <div className="lg:col-span-8 space-y-4 sm:space-y-5 min-w-0 w-full">
+                  <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-black/6 dark:border-white/8 shadow-sm space-y-4 min-w-0 overflow-hidden">
                     <div className="flex items-center justify-between border-b border-black/4 dark:border-white/6 pb-3">
                       <div>
                         <span className="text-xs font-mono text-accent font-semibold">
                           STAGE {currentStep.number} OF {String(steps.length).padStart(2, "0")}
                         </span>
-                        <h4 className="text-lg font-bold text-neutral-900 dark:text-white">
+                        <h4 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white">
                           {currentStep.title}
                         </h4>
                       </div>
-                      <span className="px-2.5 py-1 rounded-full text-xs font-mono bg-stone-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                      <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400 hidden sm:inline">
                         {currentStep.tech}
                       </span>
                     </div>
@@ -530,18 +524,18 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                     </p>
                   </div>
 
-                  {/* Interactive Code Snippet with Prism Syntax Highlighting */}
-                  <div className="rounded-2xl bg-stone-100/90 dark:bg-[#0d1117] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-sm">
+                  {/* Interactive Code Snippet with Deterministic CSS Variable Syntax Highlighting */}
+                  <div className="rounded-2xl bg-stone-100/90 dark:bg-[#0d1117] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-sm min-w-0">
                     {/* Window Chrome Header */}
-                    <div className="flex items-center justify-between px-4 py-2.5 bg-stone-200/60 dark:bg-[#161b22] border-b border-black/6 dark:border-[#30363d] text-xs font-mono">
-                      <div className="flex items-center gap-2 min-w-0">
+                    <div className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-2.5 bg-stone-200/60 dark:bg-[#161b22] border-b border-black/6 dark:border-[#30363d] text-xs font-mono min-w-0">
+                      <div className="flex items-center gap-2 min-w-0 flex-1">
                         <div className="flex gap-1.5 shrink-0">
                           <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
                           <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
                           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                         </div>
                         <span
-                          className="text-neutral-700 dark:text-[#8b949e] font-medium ml-1 truncate"
+                          className="text-neutral-700 dark:text-[#8b949e] font-medium ml-1 truncate min-w-0"
                           title={currentStep.codeFile}
                         >
                           {currentStep.codeFile}
@@ -555,20 +549,20 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                         idleLabel="Copy"
                         copiedLabel="Copied"
                         size="xs"
-                        className="px-2 py-1 rounded-md bg-white dark:bg-[#21262d] hover:bg-stone-100 dark:hover:bg-[#30363d] text-neutral-700 dark:text-[#c9d1d9] border border-black/8 dark:border-[#30363d] text-[11px] shrink-0 shadow-sm"
+                        className="p-1.5 sm:px-2 sm:py-1 rounded-md bg-white dark:bg-[#21262d] hover:bg-stone-100 dark:hover:bg-[#30363d] text-neutral-700 dark:text-[#c9d1d9] border border-black/8 dark:border-[#30363d] text-[11px] shrink-0 shadow-sm"
                       />
                     </div>
 
-                    {/* Syntax Highlighted Code Body */}
-                    <div className="p-4 overflow-x-auto bg-stone-50/50 dark:bg-[#0d1117] select-text">
+                    {/* Syntax Highlighted Code Body - Zero horizontal blowout */}
+                    <div className="p-3 sm:p-4 overflow-x-auto max-w-full bg-stone-50/50 dark:bg-[#0d1117] select-text min-w-0">
                       <Highlight
                         code={currentStep.codeSnippet}
                         language={stepLanguage}
-                        theme={isDark ? themes.oneDark : themes.oneLight}
+                        theme={cssPrismTheme}
                       >
                         {({ style, tokens, getLineProps, getTokenProps }) => (
                           <pre
-                            className="text-xs font-mono leading-relaxed min-w-max"
+                            className="text-xs font-mono leading-relaxed min-w-0 max-w-full"
                             style={{ ...style, backgroundColor: "transparent", margin: 0 }}
                           >
                             {tokens.map((line, i) => (
@@ -577,7 +571,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                                 {...getLineProps({ line })}
                                 className="min-h-[1.4em] py-0.5"
                               >
-                                <span className="select-none inline-block w-6 mr-3 text-right text-neutral-400 dark:text-[#484f58]">
+                                <span className="select-none inline-block w-6 sm:w-8 mr-2 sm:mr-3 text-right text-neutral-400 dark:text-[#484f58]">
                                   {i + 1}
                                 </span>
                                 {line.map((token, key) => (
@@ -593,9 +587,9 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                 </div>
 
                 {/* Right Col (4): Live Telemetry, Logs & Performance Matrix */}
-                <div className="lg:col-span-4 space-y-5">
+                <div className="lg:col-span-4 space-y-4 sm:space-y-5 min-w-0 w-full">
                   {/* Telemetry Card */}
-                  <div className="p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-black/6 dark:border-white/8 shadow-sm space-y-4">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-black/6 dark:border-white/8 shadow-sm space-y-3 sm:space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-xs font-semibold text-neutral-900 dark:text-white">
                         <Zap className="w-3.5 h-3.5 text-accent" />
@@ -604,7 +598,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
-                      <div className="p-3 rounded-xl bg-stone-50 dark:bg-neutral-800/60 border border-black/4 dark:border-white/4">
+                      <div className="p-2.5 sm:p-3 rounded-xl bg-stone-50 dark:bg-neutral-800/60 border border-black/4 dark:border-white/4">
                         <span className="text-[10px] uppercase font-mono text-neutral-600 dark:text-neutral-400 block">
                           Latency
                         </span>
@@ -612,7 +606,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                           {currentStep.systemMetrics.latency}
                         </span>
                       </div>
-                      <div className="p-3 rounded-xl bg-stone-50 dark:bg-neutral-800/60 border border-black/4 dark:border-white/4">
+                      <div className="p-2.5 sm:p-3 rounded-xl bg-stone-50 dark:bg-neutral-800/60 border border-black/4 dark:border-white/4">
                         <span className="text-[10px] uppercase font-mono text-neutral-600 dark:text-neutral-400 block">
                           Throughput
                         </span>
@@ -634,7 +628,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                   </div>
 
                   {/* Live Trace Logs Console */}
-                  <div className="p-5 rounded-2xl bg-white dark:bg-[#0c0c10] border border-black/6 dark:border-white/8 shadow-sm space-y-3 font-mono">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#0c0c10] border border-black/6 dark:border-white/8 shadow-sm space-y-3 font-mono min-w-0">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-xs font-medium text-neutral-800 dark:text-neutral-300">
                         <Terminal className="w-3.5 h-3.5 text-accent" />
@@ -645,13 +639,15 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                         Live
                       </span>
                     </div>
-                    <div className="space-y-2 text-[11px]">
-                      {currentStep.logs.map((log, idx) => (
-                        <div key={idx} className="flex items-start gap-2 leading-relaxed">
+                    <div className="space-y-2 text-[11px] min-w-0">
+                      {currentStep.logs.map((log: string, idx: number) => (
+                        <div key={idx} className="flex items-start gap-2 leading-relaxed min-w-0">
                           <span className="text-emerald-600 dark:text-emerald-400 shrink-0 font-bold select-none">
                             ›
                           </span>
-                          <span className="text-neutral-700 dark:text-neutral-300">{log}</span>
+                          <span className="text-neutral-700 dark:text-neutral-300 break-words min-w-0 flex-1">
+                            {log}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -674,51 +670,51 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
             onWheel={handleWheel}
-            className={`relative select-none rounded-2xl bg-[#fafafa] dark:bg-[#0a0a0c] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-elevated min-h-[500px] h-[600px] flex items-center justify-center ${
+            className={`relative select-none rounded-2xl bg-[#fafafa] dark:bg-[#0a0a0c] bg-[radial-gradient(rgba(0,0,0,0.12)_1.2px,transparent_1.2px)] dark:bg-[radial-gradient(rgba(255,255,255,0.12)_1.2px,transparent_1.2px)] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-elevated min-h-[380px] h-[440px] sm:h-[520px] md:h-[600px] flex items-center justify-center ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
             }`}
             style={{
-              backgroundImage: `radial-gradient(${isDark ? "rgba(255, 255, 255, 0.12)" : "rgba(0, 0, 0, 0.12)"} 1.2px, transparent 1.2px)`,
               backgroundSize: "24px 24px",
               backgroundPosition: `${pan.x}px ${pan.y}px`,
             }}
           >
             {/* Floating Canvas Mode Header Badge */}
             <div className="absolute top-3 left-3 z-20 pointer-events-none flex items-center gap-2">
-              <span className="px-3 py-1.5 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/8 dark:border-white/10 text-[11px] font-medium text-neutral-600 dark:text-neutral-300 flex items-center gap-1.5 shadow-sm">
+              <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/8 dark:border-white/10 text-[11px] font-medium text-neutral-600 dark:text-neutral-300 flex items-center gap-1.5 shadow-sm">
                 <Move className="w-3.5 h-3.5 text-accent" />
-                <span>
-                  Open Canvas • Click &amp; drag anywhere to pan • Scroll to zoom (25% – 800%)
+                <span className="hidden sm:inline">
+                  Open Canvas • Click & drag anywhere to pan • Scroll to zoom (25% – 800%)
                 </span>
+                <span className="sm:hidden">Pan & zoom canvas</span>
               </span>
             </div>
 
             {/* Floating HUD Quick Zoom Controls */}
-            <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/8 dark:border-white/10 p-1.5 rounded-xl shadow-sm">
+            <div className="absolute bottom-2.5 right-2.5 sm:bottom-3 sm:right-3 z-20 flex items-center gap-1 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/8 dark:border-white/10 p-1 sm:p-1.5 rounded-xl shadow-sm">
               <button
                 onClick={handleResetCanvas}
-                className="p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors"
+                className="p-1 sm:p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors"
                 title="Reset pan and zoom (100%)"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
               </button>
               <button
                 onClick={handleZoomOut}
-                className="p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                className="p-1 sm:p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
                 title="Zoom Out"
               >
                 <ZoomOut className="w-3.5 h-3.5" />
               </button>
               <button
                 onClick={cycleZoomPreset}
-                className="text-[11px] font-mono px-2 py-0.5 rounded text-neutral-600 dark:text-neutral-300 hover:text-accent hover:bg-neutral-200/50 dark:hover:bg-neutral-800/80 transition-colors"
+                className="text-[11px] font-mono px-1.5 sm:px-2 py-0.5 rounded text-neutral-600 dark:text-neutral-300 hover:text-accent hover:bg-neutral-200/50 dark:hover:bg-neutral-800/80 transition-colors"
                 title="Click to cycle zoom presets (100% → 200% → 350% → 500% → 700%)"
               >
                 {Math.round(zoom * 100)}%
               </button>
               <button
                 onClick={handleZoomIn}
-                className="p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                className="p-1 sm:p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
                 title="Zoom In (up to 800%)"
               >
                 <ZoomIn className="w-3.5 h-3.5" />
@@ -743,7 +739,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
             </div>
 
             {renderError ? (
-              <div className="text-center p-8 space-y-3 z-10">
+              <div className="text-center p-6 sm:p-8 space-y-3 z-10">
                 <div className="text-rose-500 font-semibold text-sm">
                   Mermaid Diagram Rendering Notice
                 </div>
@@ -767,7 +763,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                 className="absolute inset-0 flex items-center justify-center pointer-events-none"
               >
                 <div
-                  className="pointer-events-auto p-8 select-none"
+                  className="pointer-events-auto p-4 sm:p-8 select-none"
                   dangerouslySetInnerHTML={{ __html: renderedSvg }}
                 />
               </div>
@@ -782,11 +778,11 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
 
         {/* TAB 4: RAW MERMAID SYNTAX */}
         {activeTab === "code" && (
-          <div className="h-[600px] flex flex-col rounded-2xl bg-stone-100/90 dark:bg-[#0e0e12] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-elevated">
-            <div className="flex items-center justify-between px-5 py-3 bg-stone-200/70 dark:bg-[#14141a] border-b border-black/6 dark:border-white/6 shrink-0">
-              <div className="flex items-center gap-2">
-                <Code className="w-4 h-4 text-accent" />
-                <span className="text-xs font-mono font-medium text-neutral-700 dark:text-neutral-300">
+          <div className="h-[400px] sm:h-[500px] md:h-[600px] flex flex-col rounded-2xl bg-stone-100/90 dark:bg-[#0e0e12] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-elevated min-w-0">
+            <div className="flex items-center justify-between px-3.5 sm:px-5 py-2.5 sm:py-3 bg-stone-200/70 dark:bg-[#14141a] border-b border-black/6 dark:border-white/6 shrink-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <Code className="w-4 h-4 text-accent shrink-0" />
+                <span className="text-xs font-mono font-medium text-neutral-700 dark:text-neutral-300 truncate">
                   Mermaid-Specification.mmd
                 </span>
               </div>
@@ -795,10 +791,10 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                 idleLabel="Copy Mermaid Spec"
                 copiedLabel="Copied"
                 size="xs"
-                className="px-3 py-1 bg-white dark:bg-white/10 hover:bg-stone-100 dark:hover:bg-white/20 text-neutral-700 dark:text-white font-mono text-xs border border-black/8 dark:border-white/10 shadow-sm"
+                className="p-1.5 sm:px-3 sm:py-1 bg-white dark:bg-white/10 hover:bg-stone-100 dark:hover:bg-white/20 text-neutral-700 dark:text-white font-mono text-xs border border-black/8 dark:border-white/10 shadow-sm shrink-0"
               />
             </div>
-            <pre className="flex-1 p-5 text-xs font-mono text-emerald-700 dark:text-emerald-300 bg-stone-50/50 dark:bg-[#0e0e12] overflow-auto leading-relaxed select-text">
+            <pre className="flex-1 p-3.5 sm:p-5 text-xs font-mono text-emerald-700 dark:text-emerald-300 bg-stone-50/50 dark:bg-[#0e0e12] overflow-auto leading-relaxed select-text min-w-0">
               <code>{currentDiagram}</code>
             </pre>
           </div>

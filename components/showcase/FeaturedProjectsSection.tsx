@@ -42,14 +42,14 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
     <section
       id="case-study"
       data-chapter-id="case-study"
-      className="py-24 sm:py-32 relative overflow-hidden"
+      className="py-12 sm:py-24 lg:py-32 relative overflow-hidden"
     >
       {/* Background Ambience */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-accent/5 dark:bg-accent/[0.03] blur-[140px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="space-y-4 mb-16 sm:mb-20">
+        <div className="space-y-4 mb-8 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-mono text-xs uppercase tracking-widest font-semibold">
             <Sparkles className="w-3.5 h-3.5 animate-pulse" />
             <span>FLAGSHIP WORKS</span>
@@ -88,7 +88,7 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                 key={project.id}
                 onMouseEnter={() => setHoveredCard(project.id)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className="group relative py-16 sm:py-24 first:pt-0 last:pb-8 transition-colors duration-300"
+                className="group relative py-10 sm:py-20 first:pt-0 last:pb-6 transition-colors duration-300"
               >
                 {/* Subtle Ambient Radial Highlight */}
                 <div
@@ -295,25 +295,16 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                 {/* 2nd Row: Full-Width Architectural Telemetry Strip */}
                 <div className="mt-10 pt-6 border-t border-black/[0.05] dark:border-white/[0.06]">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
-                    {project.stats.map((stat, idx) => {
-                      const isLong = stat.value.length > 14;
-                      return (
-                        <div key={idx} className="space-y-1.5">
-                          <div className="text-[11px] font-mono tracking-wider uppercase text-neutral-400 dark:text-neutral-500 font-medium truncate">
-                            {stat.label}
-                          </div>
-                          <div
-                            className={`${
-                              isLong
-                                ? "text-base sm:text-lg font-bold"
-                                : "text-xl sm:text-2xl font-black"
-                            } text-neutral-900 dark:text-white tracking-tight font-sans leading-snug`}
-                          >
-                            {stat.value}
-                          </div>
+                    {project.stats.map((stat, idx) => (
+                      <div key={idx} className="space-y-1.5 min-w-0">
+                        <div className="text-[11px] font-mono tracking-wider uppercase text-neutral-400 dark:text-neutral-500 font-medium truncate">
+                          {stat.label}
                         </div>
-                      );
-                    })}
+                        <div className="text-base sm:text-xl font-bold text-neutral-900 dark:text-white tracking-tight font-sans leading-snug truncate">
+                          {stat.value}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </motion.article>

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
 interface CaseStudyChapterItem {
   id: string;
@@ -28,131 +28,98 @@ export const CaseStudyChapterRail: React.FC = () => {
     setMounted(true);
   }, []);
 
-  // Continuous, high-precision scroll tracking with requestAnimationFrame
+  const handleScroll = useCallback(() => {
+    // If user initiated a click jump, skip observation updates until smooth scroll settles
+    if (isClickScrollingRef.current) return;
+
+    const scrollPos = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+
+    // When reaching the near-bottom of the case study document, activate last chapter
+    if (scrollPos + viewportHeight >= docHeight - 80) {
+      setActiveChapter(CHAPTERS[CHAPTERS.length - 1].id);
+      return;
+    }
+
+    // Check sections from bottom to top
+    const offsetMargin = 160;
+    let matched = "overview";
+
+    for (let i = CHAPTERS.length - 1; i >= 0; i--) {
+      const item = CHAPTERS[i];
+      const el = document.getElementById(item.id);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        // Element has scrolled into view
+        if (rect.top <= offsetMargin) {
+          matched = item.id;
+          break;
+        }
+      }
+    }
+
+    setActiveChapter(matched);
+  }, []);
+
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    let ticking = false;
-
-    const updateActiveChapter = () => {
-      if (isClickScrollingRef.current) return;
-
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const fullDocHeight = document.documentElement.scrollHeight;
-
-      // Handle page top
-      if (scrollY < 120) {
-        setActiveChapter("overview");
-        return;
-      }
-
-      // Handle page bottom
-      if (scrollY + windowHeight >= fullDocHeight - 100) {
-        setActiveChapter("chapter-source");
-        return;
-      }
-
-      // Focus line at 35% of the viewport height
-      const focusY = windowHeight * 0.35;
-
-      for (let i = CHAPTERS.length - 1; i >= 0; i--) {
-        const item = CHAPTERS[i];
-        const el = document.getElementById(item.id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= focusY) {
-            setActiveChapter(item.id);
-            return;
-          }
-        }
-      }
-      setActiveChapter("overview");
-    };
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateActiveChapter();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    const unlockScroll = () => {
-      if (isClickScrollingRef.current) {
-        isClickScrollingRef.current = false;
-        if (scrollTimeoutRef.current) {
-          clearTimeout(scrollTimeoutRef.current);
-        }
-      }
-    };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
-    window.addEventListener("wheel", unlockScroll, { passive: true });
-    window.addEventListener("touchmove", unlockScroll, { passive: true });
-
-    updateActiveChapter();
+    handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-      window.removeEventListener("wheel", unlockScroll);
-      window.removeEventListener("touchmove", unlockScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
     };
-  }, []);
-
-  if (!mounted) return null;
+  }, [handleScroll]);
 
   const scrollToChapter = (id: string) => {
     const el = document.getElementById(id);
     if (!el) return;
 
-    const navbarOffset = 124; // 64px navbar + 48px breadcrumb + 12px breathing room
-    const elementTop = el.getBoundingClientRect().top + window.scrollY;
-    const targetTop = id === "overview" ? 0 : Math.max(0, elementTop - navbarOffset);
-
-    // Lock scroll tracking during smooth scroll to prevent intermediate jitter
     isClickScrollingRef.current = true;
     setActiveChapter(id);
-
-    window.scrollTo({
-      top: targetTop,
-      behavior: "smooth",
-    });
 
     if (scrollTimeoutRef.current) {
       clearTimeout(scrollTimeoutRef.current);
     }
+
+    const navbarOffset = 116; // 64px navbar + 44px breadcrumb bar + 8px breathing space
+    const elementTop = el.getBoundingClientRect().top + window.scrollY;
+    const targetTop = id === "overview" ? 0 : Math.max(0, elementTop - navbarOffset);
+
+    window.scrollTo({
+      top: targetTop,
+      behavior: shouldReduceMotion ? "auto" : "smooth",
+    });
+
+    // Reset lock after smooth scrolling completes
     scrollTimeoutRef.current = setTimeout(() => {
       isClickScrollingRef.current = false;
-    }, 850);
+      handleScroll();
+    }, 750);
   };
 
-  const springTransition = shouldReduceMotion
-    ? { duration: 0 }
-    : {
-        type: "spring" as const,
-        stiffness: 420,
-        damping: 28,
-        mass: 0.8,
-      };
+  if (!mounted) return null;
 
   const currentChapter = CHAPTERS.find((c) => c.id === activeChapter) || CHAPTERS[0];
 
+  // Emil Spring transition definition
+  const springTransition = shouldReduceMotion
+    ? { duration: 0.1 }
+    : {
+        type: "spring" as const,
+        stiffness: 450,
+        damping: 30,
+        mass: 0.8,
+      };
+
   return (
     <>
-      {/* Desktop Vertical Pill Scrubber (Matching Home Page Shrink & Grow Spring Motion) */}
+      {/* Desktop Vertical Magnetic Scrubber Rail */}
       <aside
-        aria-label="Case study chapter navigation"
-        className="fixed right-3 md:right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end pointer-events-none select-none"
+        aria-label="Case Study Section Navigation"
+        className="fixed right-6 lg:right-8 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center pointer-events-auto select-none"
       >
-        <div className="pointer-events-auto bg-white/80 dark:bg-[#121214]/80 backdrop-blur-xl border border-black/6 dark:border-white/10 py-2.5 px-1.5 rounded-full shadow-craft-float flex flex-col items-center gap-1 transition-all">
+        <div className="relative flex flex-col items-center gap-3 p-2 rounded-full bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border border-black/8 dark:border-white/10 shadow-craft-subtle">
           {CHAPTERS.map((chapter) => {
             const isActive = activeChapter === chapter.id;
 
@@ -160,13 +127,14 @@ export const CaseStudyChapterRail: React.FC = () => {
               <button
                 key={chapter.id}
                 onClick={() => scrollToChapter(chapter.id)}
-                className="group relative flex items-center justify-center w-6 h-6 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.92] transition-transform duration-150"
-                aria-label={`Jump to chapter ${chapter.number}: ${chapter.title}`}
+                aria-label={`Jump to ${chapter.number} ${chapter.title}`}
+                aria-current={isActive ? "true" : undefined}
+                className="group relative flex items-center justify-center w-6 h-8 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-95 transition-transform"
               >
                 {/* Tooltip label on hover */}
                 <span
                   style={{ transformOrigin: "right center" }}
-                  className="absolute right-8 px-2.5 py-1 text-xs font-mono text-neutral-800 dark:text-neutral-200 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border border-black/8 dark:border-white/10 rounded-lg shadow-craft-card whitespace-nowrap opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 transition-[transform,opacity] duration-150 ease-out z-50 -translate-x-1 group-hover:translate-x-0"
+                  className="absolute right-9 px-2.5 py-1 text-xs font-mono text-neutral-800 dark:text-neutral-200 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border border-black/8 dark:border-white/10 rounded-lg shadow-craft-card whitespace-nowrap opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 transition-[transform,opacity] duration-150 ease-out z-50 -translate-x-1 group-hover:translate-x-0"
                 >
                   <span className="text-accent font-bold mr-1.5">{chapter.number}</span>
                   <span className="font-semibold">{chapter.title}</span>
@@ -175,23 +143,21 @@ export const CaseStudyChapterRail: React.FC = () => {
                   </span>
                 </span>
 
-                {/* Dot or Animated Growing Active Pill with Shrink & Grow Spring Physics */}
-                <div className="flex items-center justify-center min-h-[14px]">
-                  {isActive ? (
-                    <motion.div
-                      layoutId="active-case-study-chapter-pill"
-                      layout
-                      initial={false}
-                      className="w-2 h-6 rounded-full bg-accent shadow-[0_0_12px_rgba(255,23,68,0.8)]"
-                      transition={springTransition}
-                    />
-                  ) : (
-                    <motion.div
-                      layout
-                      className="w-1.5 h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-700 group-hover:bg-accent/80 dark:group-hover:bg-accent/80 group-hover:scale-125 transition-colors"
-                      transition={springTransition}
-                    />
-                  )}
+                {/* Vertical Expanding Pill with Emil Spring Physics */}
+                <div className="flex items-center justify-center min-h-[24px]">
+                  <motion.div
+                    animate={{
+                      height: isActive ? 24 : 6,
+                      width: isActive ? 8 : 6,
+                      opacity: isActive ? 1 : 0.45,
+                    }}
+                    transition={springTransition}
+                    className={`rounded-full transition-colors ${
+                      isActive
+                        ? "bg-accent shadow-[0_0_12px_rgba(255,23,68,0.8)]"
+                        : "bg-neutral-500 dark:bg-neutral-400 group-hover:bg-accent/80 dark:group-hover:bg-accent/80"
+                    }`}
+                  />
                 </div>
               </button>
             );
@@ -199,38 +165,64 @@ export const CaseStudyChapterRail: React.FC = () => {
         </div>
       </aside>
 
-      {/* Mobile Bottom Scrubber Pill (Touch-friendly & Responsive with Horizontal Shrink & Grow) */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 md:hidden flex items-center gap-2 bg-white/85 dark:bg-neutral-900/85 backdrop-blur-xl px-4 py-2 rounded-full border border-black/6 dark:border-white/10 shadow-craft-elevated pointer-events-auto select-none">
-        <span className="text-xs font-mono font-bold text-accent shrink-0">
-          {currentChapter?.number || "00"}
-        </span>
-        <span className="text-xs font-mono text-neutral-800 dark:text-neutral-200 max-w-[130px] truncate font-medium">
-          {currentChapter?.title || "Overview"}
-        </span>
-        <div className="flex items-center gap-1.5 pl-2 border-l border-black/6 dark:border-white/8 shrink-0">
-          {CHAPTERS.map((chapter) => {
-            const isActive = activeChapter === chapter.id;
+      {/* Mobile Bottom Scrubber Pill (Touch-friendly, Safe Area Aware & Accessible Hit Targets) */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] left-1/2 -translate-x-1/2 z-40 md:hidden flex items-center gap-2 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl px-3.5 py-1.5 rounded-full border border-black/8 dark:border-white/10 shadow-craft-elevated pointer-events-auto select-none max-w-[92vw]"
+      >
+        {/* Dynamic Chapter Label with smooth vertical slide */}
+        <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={currentChapter?.id}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              transition={{ duration: 0.15, ease: "easeOut" }}
+              className="flex items-center gap-1.5 min-w-0"
+            >
+              <span className="text-xs font-mono font-bold text-accent shrink-0">
+                {currentChapter?.number || "00"}
+              </span>
+              <span className="text-xs font-mono text-neutral-800 dark:text-neutral-200 max-w-[110px] truncate font-medium">
+                {currentChapter?.title}
+              </span>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="h-3 w-px bg-neutral-300 dark:bg-neutral-700 mx-0.5 shrink-0" />
+
+        {/* 4 Interactive Chapter Pagination Dots with Apple Fluid Stretch Physics */}
+        <div className="flex items-center gap-0.5">
+          {CHAPTERS.map((ch) => {
+            const isChActive = activeChapter === ch.id;
             return (
               <button
-                key={chapter.id}
-                onClick={() => scrollToChapter(chapter.id)}
-                aria-label={`Scroll to ${chapter.title}`}
-                className="w-6 h-6 flex items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                key={ch.id}
+                onClick={() => scrollToChapter(ch.id)}
+                aria-label={`Jump to chapter ${ch.number} ${ch.title}`}
+                className="relative flex items-center justify-center w-8 h-8 rounded-full outline-none focus-visible:ring-1 focus-visible:ring-accent active:scale-95 transition-transform"
               >
                 <motion.div
-                  layout
-                  className={`rounded-full transition-colors ${
-                    isActive
-                      ? "w-3.5 h-2 bg-accent shadow-[0_0_6px_rgba(255,23,68,0.7)]"
-                      : "w-2 h-2 bg-neutral-300 dark:bg-neutral-700"
-                  }`}
+                  animate={{
+                    width: isChActive ? 16 : 6,
+                    opacity: isChActive ? 1 : 0.45,
+                  }}
                   transition={springTransition}
+                  className={`h-1.5 rounded-full transition-colors ${
+                    isChActive
+                      ? "bg-accent shadow-[0_0_8px_rgba(255,23,68,0.7)]"
+                      : "bg-neutral-500 dark:bg-neutral-400"
+                  }`}
                 />
               </button>
             );
           })}
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
