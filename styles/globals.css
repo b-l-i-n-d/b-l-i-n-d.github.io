@@ -25,7 +25,14 @@ body {
 }
 
 :focus:not(:focus-visible) {
-  outline: none;
+  outline: none !important;
+}
+
+/* Eliminate residual/phantom outline states on idle and blurred interactive elements */
+a:not(:focus-visible),
+button:not(:focus-visible),
+[role="button"]:not(:focus-visible) {
+  outline: none !important;
 }
 
 /* Hide scrollbar for clean aesthetics while preserving touch & scroll functionality */

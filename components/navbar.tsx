@@ -8,9 +8,9 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-  Link,
 } from "@heroui/react";
 import React, { useState } from "react";
+import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import { useTransitionRouter } from "@/components/navigation/view-transitions";
 import { GithubIcon, BlindSkullIcon } from "./icons";
@@ -42,8 +42,14 @@ export const Navbar = () => {
 
   const activeNavId = getActiveNavId();
 
-  const handleNavClick = (e: React.MouseEvent<any>, href: string, id: string, chapter: string) => {
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+    id: string,
+    chapter: string
+  ) => {
     e.preventDefault();
+    (e.currentTarget as HTMLElement)?.blur();
     setClickedNavId(id);
 
     if (pathname !== "/") {
@@ -71,7 +77,8 @@ export const Navbar = () => {
     setTimeout(() => setClickedNavId(null), 1200);
   };
 
-  const handleBrandClick = (e: React.MouseEvent<any>) => {
+  const handleBrandClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    (e.currentTarget as HTMLElement)?.blur();
     if (pathname === "/") {
       e.preventDefault();
       setClickedNavId("showreel");
@@ -97,9 +104,8 @@ export const Navbar = () => {
       {/* Left: Brand / Logo with Skull 'X' Eyes and Abir Chromatic Identity */}
       <NavbarContent as="div" className="basis-auto shrink-0" justify="start">
         <NavbarBrand className="gap-3 max-w-fit shrink-0">
-          <Link
-            color="foreground"
-            className="flex justify-start items-center gap-3 cursor-pointer group select-none text-neutral-900 dark:text-white shrink-0"
+          <NextLink
+            className="flex justify-start items-center gap-3 cursor-pointer group select-none text-neutral-900 dark:text-white shrink-0 outline-none focus:outline-none"
             href="/"
             onClick={handleBrandClick}
           >
@@ -118,7 +124,7 @@ export const Navbar = () => {
                 Fahim Faisal
               </span>
             </div>
-          </Link>
+          </NextLink>
         </NavbarBrand>
       </NavbarContent>
 
@@ -134,20 +140,18 @@ export const Navbar = () => {
 
             return (
               <li key={item.id} className="relative shrink-0">
-                <Link
+                <NextLink
                   href={item.href}
-                  onClick={(e: React.MouseEvent<any>) =>
-                    handleNavClick(e, item.href, item.id, item.chapter)
-                  }
+                  onClick={(e) => handleNavClick(e, item.href, item.id, item.chapter)}
                   onMouseEnter={() => setHoveredNavId(item.id)}
-                  className={`relative z-10 block px-3 py-1.5 text-xs font-medium tracking-tight whitespace-nowrap transition-colors duration-150 ${
+                  className={`relative z-10 block px-3 py-1.5 text-xs font-medium tracking-tight whitespace-nowrap transition-colors duration-150 rounded-full outline-none focus:outline-none ${
                     isActive
                       ? "text-neutral-900 dark:text-white font-semibold"
                       : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
                   }`}
                 >
                   {item.label}
-                </Link>
+                </NextLink>
 
                 {/* Active Floating Pill with spring layout physics */}
                 {isActive && (
@@ -185,14 +189,15 @@ export const Navbar = () => {
       <NavbarContent as="div" className="basis-auto shrink-0 gap-2.5" justify="end">
         {/* GitHub Source Link */}
         <NavbarItem className="hidden sm:flex">
-          <Link
-            isExternal
+          <a
             aria-label="GitHub Repository"
+            target="_blank"
+            rel="noopener noreferrer"
             href="https://github.com/b-l-i-n-d/b-l-i-n-d.github.io"
-            className="p-2 rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+            className="p-2 rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors outline-none focus:outline-none"
           >
             <GithubIcon className="w-4 h-4" />
-          </Link>
+          </a>
         </NavbarItem>
 
         {/* Tactile Dark/Light Theme Switch */}
@@ -204,7 +209,7 @@ export const Navbar = () => {
         <NavbarItem className="md:hidden">
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            className="w-9 h-9 flex items-center justify-center text-neutral-700 dark:text-neutral-200"
+            className="w-9 h-9 flex items-center justify-center text-neutral-700 dark:text-neutral-200 outline-none focus:outline-none"
           />
         </NavbarItem>
       </NavbarContent>
@@ -222,35 +227,34 @@ export const Navbar = () => {
             const isActive = activeNavId === item.id;
             return (
               <NavbarMenuItem key={item.id}>
-                <Link
-                  className={`w-full py-2.5 px-3 rounded-xl text-base font-medium flex items-center justify-between transition-colors ${
+                <NextLink
+                  className={`w-full py-2.5 px-3 rounded-xl text-base font-medium flex items-center justify-between transition-colors outline-none focus:outline-none ${
                     isActive
                       ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-semibold"
                       : "text-neutral-700 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/5"
                   }`}
                   href={item.href}
-                  onClick={(e: React.MouseEvent<any>) =>
-                    handleNavClick(e, item.href, item.id, item.chapter)
-                  }
+                  onClick={(e) => handleNavClick(e, item.href, item.id, item.chapter)}
                 >
                   <span>{item.label}</span>
                   <span className="font-mono text-xs text-neutral-400 dark:text-neutral-400">
                     0{index}
                   </span>
-                </Link>
+                </NextLink>
               </NavbarMenuItem>
             );
           })}
 
           <div className="pt-4 mt-4 border-t border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400 font-mono">
             <span>Fahim Faisal / Portfolio</span>
-            <Link
-              isExternal
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
               href="https://github.com/b-l-i-n-d/b-l-i-n-d.github.io"
-              className="text-accent hover:underline flex items-center gap-1"
+              className="text-accent hover:underline flex items-center gap-1 outline-none focus:outline-none"
             >
               GitHub Source ↗
-            </Link>
+            </a>
           </div>
         </div>
       </NavbarMenu>
