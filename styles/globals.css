@@ -245,11 +245,32 @@ html.is-transitioning::view-transition-new(root) {
   z-index: 9999;
 }
 
-/* Persistent Fixed Elements - Zero movement or jump during navigation */
-::view-transition-old(site-header),
-::view-transition-new(site-header),
-::view-transition-old(case-study-breadcrumb),
-::view-transition-new(case-study-breadcrumb) {
+/* Route Transitions: Persistent Fixed Elements */
+.vt-site-header {
+  view-transition-name: site-header;
+}
+
+.vt-breadcrumb {
+  view-transition-name: case-study-breadcrumb;
+}
+
+/* 
+ * Strictly disable all element-specific view-transition-names during theme toggle.
+ * This guarantees the circular ripple sweeps seamlessly across the entire viewport
+ * including the navbar, with zero overlay ghosting or turning grey.
+ */
+html.is-transitioning,
+html.is-transitioning *,
+html.is-transitioning .vt-site-header,
+html.is-transitioning .vt-breadcrumb {
+  view-transition-name: none !important;
+}
+
+/* Route transitions only: Persistent Fixed Elements - Zero movement or jump during navigation */
+html.route-transitioning::view-transition-old(site-header),
+html.route-transitioning::view-transition-new(site-header),
+html.route-transitioning::view-transition-old(case-study-breadcrumb),
+html.route-transitioning::view-transition-new(case-study-breadcrumb) {
   animation: none;
   mix-blend-mode: normal;
 }

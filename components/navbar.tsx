@@ -98,11 +98,7 @@ export const Navbar = () => {
       position="sticky"
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
-      style={{
-        // @ts-ignore
-        viewTransitionName: "site-header",
-      }}
-      className="fixed top-0 inset-x-0 z-50 bg-stone-50/80 dark:bg-neutral-950/80 backdrop-blur-xl border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200"
+      className="fixed top-0 inset-x-0 z-50 bg-stone-50/80 dark:bg-neutral-950/80 backdrop-blur-xl border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200 vt-site-header"
       classNames={{
         wrapper: "px-4 sm:px-6 lg:px-8 max-w-7xl h-16",
       }}

@@ -21,10 +21,7 @@ export function CaseStudyBreadcrumbBar({
   nextProject,
 }: CaseStudyBreadcrumbBarProps) {
   return (
-    <div
-      className="fixed top-16 inset-x-0 z-40 w-full backdrop-blur-xl bg-stone-50/90 dark:bg-neutral-950/90 border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200"
-      style={{ viewTransitionName: "case-study-breadcrumb" }}
-    >
+    <div className="fixed top-16 inset-x-0 z-40 w-full backdrop-blur-xl bg-stone-50/90 dark:bg-neutral-950/90 border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200 vt-breadcrumb">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-11 sm:h-12 flex items-center justify-between gap-2 text-xs">
         {/* Left: Back to Home / Portfolio Overview */}
         <ViewTransitionLink
