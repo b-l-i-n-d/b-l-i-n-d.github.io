@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import { cn } from "cn";
 
 interface NameEntry {
@@ -66,6 +66,13 @@ export const AbirChromaHeading: React.FC<AbirChromaHeadingProps> = ({
     setIndex((prev) => (prev + 1) % NAME_CYCLES.length);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleNext();
+    }
+  };
+
   return (
     <div
       className={cn(
@@ -78,13 +85,17 @@ export const AbirChromaHeading: React.FC<AbirChromaHeadingProps> = ({
        * Slow, smooth vertical flow with pure monochrome gradient clipped strictly to font glyphs
        */}
       <div
+        role="button"
+        tabIndex={0}
         onClick={handleNext}
-        className="relative cursor-pointer group py-2 sm:py-3 max-w-full overflow-visible"
+        onKeyDown={handleKeyDown}
+        className="relative cursor-pointer group py-2 sm:py-3 max-w-full overflow-visible focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-2xl"
         title="Click to cycle name"
+        aria-label="Click to cycle name"
       >
         <h1 className="min-h-[1.35em] flex items-center justify-center text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight leading-[1.2] sm:leading-[1.15] overflow-visible px-2">
           <AnimatePresence mode="wait">
-            <motion.span
+            <m.span
               key={current.name}
               className="inline-flex items-center justify-center flex-wrap overflow-visible py-2"
               initial="initial"
@@ -96,7 +107,7 @@ export const AbirChromaHeading: React.FC<AbirChromaHeadingProps> = ({
                   key={`${current.name}-${charIdx}`}
                   className="inline-block overflow-visible py-2 sm:py-3 px-0.5"
                 >
-                  <motion.span
+                  <m.span
                     className="inline-block chroma-text leading-[1.2] py-1.5 sm:py-2"
                     variants={{
                       // Enters from bottom
@@ -130,10 +141,10 @@ export const AbirChromaHeading: React.FC<AbirChromaHeadingProps> = ({
                     }}
                   >
                     {char === " " ? "\u00A0" : char}
-                  </motion.span>
+                  </m.span>
                 </span>
               ))}
-            </motion.span>
+            </m.span>
           </AnimatePresence>
         </h1>
       </div>
@@ -141,7 +152,7 @@ export const AbirChromaHeading: React.FC<AbirChromaHeadingProps> = ({
       {/* Subtle Metadata Pill: Flag + Language + Meaning (Pure monochrome) */}
       <div className="flex items-center justify-center min-h-[2rem]">
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={current.lang}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -157,20 +168,16 @@ export const AbirChromaHeading: React.FC<AbirChromaHeadingProps> = ({
             <span className="text-neutral-700 dark:text-neutral-300 font-sans font-medium">
               &ldquo;{current.meaning}&rdquo;
             </span>
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
 
-      {/* Quiet Subtitle: Fahim Faisal & Scope */}
-      <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-mono text-neutral-600 dark:text-neutral-400 pt-0.5 px-2">
-        <span className="font-semibold text-neutral-900 dark:text-neutral-100 shrink-0">
+      {/* Hero Subtitle */}
+      {subheading && (
+        <p className="text-sm sm:text-base font-mono tracking-widest uppercase text-neutral-500 dark:text-neutral-400">
           {subheading}
-        </span>
-        <span className="text-neutral-300 dark:text-neutral-700 shrink-0">&bull;</span>
-        <span className="shrink-0">Software Engineer</span>
-        <span className="text-neutral-300 dark:text-neutral-700 shrink-0">&bull;</span>
-        <span className="text-neutral-900 dark:text-neutral-100 font-bold shrink-0">@blind</span>
-      </div>
+        </p>
+      )}
     </div>
   );
 };

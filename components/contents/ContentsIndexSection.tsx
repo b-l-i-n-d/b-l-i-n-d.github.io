@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { useTransitionRouter } from "@/components/navigation/ViewTransitionWatcher";
+import { useTransitionRouter } from "@/components/navigation/view-transitions";
 import { ContentsColumn, ContentsItem } from "@/types/portfolio";
 
 interface ContentsIndexProps {
@@ -243,7 +243,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
 
   const renderDots = (count: number = 1) => {
     const dotBase =
-      "block w-1.5 h-1.5 rounded-full transition-all duration-200 bg-neutral-300 dark:bg-neutral-700 group-hover:bg-accent dark:group-hover:bg-accent group-hover:shadow-[0_0_8px_rgba(255,23,68,0.8)] dark:group-hover:shadow-[0_0_12px_rgba(255,23,68,0.95)] group-hover:scale-125";
+      "block w-1.5 h-1.5 rounded-full transition-[background-color,box-shadow,transform] duration-200 bg-neutral-300 dark:bg-neutral-700 group-hover:bg-accent dark:group-hover:bg-accent group-hover:shadow-[0_0_8px_rgba(255,23,68,0.8)] dark:group-hover:shadow-[0_0_12px_rgba(255,23,68,0.95)] group-hover:scale-125";
 
     if (count === 1) {
       return (

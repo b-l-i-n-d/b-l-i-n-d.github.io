@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 
 interface CurvedDottedTimelineTrackProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -115,7 +115,7 @@ export const CurvedDottedTimelineTrack: React.FC<CurvedDottedTimelineTrackProps>
       </defs>
 
       {/* Subtle luminous ambient aura behind the dashed track */}
-      <motion.path
+      <m.path
         d={pathD}
         stroke="#ff1744"
         strokeWidth="2.5"
@@ -131,7 +131,7 @@ export const CurvedDottedTimelineTrack: React.FC<CurvedDottedTimelineTrackProps>
       />
 
       {/* Crisp Handcrafted "- - -" Dotted Curved Animated Line */}
-      <motion.path
+      <m.path
         d={pathD}
         stroke="url(#timeline-flow-gradient)"
         strokeWidth="2"

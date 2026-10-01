@@ -29,7 +29,7 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
                 <button
                   key={mod.id}
                   onClick={() => setActiveModuleId(mod.id)}
-                  className={`px-3 py-1.5 rounded-xl font-mono text-xs transition-all duration-150 active:scale-[0.96] flex items-center gap-1.5 shrink-0 select-none ${
+                  className={`px-3 py-1.5 rounded-xl font-mono text-xs transition-[background-color,color,transform] duration-150 active:scale-[0.96] flex items-center gap-1.5 shrink-0 select-none ${
                     isActive
                       ? "bg-white dark:bg-neutral-800 text-accent font-semibold shadow-sm border border-black/8 dark:border-white/10"
                       : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-neutral-800/40"
@@ -127,10 +127,14 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
                 className="text-xs sm:text-sm font-mono leading-relaxed min-w-0 max-w-full"
                 style={{ ...style, backgroundColor: "transparent", margin: 0 }}
               >
-                {tokens.map((line, i) => (
-                  <div key={i} {...getLineProps({ line })} className="min-h-[1.4em] py-0.5">
+                {tokens.map((line, lineNumber) => (
+                  <div
+                    key={`line-${lineNumber + 1}`}
+                    {...getLineProps({ line })}
+                    className="min-h-[1.4em] py-0.5"
+                  >
                     <span className="select-none inline-block w-6 sm:w-8 mr-2 sm:mr-4 text-right text-neutral-400 dark:text-[#484f58]">
-                      {i + 1}
+                      {lineNumber + 1}
                     </span>
                     {line.map((token, key) => (
                       <span key={key} {...getTokenProps({ token })} />

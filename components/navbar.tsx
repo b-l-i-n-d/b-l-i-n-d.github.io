@@ -12,12 +12,12 @@ import {
 } from "@heroui/react";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-import { useTransitionRouter } from "@/components/navigation/ViewTransitionWatcher";
+import { useTransitionRouter } from "@/components/navigation/view-transitions";
 import { GithubIcon, BlindSkullIcon } from "./icons";
 import { NAV_ITEMS, CASE_STUDY_CHAPTER_IDS } from "@/data/navigation";
 import { ThemeSwitch } from "./theme-switch";
 import { useViewport } from "./viewport/ViewportController";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -103,7 +103,7 @@ export const Navbar = () => {
             href="/"
             onClick={handleBrandClick}
           >
-            <div className="relative flex items-center justify-center shrink-0 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,23,68,0.45)] transition-all duration-300">
+            <div className="relative flex items-center justify-center shrink-0 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,23,68,0.45)] transition-[filter] duration-300">
               <BlindSkullIcon size={28} className="shrink-0" />
             </div>
             <div className="flex flex-col select-none shrink-0">
@@ -151,7 +151,7 @@ export const Navbar = () => {
 
                 {/* Active Floating Pill with spring layout physics */}
                 {isActive && (
-                  <motion.div
+                  <m.div
                     layoutId="active-pill"
                     className="absolute inset-0 bg-neutral-100 dark:bg-white/[0.12] rounded-full border border-black/[0.04] dark:border-white/[0.14] shadow-xs -z-0"
                     transition={{
@@ -165,7 +165,7 @@ export const Navbar = () => {
 
                 {/* Hover Aura indicator if not active */}
                 {isHovered && !isActive && (
-                  <motion.div
+                  <m.div
                     layoutId="hover-pill"
                     className="absolute inset-0 bg-neutral-100/60 dark:bg-white/[0.05] rounded-full -z-0"
                     transition={{

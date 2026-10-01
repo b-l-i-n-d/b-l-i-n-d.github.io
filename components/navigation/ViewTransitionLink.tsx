@@ -3,7 +3,7 @@
 import React from "react";
 import Link, { LinkProps } from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { startRouteTransition, TransitionDirection } from "./ViewTransitionWatcher";
+import { startRouteTransition, type TransitionDirection } from "./view-transitions";
 
 export interface ViewTransitionLinkProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps>, LinkProps {

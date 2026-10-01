@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import { Move } from "lucide-react";
 import { SKILLS_DOODLE, type SkillDoodle } from "@/data/doodles";
 
@@ -45,7 +45,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
       {/* Interactive Sketchpad Canvas */}
       <div
         ref={containerRef}
-        className="relative w-full h-52 sm:h-56 rounded-2xl bg-black/2 dark:bg-white/2 border border-black/6 dark:border-white/8 p-4 overflow-hidden group select-none shadow-sm backdrop-blur-[2px] transition-all duration-300 hover:border-black/12 dark:hover:border-white/15"
+        className="relative w-full h-52 sm:h-56 rounded-2xl bg-black/2 dark:bg-white/2 border border-black/6 dark:border-white/8 p-4 overflow-hidden group select-none shadow-sm backdrop-blur-[2px] transition-colors duration-300 hover:border-black/12 dark:hover:border-white/15"
         style={{
           backgroundImage: `radial-gradient(circle, currentColor 0.75px, transparent 0.75px)`,
           backgroundSize: "20px 20px",
@@ -54,13 +54,13 @@ export const InteractiveDoodleCloud: React.FC = () => {
       >
         {/* Flowing Dashed Vector Trajectory Waves */}
         <svg
-          className="absolute inset-0 w-full h-full pointer-events-none transition-all duration-500"
+          className="absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-500"
           viewBox="0 0 400 190"
           preserveAspectRatio="none"
           fill="none"
         >
           {/* Trajectory 1: Upper Harmonic Wave */}
-          <motion.path
+          <m.path
             d="M 15 95 Q 90 25, 185 85 T 385 65"
             stroke="#ff1744"
             strokeWidth="2"
@@ -80,7 +80,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
           />
 
           {/* Trajectory 2: Lower Kinetic Wave */}
-          <motion.path
+          <m.path
             d="M 25 155 Q 160 85, 270 145 T 380 115"
             stroke="#ff1744"
             strokeWidth="1.5"
@@ -115,7 +115,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
           const isDragged = draggedSkill === item.name;
 
           return (
-            <motion.div
+            <m.div
               key={item.id}
               drag
               dragConstraints={containerRef}
@@ -143,7 +143,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
               <div className="relative inline-flex items-center">
                 {/* Hand-Drawn Glow Backdrop on hover */}
                 {isHovered && (
-                  <motion.div
+                  <m.div
                     layoutId="doodle-glow"
                     className="absolute -inset-2 rounded-xl bg-accent/10 dark:bg-accent/15 -z-10 blur-sm pointer-events-none"
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -166,12 +166,12 @@ export const InteractiveDoodleCloud: React.FC = () => {
 
                 {/* Animated Hand-drawn Underline Scribble when active */}
                 {isHovered && (
-                  <motion.svg
+                  <m.svg
                     className="absolute -bottom-1.5 left-0 w-full h-2 pointer-events-none overflow-visible"
                     viewBox="0 0 100 8"
                     preserveAspectRatio="none"
                   >
-                    <motion.path
+                    <m.path
                       d="M 0 4 Q 25 7, 50 3 T 100 5"
                       stroke="#ff1744"
                       strokeWidth="2.5"
@@ -184,10 +184,10 @@ export const InteractiveDoodleCloud: React.FC = () => {
                         ease: "easeOut",
                       }}
                     />
-                  </motion.svg>
+                  </m.svg>
                 )}
               </div>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>
@@ -196,7 +196,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
       <div className="min-h-[26px] flex items-center justify-between gap-2 px-1 text-xs font-mono select-none overflow-hidden">
         <AnimatePresence mode="wait">
           {hoveredSkill ? (
-            <motion.div
+            <m.div
               key={hoveredSkill.name}
               initial={{ opacity: 0, y: 3 }}
               animate={{ opacity: 1, y: 0 }}
@@ -211,7 +211,7 @@ export const InteractiveDoodleCloud: React.FC = () => {
               <span className="text-neutral-600 dark:text-neutral-400 truncate whitespace-nowrap">
                 {hoveredSkill.subtitle}
               </span>
-            </motion.div>
+            </m.div>
           ) : (
             <span className="text-neutral-400 dark:text-neutral-600 flex items-center gap-1.5 text-[11px] truncate whitespace-nowrap">
               <span className="shrink-0">6 craft specializations</span>
@@ -222,14 +222,14 @@ export const InteractiveDoodleCloud: React.FC = () => {
         </AnimatePresence>
 
         {hoveredSkill && (
-          <motion.span
+          <m.span
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             className="hidden sm:inline-block px-2 py-0.5 rounded-md bg-accent/10 text-accent text-[10px] font-bold tracking-wider uppercase shrink-0 whitespace-nowrap"
           >
             {hoveredSkill.badge}
-          </motion.span>
+          </m.span>
         )}
       </div>
     </div>

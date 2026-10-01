@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import { WorkExperience, Education } from "@/types/portfolio";
 import { ExternalLink, Briefcase, GraduationCap, ArrowUpRight, TrendingUp } from "lucide-react";
 import { CareerVelocityCanvas } from "./CareerVelocityCanvas";
@@ -68,7 +68,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 sm:gap-2 shrink-0 whitespace-nowrap ${
+                className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors duration-200 flex items-center gap-1.5 sm:gap-2 shrink-0 whitespace-nowrap ${
                   isActive
                     ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 shadow-sm"
                     : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/3 dark:hover:bg-white/[0.03]"
@@ -83,23 +83,23 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
         {/* Tab 1: Work Experience */}
         {activeTab === "career" && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2 }}
             className="space-y-8"
           >
-            {experiences.map((exp: WorkExperience, index: number) => {
+            {experiences.map((exp: WorkExperience) => {
               const isOllyo = exp.company.toLowerCase().includes("ollyo");
 
               return (
                 <div
-                  key={index}
+                  key={exp.id}
                   className={`relative rounded-2xl bg-white dark:bg-neutral-900/60 border ${
                     isOllyo
                       ? "border-accent/40 dark:border-accent/30 shadow-craft-card"
                       : "border-black/8 dark:border-white/10"
-                  } p-6 sm:p-8 space-y-6 transition-all duration-200 hover:border-black/15 dark:hover:border-white/[0.2]`}
+                  } p-6 sm:p-8 space-y-6 transition-colors duration-200 hover:border-black/15 dark:hover:border-white/[0.2]`}
                 >
                   {isOllyo && (
                     <div className="absolute -top-3 left-6 sm:left-8 px-3 py-0.5 rounded-full bg-rose-700 dark:bg-rose-600 text-white text-[11px] font-mono font-bold uppercase tracking-wider shadow-sm flex items-center">
@@ -154,7 +154,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                         {exp.products.map((product) => (
                           <div
                             key={product.name}
-                            className="p-5 sm:p-6 rounded-xl bg-stone-50/70 dark:bg-white/2 border border-black/4 dark:border-white/6 space-y-2.5 hover:border-accent/40 transition-all duration-200 shadow-sm hover:shadow-craft-card"
+                            className="p-5 sm:p-6 rounded-xl bg-stone-50/70 dark:bg-white/2 border border-black/4 dark:border-white/6 space-y-2.5 hover:border-accent/40 transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-craft-card"
                           >
                             <div className="flex items-center justify-between">
                               <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-neutral-100">
@@ -211,12 +211,12 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                 </div>
               );
             })}
-          </motion.div>
+          </m.div>
         )}
 
         {/* Tab 2: Education & Academic Pedigree */}
         {activeTab === "education" && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2 }}
@@ -263,7 +263,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </div>
     </section>

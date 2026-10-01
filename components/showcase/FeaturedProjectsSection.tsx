@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { ViewTransitionLink } from "@/components/navigation/ViewTransitionLink";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { ArrowRight, ExternalLink, Lock, Sparkles } from "lucide-react";
 import { ProjectCaseStudy } from "@/types/portfolio";
 import { GithubIcon } from "../icons";
@@ -84,7 +84,7 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
             const chapterIndex = String(index + 1).padStart(2, "0");
 
             return (
-              <motion.article
+              <m.article
                 key={project.id}
                 onMouseEnter={() => setHoveredCard(project.id)}
                 onMouseLeave={() => setHoveredCard(null)}
@@ -172,9 +172,9 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
 
                     {/* Technology Stack Tags */}
                     <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-xs">
-                      {project.stack.map((tech, idx) => (
+                      {project.stack.map((tech) => (
                         <span
-                          key={idx}
+                          key={tech}
                           className="px-2.5 py-1 rounded-md bg-black/[0.03] dark:bg-white/[0.05] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
                         >
                           {tech}
@@ -186,16 +186,16 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                     <div className="pt-4">
                       <ViewTransitionLink
                         href={`/case-study/${project.id}`}
-                        className="group/btn inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-semibold text-sm sm:text-base shadow-craft-card hover:shadow-craft-elevated active:scale-[0.97] transition-all duration-200"
+                        className="group/btn inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-semibold text-sm sm:text-base shadow-craft-card hover:shadow-craft-elevated active:scale-[0.97] transition-[box-shadow,transform] duration-200"
                       >
                         <span>Explore Technical Case Study</span>
-                        <motion.div
+                        <m.div
                           animate={{ x: isHovered ? 4 : 0 }}
                           transition={{ type: "spring", stiffness: 400, damping: 25 }}
                           className="flex items-center"
                         >
                           <ArrowRight className="w-4 h-4 text-accent transition-colors" />
-                        </motion.div>
+                        </m.div>
                       </ViewTransitionLink>
                     </div>
                   </div>
@@ -228,7 +228,7 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                         {/* Stage 1: Topology */}
                         <ViewTransitionLink
                           href={`/case-study/${project.id}#chapter-topology`}
-                          className="group/stage flex items-center justify-between p-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-neutral-800/60 transition-all"
+                          className="group/stage flex items-center justify-between p-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-neutral-800/60 transition-colors"
                         >
                           <div className="flex items-center gap-3 min-w-0">
                             <span className="w-7 h-7 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] text-neutral-700 dark:text-neutral-300 border border-black/5 dark:border-white/5 flex items-center justify-center text-xs font-mono font-bold shrink-0">
@@ -243,13 +243,13 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                               </div>
                             </div>
                           </div>
-                          <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/stage:text-accent group-hover/stage:translate-x-1 transition-all shrink-0 ml-2" />
+                          <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/stage:text-accent group-hover/stage:translate-x-1 transition-[color,transform] shrink-0 ml-2" />
                         </ViewTransitionLink>
 
                         {/* Stage 2: Flow Engine */}
                         <ViewTransitionLink
                           href={`/case-study/${project.id}#chapter-flow`}
-                          className="group/stage flex items-center justify-between p-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-neutral-800/60 transition-all"
+                          className="group/stage flex items-center justify-between p-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-neutral-800/60 transition-colors"
                         >
                           <div className="flex items-center gap-3 min-w-0">
                             <span className="w-7 h-7 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] text-neutral-700 dark:text-neutral-300 border border-black/5 dark:border-white/5 flex items-center justify-center text-xs font-mono font-bold shrink-0">
@@ -264,13 +264,13 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                               </div>
                             </div>
                           </div>
-                          <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/stage:text-accent group-hover/stage:translate-x-1 transition-all shrink-0 ml-2" />
+                          <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/stage:text-accent group-hover/stage:translate-x-1 transition-[color,transform] shrink-0 ml-2" />
                         </ViewTransitionLink>
 
                         {/* Stage 3: Source Studio */}
                         <ViewTransitionLink
                           href={`/case-study/${project.id}#chapter-source`}
-                          className="group/stage flex items-center justify-between p-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-neutral-800/60 transition-all"
+                          className="group/stage flex items-center justify-between p-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-neutral-800/60 transition-colors"
                         >
                           <div className="flex items-center gap-3 min-w-0">
                             <span className="w-7 h-7 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] text-neutral-700 dark:text-neutral-300 border border-black/5 dark:border-white/5 flex items-center justify-center text-xs font-mono font-bold shrink-0">
@@ -285,7 +285,7 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                               </div>
                             </div>
                           </div>
-                          <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/stage:text-accent group-hover/stage:translate-x-1 transition-all shrink-0 ml-2" />
+                          <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/stage:text-accent group-hover/stage:translate-x-1 transition-[color,transform] shrink-0 ml-2" />
                         </ViewTransitionLink>
                       </div>
                     </div>
@@ -295,8 +295,8 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                 {/* 2nd Row: Full-Width Architectural Telemetry Strip */}
                 <div className="mt-10 pt-6 border-t border-black/[0.05] dark:border-white/[0.06]">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
-                    {project.stats.map((stat, idx) => (
-                      <div key={idx} className="space-y-1.5 min-w-0">
+                    {project.stats.map((stat) => (
+                      <div key={stat.label} className="space-y-1.5 min-w-0">
                         <div className="text-[11px] font-mono tracking-wider uppercase text-neutral-400 dark:text-neutral-500 font-medium truncate">
                           {stat.label}
                         </div>
@@ -307,7 +307,7 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
                     ))}
                   </div>
                 </div>
-              </motion.article>
+              </m.article>
             );
           })}
         </div>

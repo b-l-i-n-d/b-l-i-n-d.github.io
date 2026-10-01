@@ -1,27 +1,26 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { flushSync } from "react-dom";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useTheme } from "next-themes";
 import {
   Play,
   Pause,
   RotateCcw,
-  Zap,
-  Terminal,
-  ZoomIn,
-  ZoomOut,
-  Move,
+  Check,
   Code,
   Network,
   GitCommit,
-  Check,
+  ZoomIn,
+  ZoomOut,
+  Move,
+  Activity,
+  FileCode2,
 } from "lucide-react";
-
-import { Highlight } from "prism-react-renderer";
 import type { ShowcaseFlow, ShowcaseFlowStep } from "@/types/portfolio";
-import { SmoothCopyButton } from "./SmoothCopyButton";
+import { SmoothCopyButton } from "@/components/showcase/SmoothCopyButton";
+import { Highlight } from "prism-react-renderer";
 import { cssPrismTheme, getPrismLanguage } from "./prism-theme";
 
 interface InteractiveFlowVisualizerProps {
@@ -30,6 +29,691 @@ interface InteractiveFlowVisualizerProps {
 
 const MIN_ZOOM = 0.25; // 25% min zoom (bird's-eye view)
 const MAX_ZOOM = 8.0; // 800% max zoom (deep sequence diagram inspection)
+
+// Standalone Mermaid diagram renderer extracted outside React components
+// so React Compiler does not choke on dynamic import() statements in hook closures
+async function renderMermaidDiagram(id: string, diagram: string, isDark: boolean): Promise<string> {
+  const mermaid = (await import("mermaid")).default;
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: isDark ? "dark" : "neutral",
+    securityLevel: "loose",
+    fontFamily:
+      "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace",
+    themeVariables: {
+      fontSize: "13px",
+      primaryColor: isDark ? "#1f1f23" : "#ffffff",
+      primaryTextColor: isDark ? "#ffffff" : "#171717",
+      primaryBorderColor: isDark ? "#3f3f46" : "#e5e5e5",
+      lineColor: isDark ? "#ff1744" : "#ff1744",
+      secondaryColor: isDark ? "#27272a" : "#fafafa",
+      tertiaryColor: isDark ? "#18181b" : "#f4f4f5",
+    },
+  });
+
+  const { svg } = await mermaid.render(id, diagram);
+  return svg;
+}
+
+interface FlowSimulatorTabProps {
+  steps: ShowcaseFlowStep[];
+}
+
+const FlowSimulatorTab: React.FC<FlowSimulatorTabProps> = ({ steps }) => {
+  const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
+  // Auto-play timer loop for simulator
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    const timer = setTimeout(() => {
+      setCurrentStepIndex((prev) => prev + 1);
+      if (currentStepIndex + 1 >= steps.length - 1) {
+        setIsPlaying(false);
+      }
+    }, 2800);
+
+    return () => clearTimeout(timer);
+  }, [isPlaying, currentStepIndex, steps.length]);
+
+  const currentStep: ShowcaseFlowStep = steps[currentStepIndex] || steps[0];
+  const stepLanguage = getPrismLanguage(currentStep?.codeFile);
+
+  return (
+    <div className="space-y-4 sm:space-y-6 min-w-0">
+      {/* Horizontal Pipeline Steps Track */}
+      <div className="flex overflow-x-auto gap-2.5 pb-2 -mx-1 px-1 snap-x snap-mandatory scrollbar-none sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:overflow-visible sm:pb-0 sm:mx-0 sm:px-0">
+        {steps.map((step, idx) => {
+          const isCurrent = idx === currentStepIndex;
+          const isPassed = idx < currentStepIndex;
+          return (
+            <button
+              key={step.number ?? step.title}
+              onClick={() => {
+                setIsPlaying(false);
+                setCurrentStepIndex(idx);
+              }}
+              className={`group relative p-3 sm:p-3.5 rounded-xl text-left border flex flex-col justify-between min-h-[88px] sm:min-h-[96px] min-w-[150px] max-w-[180px] shrink-0 snap-start sm:min-w-0 sm:max-w-none transition-[background-color,border-color,transform] duration-150 active:scale-[0.97] ease-out ${
+                isCurrent
+                  ? "bg-white dark:bg-neutral-900 border-accent/80 shadow-[0_0_12px_rgba(255,23,68,0.1)] ring-1 ring-accent/30 text-neutral-900 dark:text-white"
+                  : isPassed
+                    ? "bg-stone-50/90 dark:bg-neutral-900/50 border-emerald-500/25 dark:border-emerald-500/20 text-neutral-800 dark:text-neutral-200 hover:border-emerald-500/40"
+                    : "bg-white/60 dark:bg-neutral-900/30 border-black/6 dark:border-white/6 text-neutral-600 dark:text-neutral-400 opacity-70 hover:opacity-100 hover:border-black/15 dark:hover:border-white/15"
+              }`}
+            >
+              <div className="flex items-center justify-between w-full">
+                <span
+                  className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 transition-colors ${
+                    isCurrent
+                      ? "bg-accent text-white shadow-[0_0_8px_rgba(255,23,68,0.4)]"
+                      : isPassed
+                        ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+                        : "bg-neutral-200/80 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400"
+                  }`}
+                >
+                  {step.number}
+                </span>
+
+                {isCurrent ? (
+                  <span className="relative flex h-2 w-2">
+                    {isPlaying && (
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-60" />
+                    )}
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-accent shadow-[0_0_6px_rgba(255,23,68,0.6)]" />
+                  </span>
+                ) : isPassed ? (
+                  <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                ) : (
+                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-700" />
+                )}
+              </div>
+
+              <div className="mt-2 min-w-0">
+                <div className="font-semibold text-xs truncate leading-snug">{step.title}</div>
+                <div className="text-[10px] text-neutral-400 dark:text-neutral-500 truncate mt-0.5 font-mono">
+                  {step.tech}
+                </div>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Primary Simulator Workspace Area */}
+      <m.div
+        key={currentStepIndex}
+        initial={{ opacity: 0, y: 4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.15 }}
+        className="rounded-2xl border border-black/8 dark:border-white/10 bg-white dark:bg-neutral-900/60 shadow-craft-card overflow-hidden min-w-0"
+      >
+        {/* Step Header & Telemetry Bar */}
+        <div className="p-4 sm:p-6 border-b border-black/6 dark:border-white/8 bg-stone-50/50 dark:bg-neutral-900/40">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 rounded text-[11px] font-mono uppercase tracking-wider bg-accent/10 text-accent font-semibold">
+                  Stage {currentStep.number} of {steps.length}
+                </span>
+                <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
+                  {currentStep.tech}
+                </span>
+              </div>
+              <h4 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">
+                {currentStep.title}
+              </h4>
+            </div>
+
+            {/* Play/Pause Scrubber Controls */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsPlaying(!isPlaying)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-semibold flex items-center gap-1.5 shadow-sm active:scale-95 transition-[background-color,color] ${
+                  isPlaying
+                    ? "bg-amber-500 text-white hover:bg-amber-600"
+                    : "bg-stone-900 dark:bg-white text-white dark:text-neutral-900 hover:bg-black dark:hover:bg-neutral-100"
+                }`}
+              >
+                {isPlaying ? (
+                  <>
+                    <Pause className="w-3.5 h-3.5" />
+                    <span>Pause</span>
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-3.5 h-3.5 fill-current" />
+                    <span>Auto Play</span>
+                  </>
+                )}
+              </button>
+
+              <button
+                onClick={() => {
+                  setIsPlaying(false);
+                  setCurrentStepIndex(0);
+                }}
+                className="p-2 rounded-xl border border-black/8 dark:border-white/10 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                title="Reset simulation to step 1"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          <p className="mt-3 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
+            {currentStep.description}
+          </p>
+        </div>
+
+        {/* Two-Column Diagnostic Spread: Code Snippet & Live Execution Stream */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 min-w-0">
+          {/* Left Column: Focused Code Snapshot */}
+          <div className="lg:col-span-7 border-b lg:border-b-0 lg:border-r border-black/6 dark:border-white/8 flex flex-col min-w-0">
+            <div className="flex items-center justify-between px-3.5 sm:px-4 py-2 sm:py-2.5 bg-stone-100 dark:bg-neutral-950 border-b border-black/6 dark:border-white/6 min-w-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <FileCode2 className="w-3.5 h-3.5 text-accent shrink-0" />
+                <span className="text-xs font-mono text-neutral-700 dark:text-neutral-300 truncate">
+                  {currentStep.codeFile}
+                </span>
+              </div>
+              <SmoothCopyButton
+                textToCopy={currentStep.codeSnippet}
+                idleLabel="Copy Code"
+                copiedLabel="Copied"
+                size="xs"
+                className="p-1 sm:px-2 sm:py-0.5 bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono text-[11px] border border-black/6 dark:border-white/8 shrink-0 shadow-xs"
+              />
+            </div>
+
+            <div className="p-3 sm:p-4 bg-stone-50/50 dark:bg-[#0d1117] overflow-x-auto max-h-[360px] min-w-0">
+              <Highlight
+                code={currentStep.codeSnippet}
+                language={stepLanguage}
+                theme={cssPrismTheme}
+              >
+                {({ style, tokens, getLineProps, getTokenProps }) => (
+                  <pre
+                    className="text-xs font-mono leading-relaxed min-w-0 max-w-full"
+                    style={{ ...style, backgroundColor: "transparent", margin: 0 }}
+                  >
+                    {tokens.map((line, lineNumber) => (
+                      <div
+                        key={`line-${lineNumber + 1}`}
+                        {...getLineProps({ line })}
+                        className="min-h-[1.4em] py-0.5"
+                      >
+                        <span className="select-none inline-block w-6 sm:w-8 mr-2 sm:mr-3 text-right text-neutral-400 dark:text-[#484f58]">
+                          {lineNumber + 1}
+                        </span>
+                        {line.map((token, key) => (
+                          <span key={key} {...getTokenProps({ token })} />
+                        ))}
+                      </div>
+                    ))}
+                  </pre>
+                )}
+              </Highlight>
+            </div>
+          </div>
+
+          {/* Right Column: Execution Telemetry & Reactive Stream */}
+          <div className="lg:col-span-5 p-4 sm:p-5 flex flex-col justify-between gap-4 bg-stone-50/20 dark:bg-neutral-900/30 min-w-0">
+            <div className="space-y-3 min-w-0">
+              {/* Reactive Stream Badge */}
+              <div className="flex items-center justify-between border-b border-black/6 dark:border-white/8 pb-2">
+                <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 font-semibold flex items-center gap-1.5">
+                  <Activity className="w-3.5 h-3.5 text-accent" />
+                  Reactive Event Stream
+                </span>
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold uppercase">
+                  Live
+                </span>
+              </div>
+              <div className="space-y-2 text-[11px] min-w-0">
+                {currentStep.logs.map((log: string, logIndex: number) => (
+                  <div
+                    key={`log-${logIndex}-${log.slice(0, 20)}`}
+                    className="flex items-start gap-2 leading-relaxed min-w-0"
+                  >
+                    <span className="text-emerald-600 dark:text-emerald-400 shrink-0 font-bold select-none">
+                      ›
+                    </span>
+                    <span className="text-neutral-700 dark:text-neutral-300 break-words min-w-0 flex-1">
+                      {log}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </m.div>
+    </div>
+  );
+};
+
+// Extracted Sub-Components and Hook for FlowDiagramCanvasTab
+
+const CanvasHeaderBadge: React.FC = () => (
+  <div className="absolute top-3 left-3 z-20 pointer-events-none flex items-center gap-2">
+    <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/8 dark:border-white/10 text-[11px] font-medium text-neutral-600 dark:text-neutral-300 flex items-center gap-1.5 shadow-sm">
+      <Move className="w-3.5 h-3.5 text-accent" />
+      <span className="hidden sm:inline">
+        Open Canvas • Click & drag anywhere to pan • Scroll to zoom (25% – 800%)
+      </span>
+      <span className="sm:hidden">Pan & zoom canvas</span>
+    </span>
+  </div>
+);
+
+interface CanvasZoomControlsProps {
+  zoom: number;
+  onReset: () => void;
+  onZoomOut: () => void;
+  onZoomIn: () => void;
+  onCyclePreset: () => void;
+  onSelectZoom: (level: number) => void;
+}
+
+const CanvasZoomControls: React.FC<CanvasZoomControlsProps> = ({
+  zoom,
+  onReset,
+  onZoomOut,
+  onZoomIn,
+  onCyclePreset,
+  onSelectZoom,
+}) => (
+  <div className="absolute bottom-2.5 right-2.5 sm:bottom-3 sm:right-3 z-20 flex items-center gap-1 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/8 dark:border-white/10 p-1 sm:p-1.5 rounded-xl shadow-sm">
+    <button
+      onClick={onReset}
+      className="p-1 sm:p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors"
+      title="Reset pan and zoom (100%)"
+    >
+      <RotateCcw className="w-3.5 h-3.5" />
+    </button>
+    <button
+      onClick={onZoomOut}
+      className="p-1 sm:p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+      title="Zoom Out"
+    >
+      <ZoomOut className="w-3.5 h-3.5" />
+    </button>
+    <button
+      onClick={onCyclePreset}
+      className="text-[11px] font-mono px-1.5 sm:px-2 py-0.5 rounded text-neutral-600 dark:text-neutral-300 hover:text-accent hover:bg-neutral-200/50 dark:hover:bg-neutral-800/80 transition-colors"
+      title="Click to cycle zoom presets (100% → 200% → 350% → 500% → 700%)"
+    >
+      {Math.round(zoom * 100)}%
+    </button>
+    <button
+      onClick={onZoomIn}
+      className="p-1 sm:p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+      title="Zoom In (up to 800%)"
+    >
+      <ZoomIn className="w-3.5 h-3.5" />
+    </button>
+
+    <div className="hidden sm:flex items-center gap-0.5 pl-1 border-l border-black/8 dark:border-white/10">
+      {[1.0, 2.5, 5.0, 8.0].map((level) => (
+        <button
+          key={level}
+          onClick={() => onSelectZoom(level)}
+          className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition-colors ${
+            Math.abs(zoom - level) < 0.1
+              ? "bg-accent text-white font-bold"
+              : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+          }`}
+        >
+          {Math.round(level * 100)}%
+        </button>
+      ))}
+    </div>
+  </div>
+);
+
+interface CanvasErrorNoticeProps {
+  error: string;
+  onViewCode: () => void;
+}
+
+const CanvasErrorNotice: React.FC<CanvasErrorNoticeProps> = ({ error, onViewCode }) => (
+  <div className="text-center p-6 sm:p-8 space-y-3 z-10">
+    <div className="text-rose-500 font-semibold text-sm">Mermaid Diagram Rendering Notice</div>
+    <p className="text-xs text-neutral-600 dark:text-neutral-400 max-w-md mx-auto font-mono">
+      {error}
+    </p>
+    <button
+      onClick={onViewCode}
+      className="px-3 py-1.5 rounded-lg bg-neutral-800 text-neutral-200 text-xs font-mono"
+    >
+      View Raw Mermaid Syntax
+    </button>
+  </div>
+);
+
+function useCanvasPanZoom() {
+  const [zoom, setZoom] = useState<number>(1);
+  const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const canvasContainerRef = useRef<HTMLDivElement | null>(null);
+  const dragStartRef = useRef<{ x: number; y: number; startPanX: number; startPanY: number }>({
+    x: 0,
+    y: 0,
+    startPanX: 0,
+    startPanY: 0,
+  });
+
+  const handleResetCanvas = useCallback(() => {
+    setPan({ x: 0, y: 0 });
+    setZoom(1);
+  }, []);
+
+  const handleZoomIn = useCallback(() => {
+    setZoom((z) => {
+      const step = z >= 3.0 ? 0.5 : z >= 1.5 ? 0.25 : 0.15;
+      return Math.min(MAX_ZOOM, Number((z + step).toFixed(2)));
+    });
+  }, []);
+
+  const handleZoomOut = useCallback(() => {
+    setZoom((z) => {
+      const step = z > 3.0 ? 0.5 : z > 1.5 ? 0.25 : 0.15;
+      return Math.max(MIN_ZOOM, Number((z - step).toFixed(2)));
+    });
+  }, []);
+
+  const cycleZoomPreset = useCallback(() => {
+    setZoom((z) => {
+      if (z < 1.0) return 1.0;
+      if (z < 2.0) return 2.0;
+      if (z < 3.5) return 3.5;
+      if (z < 5.0) return 5.0;
+      if (z < 7.0) return 7.0;
+      return 1.0;
+    });
+  }, []);
+
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      if (e.button !== 0) return;
+      setIsDragging(true);
+      dragStartRef.current = {
+        x: e.clientX,
+        y: e.clientY,
+        startPanX: pan.x,
+        startPanY: pan.y,
+      };
+    },
+    [pan.x, pan.y]
+  );
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (!isDragging) return;
+      const dx = e.clientX - dragStartRef.current.x;
+      const dy = e.clientY - dragStartRef.current.y;
+      setPan({
+        x: dragStartRef.current.startPanX + dx,
+        y: dragStartRef.current.startPanY + dy,
+      });
+    },
+    [isDragging]
+  );
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent) => {
+      if (e.touches.length === 1) {
+        const touch = e.touches[0];
+        setIsDragging(true);
+        dragStartRef.current = {
+          x: touch.clientX,
+          y: touch.clientY,
+          startPanX: pan.x,
+          startPanY: pan.y,
+        };
+      }
+    },
+    [pan.x, pan.y]
+  );
+
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent) => {
+      if (!isDragging || e.touches.length !== 1) return;
+      const touch = e.touches[0];
+      const dx = touch.clientX - dragStartRef.current.x;
+      const dy = touch.clientY - dragStartRef.current.y;
+      setPan({
+        x: dragStartRef.current.startPanX + dx,
+        y: dragStartRef.current.startPanY + dy,
+      });
+    },
+    [isDragging]
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    e.preventDefault();
+    const zoomFactor = e.deltaY < 0 ? 1.12 : 0.88;
+    setZoom((prev) =>
+      Math.min(Math.max(MIN_ZOOM, Number((prev * zoomFactor).toFixed(2))), MAX_ZOOM)
+    );
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const step = 32;
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setPan((prev) => ({ ...prev, y: prev.y + step }));
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setPan((prev) => ({ ...prev, y: prev.y - step }));
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setPan((prev) => ({ ...prev, x: prev.x + step }));
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setPan((prev) => ({ ...prev, x: prev.x - step }));
+      } else if (e.key === "+" || e.key === "=") {
+        e.preventDefault();
+        setZoom((prev) => Math.min(MAX_ZOOM, Number((prev * 1.15).toFixed(2))));
+      } else if (e.key === "-" || e.key === "_") {
+        e.preventDefault();
+        setZoom((prev) => Math.max(MIN_ZOOM, Number((prev * 0.85).toFixed(2))));
+      } else if (e.key === "0" || e.key === "r" || e.key === "R") {
+        e.preventDefault();
+        handleResetCanvas();
+      }
+    },
+    [handleResetCanvas]
+  );
+
+  return {
+    zoom,
+    setZoom,
+    pan,
+    isDragging,
+    canvasContainerRef,
+    handleResetCanvas,
+    handleZoomIn,
+    handleZoomOut,
+    cycleZoomPreset,
+    handleMouseDown,
+    handleMouseMove,
+    handleMouseUp,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+    handleWheel,
+    handleKeyDown,
+  };
+}
+
+interface FlowDiagramCanvasTabProps {
+  currentDiagram: string;
+  activeTab: "architecture" | "sequence";
+  setActiveTab: (tab: "simulator" | "architecture" | "sequence" | "code") => void;
+}
+
+const FlowDiagramCanvasTab: React.FC<FlowDiagramCanvasTabProps> = ({
+  currentDiagram,
+  activeTab,
+  setActiveTab,
+}) => {
+  const [renderedSvg, setRenderedSvg] = useState<string>("");
+  const [renderError, setRenderError] = useState<string | null>(null);
+
+  const { theme, resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark" || theme === "dark";
+
+  const {
+    zoom,
+    setZoom,
+    pan,
+    isDragging,
+    canvasContainerRef,
+    handleResetCanvas,
+    handleZoomIn,
+    handleZoomOut,
+    cycleZoomPreset,
+    handleMouseDown,
+    handleMouseMove,
+    handleMouseUp,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+    handleWheel,
+    handleKeyDown,
+  } = useCanvasPanZoom();
+
+  // Dynamic Mermaid rendering on client side with theme-adaptive SVG
+  useEffect(() => {
+    let isMounted = true;
+
+    const renderMermaid = async () => {
+      try {
+        const id = `mermaid-canvas-${activeTab}-${Date.now()}`;
+        const svg = await renderMermaidDiagram(id, currentDiagram, isDark);
+        if (isMounted) {
+          setRenderError(null);
+          setRenderedSvg(svg);
+        }
+      } catch (err: any) {
+        if (isMounted) {
+          console.error("Mermaid Render Error:", err);
+          setRenderError(
+            err?.message || "Failed to render Mermaid diagram. Check raw syntax below."
+          );
+          setRenderedSvg("");
+        }
+      }
+    };
+
+    renderMermaid();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [activeTab, currentDiagram, isDark]);
+
+  return (
+    <div
+      ref={canvasContainerRef}
+      role="region"
+      tabIndex={0}
+      aria-label="Interactive architecture flow canvas: use arrow keys to pan, plus and minus to zoom, or drag with mouse"
+      onKeyDown={handleKeyDown}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onWheel={handleWheel}
+      className={`relative select-none rounded-2xl bg-[#fafafa] dark:bg-[#0a0a0c] bg-[radial-gradient(rgba(0,0,0,0.12)_1.2px,transparent_1.2px)] dark:bg-[radial-gradient(rgba(255,255,255,0.12)_1.2px,transparent_1.2px)] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-elevated min-h-[380px] h-[440px] sm:h-[520px] md:h-[600px] flex items-center justify-center ${
+        isDragging ? "cursor-grabbing" : "cursor-grab"
+      }`}
+      style={{
+        backgroundSize: "24px 24px",
+        backgroundPosition: `${pan.x}px ${pan.y}px`,
+      }}
+    >
+      {/* Floating Canvas Mode Header Badge */}
+      <CanvasHeaderBadge />
+
+      {/* Floating HUD Quick Zoom Controls */}
+      <CanvasZoomControls
+        zoom={zoom}
+        onReset={handleResetCanvas}
+        onZoomOut={handleZoomOut}
+        onZoomIn={handleZoomIn}
+        onCyclePreset={cycleZoomPreset}
+        onSelectZoom={setZoom}
+      />
+
+      {renderError ? (
+        <CanvasErrorNotice error={renderError} onViewCode={() => setActiveTab("code")} />
+      ) : renderedSvg ? (
+        <div
+          style={{
+            transform: `translate3d(${pan.x}px, ${pan.y}px, 0px) scale(${zoom})`,
+            transformOrigin: "center center",
+            transition: isDragging ? "none" : "transform 0.12s ease-out",
+          }}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        >
+          <div
+            className="pointer-events-auto p-4 sm:p-8 select-none"
+            dangerouslySetInnerHTML={{ __html: renderedSvg }}
+          />
+        </div>
+      ) : (
+        <div className="flex items-center gap-2 text-neutral-400 font-mono text-xs z-10">
+          <span className="w-3 h-3 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+          <span>Compiling Mermaid Vector SVG...</span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+interface FlowCodeTabProps {
+  currentDiagram: string;
+}
+
+const FlowCodeTab: React.FC<FlowCodeTabProps> = ({ currentDiagram }) => {
+  return (
+    <div className="h-[400px] sm:h-[500px] md:h-[600px] flex flex-col rounded-2xl bg-stone-100/90 dark:bg-[#0e0e12] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-elevated min-w-0">
+      <div className="flex items-center justify-between px-3.5 sm:px-5 py-2.5 sm:py-3 bg-stone-200/70 dark:bg-[#14141a] border-b border-black/6 dark:border-white/6 shrink-0">
+        <div className="flex items-center gap-2 min-w-0">
+          <Code className="w-4 h-4 text-accent shrink-0" />
+          <span className="text-xs font-mono font-medium text-neutral-700 dark:text-neutral-300 truncate">
+            Mermaid-Specification.mmd
+          </span>
+        </div>
+        <SmoothCopyButton
+          textToCopy={currentDiagram}
+          idleLabel="Copy Mermaid Spec"
+          copiedLabel="Copied"
+          size="xs"
+          className="p-1.5 sm:px-3 sm:py-1 bg-white dark:bg-white/10 hover:bg-stone-100 dark:hover:bg-white/20 text-neutral-700 dark:text-white font-mono text-xs border border-black/8 dark:border-white/10 shadow-sm shrink-0"
+        />
+      </div>
+      <pre className="flex-1 p-3.5 sm:p-5 text-xs font-mono text-emerald-700 dark:text-emerald-300 bg-stone-50/50 dark:bg-[#0e0e12] overflow-auto leading-relaxed select-text min-w-0">
+        <code>{currentDiagram}</code>
+      </pre>
+    </div>
+  );
+};
 
 export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps> = ({ flow }) => {
   const steps = flow.steps;
@@ -68,196 +752,9 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
       setActiveTab(nextTab);
     }
   };
-  const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
-  // Open Canvas State for Rendered Diagrams
-  const [zoom, setZoom] = useState<number>(1);
-  const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [renderedSvg, setRenderedSvg] = useState<string>("");
-  const [renderError, setRenderError] = useState<string | null>(null);
-
-  const { theme, resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark" || theme === "dark";
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const canvasContainerRef = useRef<HTMLDivElement | null>(null);
-  const dragStartRef = useRef<{ x: number; y: number; startPanX: number; startPanY: number }>({
-    x: 0,
-    y: 0,
-    startPanX: 0,
-    startPanY: 0,
-  });
-  const currentStep: ShowcaseFlowStep = steps[currentStepIndex] || steps[0];
-  const stepLanguage = getPrismLanguage(currentStep?.codeFile);
-
-  const handleResetCanvas = () => {
-    setPan({ x: 0, y: 0 });
-    setZoom(1);
-  };
-
-  const handleZoomIn = () => {
-    setZoom((z) => {
-      const step = z >= 3.0 ? 0.5 : z >= 1.5 ? 0.25 : 0.15;
-      return Math.min(MAX_ZOOM, Number((z + step).toFixed(2)));
-    });
-  };
-
-  const handleZoomOut = () => {
-    setZoom((z) => {
-      const step = z > 3.0 ? 0.5 : z > 1.5 ? 0.25 : 0.15;
-      return Math.max(MIN_ZOOM, Number((z - step).toFixed(2)));
-    });
-  };
-
-  const cycleZoomPreset = () => {
-    setZoom((z) => {
-      if (z < 1.0) return 1.0;
-      if (z < 2.0) return 2.0;
-      if (z < 3.5) return 3.5;
-      if (z < 5.0) return 5.0;
-      if (z < 7.0) return 7.0;
-      return 1.0;
-    });
-  };
-
-  // Auto-advance player in simulation mode
-  useEffect(() => {
-    if (isPlaying) {
-      timerRef.current = setInterval(() => {
-        setCurrentStepIndex((prev) => (prev + 1) % steps.length);
-      }, 3200);
-    } else if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [isPlaying, steps.length]);
-
-  // Render Mermaid diagrams dynamically
-  const currentDiagram = activeTab === "architecture" ? archDiagram : seqDiagram;
-  useEffect(() => {
-    if (activeTab !== "architecture" && activeTab !== "sequence") return;
-
-    let isMounted = true;
-    const renderDiagram = async () => {
-      try {
-        setRenderError(null);
-        const mermaidModule = await import("mermaid");
-        const mermaid = mermaidModule.default;
-
-        mermaid.initialize({
-          startOnLoad: false,
-          theme: isDark ? "dark" : "neutral",
-          securityLevel: "loose",
-          fontFamily: "var(--font-sans), monospace",
-          themeVariables: isDark
-            ? {
-                primaryColor: "#1e1e24",
-                primaryBorderColor: "#ff1744",
-                primaryTextColor: "#ffffff",
-                lineColor: "#ff1744",
-                secondaryColor: "#131d1b",
-                tertiaryColor: "#131a26",
-              }
-            : {
-                primaryColor: "#ffffff",
-                primaryBorderColor: "#ff1744",
-                primaryTextColor: "#171717",
-                lineColor: "#ff1744",
-              },
-        });
-
-        const id = `mermaid-${activeTab}-${Math.random().toString(36).substring(2, 9)}`;
-        const { svg } = await mermaid.render(id, currentDiagram);
-
-        // Strip out Mermaid v12 inline stroke-dash styles so CSS direction-aware animation takes full effect
-        const cleanedSvg = svg
-          .replace(/stroke-dasharray:\s*[^;"]+;?/gi, "")
-          .replace(/stroke-dashoffset:\s*[^;"]+;?/gi, "");
-
-        if (isMounted) {
-          setRenderedSvg(cleanedSvg);
-        }
-      } catch (err: any) {
-        if (isMounted) {
-          console.error("Mermaid render error:", err);
-          setRenderError(err.message || "Failed to render Mermaid diagram");
-        }
-      }
-    };
-
-    renderDiagram();
-    return () => {
-      isMounted = false;
-    };
-  }, [activeTab, currentDiagram, isDark]);
-
-  // Mouse drag handlers for open canvas
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.button !== 0) return;
-    setIsDragging(true);
-    dragStartRef.current = {
-      x: e.clientX,
-      y: e.clientY,
-      startPanX: pan.x,
-      startPanY: pan.y,
-    };
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    const dx = e.clientX - dragStartRef.current.x;
-    const dy = e.clientY - dragStartRef.current.y;
-    setPan({
-      x: dragStartRef.current.startPanX + dx,
-      y: dragStartRef.current.startPanY + dy,
-    });
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  // Touch drag handlers for mobile open canvas
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      const touch = e.touches[0];
-      setIsDragging(true);
-      dragStartRef.current = {
-        x: touch.clientX,
-        y: touch.clientY,
-        startPanX: pan.x,
-        startPanY: pan.y,
-      };
-    }
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging || e.touches.length !== 1) return;
-    const touch = e.touches[0];
-    const dx = touch.clientX - dragStartRef.current.x;
-    const dy = touch.clientY - dragStartRef.current.y;
-    setPan({
-      x: dragStartRef.current.startPanX + dx,
-      y: dragStartRef.current.startPanY + dy,
-    });
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-  };
-
-  // Mouse wheel zoom up to MAX_ZOOM (800%)
-  const handleWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    const zoomFactor = e.deltaY < 0 ? 1.12 : 0.88;
-    setZoom((prev) =>
-      Math.min(Math.max(MIN_ZOOM, Number((prev * zoomFactor).toFixed(2))), MAX_ZOOM)
-    );
-  };
+  const currentDiagram =
+    activeTab === "architecture" ? archDiagram : activeTab === "sequence" ? seqDiagram : "";
 
   return (
     <div className="space-y-4 sm:space-y-6 min-w-0">
@@ -283,7 +780,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
                   // @ts-ignore - CSS Anchor Positioning
                   anchorName: `--flow-tab-${tab.id}`,
                 }}
-                className={`relative z-10 px-2.5 sm:px-3 py-1.5 rounded-lg font-medium transition-all duration-150 active:scale-[0.96] flex items-center gap-1.5 select-none shrink-0 text-xs ${
+                className={`relative z-10 px-2.5 sm:px-3 py-1.5 rounded-lg font-medium transition-[background-color,color,transform] duration-150 active:scale-[0.96] flex items-center gap-1.5 select-none shrink-0 text-xs ${
                   isSelected
                     ? "text-white font-semibold"
                     : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
@@ -291,7 +788,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
               >
                 {/* Active Glider Pill with Spring Physics */}
                 {isSelected && (
-                  <motion.div
+                  <m.div
                     layoutId="interactive-flow-tab-active-pill"
                     className="absolute inset-0 bg-accent rounded-lg shadow-[0_0_14px_rgba(255,23,68,0.45)] -z-10"
                     transition={{
@@ -304,7 +801,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
 
                 {/* Hover Ghost Pill */}
                 {isHovered && !isSelected && (
-                  <motion.div
+                  <m.div
                     layoutId="interactive-flow-tab-hover-pill"
                     className="absolute inset-0 bg-neutral-200/60 dark:bg-neutral-800/50 rounded-lg -z-10"
                     transition={{
@@ -322,68 +819,8 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
           })}
         </div>
 
-        {/* Right Controls: Play/Pause in Simulator OR Zoom HUD in Canvas */}
-        <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0 w-full sm:w-auto px-0.5 sm:px-0">
-          {activeTab === "simulator" && (
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className={`px-2.5 sm:px-3 py-1.5 rounded-lg font-mono text-xs flex items-center gap-1.5 transition-all active:scale-[0.96] duration-150 ${
-                  isPlaying
-                    ? "bg-amber-500/10 text-amber-500 border border-amber-500/30"
-                    : "bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/6 dark:border-white/8 hover:text-accent"
-                }`}
-              >
-                {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                <span>{isPlaying ? "Pause Stream" : "Live Replay"}</span>
-              </button>
-              <button
-                onClick={() => {
-                  setIsPlaying(false);
-                  setCurrentStepIndex(0);
-                }}
-                className="p-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-accent transition-all active:scale-[0.92] duration-150"
-                title="Reset Simulation"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          )}
-
-          {(activeTab === "architecture" || activeTab === "sequence") && (
-            <div className="flex items-center gap-1">
-              <button
-                onClick={handleZoomOut}
-                className="p-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-neutral-900 dark:hover:text-white transition-colors"
-                title="Zoom Out"
-              >
-                <ZoomOut className="w-3.5 h-3.5 shrink-0" />
-              </button>
-              <button
-                onClick={cycleZoomPreset}
-                className="text-xs font-mono px-2 py-1 rounded-md text-neutral-600 dark:text-neutral-400 hover:text-accent hover:bg-neutral-200/50 dark:hover:bg-neutral-800/80 transition-colors shrink-0"
-                title="Click to cycle zoom presets (100% → 200% → 350% → 500% → 700%)"
-              >
-                {Math.round(zoom * 100)}%
-              </button>
-              <button
-                onClick={handleZoomIn}
-                className="p-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-neutral-900 dark:hover:text-white transition-colors"
-                title="Zoom In (up to 800%)"
-              >
-                <ZoomIn className="w-3.5 h-3.5 shrink-0" />
-              </button>
-              <button
-                onClick={handleResetCanvas}
-                className="px-2 sm:px-2.5 py-1.5 rounded-lg bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/6 dark:border-white/8 hover:text-accent hover:border-accent/40 transition-colors flex items-center gap-1 font-mono text-xs"
-                title="Reset Canvas View"
-              >
-                <RotateCcw className="w-3 h-3 shrink-0" />
-                <span className="hidden sm:inline">Reset</span>
-              </button>
-            </div>
-          )}
-
+        {/* Global Toolbar: Quick Actions */}
+        <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
           <SmoothCopyButton
             textToCopy={currentDiagram}
             idleLabel="Copy Mermaid"
@@ -403,373 +840,19 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
         }}
       >
         {/* TAB 1: INTERACTIVE FLOW SIMULATOR */}
-        {activeTab === "simulator" && (
-          <div className="space-y-4 sm:space-y-6 min-w-0">
-            {/* Horizontal Pipeline Steps Track: smooth touch scroll track on mobile, clean grid on desktop */}
-            <div className="flex overflow-x-auto gap-2.5 pb-2 -mx-1 px-1 snap-x snap-mandatory scrollbar-none sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:overflow-visible sm:pb-0 sm:mx-0 sm:px-0">
-              {steps.map((step, idx) => {
-                const isCurrent = idx === currentStepIndex;
-                const isPassed = idx < currentStepIndex;
-                return (
-                  <button
-                    key={idx}
-                    onClick={() => {
-                      setIsPlaying(false);
-                      setCurrentStepIndex(idx);
-                    }}
-                    className={`group relative p-3 sm:p-3.5 rounded-xl text-left border flex flex-col justify-between min-h-[88px] sm:min-h-[96px] min-w-[150px] max-w-[180px] shrink-0 snap-start sm:min-w-0 sm:max-w-none transition-all duration-150 active:scale-[0.97] ease-out ${
-                      isCurrent
-                        ? "bg-white dark:bg-neutral-900 border-accent/80 shadow-[0_0_12px_rgba(255,23,68,0.1)] ring-1 ring-accent/30 text-neutral-900 dark:text-white"
-                        : isPassed
-                          ? "bg-stone-50/90 dark:bg-neutral-900/50 border-emerald-500/25 dark:border-emerald-500/20 text-neutral-800 dark:text-neutral-200 hover:border-emerald-500/40"
-                          : "bg-white/60 dark:bg-neutral-900/30 border-black/6 dark:border-white/6 text-neutral-600 dark:text-neutral-400 opacity-70 hover:opacity-100 hover:border-black/15 dark:hover:border-white/15"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between w-full">
-                      <span
-                        className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 transition-colors ${
-                          isCurrent
-                            ? "bg-accent text-white shadow-[0_0_8px_rgba(255,23,68,0.4)]"
-                            : isPassed
-                              ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
-                              : "bg-neutral-200/80 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400"
-                        }`}
-                      >
-                        {step.number}
-                      </span>
-
-                      {isCurrent ? (
-                        <span className="relative flex h-2 w-2">
-                          {isPlaying && (
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-60" />
-                          )}
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-accent shadow-[0_0_6px_rgba(255,23,68,0.6)]" />
-                        </span>
-                      ) : isPassed ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                      ) : (
-                        <span className="w-2 h-2 rounded-full bg-transparent" />
-                      )}
-                    </div>
-
-                    <div className="mt-3 w-full">
-                      <span className="text-xs font-semibold block truncate text-neutral-900 dark:text-white">
-                        {step.title}
-                      </span>
-                      <span className="text-[10px] text-neutral-500 dark:text-neutral-400 font-mono block truncate mt-0.5">
-                        {step.tech}
-                      </span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Step Deep Dive Workbench */}
-            <div className="relative min-h-[360px] min-w-0">
-              <motion.div
-                key={currentStep.id}
-                initial={{ opacity: 0, scale: 0.985 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start min-w-0"
-              >
-                {/* Left Col (8): Narrative, Architecture Diagram, Code Execution */}
-                <div className="lg:col-span-8 space-y-4 sm:space-y-5 min-w-0 w-full">
-                  <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-black/6 dark:border-white/8 shadow-sm space-y-4 min-w-0 overflow-hidden">
-                    <div className="flex items-center justify-between border-b border-black/4 dark:border-white/6 pb-3">
-                      <div>
-                        <span className="text-xs font-mono text-accent font-semibold">
-                          STAGE {currentStep.number} OF {String(steps.length).padStart(2, "0")}
-                        </span>
-                        <h4 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white">
-                          {currentStep.title}
-                        </h4>
-                      </div>
-                      <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400 hidden sm:inline">
-                        {currentStep.tech}
-                      </span>
-                    </div>
-                    <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300">
-                      {currentStep.description}
-                    </p>
-                  </div>
-
-                  {/* Interactive Code Snippet with Deterministic CSS Variable Syntax Highlighting */}
-                  <div className="rounded-2xl bg-stone-100/90 dark:bg-[#0d1117] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-sm min-w-0">
-                    {/* Window Chrome Header */}
-                    <div className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-2.5 bg-stone-200/60 dark:bg-[#161b22] border-b border-black/6 dark:border-[#30363d] text-xs font-mono min-w-0">
-                      <div className="flex items-center gap-2 min-w-0 flex-1">
-                        <div className="flex gap-1.5 shrink-0">
-                          <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                        </div>
-                        <span
-                          className="text-neutral-700 dark:text-[#8b949e] font-medium ml-1 truncate min-w-0"
-                          title={currentStep.codeFile}
-                        >
-                          {currentStep.codeFile}
-                        </span>
-                        <span className="px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wider bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-400 font-semibold shrink-0">
-                          {stepLanguage}
-                        </span>
-                      </div>
-                      <SmoothCopyButton
-                        textToCopy={currentStep.codeSnippet}
-                        idleLabel="Copy"
-                        copiedLabel="Copied"
-                        size="xs"
-                        className="p-1.5 sm:px-2 sm:py-1 rounded-md bg-white dark:bg-[#21262d] hover:bg-stone-100 dark:hover:bg-[#30363d] text-neutral-700 dark:text-[#c9d1d9] border border-black/8 dark:border-[#30363d] text-[11px] shrink-0 shadow-sm"
-                      />
-                    </div>
-
-                    {/* Syntax Highlighted Code Body - Zero horizontal blowout */}
-                    <div className="p-3 sm:p-4 overflow-x-auto max-w-full bg-stone-50/50 dark:bg-[#0d1117] select-text min-w-0">
-                      <Highlight
-                        code={currentStep.codeSnippet}
-                        language={stepLanguage}
-                        theme={cssPrismTheme}
-                      >
-                        {({ style, tokens, getLineProps, getTokenProps }) => (
-                          <pre
-                            className="text-xs font-mono leading-relaxed min-w-0 max-w-full"
-                            style={{ ...style, backgroundColor: "transparent", margin: 0 }}
-                          >
-                            {tokens.map((line, i) => (
-                              <div
-                                key={i}
-                                {...getLineProps({ line })}
-                                className="min-h-[1.4em] py-0.5"
-                              >
-                                <span className="select-none inline-block w-6 sm:w-8 mr-2 sm:mr-3 text-right text-neutral-400 dark:text-[#484f58]">
-                                  {i + 1}
-                                </span>
-                                {line.map((token, key) => (
-                                  <span key={key} {...getTokenProps({ token })} />
-                                ))}
-                              </div>
-                            ))}
-                          </pre>
-                        )}
-                      </Highlight>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right Col (4): Live Telemetry, Logs & Performance Matrix */}
-                <div className="lg:col-span-4 space-y-4 sm:space-y-5 min-w-0 w-full">
-                  {/* Telemetry Card */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-black/6 dark:border-white/8 shadow-sm space-y-3 sm:space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-xs font-semibold text-neutral-900 dark:text-white">
-                        <Zap className="w-3.5 h-3.5 text-accent" />
-                        <span>Telemetry Specs</span>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="p-2.5 sm:p-3 rounded-xl bg-stone-50 dark:bg-neutral-800/60 border border-black/4 dark:border-white/4">
-                        <span className="text-[10px] uppercase font-mono text-neutral-600 dark:text-neutral-400 block">
-                          Latency
-                        </span>
-                        <span className="text-base font-bold text-neutral-900 dark:text-white font-mono mt-0.5 block">
-                          {currentStep.systemMetrics.latency}
-                        </span>
-                      </div>
-                      <div className="p-2.5 sm:p-3 rounded-xl bg-stone-50 dark:bg-neutral-800/60 border border-black/4 dark:border-white/4">
-                        <span className="text-[10px] uppercase font-mono text-neutral-600 dark:text-neutral-400 block">
-                          Throughput
-                        </span>
-                        <span className="text-base font-bold text-neutral-900 dark:text-white font-mono mt-0.5 block">
-                          {currentStep.systemMetrics.ops}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="pt-2 border-t border-black/4 dark:border-white/6">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-neutral-600 dark:text-neutral-400">Node Status:</span>
-                        <span className="font-mono font-semibold text-emerald-500 flex items-center gap-1.5">
-                          <Check className="w-3 h-3" />
-                          Active & Synchronized
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Live Trace Logs Console */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#0c0c10] border border-black/6 dark:border-white/8 shadow-sm space-y-3 font-mono min-w-0">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-xs font-medium text-neutral-800 dark:text-neutral-300">
-                        <Terminal className="w-3.5 h-3.5 text-accent" />
-                        <span>Pipeline Audit Stream</span>
-                      </div>
-                      <span className="flex items-center gap-1.5 text-[10px] tracking-wider uppercase text-neutral-500 dark:text-neutral-400 font-mono">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        Live
-                      </span>
-                    </div>
-                    <div className="space-y-2 text-[11px] min-w-0">
-                      {currentStep.logs.map((log: string, idx: number) => (
-                        <div key={idx} className="flex items-start gap-2 leading-relaxed min-w-0">
-                          <span className="text-emerald-600 dark:text-emerald-400 shrink-0 font-bold select-none">
-                            ›
-                          </span>
-                          <span className="text-neutral-700 dark:text-neutral-300 break-words min-w-0 flex-1">
-                            {log}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        )}
+        {activeTab === "simulator" && <FlowSimulatorTab steps={steps} />}
 
         {/* TAB 2 & 3: OPEN CANVAS RENDERED MERMAID DIAGRAM (DRAG & PAN FREELY) */}
         {(activeTab === "architecture" || activeTab === "sequence") && (
-          <div
-            ref={canvasContainerRef}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            onWheel={handleWheel}
-            className={`relative select-none rounded-2xl bg-[#fafafa] dark:bg-[#0a0a0c] bg-[radial-gradient(rgba(0,0,0,0.12)_1.2px,transparent_1.2px)] dark:bg-[radial-gradient(rgba(255,255,255,0.12)_1.2px,transparent_1.2px)] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-elevated min-h-[380px] h-[440px] sm:h-[520px] md:h-[600px] flex items-center justify-center ${
-              isDragging ? "cursor-grabbing" : "cursor-grab"
-            }`}
-            style={{
-              backgroundSize: "24px 24px",
-              backgroundPosition: `${pan.x}px ${pan.y}px`,
-            }}
-          >
-            {/* Floating Canvas Mode Header Badge */}
-            <div className="absolute top-3 left-3 z-20 pointer-events-none flex items-center gap-2">
-              <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/8 dark:border-white/10 text-[11px] font-medium text-neutral-600 dark:text-neutral-300 flex items-center gap-1.5 shadow-sm">
-                <Move className="w-3.5 h-3.5 text-accent" />
-                <span className="hidden sm:inline">
-                  Open Canvas • Click & drag anywhere to pan • Scroll to zoom (25% – 800%)
-                </span>
-                <span className="sm:hidden">Pan & zoom canvas</span>
-              </span>
-            </div>
-
-            {/* Floating HUD Quick Zoom Controls */}
-            <div className="absolute bottom-2.5 right-2.5 sm:bottom-3 sm:right-3 z-20 flex items-center gap-1 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/8 dark:border-white/10 p-1 sm:p-1.5 rounded-xl shadow-sm">
-              <button
-                onClick={handleResetCanvas}
-                className="p-1 sm:p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors"
-                title="Reset pan and zoom (100%)"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-              </button>
-              <button
-                onClick={handleZoomOut}
-                className="p-1 sm:p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
-                title="Zoom Out"
-              >
-                <ZoomOut className="w-3.5 h-3.5" />
-              </button>
-              <button
-                onClick={cycleZoomPreset}
-                className="text-[11px] font-mono px-1.5 sm:px-2 py-0.5 rounded text-neutral-600 dark:text-neutral-300 hover:text-accent hover:bg-neutral-200/50 dark:hover:bg-neutral-800/80 transition-colors"
-                title="Click to cycle zoom presets (100% → 200% → 350% → 500% → 700%)"
-              >
-                {Math.round(zoom * 100)}%
-              </button>
-              <button
-                onClick={handleZoomIn}
-                className="p-1 sm:p-1.5 rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
-                title="Zoom In (up to 800%)"
-              >
-                <ZoomIn className="w-3.5 h-3.5" />
-              </button>
-
-              {/* Quick preset pills for instant jump */}
-              <div className="hidden sm:flex items-center gap-0.5 pl-1 border-l border-black/8 dark:border-white/10">
-                {[1.0, 2.5, 5.0, 8.0].map((level) => (
-                  <button
-                    key={level}
-                    onClick={() => setZoom(level)}
-                    className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition-colors ${
-                      Math.abs(zoom - level) < 0.1
-                        ? "bg-accent text-white font-bold"
-                        : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
-                    }`}
-                  >
-                    {Math.round(level * 100)}%
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {renderError ? (
-              <div className="text-center p-6 sm:p-8 space-y-3 z-10">
-                <div className="text-rose-500 font-semibold text-sm">
-                  Mermaid Diagram Rendering Notice
-                </div>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 max-w-md mx-auto font-mono">
-                  {renderError}
-                </p>
-                <button
-                  onClick={() => setActiveTab("code")}
-                  className="px-3 py-1.5 rounded-lg bg-neutral-800 text-neutral-200 text-xs font-mono"
-                >
-                  View Raw Mermaid Syntax
-                </button>
-              </div>
-            ) : renderedSvg ? (
-              <div
-                style={{
-                  transform: `translate3d(${pan.x}px, ${pan.y}px, 0px) scale(${zoom})`,
-                  transformOrigin: "center center",
-                  transition: isDragging ? "none" : "transform 0.12s ease-out",
-                }}
-                className="absolute inset-0 flex items-center justify-center pointer-events-none"
-              >
-                <div
-                  className="pointer-events-auto p-4 sm:p-8 select-none"
-                  dangerouslySetInnerHTML={{ __html: renderedSvg }}
-                />
-              </div>
-            ) : (
-              <div className="flex items-center gap-2 text-neutral-400 font-mono text-xs z-10">
-                <span className="w-3 h-3 rounded-full border-2 border-accent border-t-transparent animate-spin" />
-                <span>Compiling Mermaid Vector SVG...</span>
-              </div>
-            )}
-          </div>
+          <FlowDiagramCanvasTab
+            currentDiagram={currentDiagram}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
         )}
 
         {/* TAB 4: RAW MERMAID SYNTAX */}
-        {activeTab === "code" && (
-          <div className="h-[400px] sm:h-[500px] md:h-[600px] flex flex-col rounded-2xl bg-stone-100/90 dark:bg-[#0e0e12] border border-black/8 dark:border-white/10 overflow-hidden shadow-craft-elevated min-w-0">
-            <div className="flex items-center justify-between px-3.5 sm:px-5 py-2.5 sm:py-3 bg-stone-200/70 dark:bg-[#14141a] border-b border-black/6 dark:border-white/6 shrink-0">
-              <div className="flex items-center gap-2 min-w-0">
-                <Code className="w-4 h-4 text-accent shrink-0" />
-                <span className="text-xs font-mono font-medium text-neutral-700 dark:text-neutral-300 truncate">
-                  Mermaid-Specification.mmd
-                </span>
-              </div>
-              <SmoothCopyButton
-                textToCopy={currentDiagram}
-                idleLabel="Copy Mermaid Spec"
-                copiedLabel="Copied"
-                size="xs"
-                className="p-1.5 sm:px-3 sm:py-1 bg-white dark:bg-white/10 hover:bg-stone-100 dark:hover:bg-white/20 text-neutral-700 dark:text-white font-mono text-xs border border-black/8 dark:border-white/10 shadow-sm shrink-0"
-              />
-            </div>
-            <pre className="flex-1 p-3.5 sm:p-5 text-xs font-mono text-emerald-700 dark:text-emerald-300 bg-stone-50/50 dark:bg-[#0e0e12] overflow-auto leading-relaxed select-text min-w-0">
-              <code>{currentDiagram}</code>
-            </pre>
-          </div>
-        )}
+        {activeTab === "code" && <FlowCodeTab currentDiagram={currentDiagram} />}
       </div>
     </div>
   );

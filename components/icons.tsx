@@ -1,7 +1,7 @@
 "use client";
 
 import { IconSvgProps } from "@/types";
-import { motion, type Variants } from "motion/react";
+import { m, type Variants } from "motion/react";
 import * as React from "react";
 import { cn } from "cn";
 
@@ -120,7 +120,7 @@ export const BlindSkullIcon: React.FC<IconSvgProps> = ({ size = 28, width, heigh
   const finalSize = size || width || height || 28;
 
   return (
-    <motion.svg
+    <m.svg
       height={finalSize}
       viewBox="0 0 24 24"
       width={finalSize}
@@ -150,7 +150,7 @@ export const BlindSkullIcon: React.FC<IconSvgProps> = ({ size = 28, width, heigh
       </defs>
 
       {/* Skull Cranium, Cheekbones & Jaw Contour */}
-      <motion.path
+      <m.path
         d="M15 22a1 1 0 0 0 1-1v-1a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20v1a1 1 0 0 0 1 1z"
         stroke="currentColor"
         strokeWidth="1.75"
@@ -163,7 +163,7 @@ export const BlindSkullIcon: React.FC<IconSvgProps> = ({ size = 28, width, heigh
       />
 
       {/* Inverted Triangle Crimson Nose Cavity */}
-      <motion.path
+      <m.path
         d="m12.5 17-.5-1-.5 1h1z"
         fill="url(#blind-skull-crimson)"
         stroke="#ff1744"
@@ -173,7 +173,7 @@ export const BlindSkullIcon: React.FC<IconSvgProps> = ({ size = 28, width, heigh
       />
 
       {/* Teeth Separators with Spring Micro-Chatter */}
-      <motion.g variants={jawVariants}>
+      <m.g variants={jawVariants}>
         <line
           x1="10.5"
           y1="20"
@@ -194,10 +194,10 @@ export const BlindSkullIcon: React.FC<IconSvgProps> = ({ size = 28, width, heigh
           strokeLinecap="round"
           className="opacity-70 dark:opacity-85"
         />
-      </motion.g>
+      </m.g>
 
       {/* LEFT 'X' EYE (Rotates +90deg with spring and expands on hover) */}
-      <motion.g variants={leftEyeVariants} style={{ transformOrigin: "9px 12px" }}>
+      <m.g variants={leftEyeVariants} style={{ transformOrigin: "9px 12px" }}>
         {/* Ambient Breathing Eye Halo */}
         <circle cx="9" cy="12" r="3.2" fill="#ff1744" opacity="0.25" className="animate-pulse" />
 
@@ -222,10 +222,10 @@ export const BlindSkullIcon: React.FC<IconSvgProps> = ({ size = 28, width, heigh
           strokeLinecap="round"
           filter="url(#blind-skull-glow)"
         />
-      </motion.g>
+      </m.g>
 
       {/* RIGHT 'X' EYE (Rotates -90deg with spring and expands on hover) */}
-      <motion.g variants={rightEyeVariants} style={{ transformOrigin: "15px 12px" }}>
+      <m.g variants={rightEyeVariants} style={{ transformOrigin: "15px 12px" }}>
         {/* Ambient Breathing Eye Halo */}
         <circle cx="15" cy="12" r="3.2" fill="#ff1744" opacity="0.25" className="animate-pulse" />
 
@@ -250,8 +250,8 @@ export const BlindSkullIcon: React.FC<IconSvgProps> = ({ size = 28, width, heigh
           strokeLinecap="round"
           filter="url(#blind-skull-glow)"
         />
-      </motion.g>
-    </motion.svg>
+      </m.g>
+    </m.svg>
   );
 };
 

@@ -2,10 +2,11 @@
 
 import { cn } from "cn";
 import { useTheme } from "next-themes";
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useRef } from "react";
 import { flushSync } from "react-dom";
 
 import { MoonFilledIcon, SunFilledIcon } from "@/components/icons";
+import { useIsMounted } from "@/hooks/useIsMounted";
 
 export interface ThemeSwitchProps {
   className?: string;
@@ -16,14 +17,10 @@ export interface ThemeSwitchProps {
 }
 
 export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className, classNames }) => {
-  const [mounted, setMounted] = useState(false);
+  const isMounted = useIsMounted();
   const { theme, resolvedTheme, setTheme } = useTheme();
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const isTransitioningRef = useRef<boolean>(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const isDark = (resolvedTheme || theme) === "dark";
 
@@ -101,7 +98,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className, classNames }) => 
     }
   };
 
-  if (!mounted) {
+  if (!isMounted) {
     return (
       <div
         className={cn(

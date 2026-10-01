@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { m, AnimatePresence, useReducedMotion } from "motion/react";
+import { useIsMounted } from "@/hooks/useIsMounted";
 
 interface CaseStudyChapterItem {
   id: string;
@@ -19,14 +20,10 @@ const CHAPTERS: CaseStudyChapterItem[] = [
 
 export const CaseStudyChapterRail: React.FC = () => {
   const [activeChapter, setActiveChapter] = useState<string>("overview");
-  const [mounted, setMounted] = useState(false);
+  const isMounted = useIsMounted();
   const isClickScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleScroll = useCallback(() => {
     // If user initiated a click jump, skip observation updates until smooth scroll settles
@@ -64,9 +61,10 @@ export const CaseStudyChapterRail: React.FC = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    const rafId = requestAnimationFrame(handleScroll);
 
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
     };
   }, [handleScroll]);
@@ -98,7 +96,7 @@ export const CaseStudyChapterRail: React.FC = () => {
     }, 750);
   };
 
-  if (!mounted) return null;
+  if (!isMounted) return null;
 
   const currentChapter = CHAPTERS.find((c) => c.id === activeChapter) || CHAPTERS[0];
 
@@ -143,16 +141,16 @@ export const CaseStudyChapterRail: React.FC = () => {
                   </span>
                 </span>
 
-                {/* Vertical Expanding Pill with Emil Spring Physics */}
+                {/* Vertical Expanding Pill with Emil Spring Physics (GPU-accelerated transform scale) */}
                 <div className="flex items-center justify-center min-h-[24px]">
-                  <motion.div
+                  <m.div
                     animate={{
-                      height: isActive ? 24 : 6,
-                      width: isActive ? 8 : 6,
+                      scaleY: isActive ? 1 : 0.25,
+                      scaleX: isActive ? 1 : 0.75,
                       opacity: isActive ? 1 : 0.45,
                     }}
                     transition={springTransition}
-                    className={`rounded-full transition-colors ${
+                    className={`h-6 w-2 rounded-full transition-colors origin-center ${
                       isActive
                         ? "bg-accent shadow-[0_0_12px_rgba(255,23,68,0.8)]"
                         : "bg-neutral-500 dark:bg-neutral-400 group-hover:bg-accent/80 dark:group-hover:bg-accent/80"
@@ -166,7 +164,7 @@ export const CaseStudyChapterRail: React.FC = () => {
       </aside>
 
       {/* Mobile Bottom Scrubber Pill (Touch-friendly, Safe Area Aware & Accessible Hit Targets) */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
@@ -175,7 +173,7 @@ export const CaseStudyChapterRail: React.FC = () => {
         {/* Dynamic Chapter Label with smooth vertical slide */}
         <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
           <AnimatePresence mode="wait" initial={false}>
-            <motion.div
+            <m.div
               key={currentChapter?.id}
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
@@ -189,13 +187,13 @@ export const CaseStudyChapterRail: React.FC = () => {
               <span className="text-xs font-mono text-neutral-800 dark:text-neutral-200 max-w-[110px] truncate font-medium">
                 {currentChapter?.title}
               </span>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </div>
 
         <div className="h-3 w-px bg-neutral-300 dark:bg-neutral-700 mx-0.5 shrink-0" />
 
-        {/* 4 Interactive Chapter Pagination Dots with Apple Fluid Stretch Physics */}
+        {/* 4 Interactive Chapter Pagination Dots with Apple Fluid Stretch Physics (GPU-accelerated scaleX) */}
         <div className="flex items-center gap-0.5">
           {CHAPTERS.map((ch) => {
             const isChActive = activeChapter === ch.id;
@@ -206,13 +204,13 @@ export const CaseStudyChapterRail: React.FC = () => {
                 aria-label={`Jump to chapter ${ch.number} ${ch.title}`}
                 className="relative flex items-center justify-center w-8 h-8 rounded-full outline-none focus-visible:ring-1 focus-visible:ring-accent active:scale-95 transition-transform"
               >
-                <motion.div
+                <m.div
                   animate={{
-                    width: isChActive ? 16 : 6,
+                    scaleX: isChActive ? 1 : 0.375,
                     opacity: isChActive ? 1 : 0.45,
                   }}
                   transition={springTransition}
-                  className={`h-1.5 rounded-full transition-colors ${
+                  className={`h-1.5 w-4 rounded-full transition-colors origin-center ${
                     isChActive
                       ? "bg-accent shadow-[0_0_8px_rgba(255,23,68,0.7)]"
                       : "bg-neutral-500 dark:bg-neutral-400"
@@ -222,7 +220,7 @@ export const CaseStudyChapterRail: React.FC = () => {
             );
           })}
         </div>
-      </motion.div>
+      </m.div>
     </>
   );
 };

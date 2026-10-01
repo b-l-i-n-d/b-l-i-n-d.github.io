@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import { EngineerProfile } from "@/types/portfolio";
 import { GithubIcon, LinkedinIcon, EmailIcon, XIcon } from "../icons";
 import {
@@ -102,7 +102,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                 {/* Primary Action Button */}
                 <a
                   href={`mailto:${profile.contact.email}`}
-                  className="px-6 py-3 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 text-sm font-semibold flex items-center gap-2 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-all shadow-sm active:scale-[0.98]"
+                  className="px-6 py-3 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 text-sm font-semibold flex items-center gap-2 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-[background-color,transform,scale] shadow-sm active:scale-[0.98]"
                 >
                   <EmailIcon className="w-4 h-4" />
                   <span>Send Email</span>
@@ -110,7 +110,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                 </a>
 
                 {/* Tactile Copy Email Button with Smooth Zero-Shift Width Collapse */}
-                <motion.button
+                <m.button
                   layout
                   type="button"
                   onClick={handleCopyEmail}
@@ -128,7 +128,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                 >
                   {/* Morphing Icon */}
                   <div className="relative w-4 h-4 shrink-0 mr-2.5">
-                    <motion.div
+                    <m.div
                       animate={{
                         scale: copied ? 0 : 1,
                         opacity: copied ? 0 : 0.6,
@@ -138,9 +138,9 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                       className="absolute inset-0 flex items-center justify-center pointer-events-none"
                     >
                       <Copy className="w-3.5 h-3.5" />
-                    </motion.div>
+                    </m.div>
 
-                    <motion.div
+                    <m.div
                       key={`check-${pulseKey}`}
                       initial={pulseKey > 1 ? { scale: 1.25 } : false}
                       animate={{
@@ -152,7 +152,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                       className="absolute inset-0 flex items-center justify-center pointer-events-none"
                     >
                       <Check className="w-4 h-4 text-emerald-500 stroke-[2.5]" />
-                    </motion.div>
+                    </m.div>
                   </div>
 
                   {/* Fixed Email Text */}
@@ -160,35 +160,29 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                     {profile.contact.email || "fahim.faisal.abir@gmail.com"}
                   </span>
 
-                  {/* Perfectly Smooth Collapsing Wrapper (Zero snap, zero remaining padding/gap) */}
+                  {/* Perfectly Smooth Collapsing Wrapper (GPU-accelerated Layout Animation) */}
                   <AnimatePresence>
                     {copied && (
-                      <motion.div
+                      <m.div
+                        layout
                         key="copied-pill-container"
-                        initial={{ width: 0, opacity: 0 }}
-                        animate={{ width: "auto", opacity: 1 }}
-                        exit={{ width: 0, opacity: 0 }}
+                        initial={{ opacity: 0, scale: 0.85 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.85 }}
                         transition={{
-                          width: { type: "spring", stiffness: 450, damping: 32 },
+                          layout: { type: "spring", stiffness: 450, damping: 32 },
                           opacity: { duration: 0.18, ease: "easeInOut" },
+                          scale: { duration: 0.18, ease: "easeInOut" },
                         }}
-                        className="overflow-hidden flex items-center shrink-0"
+                        className="overflow-hidden flex items-center shrink-0 pl-2.5"
                       >
-                        <div className="pl-2.5">
-                          <motion.span
-                            initial={{ scale: 0.8 }}
-                            animate={{ scale: 1 }}
-                            exit={{ scale: 0.8 }}
-                            transition={{ type: "spring", stiffness: 500, damping: 28 }}
-                            className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-sans font-semibold bg-emerald-500/20 dark:bg-emerald-500/30 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 whitespace-nowrap"
-                          >
-                            Copied!
-                          </motion.span>
-                        </div>
-                      </motion.div>
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-sans font-semibold bg-emerald-500/20 dark:bg-emerald-500/30 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 whitespace-nowrap">
+                          Copied!
+                        </span>
+                      </m.div>
                     )}
                   </AnimatePresence>
-                </motion.button>
+                </m.button>
               </div>
 
               {/* Social Channels Strip */}
@@ -247,7 +241,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                     alt="Fahim Faisal (Abir)"
                     fill
                     sizes="80px"
-                    className="object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    className="object-cover object-top grayscale scale-100 group-hover:grayscale-0 group-hover:scale-105 transition-[filter,transform,scale] duration-500"
                   />
                   <span className="absolute bottom-1 right-1 px-1 rounded bg-black/80 text-[9px] font-mono text-white/90">
                     @blind

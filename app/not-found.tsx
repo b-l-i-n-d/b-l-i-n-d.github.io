@@ -36,7 +36,7 @@ export default function NotFound() {
           <div className="pt-2">
             <Link
               href="/"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-semibold text-sm shadow-craft-card hover:shadow-craft-elevated active:scale-[0.98] transition-all duration-150"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-semibold text-sm shadow-craft-card hover:shadow-craft-elevated active:scale-[0.98] transition-[box-shadow,transform] duration-150"
             >
               <ArrowLeft className="w-4 h-4 text-accent" />
               <span>Return to Portfolio Overview</span>

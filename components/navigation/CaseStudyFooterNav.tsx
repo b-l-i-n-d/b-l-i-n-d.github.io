@@ -38,7 +38,7 @@ export const CaseStudyFooterNav: React.FC<CaseStudyFooterNavProps> = ({
           <ViewTransitionLink
             href={`/case-study/${prevProject.id}`}
             transitionDirection="prev"
-            className="group relative p-4 sm:p-8 rounded-2xl bg-white dark:bg-neutral-900/60 border border-black/6 dark:border-white/8 hover:border-accent/40 dark:hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-all duration-200 flex flex-col justify-between"
+            className="group relative p-4 sm:p-8 rounded-2xl bg-white dark:bg-neutral-900/60 border border-black/6 dark:border-white/8 hover:border-accent/40 dark:hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-[border-color,box-shadow] duration-200 flex flex-col justify-between"
           >
             <div className="flex items-center gap-2 text-neutral-400 group-hover:text-accent text-xs font-mono uppercase tracking-wider mb-3 sm:mb-4 transition-colors">
               <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
@@ -61,7 +61,7 @@ export const CaseStudyFooterNav: React.FC<CaseStudyFooterNavProps> = ({
           <ViewTransitionLink
             href={`/case-study/${nextProject.id}`}
             transitionDirection="next"
-            className="group relative p-4 sm:p-8 rounded-2xl bg-white dark:bg-neutral-900/60 border border-black/6 dark:border-white/8 hover:border-accent/40 dark:hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-all duration-200 flex flex-col justify-between text-left sm:text-right"
+            className="group relative p-4 sm:p-8 rounded-2xl bg-white dark:bg-neutral-900/60 border border-black/6 dark:border-white/8 hover:border-accent/40 dark:hover:border-accent/40 shadow-sm hover:shadow-craft-card transition-[border-color,box-shadow] duration-200 flex flex-col justify-between text-left sm:text-right"
           >
             <div className="flex items-center justify-start sm:justify-end gap-2 text-neutral-400 group-hover:text-accent text-xs font-mono uppercase tracking-wider mb-3 sm:mb-4 transition-colors">
               <span>Next Case Study</span>
