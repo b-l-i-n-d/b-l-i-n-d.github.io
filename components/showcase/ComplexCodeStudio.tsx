@@ -2,64 +2,20 @@
 
 import React, { useState } from "react";
 import { Highlight } from "prism-react-renderer";
-import type { Language } from "prism-react-renderer";
 import { Check, FileCode, Sparkles, Terminal } from "lucide-react";
 import { SmoothCopyButton } from "./SmoothCopyButton";
-import { cssPrismTheme } from "./prism-theme";
+import { cssPrismTheme, getPrismLanguage } from "./prism-theme";
 import type { ShowcaseCodeModule } from "@/types/portfolio";
 
 interface ComplexCodeStudioProps {
   modules: ShowcaseCodeModule[];
 }
 
-const SUPPORTED_LANGUAGES = new Set<Language>([
-  "typescript",
-  "tsx",
-  "javascript",
-  "jsx",
-  "sql",
-  "json",
-  "css",
-  "python",
-  "bash",
-  "yaml",
-]);
-
-const langFromFilename = (filename: string): Language => {
-  const ext = filename.split(".").pop()?.toLowerCase() ?? "";
-  switch (ext) {
-    case "ts":
-      return "typescript";
-    case "tsx":
-      return "tsx";
-    case "js":
-      return "javascript";
-    case "jsx":
-      return "jsx";
-    case "sql":
-      return "sql";
-    case "json":
-      return "json";
-    case "css":
-      return "css";
-    case "py":
-      return "python";
-    case "sh":
-    case "bash":
-      return "bash";
-    case "yml":
-    case "yaml":
-      return "yaml";
-    default:
-      return "typescript";
-  }
-};
-
 export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules }) => {
   const [activeModuleId, setActiveModuleId] = useState<string>(() => modules[0]?.id ?? "");
 
   const activeModule = modules.find((m) => m.id === activeModuleId) || modules[0];
-  const language = langFromFilename(activeModule.filename);
+  const language = getPrismLanguage(activeModule.filename);
 
   return (
     <div className="space-y-3 sm:space-y-4 min-w-0">
@@ -165,31 +121,25 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
 
         {/* Code Body */}
         <div className="p-3 sm:p-4 overflow-auto h-[360px] sm:h-[480px] lg:h-[580px] leading-relaxed select-text bg-stone-50/50 dark:bg-[#0d1117] min-w-0">
-          {language && SUPPORTED_LANGUAGES.has(language) ? (
-            <Highlight code={activeModule.code} language={language} theme={cssPrismTheme}>
-              {({ style, tokens, getLineProps, getTokenProps }) => (
-                <pre
-                  className="text-xs sm:text-sm font-mono leading-relaxed min-w-0 max-w-full"
-                  style={{ ...style, backgroundColor: "transparent", margin: 0 }}
-                >
-                  {tokens.map((line, i) => (
-                    <div key={i} {...getLineProps({ line })} className="min-h-[1.4em] py-0.5">
-                      <span className="select-none inline-block w-6 sm:w-8 mr-2 sm:mr-4 text-right text-neutral-400 dark:text-[#484f58]">
-                        {i + 1}
-                      </span>
-                      {line.map((token, key) => (
-                        <span key={key} {...getTokenProps({ token })} />
-                      ))}
-                    </div>
-                  ))}
-                </pre>
-              )}
-            </Highlight>
-          ) : (
-            <pre className="text-xs sm:text-sm font-mono leading-relaxed min-w-0 max-w-full">
-              {activeModule.code}
-            </pre>
-          )}
+          <Highlight code={activeModule.code} language={language} theme={cssPrismTheme}>
+            {({ style, tokens, getLineProps, getTokenProps }) => (
+              <pre
+                className="text-xs sm:text-sm font-mono leading-relaxed min-w-0 max-w-full"
+                style={{ ...style, backgroundColor: "transparent", margin: 0 }}
+              >
+                {tokens.map((line, i) => (
+                  <div key={i} {...getLineProps({ line })} className="min-h-[1.4em] py-0.5">
+                    <span className="select-none inline-block w-6 sm:w-8 mr-2 sm:mr-4 text-right text-neutral-400 dark:text-[#484f58]">
+                      {i + 1}
+                    </span>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token })} />
+                    ))}
+                  </div>
+                ))}
+              </pre>
+            )}
+          </Highlight>
         </div>
       </div>
     </div>

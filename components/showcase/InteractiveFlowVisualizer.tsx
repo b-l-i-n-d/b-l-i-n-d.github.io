@@ -20,38 +20,9 @@ import {
 } from "lucide-react";
 
 import { Highlight } from "prism-react-renderer";
-import type { Language } from "prism-react-renderer";
 import type { ShowcaseFlow, ShowcaseFlowStep } from "@/types/portfolio";
 import { SmoothCopyButton } from "./SmoothCopyButton";
-import { cssPrismTheme } from "./prism-theme";
-
-const langFromFilename = (filename?: string): Language => {
-  if (!filename) return "typescript";
-  const ext = filename.split(".").pop()?.toLowerCase() ?? "";
-  switch (ext) {
-    case "ts":
-      return "typescript";
-    case "tsx":
-      return "tsx";
-    case "js":
-      return "javascript";
-    case "jsx":
-      return "jsx";
-    case "sql":
-      return "sql";
-    case "json":
-      return "json";
-    case "css":
-      return "css";
-    case "py":
-      return "python";
-    case "sh":
-    case "bash":
-      return "bash";
-    default:
-      return "typescript";
-  }
-};
+import { cssPrismTheme, getPrismLanguage } from "./prism-theme";
 
 interface InteractiveFlowVisualizerProps {
   flow: ShowcaseFlow;
@@ -118,7 +89,7 @@ export const InteractiveFlowVisualizer: React.FC<InteractiveFlowVisualizerProps>
     startPanY: 0,
   });
   const currentStep: ShowcaseFlowStep = steps[currentStepIndex] || steps[0];
-  const stepLanguage = langFromFilename(currentStep?.codeFile);
+  const stepLanguage = getPrismLanguage(currentStep?.codeFile);
 
   const handleResetCanvas = () => {
     setPan({ x: 0, y: 0 });

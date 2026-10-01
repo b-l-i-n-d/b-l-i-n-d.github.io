@@ -1,5 +1,4 @@
 export type ProjectStageType = "architecture" | "flow" | "code" | "live";
-export type CaseStudyStage = ProjectStageType;
 
 export interface ProjectStage {
   type?: ProjectStageType;
@@ -42,38 +41,6 @@ export interface ProjectCaseStudy {
   }[];
   stages: Record<ProjectStageType, ProjectStage>;
 }
-
-export type FlagshipProject = ProjectCaseStudy;
-
-export interface InteractiveUIItem {
-  id: string;
-  title: string;
-  tagline: string;
-  category: string;
-  description: string;
-  technologies: string[];
-  demoUrl: string;
-  githubUrl: string;
-  fpsTarget: number;
-  highlights: string[];
-  isPrivate?: boolean;
-}
-
-export interface GalleryItem {
-  id: string;
-  number: string;
-  title: string;
-  category: string;
-  badge: string;
-  description: string;
-  details: string[];
-  technologies: string[];
-  demoUrl?: string;
-  sourceUrl?: string;
-  isPrivate?: boolean;
-}
-
-export type HybridItem = GalleryItem;
 
 export interface PromotionStage {
   year: string;
@@ -184,12 +151,6 @@ export interface ProjectShowcase {
   codeModules: ShowcaseCodeModule[];
 }
 
-export interface SystemArchitectureMetric {
-  label: string;
-  value: string;
-  detail: string;
-}
-
 export interface ContentsItem {
   id?: string;
   number?: string;
@@ -207,15 +168,6 @@ export interface ContentsColumn {
   title: string;
   items: ContentsItem[];
 }
-
-export interface ContentsSectionData {
-  superTitle: string;
-  title: string;
-  description: string;
-  items: ContentsItem[];
-}
-
-export type AcademicCourse = string;
 
 export interface EngineerProfile {
   name: string;
@@ -241,11 +193,8 @@ export interface EngineerProfile {
     productUrl: string;
   };
   experiences: WorkExperience[];
-  workExperiences?: WorkExperience[];
   chapters: Chapter[];
-  flagshipProjects: FlagshipProject[];
-  interactiveBuilds: InteractiveUIItem[];
-  hybridGallery: GalleryItem[];
+  flagshipProjects: ProjectCaseStudy[];
   academicCourses?: string[];
   education: {
     degree: string;
@@ -293,8 +242,3 @@ export interface EngineerProfile {
 }
 
 export type Education = EngineerProfile["education"];
-export type ShowcaseItem = GalleryItem;
-export type PortfolioProfile = EngineerProfile;
-export type MotionExperiment = InteractiveUIItem;
-export type CaseStudyProject = ProjectCaseStudy & { gallery?: GalleryItem[] };
-export type ArchitectureStage = ProjectStage;

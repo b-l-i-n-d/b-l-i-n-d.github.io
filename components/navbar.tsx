@@ -14,18 +14,10 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useTransitionRouter } from "@/components/navigation/ViewTransitionWatcher";
 import { GithubIcon, BlindSkullIcon } from "./icons";
+import { NAV_ITEMS, CASE_STUDY_CHAPTER_IDS } from "@/data/navigation";
 import { ThemeSwitch } from "./theme-switch";
 import { useViewport } from "./viewport/ViewportController";
 import { motion } from "motion/react";
-
-const NAV_ITEMS = [
-  { id: "showreel", label: "Showreel", href: "#hero", chapter: "hero" },
-  { id: "about", label: "About", href: "#about", chapter: "about" },
-  { id: "contents", label: "Contents", href: "#contents", chapter: "contents" },
-  { id: "experience", label: "Experience", href: "#experience", chapter: "experience" },
-  { id: "case-study", label: "Case Study", href: "#case-study", chapter: "case-study" },
-  { id: "dossier", label: "Dossier", href: "#profile", chapter: "profile" },
-];
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -41,8 +33,7 @@ export const Navbar = () => {
     if (pathname && pathname.startsWith("/case-study")) {
       return "case-study";
     }
-    const caseStudyIds = ["tutor-lms", "enclave", "omnicommerce", "docapp", "case-study"];
-    if (caseStudyIds.includes(activeChapter)) {
+    if (CASE_STUDY_CHAPTER_IDS.includes(activeChapter)) {
       return "case-study";
     }
     const matching = NAV_ITEMS.find((item) => item.chapter === activeChapter);

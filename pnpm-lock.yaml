@@ -172,9 +172,6 @@ importers:
       '@heroui/theme':
         specifier: ^2.4.26
         version: 2.4.26(tailwindcss@4.3.3)
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       cn:
         specifier: ^0.2.6
         version: 0.2.6

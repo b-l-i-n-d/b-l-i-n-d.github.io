@@ -30,7 +30,7 @@ export async function generateMetadata(props: CaseStudyPageProps): Promise<Metad
   }
 
   return {
-    title: `${project.title} — Architectural Case Study | Syakir`,
+    title: `${project.title} — Architectural Case Study | @b-l-i-n-d`,
     description: project.tagline || "",
     openGraph: {
       title: `${project.title} — Flagship Engineering Case Study`,

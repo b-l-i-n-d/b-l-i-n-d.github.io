@@ -17,9 +17,8 @@ import {
 } from "lucide-react";
 import { CaseStudyChapterRail } from "@/components/navigation/CaseStudyChapterRail";
 import { SmoothCopyButton } from "@/components/showcase/SmoothCopyButton";
-import { Highlight, themes } from "prism-react-renderer";
-import type { Language } from "prism-react-renderer";
-import { useTheme } from "next-themes";
+import { Highlight } from "prism-react-renderer";
+import { cssPrismTheme, getPrismLanguage } from "./prism-theme";
 
 // Dynamically load heavy interactive stages on demand
 const ArchitectureGraph = dynamic(
@@ -65,24 +64,7 @@ interface ProjectCaseStudySectionProps {
 // Data-driven stage panel: renders a project's own stages content
 // (description, highlights, optional code snippet) for non-showcase fallback.
 const DataDrivenStageView: React.FC<{ stage: ProjectStage }> = ({ stage }) => {
-  const { theme, resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark" || theme === "dark";
   const snippet = stage.codeSnippet;
-
-  const getLang = (l?: string): Language => {
-    if (!l) return "typescript";
-    const low = l.toLowerCase();
-    if (low === "ts" || low === "typescript") return "typescript";
-    if (low === "tsx") return "tsx";
-    if (low === "js" || low === "javascript") return "javascript";
-    if (low === "jsx") return "jsx";
-    if (low === "sql") return "sql";
-    if (low === "json") return "json";
-    if (low === "css") return "css";
-    if (low === "py" || low === "python") return "python";
-    if (low === "sh" || low === "bash") return "bash";
-    return "typescript";
-  };
 
   return (
     <div className="space-y-6">
@@ -136,8 +118,8 @@ const DataDrivenStageView: React.FC<{ stage: ProjectStage }> = ({ stage }) => {
           <div className="p-5 overflow-x-auto max-h-[500px] bg-stone-50/50 dark:bg-[#0d1117]">
             <Highlight
               code={snippet.code}
-              language={getLang(snippet.language)}
-              theme={isDark ? themes.oneDark : themes.oneLight}
+              language={getPrismLanguage(snippet.language)}
+              theme={cssPrismTheme}
             >
               {({ style, tokens, getLineProps, getTokenProps }) => (
                 <pre
