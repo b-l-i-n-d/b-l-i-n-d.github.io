@@ -89,7 +89,7 @@ export const AbirChromaHeading: React.FC<AbirChromaHeadingProps> = ({
         tabIndex={0}
         onClick={handleNext}
         onKeyDown={handleKeyDown}
-        className="relative cursor-pointer group py-2 sm:py-3 max-w-full overflow-visible focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-2xl"
+        className="relative cursor-pointer group py-2 sm:py-3 max-w-full overflow-visible rounded-2xl"
         title="Click to cycle name"
         aria-label="Click to cycle name"
       >

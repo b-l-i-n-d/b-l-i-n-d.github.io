@@ -58,7 +58,22 @@ const config: Config = {
     },
   },
   darkMode: "class",
-  plugins: [heroui()],
+  plugins: [
+    heroui({
+      themes: {
+        light: {
+          colors: {
+            focus: "#ff1744",
+          },
+        },
+        dark: {
+          colors: {
+            focus: "#ff1744",
+          },
+        },
+      },
+    }),
+  ],
 };
 
 export default config;

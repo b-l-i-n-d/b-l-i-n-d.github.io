@@ -12,6 +12,22 @@ body {
   position: relative;
 }
 
+/*
+ * Universal Focus-Visible System
+ * Guarantees all interactive elements (buttons, links, inputs, tabs, rails,
+ * toggles, controls) across the entire application share the exact same
+ * consistent, accessible focus-visible outline.
+ */
+:focus-visible,
+[data-focus-visible="true"] {
+  outline: 2px solid #ff1744 !important;
+  outline-offset: 2px !important;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* Hide scrollbar for clean aesthetics while preserving touch & scroll functionality */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -170,6 +186,8 @@ body {
  * Origin-aware circular expansion using View Transitions API + CSS Keyframes
  */
 :root {
+  --focus: #ff1744;
+  --heroui-focus: #ff1744;
   --theme-x: calc(100vw - 32px);
   --theme-y: 32px;
   --theme-r: 150vmax;
@@ -189,6 +207,9 @@ body {
 }
 
 .dark {
+  --focus: #ff1744;
+  --heroui-focus: #ff1744;
+
   /* Deterministic Prism Syntax Highlighting (Dark Mode) */
   --prism-text: #e6edf3;
   --prism-comment: #8b949e;
