@@ -127,7 +127,7 @@ export const CaseStudyChapterRail: React.FC = () => {
                 onClick={() => scrollToChapter(chapter.id)}
                 aria-label={`Jump to ${chapter.number} ${chapter.title}`}
                 aria-current={isActive ? "true" : undefined}
-                className="group relative flex items-center justify-center w-6 h-8 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-95 transition-transform"
+                className="group relative flex items-center justify-center w-6 h-8 rounded-full active:scale-95 transition-transform"
               >
                 {/* Tooltip label on hover */}
                 <span
@@ -202,7 +202,7 @@ export const CaseStudyChapterRail: React.FC = () => {
                 key={ch.id}
                 onClick={() => scrollToChapter(ch.id)}
                 aria-label={`Jump to chapter ${ch.number} ${ch.title}`}
-                className="relative flex items-center justify-center w-8 h-8 rounded-full outline-none focus-visible:ring-1 focus-visible:ring-accent active:scale-95 transition-transform"
+                className="relative flex items-center justify-center w-8 h-8 rounded-full active:scale-95 transition-transform"
               >
                 <m.div
                   animate={{

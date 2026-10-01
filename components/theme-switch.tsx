@@ -91,7 +91,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className, classNames }) => 
           isTransitioningRef.current = false;
           document.documentElement.classList.remove("is-transitioning");
         });
-    } catch (err) {
+    } catch {
       isTransitioningRef.current = false;
       document.documentElement.classList.remove("is-transitioning");
       setTheme(nextTheme);
@@ -121,7 +121,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className, classNames }) => 
       type="button"
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
       className={cn(
-        "relative w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-accent select-none cursor-pointer",
+        "relative w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200 select-none cursor-pointer",
         className,
         classNames?.base
       )}
