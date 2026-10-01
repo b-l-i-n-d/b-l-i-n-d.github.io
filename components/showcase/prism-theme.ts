@@ -1,4 +1,4 @@
-import type { PrismTheme } from "prism-react-renderer";
+import type { Language, PrismTheme } from "prism-react-renderer";
 
 /**
  * cssPrismTheme
@@ -73,4 +73,34 @@ export const cssPrismTheme: PrismTheme = {
       },
     },
   ],
+};
+
+const EXT_TO_LANG: Record<string, Language> = {
+  ts: "typescript",
+  typescript: "typescript",
+  tsx: "tsx",
+  js: "javascript",
+  javascript: "javascript",
+  jsx: "jsx",
+  sql: "sql",
+  json: "json",
+  css: "css",
+  py: "python",
+  python: "python",
+  sh: "bash",
+  bash: "bash",
+  yaml: "yaml",
+  yml: "yaml",
+  html: "markup",
+  xml: "markup",
+  svg: "markup",
+};
+
+/**
+ * Normalizes a file extension, filename, or language identifier to a supported Prism language.
+ */
+export const getPrismLanguage = (input?: string): Language => {
+  if (!input) return "typescript";
+  const ext = input.includes(".") ? (input.split(".").pop() ?? "") : input;
+  return EXT_TO_LANG[ext.toLowerCase()] ?? "typescript";
 };

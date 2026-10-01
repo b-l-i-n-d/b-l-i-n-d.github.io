@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import { EngineerProfile } from "@/types/portfolio";
 import { Play, Pause, Volume2, VolumeX, Sparkles, Terminal } from "lucide-react";
 import { AbirChromaHeading } from "./AbirChromaHeading";
@@ -174,14 +174,14 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                       setActiveClip(tab.id);
                       setIsPlaying(true);
                     }}
-                    className={`relative px-2.5 sm:px-3.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold transition-all duration-200 shrink-0 whitespace-nowrap ${
+                    className={`relative px-2.5 sm:px-3.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold transition-[background-color,color,box-shadow] duration-200 shrink-0 whitespace-nowrap ${
                       isActive
                         ? "text-neutral-950 dark:text-white"
                         : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
                     }`}
                   >
                     {isActive && (
-                      <motion.div
+                      <m.div
                         layoutId="activeClipIndicator"
                         className="absolute inset-0 rounded-lg bg-white dark:bg-neutral-800 shadow-sm"
                         transition={{
@@ -224,7 +224,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
             />
             <AnimatePresence mode="wait">
               {loadVideo && (
-                <motion.video
+                <m.video
                   key={currentVideoSrc}
                   ref={videoRef}
                   src={currentVideoSrc}

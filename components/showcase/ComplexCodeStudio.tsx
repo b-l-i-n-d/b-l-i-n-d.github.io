@@ -2,64 +2,20 @@
 
 import React, { useState } from "react";
 import { Highlight } from "prism-react-renderer";
-import type { Language } from "prism-react-renderer";
 import { Check, FileCode, Sparkles, Terminal } from "lucide-react";
 import { SmoothCopyButton } from "./SmoothCopyButton";
-import { cssPrismTheme } from "./prism-theme";
+import { cssPrismTheme, getPrismLanguage } from "./prism-theme";
 import type { ShowcaseCodeModule } from "@/types/portfolio";
 
 interface ComplexCodeStudioProps {
   modules: ShowcaseCodeModule[];
 }
 
-const SUPPORTED_LANGUAGES = new Set<Language>([
-  "typescript",
-  "tsx",
-  "javascript",
-  "jsx",
-  "sql",
-  "json",
-  "css",
-  "python",
-  "bash",
-  "yaml",
-]);
-
-const langFromFilename = (filename: string): Language => {
-  const ext = filename.split(".").pop()?.toLowerCase() ?? "";
-  switch (ext) {
-    case "ts":
-      return "typescript";
-    case "tsx":
-      return "tsx";
-    case "js":
-      return "javascript";
-    case "jsx":
-      return "jsx";
-    case "sql":
-      return "sql";
-    case "json":
-      return "json";
-    case "css":
-      return "css";
-    case "py":
-      return "python";
-    case "sh":
-    case "bash":
-      return "bash";
-    case "yml":
-    case "yaml":
-      return "yaml";
-    default:
-      return "typescript";
-  }
-};
-
 export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules }) => {
   const [activeModuleId, setActiveModuleId] = useState<string>(() => modules[0]?.id ?? "");
 
   const activeModule = modules.find((m) => m.id === activeModuleId) || modules[0];
-  const language = langFromFilename(activeModule.filename);
+  const language = getPrismLanguage(activeModule.filename);
 
   return (
     <div className="space-y-3 sm:space-y-4 min-w-0">
@@ -73,7 +29,7 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
                 <button
                   key={mod.id}
                   onClick={() => setActiveModuleId(mod.id)}
-                  className={`px-3 py-1.5 rounded-xl font-mono text-xs transition-all duration-150 active:scale-[0.96] flex items-center gap-1.5 shrink-0 select-none ${
+                  className={`px-3 py-1.5 rounded-xl font-mono text-xs transition-[background-color,color,transform] duration-150 active:scale-[0.96] flex items-center gap-1.5 shrink-0 select-none ${
                     isActive
                       ? "bg-white dark:bg-neutral-800 text-accent font-semibold shadow-sm border border-black/8 dark:border-white/10"
                       : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-neutral-800/40"
@@ -165,31 +121,29 @@ export const ComplexCodeStudio: React.FC<ComplexCodeStudioProps> = ({ modules })
 
         {/* Code Body */}
         <div className="p-3 sm:p-4 overflow-auto h-[360px] sm:h-[480px] lg:h-[580px] leading-relaxed select-text bg-stone-50/50 dark:bg-[#0d1117] min-w-0">
-          {language && SUPPORTED_LANGUAGES.has(language) ? (
-            <Highlight code={activeModule.code} language={language} theme={cssPrismTheme}>
-              {({ style, tokens, getLineProps, getTokenProps }) => (
-                <pre
-                  className="text-xs sm:text-sm font-mono leading-relaxed min-w-0 max-w-full"
-                  style={{ ...style, backgroundColor: "transparent", margin: 0 }}
-                >
-                  {tokens.map((line, i) => (
-                    <div key={i} {...getLineProps({ line })} className="min-h-[1.4em] py-0.5">
-                      <span className="select-none inline-block w-6 sm:w-8 mr-2 sm:mr-4 text-right text-neutral-400 dark:text-[#484f58]">
-                        {i + 1}
-                      </span>
-                      {line.map((token, key) => (
-                        <span key={key} {...getTokenProps({ token })} />
-                      ))}
-                    </div>
-                  ))}
-                </pre>
-              )}
-            </Highlight>
-          ) : (
-            <pre className="text-xs sm:text-sm font-mono leading-relaxed min-w-0 max-w-full">
-              {activeModule.code}
-            </pre>
-          )}
+          <Highlight code={activeModule.code} language={language} theme={cssPrismTheme}>
+            {({ style, tokens, getLineProps, getTokenProps }) => (
+              <pre
+                className="text-xs sm:text-sm font-mono leading-relaxed min-w-0 max-w-full"
+                style={{ ...style, backgroundColor: "transparent", margin: 0 }}
+              >
+                {tokens.map((line, lineNumber) => (
+                  <div
+                    key={`line-${lineNumber + 1}`}
+                    {...getLineProps({ line })}
+                    className="min-h-[1.4em] py-0.5"
+                  >
+                    <span className="select-none inline-block w-6 sm:w-8 mr-2 sm:mr-4 text-right text-neutral-400 dark:text-[#484f58]">
+                      {lineNumber + 1}
+                    </span>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token })} />
+                    ))}
+                  </div>
+                ))}
+              </pre>
+            )}
+          </Highlight>
         </div>
       </div>
     </div>

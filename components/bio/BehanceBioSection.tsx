@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { EngineerProfile } from "@/types/portfolio";
 import dynamic from "next/dynamic";
 const InteractiveDoodleCloud = dynamic(
@@ -51,7 +51,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 384px"
                 loading="lazy"
-                className="object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                className="object-cover grayscale contrast-125 scale-100 group-hover:grayscale-0 group-hover:scale-105 transition-[filter,transform,scale] duration-700 ease-out"
               />
               {/* Gradient Vignette */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
@@ -123,7 +123,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                     xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"
                   >
-                    <motion.path
+                    <m.path
                       d="M 2 21 C 12 26, 24 21, 35 6"
                       stroke="currentColor"
                       strokeWidth="2"
@@ -195,7 +195,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                 >
                   <span
                     data-timeline-dot
-                    className="absolute left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-accent group-hover:scale-150 transition-all shadow-xs"
+                    className="absolute left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-accent group-hover:scale-150 transition-[background-color,transform,scale] shadow-xs"
                   />
                   <div className="space-y-0.5">
                     <div className="flex items-baseline gap-2 flex-wrap">
@@ -221,7 +221,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                 >
                   <span
                     data-timeline-dot
-                    className="absolute left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-accent group-hover:scale-150 transition-all shadow-xs"
+                    className="absolute left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-accent group-hover:scale-150 transition-[background-color,transform,scale] shadow-xs"
                   />
                   <div className="space-y-0.5">
                     <div className="flex items-baseline gap-2 flex-wrap">
@@ -247,7 +247,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                 >
                   <span
                     data-timeline-dot
-                    className="absolute left-[5px] top-3 w-2.5 h-2.5 rounded-full bg-neutral-400 dark:bg-neutral-500 group-hover:bg-accent group-hover:scale-150 transition-all shadow-xs"
+                    className="absolute left-[5px] top-3 w-2.5 h-2.5 rounded-full bg-neutral-400 dark:bg-neutral-500 group-hover:bg-accent group-hover:scale-150 transition-[background-color,transform,scale] shadow-xs"
                   />
                   <div className="space-y-0.5">
                     <div className="flex items-baseline gap-2 flex-wrap">

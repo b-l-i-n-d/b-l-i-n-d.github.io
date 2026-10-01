@@ -2184,7 +2184,7 @@ export const useCart = create(
       prHighlight: "prisma/schema.prisma",
       code: `datasource db {
     provider     = "mysql"
-    url          = env("DATABASE_URL")
+    url          = env("STORE_DB_URL")
     relationMode = "prisma"
 }
 

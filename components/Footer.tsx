@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { useTransitionRouter } from "@/components/navigation/ViewTransitionWatcher";
+import { useTransitionRouter } from "@/components/navigation/view-transitions";
 import { FOOTER_NAV } from "@/data/navigation";
 import { siteConfig } from "@/config/site";
 import { Link, Tooltip } from "@heroui/react";

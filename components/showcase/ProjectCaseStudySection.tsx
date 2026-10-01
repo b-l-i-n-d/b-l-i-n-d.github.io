@@ -17,9 +17,8 @@ import {
 } from "lucide-react";
 import { CaseStudyChapterRail } from "@/components/navigation/CaseStudyChapterRail";
 import { SmoothCopyButton } from "@/components/showcase/SmoothCopyButton";
-import { Highlight, themes } from "prism-react-renderer";
-import type { Language } from "prism-react-renderer";
-import { useTheme } from "next-themes";
+import { Highlight } from "prism-react-renderer";
+import { cssPrismTheme, getPrismLanguage } from "./prism-theme";
 
 // Dynamically load heavy interactive stages on demand
 const ArchitectureGraph = dynamic(
@@ -65,24 +64,7 @@ interface ProjectCaseStudySectionProps {
 // Data-driven stage panel: renders a project's own stages content
 // (description, highlights, optional code snippet) for non-showcase fallback.
 const DataDrivenStageView: React.FC<{ stage: ProjectStage }> = ({ stage }) => {
-  const { theme, resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark" || theme === "dark";
   const snippet = stage.codeSnippet;
-
-  const getLang = (l?: string): Language => {
-    if (!l) return "typescript";
-    const low = l.toLowerCase();
-    if (low === "ts" || low === "typescript") return "typescript";
-    if (low === "tsx") return "tsx";
-    if (low === "js" || low === "javascript") return "javascript";
-    if (low === "jsx") return "jsx";
-    if (low === "sql") return "sql";
-    if (low === "json") return "json";
-    if (low === "css") return "css";
-    if (low === "py" || low === "python") return "python";
-    if (low === "sh" || low === "bash") return "bash";
-    return "typescript";
-  };
 
   return (
     <div className="space-y-6">
@@ -98,14 +80,11 @@ const DataDrivenStageView: React.FC<{ stage: ProjectStage }> = ({ stage }) => {
       </p>
 
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {stage.highlights.map((highlight, idx) => (
+        {stage.highlights.map((highlight) => (
           <li
-            key={idx}
+            key={highlight}
             className="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-neutral-900/70 border border-black/6 dark:border-white/8 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 shadow-sm"
           >
-            <span className="w-6 h-6 rounded-full bg-accent/10 text-accent flex items-center justify-center text-[11px] font-bold shrink-0">
-              {idx + 1}
-            </span>
             <span className="leading-relaxed">{highlight}</span>
           </li>
         ))}
@@ -136,18 +115,22 @@ const DataDrivenStageView: React.FC<{ stage: ProjectStage }> = ({ stage }) => {
           <div className="p-5 overflow-x-auto max-h-[500px] bg-stone-50/50 dark:bg-[#0d1117]">
             <Highlight
               code={snippet.code}
-              language={getLang(snippet.language)}
-              theme={isDark ? themes.oneDark : themes.oneLight}
+              language={getPrismLanguage(snippet.language)}
+              theme={cssPrismTheme}
             >
               {({ style, tokens, getLineProps, getTokenProps }) => (
                 <pre
                   className="text-xs sm:text-sm font-mono leading-relaxed min-w-max"
                   style={{ ...style, backgroundColor: "transparent", margin: 0 }}
                 >
-                  {tokens.map((line, i) => (
-                    <div key={i} {...getLineProps({ line })} className="min-h-[1.4em] py-0.5">
+                  {tokens.map((line, lineNumber) => (
+                    <div
+                      key={`line-${lineNumber + 1}`}
+                      {...getLineProps({ line })}
+                      className="min-h-[1.4em] py-0.5"
+                    >
                       <span className="select-none inline-block w-8 mr-4 text-right text-neutral-400 dark:text-[#484f58]">
-                        {i + 1}
+                        {lineNumber + 1}
                       </span>
                       {line.map((token, key) => (
                         <span key={key} {...getTokenProps({ token })} />
@@ -161,6 +144,292 @@ const DataDrivenStageView: React.FC<{ stage: ProjectStage }> = ({ stage }) => {
         </div>
       )}
     </div>
+  );
+};
+
+interface ProjectCaseStudyGithubActionProps {
+  project: ProjectCaseStudy;
+}
+
+const ProjectCaseStudyGithubAction: React.FC<ProjectCaseStudyGithubActionProps> = ({ project }) => {
+  if (project.isPrivate) {
+    return (
+      <div className="px-4 py-2 rounded-xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-400 text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm shrink-0">
+        <Lock className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+        <span>Private Repository</span>
+      </div>
+    );
+  }
+
+  if (!project.githubUrl) {
+    return null;
+  }
+
+  if (project.secondaryGithubUrl) {
+    const primaryLabel = project.id === "omnicommerce" ? "Admin" : "App";
+    const secondaryLabel = project.id === "omnicommerce" ? "Store" : "Extension";
+
+    return (
+      <div className="flex items-center gap-1 p-1 rounded-xl bg-white dark:bg-neutral-900 border border-black/8 dark:border-white/10 shadow-sm shrink-0">
+        <span className="text-xs font-semibold px-2 text-neutral-500 dark:text-neutral-400 font-mono">
+          Source:
+        </span>
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
+        >
+          <GithubIcon className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
+          <span>{primaryLabel}</span>
+        </a>
+        <a
+          href={project.secondaryGithubUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
+        >
+          <GithubIcon className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
+          <span>{secondaryLabel}</span>
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={project.githubUrl}
+      target="_blank"
+      rel="noreferrer"
+      className="px-4 py-2.5 rounded-xl bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-black/8 dark:border-white/10 text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-[box-shadow,transform,background-color] duration-150 group shrink-0"
+    >
+      <GithubIcon className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
+      <span>GitHub Source</span>
+    </a>
+  );
+};
+
+interface ProjectCaseStudyLiveActionProps {
+  project: ProjectCaseStudy;
+}
+
+const ProjectCaseStudyLiveAction: React.FC<ProjectCaseStudyLiveActionProps> = ({ project }) => {
+  if (project.isPrivate || !project.liveUrl) {
+    return null;
+  }
+
+  if (project.secondaryLiveUrl) {
+    return (
+      <div className="flex items-center gap-1 p-1 rounded-xl bg-white dark:bg-neutral-900 border border-black/8 dark:border-white/10 shadow-sm shrink-0">
+        <span className="text-xs font-semibold px-2 text-neutral-500 dark:text-neutral-400 font-mono">
+          Live:
+        </span>
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
+        >
+          <span>Storefront</span>
+          <ExternalLink className="w-3 h-3 text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
+        </a>
+        <a
+          href={project.secondaryLiveUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
+        >
+          <span>Admin</span>
+          <ExternalLink className="w-3 h-3 text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={project.liveUrl}
+      target="_blank"
+      rel="noreferrer"
+      className="px-4 py-2.5 rounded-xl bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-black/8 dark:border-white/10 text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-[box-shadow,transform,background-color] duration-150 ease-out group shrink-0"
+    >
+      <span>{project.title} Production</span>
+      <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
+    </a>
+  );
+};
+
+interface ProjectChapterDirectoryNavProps {
+  showcase: (typeof caseStudyShowcase)[string] | undefined;
+  scrollToChapter: (id: string) => void;
+}
+
+const ProjectChapterDirectoryNav: React.FC<ProjectChapterDirectoryNavProps> = ({
+  showcase,
+  scrollToChapter,
+}) => {
+  const topologySubtitle = showcase?.graph.title ?? "Modular Boundaries & Topology";
+  const flowSubtitle = showcase
+    ? `${showcase.flow.steps.length}-Step Lifecycle Simulator`
+    : "State Machine & Mermaid Flows";
+  const sourceSubtitle = showcase
+    ? `${showcase.codeModules.length} Verified Modules`
+    : "Source Snippets";
+
+  return (
+    <nav aria-label="Case study chapters directory" className="pt-2">
+      <div className="flex items-center justify-between mb-4">
+        <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
+          Chapter Directory
+        </span>
+        <span className="text-xs font-mono text-neutral-400 dark:text-neutral-500">
+          Continuous Reading Flow
+        </span>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <button
+          onClick={() => scrollToChapter("chapter-topology")}
+          className="group p-4 rounded-xl text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] border-b-2 border-transparent hover:border-accent/40 transition-[border-color,background-color]"
+        >
+          <div className="flex items-center justify-between text-xs font-mono mb-1.5">
+            <span className="text-accent font-bold tracking-wider">01 Topology</span>
+            <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-[color,transform]" />
+          </div>
+          <div className="font-bold text-sm text-neutral-900 dark:text-white">
+            System Boundaries
+          </div>
+          <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 truncate">
+            {topologySubtitle}
+          </div>
+        </button>
+
+        <button
+          onClick={() => scrollToChapter("chapter-flow")}
+          className="group p-4 rounded-xl text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] border-b-2 border-transparent hover:border-accent/40 transition-[border-color,background-color]"
+        >
+          <div className="flex items-center justify-between text-xs font-mono mb-1.5">
+            <span className="text-accent font-bold tracking-wider">02 Flow Engine</span>
+            <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-[color,transform]" />
+          </div>
+          <div className="font-bold text-sm text-neutral-900 dark:text-white">
+            Interactive Simulator
+          </div>
+          <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 truncate">
+            {flowSubtitle}
+          </div>
+        </button>
+
+        <button
+          onClick={() => scrollToChapter("chapter-source")}
+          className="group p-4 rounded-xl text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] border-b-2 border-transparent hover:border-accent/40 transition-[border-color,background-color]"
+        >
+          <div className="flex items-center justify-between text-xs font-mono mb-1.5">
+            <span className="text-accent font-bold tracking-wider">03 Source Studio</span>
+            <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-[color,transform]" />
+          </div>
+          <div className="font-bold text-sm text-neutral-900 dark:text-white">
+            Production Source
+          </div>
+          <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 truncate">
+            {sourceSubtitle}
+          </div>
+        </button>
+      </div>
+    </nav>
+  );
+};
+
+interface ProjectCaseStudyHeaderProps {
+  project: ProjectCaseStudy;
+  showcase: (typeof caseStudyShowcase)[string] | undefined;
+  scrollToChapter: (id: string) => void;
+}
+
+const ProjectCaseStudyHeader: React.FC<ProjectCaseStudyHeaderProps> = ({
+  project,
+  showcase,
+  scrollToChapter,
+}) => {
+  return (
+    <header className="space-y-8">
+      {/* Chapter Metadata Ribbon */}
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-mono text-xs uppercase tracking-widest font-semibold">
+          <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+          <span>FLAGSHIP ENGINEERING DEEP-DIVE</span>
+        </div>
+        <span className="text-xs font-mono text-neutral-400 dark:text-neutral-600 hidden sm:inline">
+          /
+        </span>
+        <span className="text-xs font-mono text-neutral-600 dark:text-neutral-400">
+          {project.category}
+        </span>
+        {project.timeline && (
+          <>
+            <span className="text-xs font-mono text-neutral-400 dark:text-neutral-600 hidden sm:inline">
+              /
+            </span>
+            <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
+              {project.timeline}
+            </span>
+          </>
+        )}
+      </div>
+
+      {/* Title & Tagline with Production Actions */}
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-2">
+        <div className="space-y-3">
+          <div className="flex items-center gap-4 sm:gap-5">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-neutral-100 dark:bg-neutral-800/90 border border-black/[0.08] dark:border-white/[0.1] shadow-craft-subtle dark:shadow-md flex items-center justify-center p-3 text-neutral-900 dark:text-white shrink-0 group-hover:border-accent/40 transition-colors">
+              <ProjectBrandIcon slug={project.id} className="w-full h-full" />
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight leading-[1.12]">
+              {project.title}
+            </h1>
+          </div>
+          <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl leading-relaxed">
+            {project.tagline}
+          </p>
+        </div>
+
+        {/* Action Buttons: GitHub & Live URLs */}
+        <div className="flex flex-wrap items-center gap-2.5 self-start lg:self-auto shrink-0">
+          <ProjectCaseStudyGithubAction project={project} />
+          <ProjectCaseStudyLiveAction project={project} />
+        </div>
+      </div>
+
+      {/* Architecture Technology Stack Badges */}
+      <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-xs">
+        {project.stack.map((item: string) => (
+          <span
+            key={item}
+            className="px-2.5 py-1 rounded-md bg-black/[0.03] dark:bg-white/[0.04] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+
+      {/* Architectural Telemetry Specification Spread (De-boxed) */}
+      <div className="py-6 sm:py-8 border-y border-black/[0.06] dark:border-white/[0.08]">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          {project.stats.map((stat: { label: string; value: string }) => (
+            <div key={stat.label} className="space-y-1.5 min-w-0">
+              <div className="text-[11px] font-mono tracking-wider uppercase text-neutral-400 dark:text-neutral-500 font-medium truncate">
+                {stat.label}
+              </div>
+              <div className="text-base sm:text-xl lg:text-2xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight font-sans leading-snug truncate">
+                {stat.value}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Editorial Chapter Directory Index Strip */}
+      <ProjectChapterDirectoryNav showcase={showcase} scrollToChapter={scrollToChapter} />
+    </header>
   );
 };
 
@@ -194,224 +463,11 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
         {/* ========================================================= */}
         {/* MASTHEAD: HERO & ENGINEERING SPECIFICATION               */}
         {/* ========================================================= */}
-        <header className="space-y-8">
-          {/* Chapter Metadata Ribbon */}
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-mono text-xs uppercase tracking-widest font-semibold">
-              <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-              <span>FLAGSHIP ENGINEERING DEEP-DIVE</span>
-            </div>
-            <span className="text-xs font-mono text-neutral-400 dark:text-neutral-600 hidden sm:inline">
-              /
-            </span>
-            <span className="text-xs font-mono text-neutral-600 dark:text-neutral-400">
-              {project.category}
-            </span>
-            {project.timeline && (
-              <>
-                <span className="text-xs font-mono text-neutral-400 dark:text-neutral-600 hidden sm:inline">
-                  /
-                </span>
-                <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
-                  {project.timeline}
-                </span>
-              </>
-            )}
-          </div>
-
-          {/* Title & Tagline with Production Actions */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-2">
-            <div className="space-y-3">
-              <div className="flex items-center gap-4 sm:gap-5">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-neutral-100 dark:bg-neutral-800/90 border border-black/[0.08] dark:border-white/[0.1] shadow-craft-subtle dark:shadow-md flex items-center justify-center p-3 text-neutral-900 dark:text-white shrink-0 group-hover:border-accent/40 transition-colors">
-                  <ProjectBrandIcon slug={project.id} className="w-full h-full" />
-                </div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight leading-[1.12]">
-                  {project.title}
-                </h1>
-              </div>
-              <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl leading-relaxed">
-                {project.tagline}
-              </p>
-            </div>
-
-            {/* Action Buttons: GitHub & Live URLs */}
-            <div className="flex flex-wrap items-center gap-2.5 self-start lg:self-auto shrink-0">
-              {project.isPrivate ? (
-                <div className="px-4 py-2 rounded-xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-400 text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm shrink-0">
-                  <Lock className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                  <span>Private Repository</span>
-                </div>
-              ) : (
-                project.githubUrl &&
-                (project.secondaryGithubUrl ? (
-                  <div className="flex items-center gap-1 p-1 rounded-xl bg-white dark:bg-neutral-900 border border-black/8 dark:border-white/10 shadow-sm shrink-0">
-                    <span className="text-xs font-semibold px-2 text-neutral-500 dark:text-neutral-400 font-mono">
-                      Source:
-                    </span>
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
-                    >
-                      <GithubIcon className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
-                      <span>{project.id === "omnicommerce" ? "Admin" : "App"}</span>
-                    </a>
-                    <a
-                      href={project.secondaryGithubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
-                    >
-                      <GithubIcon className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
-                      <span>{project.id === "omnicommerce" ? "Store" : "Extension"}</span>
-                    </a>
-                  </div>
-                ) : (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-4 py-2.5 rounded-xl bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-black/8 dark:border-white/10 text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 group shrink-0"
-                  >
-                    <GithubIcon className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
-                    <span>GitHub Source</span>
-                  </a>
-                ))
-              )}
-
-              {project.liveUrl &&
-                !project.isPrivate &&
-                (project.secondaryLiveUrl ? (
-                  <div className="flex items-center gap-1 p-1 rounded-xl bg-white dark:bg-neutral-900 border border-black/8 dark:border-white/10 shadow-sm shrink-0">
-                    <span className="text-xs font-semibold px-2 text-neutral-500 dark:text-neutral-400 font-mono">
-                      Live:
-                    </span>
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
-                    >
-                      <span>Storefront</span>
-                      <ExternalLink className="w-3 h-3 text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
-                    </a>
-                    <a
-                      href={project.secondaryLiveUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="px-2.5 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-semibold flex items-center gap-1.5 transition-colors group shrink-0"
-                    >
-                      <span>Admin</span>
-                      <ExternalLink className="w-3 h-3 text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
-                    </a>
-                  </div>
-                ) : (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-4 py-2.5 rounded-xl bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-black/8 dark:border-white/10 text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-craft-card active:scale-[0.97] transition-all duration-150 ease-out group shrink-0"
-                  >
-                    <span>{project.title} Production</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent transition-colors shrink-0" />
-                  </a>
-                ))}
-            </div>
-          </div>
-
-          {/* Architecture Technology Stack Badges */}
-          <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-xs">
-            {project.stack.map((item: string, idx: number) => (
-              <span
-                key={idx}
-                className="px-2.5 py-1 rounded-md bg-black/[0.03] dark:bg-white/[0.04] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-
-          {/* Architectural Telemetry Specification Spread (De-boxed) */}
-          <div className="py-6 sm:py-8 border-y border-black/[0.06] dark:border-white/[0.08]">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-              {project.stats.map((stat: any, idx: number) => (
-                <div key={idx} className="space-y-1.5 min-w-0">
-                  <div className="text-[11px] font-mono tracking-wider uppercase text-neutral-400 dark:text-neutral-500 font-medium truncate">
-                    {stat.label}
-                  </div>
-                  <div className="text-base sm:text-xl lg:text-2xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight font-sans leading-snug truncate">
-                    {stat.value}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Editorial Chapter Directory Index Strip */}
-          <nav aria-label="Case study chapters directory" className="pt-2">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
-                Chapter Directory
-              </span>
-              <span className="text-xs font-mono text-neutral-400 dark:text-neutral-500">
-                Continuous Reading Flow
-              </span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <button
-                onClick={() => scrollToChapter("chapter-topology")}
-                className="group p-4 rounded-xl text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] border-b-2 border-transparent hover:border-accent/40 transition-all"
-              >
-                <div className="flex items-center justify-between text-xs font-mono mb-1.5">
-                  <span className="text-accent font-bold tracking-wider">01 Topology</span>
-                  <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all" />
-                </div>
-                <div className="font-bold text-sm text-neutral-900 dark:text-white">
-                  System Boundaries
-                </div>
-                <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 truncate">
-                  {showcase?.graph.title ?? "Modular Boundaries & Topology"}
-                </div>
-              </button>
-
-              <button
-                onClick={() => scrollToChapter("chapter-flow")}
-                className="group p-4 rounded-xl text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] border-b-2 border-transparent hover:border-accent/40 transition-all"
-              >
-                <div className="flex items-center justify-between text-xs font-mono mb-1.5">
-                  <span className="text-accent font-bold tracking-wider">02 Flow Engine</span>
-                  <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all" />
-                </div>
-                <div className="font-bold text-sm text-neutral-900 dark:text-white">
-                  Interactive Simulator
-                </div>
-                <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 truncate">
-                  {showcase
-                    ? `${showcase.flow.steps.length}-Step Lifecycle Simulator`
-                    : "State Machine & Mermaid Flows"}
-                </div>
-              </button>
-
-              <button
-                onClick={() => scrollToChapter("chapter-source")}
-                className="group p-4 rounded-xl text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] border-b-2 border-transparent hover:border-accent/40 transition-all"
-              >
-                <div className="flex items-center justify-between text-xs font-mono mb-1.5">
-                  <span className="text-accent font-bold tracking-wider">03 Source Studio</span>
-                  <ArrowDownRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all" />
-                </div>
-                <div className="font-bold text-sm text-neutral-900 dark:text-white">
-                  Production Source
-                </div>
-                <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 truncate">
-                  {showcase ? `${showcase.codeModules.length} Verified Modules` : "Source Snippets"}
-                </div>
-              </button>
-            </div>
-          </nav>
-        </header>
+        <ProjectCaseStudyHeader
+          project={project}
+          showcase={showcase}
+          scrollToChapter={scrollToChapter}
+        />
 
         {/* ========================================================= */}
         {/* CHAPTER 01: SYSTEM TOPOLOGY & MODULAR BOUNDARIES         */}

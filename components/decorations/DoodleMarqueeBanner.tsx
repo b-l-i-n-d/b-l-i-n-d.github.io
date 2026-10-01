@@ -40,7 +40,6 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
           animationDirection: direction === "right" ? "reverse" : "normal",
           animationDuration: `${speed}s`,
           transform: "translate3d(0,0,0)",
-          willChange: "transform",
         }}
       >
         {[...Array(tileCount)].map((_, idx) => {
@@ -88,7 +87,6 @@ export const DoodleMarqueeBanner: React.FC<DoodleMarqueeBannerProps> = ({
           animationDirection: direction === "right" ? "reverse" : "normal",
           animationDuration: `${speed}s`,
           transform: "translate3d(0,0,0)",
-          willChange: "transform",
         }}
       >
         {[...Array(tileCount)].map((_, idx) => {

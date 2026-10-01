@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ProjectBrandIcon } from "@/components/showcase/ProjectBrandIcon";
 import { ProjectCaseStudy } from "@/types/portfolio";
 import { ViewTransitionLink } from "./ViewTransitionLink";
-import { motion } from "framer-motion";
+import { m } from "motion/react";
 
 interface CaseStudyBreadcrumbBarProps {
   currentProject: ProjectCaseStudy;
@@ -28,13 +28,13 @@ export function CaseStudyBreadcrumbBar({
           href="/#case-study"
           className="group inline-flex items-center gap-1.5 py-1.5 px-1 -ml-1 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors shrink-0"
         >
-          <motion.div
+          <m.div
             whileHover={{ x: -2 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
             className="flex items-center"
           >
             <ArrowLeft className="w-3.5 h-3.5 text-accent group-hover:-translate-x-0.5 transition-transform duration-150 shrink-0" />
-          </motion.div>
+          </m.div>
           <span className="font-mono text-[11px] uppercase tracking-wider font-semibold">
             Overview
           </span>
@@ -77,7 +77,7 @@ export function CaseStudyBreadcrumbBar({
           <span className="font-medium text-[11px] group-hover:text-accent transition-colors xs:hidden">
             Next
           </span>
-          <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 transition-all duration-150 shrink-0" />
+          <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 transition-[color,transform] duration-150 shrink-0" />
         </ViewTransitionLink>
       </div>
     </div>

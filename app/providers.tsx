@@ -3,6 +3,7 @@
 import * as React from "react";
 import { HeroUIProvider } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { LazyMotion, domMax } from "motion/react";
 import { ViewportProvider } from "@/components/viewport/ViewportController";
 
 // Suppress the React 19 false-positive console error caused by next-themes injecting
@@ -28,7 +29,9 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   return (
     <HeroUIProvider>
       <NextThemesProvider {...themeProps}>
-        <ViewportProvider>{children}</ViewportProvider>
+        <LazyMotion features={domMax}>
+          <ViewportProvider>{children}</ViewportProvider>
+        </LazyMotion>
       </NextThemesProvider>
     </HeroUIProvider>
   );

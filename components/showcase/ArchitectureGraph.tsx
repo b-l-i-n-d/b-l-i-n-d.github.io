@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import { ExternalLink, GitPullRequest } from "lucide-react";
 import type { ShowcaseGraph, ShowcaseGraphNode } from "@/types/portfolio";
 
@@ -55,12 +55,12 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
               const isActive = mobileActiveColIdx === idx;
               return (
                 <button
-                  key={idx}
+                  key={column.title}
                   ref={(el) => {
                     tabButtonRefs.current[idx] = el;
                   }}
                   onClick={() => handleMobileTabChange(idx)}
-                  className={`shrink-0 px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-150 text-center whitespace-nowrap active:scale-[0.97] ${
+                  className={`shrink-0 px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-[background-color,color,transform] duration-150 text-center whitespace-nowrap active:scale-[0.97] ${
                     isActive
                       ? "bg-stone-900 dark:bg-white text-white dark:text-neutral-950 shadow-sm font-semibold"
                       : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/4 dark:hover:bg-white/4"
@@ -95,7 +95,7 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
                       <button
                         key={node.id}
                         onClick={() => handleSelectNode(node.id, colIdx)}
-                        className={`w-full text-left p-3.5 rounded-xl border transition-all ${
+                        className={`w-full text-left p-3.5 rounded-xl border transition-colors ${
                           isSelected
                             ? "bg-white dark:bg-neutral-900 border-accent ring-1 ring-accent/30 shadow-[0_0_15px_rgba(255,23,68,0.18)] scale-[1.01]"
                             : "bg-white/80 dark:bg-neutral-900/60 border-black/6 dark:border-white/8 hover:border-black/15 dark:hover:border-white/20"
@@ -144,7 +144,7 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
                 <button
                   key={node.id}
                   onClick={() => handleSelectNode(node.id, mobileActiveColIdx)}
-                  className={`w-full text-left p-3 rounded-xl border transition-all ${
+                  className={`w-full text-left p-3 rounded-xl border transition-colors ${
                     isSelected
                       ? "bg-white dark:bg-neutral-900 border-accent ring-1 ring-accent/30 shadow-[0_0_12px_rgba(255,23,68,0.15)]"
                       : "bg-white/80 dark:bg-neutral-900/60 border-black/6 dark:border-white/8 active:bg-white dark:active:bg-neutral-900"
@@ -178,7 +178,7 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
 
       {/* Selected Node Deep-Dive Inspector */}
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={selectedNode.id}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -251,9 +251,9 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
             </div>
             <div className="space-y-1.5">
               {selectedNode.commits?.length ? (
-                selectedNode.commits.map((commit, idx) => (
+                selectedNode.commits.map((commit) => (
                   <div
-                    key={idx}
+                    key={commit}
                     className="p-2 sm:p-2.5 rounded-lg bg-stone-50/70 dark:bg-neutral-950 border border-black/4 dark:border-white/6 font-mono text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 flex items-start gap-2 min-w-0"
                   >
                     <span className="text-neutral-400 dark:text-neutral-500 font-mono font-semibold shrink-0 mt-0.5">
@@ -269,7 +269,7 @@ export const ArchitectureGraph: React.FC<ArchitectureGraphProps> = ({ data }) =>
               )}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </div>
   );

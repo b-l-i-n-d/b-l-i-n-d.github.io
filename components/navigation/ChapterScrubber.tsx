@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { Chapter } from "@/types/portfolio";
 import { useViewport } from "@/components/viewport/ViewportController";
+import { useIsMounted } from "@/hooks/useIsMounted";
 
 interface ChapterScrubberProps {
   chapters: Chapter[];
@@ -11,13 +12,9 @@ interface ChapterScrubberProps {
 
 export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) => {
   const { activeChapter, setActiveChapter } = useViewport();
-  const [mounted, setMounted] = React.useState(false);
+  const isMounted = useIsMounted();
 
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
+  if (!isMounted) return null;
 
   const isChapterActive = (chapterId: string) => {
     const caseStudyIds = ["case-study", "tutor-lms", "enclave", "omnicommerce", "docapp"];
@@ -55,7 +52,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
         aria-label="Chapter navigation"
         className="fixed right-3 md:right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end pointer-events-none"
       >
-        <div className="pointer-events-auto bg-white/80 dark:bg-[#121214]/80 backdrop-blur-xl border border-black/6 dark:border-white/10 py-2.5 px-1.5 rounded-full shadow-craft-float flex flex-col items-center gap-1 transition-all">
+        <div className="pointer-events-auto bg-white/80 dark:bg-[#121214]/80 backdrop-blur-xl border border-black/6 dark:border-white/10 py-2.5 px-1.5 rounded-full shadow-craft-float flex flex-col items-center gap-1 transition-colors">
           {chapters.map((chapter) => {
             const isActive = isChapterActive(chapter.id);
             return (
@@ -66,7 +63,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                 aria-label={`Jump to chapter ${chapter.number}: ${chapter.title}`}
               >
                 {/* Tooltip label on hover */}
-                <span className="absolute right-7 px-2.5 py-1 text-xs font-mono text-neutral-800 dark:text-neutral-200 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/6 dark:border-white/10 rounded shadow-craft-card whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-200 z-50 -translate-x-1 group-hover:translate-x-0">
+                <span className="absolute right-7 px-2.5 py-1 text-xs font-mono text-neutral-800 dark:text-neutral-200 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/6 dark:border-white/10 rounded shadow-craft-card whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-[opacity,transform] duration-200 z-50 -translate-x-1 group-hover:translate-x-0">
                   <span className="text-accent font-bold mr-1.5">{chapter.number}</span>
                   {chapter.title}
                 </span>
@@ -74,7 +71,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                 {/* Dot or Animated Growing Active Pill */}
                 <div className="flex items-center justify-center min-h-[14px]">
                   {isActive ? (
-                    <motion.div
+                    <m.div
                       layoutId="active-chapter-pill"
                       layout
                       initial={false}
@@ -87,7 +84,7 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                       }}
                     />
                   ) : (
-                    <motion.div
+                    <m.div
                       layout
                       className="w-1.5 h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-700 group-hover:bg-neutral-500 dark:group-hover:bg-neutral-400 group-hover:scale-125 transition-colors"
                     />
@@ -117,18 +114,13 @@ export const ChapterScrubber: React.FC<ChapterScrubberProps> = ({ chapters }) =>
                 aria-label={`Scroll to ${chapter.title}`}
                 className="w-6 h-6 flex items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
               >
-                <motion.div
+                <m.div
                   layout
-                  className={`rounded-full transition-colors ${
+                  className={`rounded-full transition-[width,height,background-color] duration-200 ${
                     isActive
-                      ? "w-3.5 h-2 bg-accent shadow-[0_0_6px_rgba(255,23,68,0.7)]"
-                      : "w-2 h-2 bg-neutral-300 dark:bg-neutral-700"
+                      ? "w-2.5 h-2.5 bg-accent ring-2 ring-accent/30"
+                      : "w-1.5 h-1.5 bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-500"
                   }`}
-                  transition={{
-                    type: "spring",
-                    stiffness: 420,
-                    damping: 28,
-                  }}
                 />
               </button>
             );
