@@ -173,6 +173,34 @@ body {
   --theme-x: calc(100vw - 32px);
   --theme-y: 32px;
   --theme-r: 150vmax;
+
+  /* Deterministic Prism Syntax Highlighting (Light Mode) */
+  --prism-text: #24292f;
+  --prism-comment: #6e7781;
+  --prism-punctuation: #57606a;
+  --prism-number: #0550ae;
+  --prism-string: #0a3069;
+  --prism-operator: #cf222e;
+  --prism-keyword: #cf222e;
+  --prism-function: #8250df;
+  --prism-class: #116329;
+  --prism-variable: #953800;
+  --prism-constant: #0550ae;
+}
+
+.dark {
+  /* Deterministic Prism Syntax Highlighting (Dark Mode) */
+  --prism-text: #e6edf3;
+  --prism-comment: #8b949e;
+  --prism-punctuation: #8b949e;
+  --prism-number: #79c0ff;
+  --prism-string: #a5d6ff;
+  --prism-operator: #ff7b72;
+  --prism-keyword: #ff7b72;
+  --prism-function: #d2a8ff;
+  --prism-class: #7ee787;
+  --prism-variable: #ffa657;
+  --prism-constant: #79c0ff;
 }
 
 /* Temporarily disable CSS transitions during view transitions so snapshots capture final styles instantly */
@@ -185,6 +213,21 @@ html.is-transitioning *::after {
 
 ::view-transition-image-pair(root) {
   isolation: auto;
+}
+
+/* Prevent Chrome from animating the group transform/geometry across scroll offsets */
+::view-transition-group(root) {
+  animation: none !important;
+}
+
+/* Force instant scroll during transitions so the browser never smooth-scrolls or jumps visibly */
+html.route-transitioning,
+html.route-transitioning body,
+html.transition-slide-next,
+html.transition-slide-next body,
+html.transition-slide-prev,
+html.transition-slide-prev body {
+  scroll-behavior: auto !important;
 }
 
 /* Theme Toggle Circular Expansion Transition (strictly scoped to theme switch) */
@@ -211,31 +254,109 @@ html.is-transitioning::view-transition-new(root) {
   mix-blend-mode: normal;
 }
 
-/* Route Switch & Project Navigation - Zero layout shift pure optical crossfade */
-html.route-transitioning::view-transition-old(root) {
-  animation: route-crossfade-out 180ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+/* 1. Next Case Study: Forward slide (content moves left) */
+html.transition-slide-next::view-transition-old(root) {
+  animation: slide-out-left 300ms cubic-bezier(0.2, 0, 0, 1) forwards;
   mix-blend-mode: normal;
 }
-html.route-transitioning::view-transition-new(root) {
-  animation: route-crossfade-in 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+html.transition-slide-next::view-transition-new(root) {
+  animation: slide-in-from-right 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   mix-blend-mode: normal;
 }
 
-@keyframes route-crossfade-out {
+/* 2. Previous Case Study: Backward slide (content moves right) */
+html.transition-slide-prev::view-transition-old(root) {
+  animation: slide-out-right 300ms cubic-bezier(0.2, 0, 0, 1) forwards;
+  mix-blend-mode: normal;
+}
+html.transition-slide-prev::view-transition-new(root) {
+  animation: slide-in-from-left 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  mix-blend-mode: normal;
+}
+
+@keyframes slide-out-left {
   0% {
     opacity: 1;
+    transform: translateX(0);
   }
   100% {
     opacity: 0;
+    transform: translateX(-36px);
   }
 }
 
-@keyframes route-crossfade-in {
+@keyframes slide-in-from-right {
   0% {
     opacity: 0;
+    transform: translateX(36px);
   }
   100% {
     opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-right {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+}
+
+@keyframes slide-in-from-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-36px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 3. General Route Navigation - Apple-inspired elevation crossfade */
+html.route-transitioning:not(.transition-slide-next):not(
+    .transition-slide-prev
+  )::view-transition-old(root),
+html:not(.is-transitioning):not(.tab-transitioning):not(.transition-slide-next):not(
+    .transition-slide-prev
+  )::view-transition-old(root) {
+  animation: route-page-out 250ms cubic-bezier(0.2, 0, 0, 1) forwards;
+  mix-blend-mode: normal;
+}
+html.route-transitioning:not(.transition-slide-next):not(
+    .transition-slide-prev
+  )::view-transition-new(root),
+html:not(.is-transitioning):not(.tab-transitioning):not(.transition-slide-next):not(
+    .transition-slide-prev
+  )::view-transition-new(root) {
+  animation: route-page-in 280ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  mix-blend-mode: normal;
+}
+
+@keyframes route-page-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes route-page-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -248,7 +369,7 @@ html.route-transitioning::view-transition-new(root) {
 
 ::view-transition-new(interactive-flow-tab-content),
 ::view-transition-new(case-study-stage-content) {
-  animation: tab-crossfade-in 190ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: tab-crossfade-in 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   mix-blend-mode: normal;
 }
 
@@ -272,12 +393,10 @@ html.route-transitioning::view-transition-new(root) {
 
 @keyframes circle-theme-expand {
   0% {
-    clip-path: circle(0px at var(--theme-x, calc(100vw - 32px)) var(--theme-y, 32px));
+    clip-path: circle(0px at var(--theme-x) var(--theme-y));
   }
   100% {
-    clip-path: circle(
-      var(--theme-r, 150vmax) at var(--theme-x, calc(100vw - 32px)) var(--theme-y, 32px)
-    );
+    clip-path: circle(var(--theme-r) at var(--theme-x) var(--theme-y));
   }
 }
 

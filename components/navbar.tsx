@@ -11,7 +11,8 @@ import {
   Link,
 } from "@heroui/react";
 import React, { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useTransitionRouter } from "@/components/navigation/ViewTransitionWatcher";
 import { GithubIcon, BlindSkullIcon } from "./icons";
 import { ThemeSwitch } from "./theme-switch";
 import { useViewport } from "./viewport/ViewportController";
@@ -28,7 +29,7 @@ const NAV_ITEMS = [
 
 export const Navbar = () => {
   const pathname = usePathname();
-  const router = useRouter();
+  const router = useTransitionRouter();
   const { activeChapter, setActiveChapter } = useViewport();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredNavId, setHoveredNavId] = useState<string | null>(null);

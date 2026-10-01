@@ -75,8 +75,8 @@ export const SmoothCopyButton: React.FC<SmoothCopyButtonProps> = ({
           ? "!bg-emerald-500/10 dark:!bg-emerald-500/15 !border-emerald-500/30 !text-emerald-600 dark:!text-emerald-400"
           : ""
       } ${className}`}
-      title={copied ? "Copied to clipboard!" : "Copy to clipboard"}
-      aria-label={copied ? "Copied to clipboard" : "Copy to clipboard"}
+      title={copied ? "Copied to clipboard!" : `${idleLabel} to clipboard`}
+      aria-label={copied ? "Copied to clipboard" : `${idleLabel} to clipboard`}
     >
       {/* Morphing Icon Container - Fixed size to prevent any layout shift */}
       <div className={`relative ${containerSize} shrink-0 flex items-center justify-center`}>
@@ -107,9 +107,9 @@ export const SmoothCopyButton: React.FC<SmoothCopyButtonProps> = ({
         </motion.div>
       </div>
 
-      {/* Zero Layout Shift Text Stack: intrinsic max-width of both strings */}
+      {/* Zero Layout Shift Text Stack: intrinsic max-width of both strings - Icon only on mobile */}
       {!iconOnly && (
-        <span className="grid grid-cols-1 grid-rows-1 items-center justify-items-center">
+        <span className="hidden sm:grid grid-cols-1 grid-rows-1 items-center justify-items-center">
           {/* Idle Label */}
           <span
             className={`col-start-1 row-start-1 flex items-center justify-center whitespace-nowrap transition-all duration-200 ease-out ${

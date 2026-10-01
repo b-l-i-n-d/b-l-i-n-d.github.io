@@ -116,11 +116,11 @@ export const CareerVelocityCanvas: React.FC<CareerVelocityCanvasProps> = ({ prom
     <div className="space-y-3 pt-2">
       {/* Section Header: Matches Original Desktop Design with Mobile Responsiveness */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <TrendingUp className="w-4 h-4 text-accent shrink-0" />
-          <h4 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white tracking-tight flex items-center gap-2">
-            <span>Career Trajectory at Ollyo :</span>
-            <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-accent/10 text-accent font-semibold">
+        <div className="flex items-center gap-1.5 sm:gap-2 flex-nowrap min-w-0">
+          <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent shrink-0" />
+          <h4 className="text-[13px] sm:text-base lg:text-lg font-bold text-neutral-900 dark:text-white tracking-tight flex items-center gap-1.5 sm:gap-2 flex-nowrap whitespace-nowrap">
+            <span className="whitespace-nowrap">Career Trajectory at Ollyo :</span>
+            <span className="text-[10px] sm:text-[11px] font-mono px-1.5 sm:px-2 py-0.5 rounded-full bg-accent/10 text-accent font-semibold whitespace-nowrap shrink-0">
               2x in 2 Years
             </span>
           </h4>

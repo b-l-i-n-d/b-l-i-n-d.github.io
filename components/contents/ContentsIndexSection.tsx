@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { useRouter } from "next/navigation";
-import { registerRouteTransition } from "@/components/navigation/ViewTransitionWatcher";
+import { useTransitionRouter } from "@/components/navigation/ViewTransitionWatcher";
 import { ContentsColumn, ContentsItem } from "@/types/portfolio";
 
 interface ContentsIndexProps {
@@ -178,7 +177,7 @@ const contentsAnchorCss = `
 `;
 
 export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className = "" }) => {
-  const router = useRouter();
+  const router = useTransitionRouter();
   const columns = DEFAULT_COLUMNS;
   const gridRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
@@ -225,21 +224,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
     const caseStudySlugs = ["tutor-lms", "enclave", "omnicommerce", "docapp"];
     if (caseStudySlugs.includes(targetId)) {
       e.preventDefault();
-      const targetHref = `/case-study/${targetId}`;
-      if (
-        typeof document !== "undefined" &&
-        "startViewTransition" in document &&
-        typeof (document as any).startViewTransition === "function"
-      ) {
-        (document as any).startViewTransition(() => {
-          return new Promise<void>((resolve) => {
-            registerRouteTransition(resolve);
-            router.push(targetHref, { scroll: false });
-          });
-        });
-      } else {
-        router.push(targetHref);
-      }
+      router.push(`/case-study/${targetId}`);
       return;
     }
 
@@ -301,13 +286,13 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
     <section
       id="contents"
       data-chapter-id="contents"
-      className={`relative py-24 px-6 sm:px-10 lg:px-16 bg-stone-50 dark:bg-[#0c0c0c] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 overflow-hidden transition-colors duration-200 ${className}`}
+      className={`relative py-12 sm:py-20 lg:py-24 px-4 sm:px-10 lg:px-16 bg-stone-50 dark:bg-[#0c0c0c] text-neutral-900 dark:text-white border-t border-black/6 dark:border-white/8 overflow-hidden transition-colors duration-200 ${className}`}
     >
       <style dangerouslySetInnerHTML={{ __html: contentsAnchorCss }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto space-y-16">
+      <div className="relative z-10 max-w-6xl mx-auto space-y-8 sm:space-y-16">
         {/* Header (Clean, quiet, informative) */}
-        <div className="space-y-3 border-b border-black/6 dark:border-white/8 pb-8">
+        <div className="space-y-3 border-b border-black/6 dark:border-white/8 pb-5 sm:pb-8">
           <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 block">
             Index Directory
           </span>
@@ -326,7 +311,7 @@ export const ContentsIndexSection: React.FC<ContentsIndexProps> = ({ className =
         <div
           ref={gridRef}
           onPointerLeave={clearIndicator}
-          className="contents-grid relative grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14"
+          className="contents-grid relative grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-14"
         >
           <div ref={indicatorRef} className="cc-indicator" aria-hidden="true" />
 

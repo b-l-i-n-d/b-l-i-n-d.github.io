@@ -116,7 +116,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
     <section
       id="hero"
       data-chapter-id="hero"
-      className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-12 pt-24 pb-20 overflow-hidden bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-white transition-colors duration-200"
+      className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-12 pt-20 sm:pt-24 pb-12 sm:pb-20 overflow-hidden bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-white transition-colors duration-200"
     >
       <div className="relative z-10 max-w-5xl w-full mx-auto flex flex-col items-center text-center space-y-8">
         {/* Meta Indicator Pills (Apple whisper hairlines, quiet ambient fills) */}
@@ -163,7 +163,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
           {/* Header + Perspective Selector */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 px-1">
             {/* Perspective Tabs (Course Player Loop vs Course Builder Cockpit) */}
-            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-stone-200/60 dark:bg-neutral-900/80 border border-stone-300/60 dark:border-white/8 backdrop-blur-md">
+            <div className="flex items-center gap-1 sm:gap-1.5 p-1 rounded-xl bg-stone-200/60 dark:bg-neutral-900/80 border border-stone-300/60 dark:border-white/8 backdrop-blur-md overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex-nowrap max-w-full">
               {tabs.map((tab) => {
                 const isActive = activeClip === tab.id;
                 const Icon = tab.Icon;
@@ -174,7 +174,7 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                       setActiveClip(tab.id);
                       setIsPlaying(true);
                     }}
-                    className={`relative px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                    className={`relative px-2.5 sm:px-3.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold transition-all duration-200 shrink-0 whitespace-nowrap ${
                       isActive
                         ? "text-neutral-950 dark:text-white"
                         : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
@@ -191,9 +191,9 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({ profile }) => {
                         }}
                       />
                     )}
-                    <span className="relative z-10 flex items-center gap-1.5">
-                      <Icon className="w-4 h-4 shrink-0" />
-                      {tab.label}
+                    <span className="relative z-10 flex items-center gap-1.5 whitespace-nowrap">
+                      <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                      <span className="whitespace-nowrap">{tab.label}</span>
                     </span>
                   </button>
                 );

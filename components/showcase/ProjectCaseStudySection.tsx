@@ -130,7 +130,7 @@ const DataDrivenStageView: React.FC<{ stage: ProjectStage }> = ({ stage }) => {
               idleLabel="Copy Code"
               copiedLabel="Copied"
               size="xs"
-              className="px-2.5 py-1 bg-white dark:bg-[#21262d] hover:bg-stone-100 dark:hover:bg-[#30363d] text-neutral-700 dark:text-[#c9d1d9] border border-black/8 dark:border-[#30363d] shadow-sm"
+              className="p-1.5 sm:px-2.5 sm:py-1 bg-white dark:bg-[#21262d] hover:bg-stone-100 dark:hover:bg-[#30363d] text-neutral-700 dark:text-[#c9d1d9] border border-black/8 dark:border-[#30363d] shadow-sm text-xs font-mono shrink-0"
             />
           </div>
           <div className="p-5 overflow-x-auto max-h-[500px] bg-stone-50/50 dark:bg-[#0d1117]">
@@ -336,25 +336,16 @@ export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = (
           {/* Architectural Telemetry Specification Spread (De-boxed) */}
           <div className="py-6 sm:py-8 border-y border-black/[0.06] dark:border-white/[0.08]">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-              {project.stats.map((stat: any, idx: number) => {
-                const isLong = stat.value.length > 14;
-                return (
-                  <div key={idx} className="space-y-1.5">
-                    <div className="text-[11px] font-mono tracking-wider uppercase text-neutral-400 dark:text-neutral-500 font-medium truncate">
-                      {stat.label}
-                    </div>
-                    <div
-                      className={`${
-                        isLong
-                          ? "text-base sm:text-lg font-bold"
-                          : "text-xl sm:text-2xl lg:text-3xl font-black"
-                      } text-neutral-900 dark:text-neutral-100 tracking-tight font-sans leading-snug`}
-                    >
-                      {stat.value}
-                    </div>
+              {project.stats.map((stat: any, idx: number) => (
+                <div key={idx} className="space-y-1.5 min-w-0">
+                  <div className="text-[11px] font-mono tracking-wider uppercase text-neutral-400 dark:text-neutral-500 font-medium truncate">
+                    {stat.label}
                   </div>
-                );
-              })}
+                  <div className="text-base sm:text-xl lg:text-2xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight font-sans leading-snug truncate">
+                    {stat.value}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
