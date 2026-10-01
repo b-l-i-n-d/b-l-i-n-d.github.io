@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Providers } from "./providers";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/Footer";
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <main className="w-full grow">{children}</main>
             <Footer />
           </div>
+          <Analytics />
         </Providers>
       </body>
     </html>
