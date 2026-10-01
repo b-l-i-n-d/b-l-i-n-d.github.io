@@ -245,25 +245,13 @@ html.is-transitioning::view-transition-new(root) {
   z-index: 9999;
 }
 
-/* Route Transitions: Persistent Fixed Elements */
-.vt-site-header {
+/* Route Transitions: Persistent Fixed Elements strictly scoped to route changes */
+html.route-transitioning .vt-site-header {
   view-transition-name: site-header;
 }
 
-.vt-breadcrumb {
+html.route-transitioning .vt-breadcrumb {
   view-transition-name: case-study-breadcrumb;
-}
-
-/* 
- * Strictly disable all element-specific view-transition-names during theme toggle.
- * This guarantees the circular ripple sweeps seamlessly across the entire viewport
- * including the navbar, with zero overlay ghosting or turning grey.
- */
-html.is-transitioning,
-html.is-transitioning *,
-html.is-transitioning .vt-site-header,
-html.is-transitioning .vt-breadcrumb {
-  view-transition-name: none !important;
 }
 
 /* Route transitions only: Persistent Fixed Elements - Zero movement or jump during navigation */
@@ -414,10 +402,12 @@ html:not(.is-transitioning):not(.tab-transitioning):not(.transition-slide-next):
 
 @keyframes circle-theme-expand {
   0% {
-    clip-path: circle(0px at var(--theme-x) var(--theme-y));
+    clip-path: circle(0px at var(--theme-x, calc(100vw - 32px)) var(--theme-y, 32px));
   }
   100% {
-    clip-path: circle(var(--theme-r) at var(--theme-x) var(--theme-y));
+    clip-path: circle(
+      var(--theme-r, 150vmax) at var(--theme-x, calc(100vw - 32px)) var(--theme-y, 32px)
+    );
   }
 }
 
