@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { portfolioData } from "@/config/portfolio-data";
+import { getShowcase } from "@/config/case-studies";
 import { ProjectCaseStudySection } from "@/components/showcase/ProjectCaseStudySection";
 import { CaseStudyBreadcrumbBar } from "@/components/navigation/CaseStudyBreadcrumbBar";
 import { CaseStudyChapterRail } from "@/components/navigation/CaseStudyChapterRail";
@@ -52,6 +53,7 @@ export default async function CaseStudyPage(props: CaseStudyPageProps) {
   const currentProject = projects[currentIndex];
   const prevProject = projects[(currentIndex - 1 + projects.length) % projects.length];
   const nextProject = projects[(currentIndex + 1) % projects.length];
+  const showcase = await getShowcase(currentProject.id);
 
   return (
     <div className="relative min-h-screen pt-[108px] sm:pt-28 bg-stone-50 dark:bg-[#070709] text-neutral-900 dark:text-neutral-100 transition-colors duration-200 selection:bg-accent/20 selection:text-accent overflow-x-hidden">
@@ -72,7 +74,7 @@ export default async function CaseStudyPage(props: CaseStudyPageProps) {
 
       {/* Main Case Study Interactive Deep-Dive Container */}
       <div className="w-full min-w-0 pb-10 sm:pb-0">
-        <ProjectCaseStudySection project={currentProject} />
+        <ProjectCaseStudySection project={currentProject} showcase={showcase} />
       </div>
 
       {/* Next & Previous Project Traversal Footer */}

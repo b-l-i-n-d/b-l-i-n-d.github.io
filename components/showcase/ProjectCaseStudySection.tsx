@@ -2,8 +2,7 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-import { ProjectStage, ProjectCaseStudy } from "@/types/portfolio";
-import { caseStudyShowcase } from "@/config/case-study-data";
+import { ProjectStage, ProjectCaseStudy, ProjectShowcase } from "@/types/portfolio";
 import { GithubIcon } from "../icons";
 import { ProjectBrandIcon } from "./ProjectBrandIcon";
 import {
@@ -59,6 +58,7 @@ const InteractiveFlowVisualizer = dynamic(
 
 interface ProjectCaseStudySectionProps {
   project: ProjectCaseStudy;
+  showcase: ProjectShowcase | undefined;
 }
 
 // Data-driven stage panel: renders a project's own stages content
@@ -260,7 +260,7 @@ const ProjectCaseStudyLiveAction: React.FC<ProjectCaseStudyLiveActionProps> = ({
 };
 
 interface ProjectChapterDirectoryNavProps {
-  showcase: (typeof caseStudyShowcase)[string] | undefined;
+  showcase: ProjectShowcase | undefined;
   scrollToChapter: (id: string) => void;
 }
 
@@ -341,7 +341,7 @@ const ProjectChapterDirectoryNav: React.FC<ProjectChapterDirectoryNavProps> = ({
 
 interface ProjectCaseStudyHeaderProps {
   project: ProjectCaseStudy;
-  showcase: (typeof caseStudyShowcase)[string] | undefined;
+  showcase: ProjectShowcase | undefined;
   scrollToChapter: (id: string) => void;
 }
 
@@ -433,11 +433,12 @@ const ProjectCaseStudyHeader: React.FC<ProjectCaseStudyHeaderProps> = ({
   );
 };
 
-export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = ({ project }) => {
+export const ProjectCaseStudySection: React.FC<ProjectCaseStudySectionProps> = ({
+  project,
   // Rich showcase data for this project (graph, flow, code studio).
   // Falls back to data-driven stage view if project has no custom showcase.
-  const showcase = caseStudyShowcase[project.id];
-
+  showcase,
+}) => {
   const scrollToChapter = (id: string) => {
     const el = document.getElementById(id);
     if (!el) return;
