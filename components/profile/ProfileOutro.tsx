@@ -208,7 +208,7 @@ export const ProfileOutro: React.FC<ProfileOutroProps> = ({ profile }) => {
                 </a>
                 <span className="text-neutral-300 dark:text-neutral-700">/</span>
                 <a
-                  href={profile.socialLinks?.twitter || "https://x.com/fahim_faisal_ab"}
+                  href={profile.socialLinks?.twitter || "https://x.com/aabirff"}
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-accent transition-colors flex items-center gap-1"
