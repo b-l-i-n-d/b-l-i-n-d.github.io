@@ -117,8 +117,6 @@ export const Navbar = () => {
                 <span className="font-mono text-sm font-bold tracking-wider text-neutral-900 dark:text-white group-hover:text-accent transition-colors">
                   blind
                 </span>
-                <span className="text-neutral-300 dark:text-neutral-700 text-xs font-light">/</span>
-                <span className="chroma-text-navbar font-bold text-sm tracking-tight">Abir</span>
               </div>
               <span className="font-mono text-xs text-neutral-400 dark:text-neutral-400 tracking-wider uppercase leading-tight mt-0.5 hidden sm:inline">
                 Fahim Faisal

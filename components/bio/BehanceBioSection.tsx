@@ -180,7 +180,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                       <strong className="text-neutral-800 dark:text-neutral-200 font-semibold">
                         Ollyo
                       </strong>{" "}
-                      &middot; Themeum &bull; Tutor LMS Core (v2.0 &rarr; v4.0), powering 120,000+
+                      &middot; Themeum &bull; Tutor LMS Core (v3.0 &rarr; v4.0), powering 120,000+
                       academies globally.
                     </p>
                   </div>
@@ -264,7 +264,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                         SUST
                       </strong>{" "}
                       &middot; Shahjalal University of Science &amp; Technology &bull; Dept. of CSE.
-                      5-year curriculum in Distributed Systems, Process Concurrency &amp;
+                      4-year curriculum in Distributed Systems, Process Concurrency &amp;
                       Algorithms.
                     </p>
                   </div>

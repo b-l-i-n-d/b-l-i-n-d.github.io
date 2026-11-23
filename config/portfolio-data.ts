@@ -6,10 +6,10 @@ export const portfolioData: EngineerProfile = {
   avatar: "/assets/profile-avatar.png",
   tagline: "High-Performance Systems, Fluid UI & Local-First Architecture",
   headline:
-    "Software Engineer with a B.Sc. in Software Engineering from SUST. Core frontend engineer on Tutor LMS across v2.0–v4.0 at Ollyo, powering 120,000+ active online academies globally.",
+    "Software Engineer with a B.Sc. in Software Engineering from SUST. Core frontend engineer on Tutor LMS across v3.0–v4.0 at Ollyo, powering 120,000+ active online academies globally.",
   bioParagraphs: [
     "Software Engineer with a B.Sc. in Software Engineering from Shahjalal University of Science and Technology (SUST). I specialize in architecting production web platforms, tactile state machines, and hardware-accelerated user interfaces.",
-    "At Ollyo (parent company of Themeum), I lead core frontend engineering for Tutor LMS across versions 2.0 to 4.0. My work centers on high-scale reactive UI systems: building zero-CLS layout engines, authoring the centralized useTutorMotion coordinator, and developing continuous learning telemetry that syncs seamlessly with WordPress REST APIs for over 120,000 active academies worldwide.",
+    "At Ollyo (parent company of Themeum), I lead core frontend engineering for Tutor LMS across versions 3.0 to 4.0. My work centers on high-scale reactive UI systems: building zero-CLS layout engines, authoring the centralized useTutorMotion coordinator, and developing continuous learning telemetry that syncs seamlessly with WordPress REST APIs for over 120,000 active academies worldwide.",
     "Beyond enterprise EdTech, I architect secure local-first and full-stack software systems: Enclave (a zero-knowledge mobile vault in React Native with AES-256-GCM, Argon2id, and Google Drive 3-way sync), OmniCommerce (a decoupled headless commerce platform with Next.js App Router, multi-tenant Prisma admin, and idempotent Stripe webhook fulfillment), and DocApp (a multi-role medical booking suite with deterministic booking locks and dynamic PDF generation).",
   ],
   skillCategories: [
@@ -109,14 +109,14 @@ export const portfolioData: EngineerProfile = {
           name: "Tutor LMS",
           url: "https://tutorlms.com",
           roleNote:
-            "Core frontend architecture across 2.0 to 4.0: continuous lesson cockpit, Tutor Core component registry, 3rd-party field injection pipeline, zero-CLS curriculum builder, and sanitized quiz assessment engine.",
+            "Core frontend architecture across 23.0 to 4.0: continuous lesson cockpit, Tutor Core component registry, 3rd-party field injection pipeline, zero-CLS curriculum builder, and sanitized quiz assessment engine.",
         },
       ],
       description:
         "Architecting complex product features, high-performance UI engines, and interaction state models across flagship international software suites used by millions of learners and educators worldwide.",
       achievements: [
         "Promoted from Junior Software Engineer (2024) to Associate Software Engineer (2025) and Software Engineer (2026) within 2 years, driving core frontend initiatives.",
-        "Led frontend development and feature releases across Tutor LMS 2.0 to 4.0, maintaining fluid GPU-composited transitions and zero layout shifts (0.00 CLS).",
+        "Led frontend development and feature releases across Tutor LMS 3.0 to 4.0, maintaining fluid GPU-composited transitions and zero layout shifts (0.00 CLS).",
         "Architected the Tutor Core Component Registry with strict typed schemas for 3rd-party WordPress add-on and field injections.",
         "Authored centralized motion settings coordinator hook (useTutorMotion) enforcing WCAG reduced-motion standards and performance budgets.",
         "Engineered continuous telemetry sync and client-side LRU query caching reducing server roundtrip load by 90% across 120,000+ active installations.",
@@ -629,8 +629,8 @@ const createAppointment = async (req, res) => {
     shortInstitute: "SUST",
     department: "Department of Computer Science & Engineering",
     location: "Sylhet, Bangladesh",
-    graduationYear: "2023",
-    period: "2018 – 2023",
+    graduationYear: "2022",
+    period: "2017 – 2022",
     status: "Graduated",
     relevantCourses: [
       "Data Structures & Algorithms",
@@ -650,7 +650,6 @@ const createAppointment = async (req, res) => {
     locationMap: "https://maps.google.com/?q=Dhaka,Bangladesh",
     github: "https://github.com/b-l-i-n-d",
     linkedin: "https://www.linkedin.com/in/b-l-i-n-d/",
-    cvUrl: "/assets/cv.pdf",
   },
   socialLinks: {
     github: "https://github.com/b-l-i-n-d",

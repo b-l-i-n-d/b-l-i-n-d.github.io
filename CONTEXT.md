@@ -2,7 +2,7 @@
 
 ## 1. Executive Summary & Brand Identity
 
-- **Owner**: Fahim Faisal (`@blind` / Abir) — Software Engineer at Ollyo (Themeum Core Division, Tutor LMS v2.0–v4.0) & SUST SWE Graduate.
+- **Owner**: Fahim Faisal (`@blind` / Abir) — Software Engineer at Ollyo (Themeum Core Division, Tutor LMS v3.0–v4.0) & SUST SWE Graduate.
 - **Dual Core Audience**:
   1. **Engineering Leaders & Staff Leads**: Seeking proof of architectural depth, concurrency control, local-first cryptography, strict typing, and systematic performance optimization (0.00 CLS, 60 FPS).
   2. **Product Designers & Creative Directors**: Seeking bespoke typography, tactile micro-interactions, delightful doodle physics, cinematic motion pacing, and obsessive UI craft.

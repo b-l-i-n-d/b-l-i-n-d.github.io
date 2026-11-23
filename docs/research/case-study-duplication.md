@@ -1,12 +1,13 @@
 # Research: Tutor LMS & EdTech render the same case study
 
 Date: 2026-09-09
-Question: Why do "Tutor LMS 2.0 to 4.0" and "EdTech Learning Platform" show identical case-study bodies, even though they are different products?
+Question: Why do "Tutor LMS 3.0 to 4.0" and "EdTech Learning Platform" show identical case-study bodies, even though they are different products?
 Primary sources: the site's own code (`config/portfolio-data.ts`, `components/showcase/*`).
 
 ## Findings
 
 ### 1. The data layer already defines distinct case studies per project
+
 `config/portfolio-data.ts` models every flagship project with its own typed `stages` record (architecture / flow / code / live), each with unique titles, descriptions, highlights, and code snippets:
 
 - `tutor-lms` (lines 111–240): Tutor Core Registry, FLIP curriculum engine, `useTutorMotion`, zero-CLS cockpit.
@@ -17,6 +18,7 @@ Primary sources: the site's own code (`config/portfolio-data.ts`, `components/sh
 The shape is fully typed in `types/portfolio.ts` (`ProjectCaseStudy.stages`, lines 42–43).
 
 ### 2. But the presentation layer ignores `project.stages` entirely
+
 `components/showcase/ProjectCaseStudySection.tsx` renders the same three hard-coded, Tutor-specific interactive components for **every** project, with no project-specific props:
 
 - Architecture stage → `<TutorArchitectureGraph />` (line 275). `TutorArchitectureGraph` takes no props and its `NODES` array is pure Tutor LMS content (`components/showcase/TutorArchitectureGraph.tsx:20–230`).
@@ -26,15 +28,19 @@ The shape is fully typed in `types/portfolio.ts` (`ProjectCaseStudy.stages`, lin
 Only the "Product Blueprints" gallery stage is actually data-driven per project (`getProjectGallery`, lines 85–96).
 
 ### 3. Consequence
+
 Every flagship project (Tutor, Enclave, EdTech, DocApp) renders the same body: Tutor's architecture graph, Tutor's flow simulator, and a fixed code module list. Headers (title/tagline/stack/stats/GitHub link) and the blueprint gallery differ, but the architecture / code / flow stages are identical — hence Tutor and EdTech "share" a case study.
 
 ### 4. Root cause summary
+
 `ProjectCaseStudySection` is hard-wired to Tutor-LMS showcase components instead of consuming the per-project `project.stages` contract that already exists in the data model. The interactive components were built to be a deep-dive for Tutor specifically but were mounted for all four projects.
 
 ## Fix (shipped)
+
 The three hard-coded Tutor components now render only for `project.id === "tutor-lms"`; all other projects render a generic `DataDrivenStageView` fed from `project.stages.architecture / .code / .flow` (title, subtitle, description, numbered highlights, optional code snippet). Implemented in `components/showcase/ProjectCaseStudySection.tsx`.
 
 ## Product-info verification pass (2026-09-09, via `gh`)
+
 Re-grounded the per-project stages against the actual repos:
 
 - **EdTech** (`b-l-i-n-d/edTech`, GitHub API tree of `master`): monorepo confirmed — `client/` = Next.js 13 + TypeScript + Redux Toolkit/RTK Query + redux-persist + Ant Design + react-player + react-markdown; `server/` = ESM Express, models→services→controllers→routes, Mongoose paginate plugin, Joi, helmet/xss-clean/rate-limit/mongo-sanitize, Swagger, NodeMailer+Handlebars, Jest. Grading code replaced with the real `server/src/services/quizzMark.service.js` (5-mark questions, duplicate-submission 400 guard). Live: `https://ed-tech-six.vercel.app`.
@@ -43,6 +49,7 @@ Re-grounded the per-project stages against the actual repos:
 - **Tutor LMS** (`themeum/tutor`): spot-verified `gh search issues --author b-l-i-n-d` — real PRs exist for the claims in the flagship graph (#2985, #2990, #2983, #2948, #2931, #2938, #2997, etc.). Tutor flagship components left untouched.
 
 ## Round 2: Full Tutor-format for all projects (shipped 2026-09-09)
+
 User decision: keep the Tutor format — every flagship project now renders the same three interactive presenters, each driven by its own verified repo data.
 
 - The three components were generalized into data-driven presenters with no hard-coded content:
