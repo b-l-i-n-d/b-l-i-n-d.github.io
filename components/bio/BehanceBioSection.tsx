@@ -252,7 +252,7 @@ export const BehanceBioSection: React.FC<BehanceBioSectionProps> = ({ profile })
                   <div className="space-y-0.5">
                     <div className="flex items-baseline gap-2 flex-wrap">
                       <span className="font-mono text-xs font-medium text-neutral-400">
-                        2018 &ndash; 2023
+                        2017 &ndash; 2022
                       </span>
                       <span className="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-accent transition-colors">
                         B.Sc. in Software Engineering

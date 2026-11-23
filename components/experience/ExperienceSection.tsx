@@ -237,12 +237,12 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                   </p>
                   <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
                     {education.location || "Sylhet, Bangladesh"} &middot; Class of{" "}
-                    {education.period || "2018 – 2023"}
+                    {education.period || "2017 – 2022"}
                   </p>
                 </div>
 
                 <span className="px-3.5 py-1.5 rounded-full bg-stone-100 dark:bg-white/6 text-neutral-700 dark:text-neutral-300 text-xs sm:text-sm font-semibold font-mono shrink-0 self-start">
-                  {education.period || "2018 – 2023"}
+                  {education.period || "2017 – 2022"}
                 </span>
               </div>
 
